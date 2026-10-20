@@ -2,7 +2,7 @@
 
 > **Single source of truth for this project.** Any agent or person resuming work must read this file first.
 > It is updated at the end of every phase (module). If this file conflicts with memory, chat history, or other docs, **this file wins** — unless it is stale, in which case fix it first.
-> Last updated: 2026-10-20 · Phase: **M0 + M1 finished on the dev laptop (commit 1256354); RTX 5060 audit pending · next: M2**
+> Last updated: 2026-10-21 · Phase: **M0 ✅ + M1 ✅ on both machines (RTX 5060 audit in 36a5d2b; version alignment uncommitted at time of writing) · next: M2**
 
 ---
 
@@ -34,21 +34,23 @@ The research directions to investigate are (a) global–local category relevance
 12. Work module by module: **Inspect → Design → Implement → Test → Validate → Record → Proceed.** Each module ends with a report covering objective, files, commands, tests, actual results, limitations, failure cases, exit criteria, and next steps.
 13. Oracle analyses (using GT categories or boxes) must always be labelled **"oracle diagnostic"** and never presented as methods.
 
-## 4. Compute & environment (dev laptop audited 2026-10-20; see `reports/M1_environment.md`)
-| | Dev laptop `LAPTOP-8N8B1VIP` (audited) | Experiment machine (**not audited yet**) |
+## 4. Compute & environment (both machines audited; see `reports/M1_environment.md`)
+| | Dev laptop `LAPTOP-8N8B1VIP` (audited) | Experiment machine `LAPTOP-5CPRTI27` (audited; **reference environment**, D13) |
 |---|---|---|
 | Role | coding, unit tests, CPU smoke tests on a small subset | **all real experiments + all latency measurements** |
-| GPU | **NVIDIA GeForce RTX 3050 Ti Laptop GPU, 4 GB** (driver 581.08; 331 MB in use at audit). Deliberately **unused**: CPU torch only (shared with games, different arch from the experiment GPU) | **RTX 5060, 8 GB** VRAM (Blackwell, sm_120) |
-| Disk free | C: (repo, OneDrive) 4.1 GB · D: (store) **5.9 GB after the venv** | ~100 GB free |
-| CPU / RAM | i7-11800H (env_audit reports 8 logical CPUs) / 15.7 GB | TBD (run `scripts/env_audit.py`) |
-| OS | Windows 11 Home, build 10.0.26300 (Python reports `Windows-10-10.0.26300`) | TBD |
-| Python / venv | 3.11.9; venv **`D:\aerial-ovd-store\venv`** (system torch 2.2.2+cpu is not used) | TBD |
-| Key versions | torch 2.7.1+cpu, torchvision 0.22.1+cpu, transformers 4.57.3, huggingface_hub 0.36.2, open_clip_torch 3.3.0, pycocotools 2.0.11, numpy 2.4.6, pydantic 2.14.1 | TBD (must match, except torch cu128) |
-| Records | `outputs/env/LAPTOP-8N8B1VIP.json`, `requirements-lock-LAPTOP-8N8B1VIP.txt` (50 packages) | pending: `outputs/env/<host>.json`, `requirements-lock-<host>.txt` |
-| Tests | **16/16 pass** (`pytest`, 7.38 s) | pending |
+| GPU | **NVIDIA GeForce RTX 3050 Ti Laptop GPU, 4 GB** (driver 581.08; 23 MB in use at the 2026-10-20 19:18 UTC re-audit). Deliberately **unused**: CPU torch only (D12) | **NVIDIA GeForce RTX 5060 Laptop GPU**, compute capability **12.0** (Blackwell), 7.93 GB (torch) / 8151 MB (nvidia-smi), driver **616.92**. At audit: torch 6.88 GB free vs nvidia-smi 7081/8151 MB used (anomaly, §11 risk 10) |
+| Disk free | C: (repo, OneDrive) **8.9 GB** · D: (store) **5.9 GB** (re-audit) | repo 192.3 GB · store 191.3 GB |
+| CPU / RAM | i7-11800H (env_audit reports 8 logical CPUs) / 15.7 GB | Intel64 Family 6 Model 198 (20 logical CPUs) / 15.4 GB |
+| OS | Windows 11 Home, build 10.0.26300 (Python reports `Windows-10-10.0.26300`) | Windows build 10.0.26200 (Python reports `Windows-10-10.0.26200`) |
+| Python / venv | **3.11.9**; venv **`D:\aerial-ovd-store\venv`** (system torch 2.2.2+cpu is not used) | **3.10.11**; venv `D:\aerial-ovd-store\venv` |
+| torch / CUDA | torch 2.7.1+cpu, torchvision 0.22.1+cpu; no CUDA | torch **2.7.1+cu128**, torchvision 0.22.1+cu128, CUDA build 12.8, `cuda_available: true`, cuDNN 90701 |
+| Shared exact pins (both) | transformers 4.57.3, huggingface_hub 0.36.2, safetensors 0.8.0, open_clip_torch 3.3.0, pycocotools 2.0.11, **numpy 2.2.6**, pillow 12.3.0, pyyaml 6.0.3, pydantic 2.14.1, **pandas 2.3.3**, **matplotlib 3.10.9**, psutil 7.2.2, pytest 9.1.1 | same |
+| Records | `outputs/env/LAPTOP-8N8B1VIP.json` (re-audited at 36a5d2b, dirty tree), `requirements-lock-LAPTOP-8N8B1VIP.txt` (51 packages) | `outputs/env/LAPTOP-5CPRTI27.json` (audited at 1bf7a57, clean tree), `requirements-lock-LAPTOP-5CPRTI27.txt` (53 packages + editable `aerial_ovd`) |
+| Tests | **16/16 pass** (first run 7.38 s; re-run after the version alignment also 16/16) | `pytest` run reported by the user; **result not recorded in the repo** (TBD) |
 
-- **Sync:** via GitHub, remote `origin` = https://github.com/Himanshu-RG/Vision-Aerial-Imagery.git (branch `main`, first pushed 2026-10-20). Commits use the machine's global git identity (`Himanshu-RG`).
-- **Pinned stack (both machines):** torch 2.7.1 / torchvision 0.22.1. Use the CPU wheels on the laptop and the **cu128** wheels on the RTX 5060 (Blackwell needs torch ≥ 2.7 + CUDA 12.8). transformers 4.57.3. `requirements.txt` (CPU) and `requirements-gpu.txt` (cu128; same non-torch pins). Exact locks go in `requirements-lock-<host>.txt`.
+- **Sync:** via GitHub, remote `origin` = https://github.com/Himanshu-RG/Vision-Aerial-Imagery.git (branch `main`, first pushed 2026-10-20). Commits use each machine's global git identity: `Himanshu-RG` on the dev laptop, `Amit-adh` on the experiment machine (commit 36a5d2b).
+- **Pinned stack (both machines):** torch 2.7.1 / torchvision 0.22.1. Use the CPU wheels on the laptop and the **cu128** wheels on the RTX 5060 (Blackwell needs torch ≥ 2.7 + CUDA 12.8). `requirements.txt` now holds **exact pins** for every package, aligned to the RTX 5060 reference env (D13). `requirements-gpu.txt` (cu128) includes `requirements.txt` via `-r`. Exact locks are in `requirements-lock-<host>.txt`.
+- **Version alignment (M1, 2026-10-21):** the RTX 5060 (Python 3.10) had resolved numpy 2.2.6 / pandas 2.3.3 / matplotlib 3.10.9, while the laptop had 2.4.6 / 3.0.6 / 3.11.2. The laptop was reinstalled to the RTX 5060 versions. **Accepted residual differences:** the torch build (+cpu vs +cu128); the Python minor version (3.10 vs 3.11); the py3.10 backports `exceptiongroup`/`tomli` (RTX 5060 only); minor transitive versions of contourpy, fonttools, networkx, wcwidth.
 - **Checkpoints** (`configs/checkpoints.yaml`; dry-run 2026-10-20 resolved these commits; **not downloaded yet**; `configs/checkpoints.lock.json` with sha256 is written on the first real download):
   - `IDEA-Research/grounding-dino-tiny@a2bb814dd3…` (658.3 MB)
   - `chendelong/RemoteCLIP@bf1d8a3ccf…` (577.2 MB)
@@ -108,7 +110,7 @@ Full matrix with 13 works and verification levels ([FT] full text via LLM-assist
 | Module | Description | Status |
 |---|---|---|
 | M0 | Literature audit & novelty | ✅ exit criteria met (`reports/M0_gap_hypotheses_novelty.md` §5). Pre-submission re-checks remain open (§5) |
-| M1 | Repo & compute audit | 🟡 done on the dev laptop (exit criteria ✅ there). Pending: RTX 5060 audit + GPU lock file |
+| M1 | Repo & compute audit | ✅ exit criteria met on both machines (`reports/M1_environment.md` "Exit criteria"). Open item: the RTX 5060's pytest result is not recorded in the repo |
 | M2 | Dataset selection & validation, frozen protocol | ⬜ **next** (see `reports/M1_environment.md` "Next") |
 | M3 | Grounding DINO baseline | ⬜ |
 | M4 | Master vocab + simple baselines (A full, B fixed-reduced, C random, D global CLIP, E VocAda-style) | ⬜ |
@@ -148,6 +150,7 @@ Dependency chain: M0 → M2. M1 → M2 → M3 → M4 → M5 → M6 → M7 → M1
 | D10 | Refines D6: chunk **only if** a prompt exceeds 256 tokens. Raw LAE-80C names fit in a single prompt (251 tokens), so the full vocabulary (A/E0) is **one prompt**. Re-run `scripts/check_prompt_length.py` after any naming change; chunking applies only to variants that exceed the limit | H0 falsified for raw names (§6) | 2026-10-20 |
 | D11 | Refines D4: checkpoints pinned to the commits resolved on 2026-10-20 (GDINO-T `a2bb814dd3…`, RemoteCLIP `bf1d8a3ccf…`, timm OpenAI CLIP `a6f597a30f…`). The sha256 lock (`configs/checkpoints.lock.json`) is written on the first download and used thereafter | Reproducibility (rule 10) | 2026-10-20 |
 | D12 | The dev laptop uses CPU-only torch. Its 4 GB RTX 3050 Ti is not used for any run | Shared with games; different architecture; avoids mixing hardware (rule 4, D9) | 2026-10-20 |
+| D13 | The RTX 5060 machine `LAPTOP-5CPRTI27` is the **reference environment**. `requirements.txt` exact pins follow its versions. Any future dependency change must be installed on **both** machines, and **both** lock files (`requirements-lock-<host>.txt`) and env audits refreshed | Version drift found in M1 (numpy/pandas/matplotlib; pandas 3.x changes defaults); all reported results come from this machine (D9) | 2026-10-21 |
 
 ## 9. Repository layout
 ```
@@ -185,16 +188,18 @@ Metrics: mAP@50, mAP@50:95, recall@100, latency, peak VRAM, failures.
    - hierarchy overlap (`vehicle` vs `Small Car`; `airplane` vs `Fixed-wing Aircraft`).
 
    These can hurt text grounding and create ambiguous "wrong-class" detections. The naming policy is an M2 decision, and it must be applied identically to all methods.
-5. Two-machine version drift. The RTX 5060 is **not yet audited**, so the cu128 stack is unverified there. Pin versions and log the host in every run.
-6. Laptop disk is tight: D: has 5.9 GB free after the venv, and C: (repo) 4.1 GB. The checkpoints (1.77 GB) plus a ~1k-image subset must fit.
+5. Two-machine version drift. ~~RTX 5060 not audited~~ Audited (env JSON timestamp 2026-10-20 17:05 UTC; recorded in the M1 report 2026-10-21): cu128 stack verified (`cuda_available: true`). Drift in numpy/pandas/matplotlib was found and fixed by exact pins (D13). Residual accepted differences: torch build, Python 3.10 vs 3.11, py3.10 backports, minor transitive deps. Keep logging the host in every run, and follow D13 for any dependency change.
+6. Laptop disk is tight: D: has 5.9 GB free and C: (repo) 8.9 GB (re-audit 2026-10-20 19:18 UTC). The checkpoints (1.77 GB) plus a ~1k-image subset must fit.
 7. ~~No GitHub remote~~ Resolved 2026-10-20: `origin` configured and pushed. Large files (data, checkpoints, predictions) are still not backed up off-machine.
 8. [FT] literature facts were extracted by LLM-assisted querying, not a line-by-line read. Re-verify numbers before quoting them.
 9. Determinism is best-effort (`warn_only=True`); some CUDA ops are nondeterministic.
+10. **RTX 5060 GPU-memory anomaly:** at audit torch reported 6.88 GB free while nvidia-smi reported 7081/8151 MB used (possibly WDDM accounting, or another process on the GPU). Before any latency or memory run (D9), confirm the GPU is idle and record `torch.cuda.mem_get_info()` at run start. This is an **M12 requirement**.
+11. The RTX 5060's `pytest` result is reported by the user only and is not recorded in the repo. Re-run it there and record the result (e.g. in the next report) before trusting GPU-side runs.
 
 ## 12. How to resume (for any agent)
 1. Read this file fully, then the latest `reports/M*_*.md`.
 2. Check §7 for the current module and §8 for frozen decisions. Do not silently change a frozen decision; add a new row instead.
-3. Environment: on the dev laptop, activate `D:\aerial-ovd-store\venv`. On a new machine, create a venv from `requirements.txt` (CPU) or `requirements-gpu.txt` (cu128), set `AOVD_STORE`, run `python scripts/env_audit.py`, and commit the env JSON + lock file.
+3. Environment: on the dev laptop, activate `D:\aerial-ovd-store\venv`. On a new machine, create a venv from `requirements.txt` (CPU) or `requirements-gpu.txt` (cu128), set `AOVD_STORE`, run `python scripts/env_audit.py`, and commit the env JSON + lock file. Any dependency change follows D13: install on both machines and refresh both lock files and env audits.
 4. Follow the rules in §3. After finishing a phase, run the **context-keeper** agent (`.claude/agents/context-keeper.md`). It updates this file from repo facts only (§4–§8, §13, §14) and does not commit; the lead reviews and commits.
 
 ## 13. Change log
@@ -203,6 +208,7 @@ Metrics: mAP@50, mAP@50:95, recall@100, latency, peak VRAM, failures.
 | 2026-10-20 | M0/M1 | Initial audit of repo and hardware; literature search; plan approved; git init; directory layout created; CONTEXT.md created |
 | 2026-10-20 | M0+M1 end (after 1256354) | Context-keeper update: GPU corrected to RTX 3050 Ti; venv, versions, disk, and checkpoint commits recorded (§4); CastDet/OpenRSD/SAS/RT-OVAD verified + citation sweep (§5); H0 falsified, 251/256 (§6); module statuses (§7); D10–D12 added (§8); E0 full vocabulary = single prompt (§10); risks updated (§11); context-keeper agent noted (§9, §12); §14 phase log added |
 | 2026-10-20 | M1 | GitHub remote `origin` added and `main` pushed (§4, §9, §11 risk 7, §14) |
+| 2026-10-21 | M1 complete (after 36a5d2b) | Context-keeper update: §4 experiment-machine column filled from `outputs/env/LAPTOP-5CPRTI27.json` (RTX 5060 Laptop GPU, cc 12.0, torch 2.7.1+cu128, Python 3.10.11); laptop column refreshed after the version alignment (numpy 2.2.6 / pandas 2.3.3 / matplotlib 3.10.9; C: 8.9 GB; lock 51 packages); git identities corrected; M1 ✅ (§7); D13 reference environment (§8); risks 5–6 updated and 10–11 added (§11); §12 step 3; §14 rows; README status |
 
 ## 14. Phase log
 | Phase | Commit | Key commands | Outcome |
@@ -211,3 +217,5 @@ Metrics: mAP@50, mAP@50:95, recall@100, latency, peak VRAM, failures.
 | M1 repo & compute audit | `1256354` | `python -m venv D:/aerial-ovd-store/venv`; pip install (torch 2.7.1 CPU wheels, transformers 4.57.3, …); `pip install -e .`; `pytest`; `python scripts/env_audit.py`; `python scripts/fetch_checkpoints.py --dry-run` | Laptop env recorded (RTX 3050 Ti, CPU torch); 16/16 tests pass; checkpoint commits resolved (1.77 GB, not downloaded). Pending: RTX 5060 audit, GitHub remote |
 | Context-keeper update + fixes | (this commit) | context-keeper agent; M0 exit-criteria table added; README fixed; env audit re-run at 1256354 | M0 ✅; `.claude/agents/context-keeper.md` and `.gitattributes` committed |
 | GitHub remote | (this commit) | `git remote add origin https://github.com/Himanshu-RG/Vision-Aerial-Imagery.git`; `git push -u origin main` | Repo on GitHub; RTX 5060 machine can now clone it |
+| M1 complete (RTX 5060 audit) | `36a5d2b` | on `LAPTOP-5CPRTI27` at 1bf7a57 (clean tree): exact commands not recorded in the report; artifacts are `outputs/env/LAPTOP-5CPRTI27.json` (from `scripts/env_audit.py`) and `requirements-lock-LAPTOP-5CPRTI27.txt`; `pytest` run reported by the user (result not recorded) | RTX 5060 env recorded (cc 12.0, CUDA 12.8 available, cuDNN 90701); version drift vs. laptop found (numpy/pandas/matplotlib); GPU-memory anomaly noted |
+| M1 version alignment | (this commit) | exact pins in `requirements.txt`; laptop reinstalled to match; `pytest` (16/16); `python scripts/env_audit.py`; laptop lock refreshed | Both machines on numpy 2.2.6 / pandas 2.3.3 / matplotlib 3.10.9; D13 recorded; M1 ✅; next M2 |

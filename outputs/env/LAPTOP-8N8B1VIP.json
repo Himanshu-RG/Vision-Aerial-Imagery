@@ -1,5 +1,5 @@
 {
-  "audited_at": "2026-10-20T05:50:38.427164+00:00",
+  "audited_at": "2026-10-20T19:18:02.091243+00:00",
   "hostname": "LAPTOP-8N8B1VIP",
   "os": "Windows-10-10.0.26300-SP0",
   "machine": "AMD64",
@@ -16,12 +16,12 @@
     "safetensors": "0.8.0",
     "open_clip_torch": "3.3.0",
     "pycocotools": "2.0.11",
-    "numpy": "2.4.6",
+    "numpy": "2.2.6",
     "pillow": "12.3.0",
     "pyyaml": "6.0.3",
     "pydantic": "2.14.1",
-    "pandas": "3.0.6",
-    "matplotlib": "3.11.2",
+    "pandas": "2.3.3",
+    "matplotlib": "3.10.9",
     "psutil": "7.2.2",
     "pytest": "9.1.1"
   },
@@ -38,13 +38,13 @@
       "name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
       "driver": "581.08",
       "mem_total_mb": 4096,
-      "mem_used_mb": 245
+      "mem_used_mb": 23
     }
   ],
   "disk_free_gb": {
-    "repo": 4.1,
+    "repo": 8.9,
     "store": 5.9
   },
-  "git_commit": "125635401dfa2437d82c09d7224698c44fe08f93",
+  "git_commit": "36a5d2b03963dd51ca5cd05ccae89954c5b5a7ce",
   "git_dirty": true
 }

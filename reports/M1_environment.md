@@ -16,7 +16,7 @@ Both PDFs are left untouched and are gitignored (`*.pdf`), so the copyrighted pa
 | `CONTEXT.md` | Project ground truth (see its §12 "How to resume") |
 | `.gitignore`, `pyproject.toml`, `README.md` | Repo hygiene, package metadata, install guide |
 | `requirements.txt`, `requirements-gpu.txt` | Pinned stack (CPU / cu128) |
-| `requirements-lock-LAPTOP-8N8B1VIP.txt` | `pip freeze` of the dev-laptop venv (50 packages) |
+| `requirements-lock-LAPTOP-8N8B1VIP.txt` | `pip freeze` of the dev-laptop venv (51 packages after the 2026-10-21 alignment) |
 | `configs/paths.example.yaml` | Template for the per-machine store path (`paths.local.yaml` is gitignored) |
 | `configs/checkpoints.yaml` | Checkpoint list: GDINO-T, RemoteCLIP ViT-B/32, OpenAI CLIP ViT-B/32 |
 | `configs/lae80c_classes_raw.txt` | The 80 LAE-80C class names, verbatim from `LAE-80C-benchmark.txt` on HF |
@@ -59,18 +59,47 @@ Total is 1.77 GB, which fits in the 5.93 GB free on D: with a 1 GB margin. **Not
 
 **H0 (prompt length):** 80 raw names = **251 / 256 tokens**, so there is no truncation for raw names. Details are in `reports/M0_gap_hypotheses_novelty.md`.
 
+## Experiment machine audit (audited 2026-10-20 17:05 UTC; commit 36a5d2b by `Amit-adh`; reviewed 2026-10-21)
+**Host:** `LAPTOP-5CPRTI27`, recorded in `outputs/env/LAPTOP-5CPRTI27.json` and `requirements-lock-LAPTOP-5CPRTI27.txt`. The audit ran at git `1bf7a57` with a clean tree.
+
+| Item | Value |
+|---|---|
+| GPU | **NVIDIA GeForce RTX 5060 Laptop GPU**, compute capability **12.0** (Blackwell), 7.93 GB total (torch), driver 616.92 |
+| CUDA stack | torch **2.7.1+cu128**, torchvision 0.22.1+cu128, CUDA build 12.8, `cuda_available: true`, cuDNN 90701 (9.7.1) |
+| CPU / RAM | Intel Family 6 Model 198, 20 logical CPUs, 15.4 GB RAM |
+| OS / Python | Windows build 10.0.26200; **Python 3.10.11** (the dev laptop has 3.11.9) |
+| Disk | 191–192 GB free (repo and store) |
+| Tests | `pytest` reported run by the user. The pass count is **not captured in the repo** (env_audit does not record it) |
+
+### Cross-machine version check
+These are identical on both machines: transformers 4.57.3, huggingface_hub 0.36.2, safetensors 0.8.0, open_clip_torch 3.3.0, pycocotools 2.0.11, pillow 12.3.0, pyyaml 6.0.3, pydantic 2.14.1, psutil 7.2.2, pytest 9.1.1.
+
+**Drift found and fixed.** With Python 3.10, pip had resolved numpy 2.2.6 / pandas 2.3.3 / matplotlib 3.10.9 on the RTX 5060, while the laptop had 2.4.6 / 3.0.6 / 3.11.2. pandas 3.x changes defaults (copy-on-write, string dtype), so the same code could behave differently.
+- Fix: the RTX 5060 is the reference environment for all reported results. `requirements.txt` now pins these three packages, and every package that already matched, to exact versions.
+- The laptop was reinstalled to match, and **16/16 tests pass** on it after the change. Its lock file and env audit were refreshed.
+
+**Remaining differences, all accepted:**
+- the torch build (`+cpu` vs `+cu128`; intended);
+- `exceptiongroup` and `tomli` (Python 3.10 backports);
+- minor transitive versions of contourpy, fonttools, networkx and wcwidth (plotting/utility dependencies, not used in metric computation);
+- the Python minor version (3.10 vs 3.11).
+
+**Anomaly to watch:** the two GPU memory readings disagree.
+- torch reported 6.88 GB free.
+- nvidia-smi reported 7081 / 8151 MB used. This may be a WDDM accounting quirk, or another process may have been using the GPU.
+- Consequence: before any latency or memory measurement (D9), confirm the GPU is idle and record `torch.cuda.mem_get_info()` at run start. Build this into the M12 profiling.
+
 ## Known limitations
-- The experiment machine (RTX 5060) has **not been audited yet**. Someone must run the install with the cu128 wheels plus `scripts/env_audit.py` there and commit `outputs/env/<host>.json` and `requirements-lock-<host>.txt`.
+- The RTX 5060's `pytest` result is not recorded in the repo (reported by the user only).
 - The dev laptop has CPU-only torch. The 4 GB GPU is deliberately unused, because it is shared with games and is a different architecture from the experiment GPU.
 - Determinism is best-effort (`warn_only=True`); some CUDA ops are nondeterministic.
-- The GitHub remote is not configured. Nothing is pushed until the team provides the repo URL.
-- The git identity used for commits is the machine's global config (`Himanshu-RG`).
+- Commits use each machine's global git identity: `Himanshu-RG` on the dev laptop, `Amit-adh` on the RTX 5060 machine.
 
 ## Exit criteria
 | Criterion | Status |
 |---|---|
-| Environment recorded | ✅ dev laptop; ⏳ RTX 5060 pending |
-| Reproducible dependencies | ✅ pinned + lock file (laptop); ⏳ GPU lock pending |
+| Environment recorded | ✅ both machines (`LAPTOP-8N8B1VIP`, `LAPTOP-5CPRTI27`) |
+| Reproducible dependencies | ✅ exact pins aligned to the RTX 5060; lock files for both machines |
 | Project structure established, nothing destroyed | ✅ |
 | Tests pass | ✅ 16/16 |
 | Checkpoint pinning | ✅ commits resolved; sha256 lock written on first download |

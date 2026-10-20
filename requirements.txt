@@ -6,15 +6,15 @@
 torch==2.7.1
 torchvision==0.22.1
 transformers==4.57.3
-huggingface_hub>=0.34,<1.0
-safetensors>=0.4
-open_clip_torch>=2.32
-pycocotools>=2.0.8
-numpy>=1.26,<3
-pillow>=10.2
-pyyaml>=6.0
-pydantic>=2.6,<3
-pandas>=2.2
-matplotlib>=3.8
-psutil>=5.9
-pytest>=8.0
+huggingface_hub==0.36.2
+safetensors==0.8.0
+open_clip_torch==3.3.0
+pycocotools==2.0.11
+numpy==2.2.6          # pinned to the RTX 5060 reference env (Python 3.10 caps numpy < 2.3)
+pillow==12.3.0
+pyyaml==6.0.3
+pydantic==2.14.1
+pandas==2.3.3         # pandas 3.x changes defaults (copy-on-write, str dtype); keep both machines on 2.3
+matplotlib==3.10.9
+psutil==7.2.2
+pytest==9.1.1
