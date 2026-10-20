@@ -47,7 +47,7 @@ The research directions to investigate are (a) global–local category relevance
 | Records | `outputs/env/LAPTOP-8N8B1VIP.json`, `requirements-lock-LAPTOP-8N8B1VIP.txt` (50 packages) | pending: `outputs/env/<host>.json`, `requirements-lock-<host>.txt` |
 | Tests | **16/16 pass** (`pytest`, 7.38 s) | pending |
 
-- **Sync:** via GitHub. **The remote is not configured.** Nothing is pushed until the user gives a URL. Commits use the machine's global git identity (`Himanshu-RG`).
+- **Sync:** via GitHub, remote `origin` = https://github.com/Himanshu-RG/Vision-Aerial-Imagery.git (branch `main`, first pushed 2026-10-20). Commits use the machine's global git identity (`Himanshu-RG`).
 - **Pinned stack (both machines):** torch 2.7.1 / torchvision 0.22.1. Use the CPU wheels on the laptop and the **cu128** wheels on the RTX 5060 (Blackwell needs torch ≥ 2.7 + CUDA 12.8). transformers 4.57.3. `requirements.txt` (CPU) and `requirements-gpu.txt` (cu128; same non-torch pins). Exact locks go in `requirements-lock-<host>.txt`.
 - **Checkpoints** (`configs/checkpoints.yaml`; dry-run 2026-10-20 resolved these commits; **not downloaded yet**; `configs/checkpoints.lock.json` with sha256 is written on the first real download):
   - `IDEA-Research/grounding-dino-tiny@a2bb814dd3…` (658.3 MB)
@@ -108,7 +108,7 @@ Full matrix with 13 works and verification levels ([FT] full text via LLM-assist
 | Module | Description | Status |
 |---|---|---|
 | M0 | Literature audit & novelty | ✅ exit criteria met (`reports/M0_gap_hypotheses_novelty.md` §5). Pre-submission re-checks remain open (§5) |
-| M1 | Repo & compute audit | 🟡 done on the dev laptop (exit criteria ✅ there). Pending: RTX 5060 audit + GPU lock file. GitHub remote not configured |
+| M1 | Repo & compute audit | 🟡 done on the dev laptop (exit criteria ✅ there). Pending: RTX 5060 audit + GPU lock file |
 | M2 | Dataset selection & validation, frozen protocol | ⬜ **next** (see `reports/M1_environment.md` "Next") |
 | M3 | Grounding DINO baseline | ⬜ |
 | M4 | Master vocab + simple baselines (A full, B fixed-reduced, C random, D global CLIP, E VocAda-style) | ⬜ |
@@ -151,7 +151,7 @@ Dependency chain: M0 → M2. M1 → M2 → M3 → M4 → M5 → M6 → M7 → M1
 
 ## 9. Repository layout
 ```
-vision/                      (git repo root, branch main; no remote yet)
+vision/                      (git repo root, branch main; remote origin = github.com/Himanshu-RG/Vision-Aerial-Imagery)
   CONTEXT.md                 ← this file (ground truth)
   README.md, pyproject.toml, requirements.txt (CPU), requirements-gpu.txt (cu128), requirements-lock-<host>.txt
   .claude/agents/context-keeper.md   agent that updates this file after each phase
@@ -187,7 +187,7 @@ Metrics: mAP@50, mAP@50:95, recall@100, latency, peak VRAM, failures.
    These can hurt text grounding and create ambiguous "wrong-class" detections. The naming policy is an M2 decision, and it must be applied identically to all methods.
 5. Two-machine version drift. The RTX 5060 is **not yet audited**, so the cu128 stack is unverified there. Pin versions and log the host in every run.
 6. Laptop disk is tight: D: has 5.9 GB free after the venv, and C: (repo) 4.1 GB. The checkpoints (1.77 GB) plus a ~1k-image subset must fit.
-7. No GitHub remote, so there is no off-machine backup or sync yet.
+7. ~~No GitHub remote~~ Resolved 2026-10-20: `origin` configured and pushed. Large files (data, checkpoints, predictions) are still not backed up off-machine.
 8. [FT] literature facts were extracted by LLM-assisted querying, not a line-by-line read. Re-verify numbers before quoting them.
 9. Determinism is best-effort (`warn_only=True`); some CUDA ops are nondeterministic.
 
@@ -202,6 +202,7 @@ Metrics: mAP@50, mAP@50:95, recall@100, latency, peak VRAM, failures.
 |---|---|---|
 | 2026-10-20 | M0/M1 | Initial audit of repo and hardware; literature search; plan approved; git init; directory layout created; CONTEXT.md created |
 | 2026-10-20 | M0+M1 end (after 1256354) | Context-keeper update: GPU corrected to RTX 3050 Ti; venv, versions, disk, and checkpoint commits recorded (§4); CastDet/OpenRSD/SAS/RT-OVAD verified + citation sweep (§5); H0 falsified, 251/256 (§6); module statuses (§7); D10–D12 added (§8); E0 full vocabulary = single prompt (§10); risks updated (§11); context-keeper agent noted (§9, §12); §14 phase log added |
+| 2026-10-20 | M1 | GitHub remote `origin` added and `main` pushed (§4, §9, §11 risk 7, §14) |
 
 ## 14. Phase log
 | Phase | Commit | Key commands | Outcome |
@@ -209,3 +210,4 @@ Metrics: mAP@50, mAP@50:95, recall@100, latency, peak VRAM, failures.
 | M0 literature audit | `1256354` | Firecrawl web searches; Semantic Scholar citation sweep (2506.00333, 2601.22164); `python scripts/check_prompt_length.py --classes configs/lae80c_classes_raw.txt` | 13-work matrix; gap holds as of 2026-10-20; H0 falsified (251/256 tokens); gated decision recorded |
 | M1 repo & compute audit | `1256354` | `python -m venv D:/aerial-ovd-store/venv`; pip install (torch 2.7.1 CPU wheels, transformers 4.57.3, …); `pip install -e .`; `pytest`; `python scripts/env_audit.py`; `python scripts/fetch_checkpoints.py --dry-run` | Laptop env recorded (RTX 3050 Ti, CPU torch); 16/16 tests pass; checkpoint commits resolved (1.77 GB, not downloaded). Pending: RTX 5060 audit, GitHub remote |
 | Context-keeper update + fixes | (this commit) | context-keeper agent; M0 exit-criteria table added; README fixed; env audit re-run at 1256354 | M0 ✅; `.claude/agents/context-keeper.md` and `.gitattributes` committed |
+| GitHub remote | (this commit) | `git remote add origin https://github.com/Himanshu-RG/Vision-Aerial-Imagery.git`; `git push -u origin main` | Repo on GitHub; RTX 5060 machine can now clone it |
