@@ -1,0 +1,80 @@
+airplane
+airport
+groundtrackfield
+harbor
+baseballfield
+overpass
+basketballcourt
+bridge
+stadium
+storagetank
+tenniscourt
+expressway service area
+trainstation
+expressway toll station
+vehicle
+golffield
+windmill
+dam
+helicopter
+roundabout
+soccer ball field
+swimming pool
+container crane
+helipad
+Bus
+Cargo Truck
+Dry Cargo Ship
+Dump Truck
+Engineering Ship
+Excavator
+Fishing Boat
+Intersection
+Liquid Cargo Ship
+Motorboat
+Passenger Ship
+Small Car
+Tractor
+Trailer
+Truck Tractor
+Tugboat
+Van
+Warship
+working condensing tower
+unworking condensing tower
+working chimney
+unworking chimney
+Fixed-wing Aircraft
+Small Aircraft
+Cargo Plane
+Pickup Truck
+Utility Truck
+Passenger Car
+Cargo Car
+Flat Car
+Locomotive
+Sailboat
+Barge
+Ferry
+Yacht
+Oil Tanker
+Engineering Vehicle
+Tower crane
+Reach Stacker
+Straddle Carrier
+Mobile Crane
+Haul Truck
+Front loader/Bulldozer
+Cement Mixer
+Ground Grader
+Hut/Tent
+Shed
+Building
+Aircraft Hangar
+Damaged Building
+Facility
+Construction Site
+Shipping container lot
+Shipping Container
+Pylon
+Tower

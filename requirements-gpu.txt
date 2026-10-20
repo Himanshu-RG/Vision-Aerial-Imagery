@@ -1,0 +1,7 @@
+# GPU experiment machine (RTX 5060, Blackwell sm_120 -> requires CUDA 12.8 wheels, torch >= 2.7).
+# Install torch first from the cu128 index:
+#   pip install torch==2.7.1 torchvision==0.22.1 --index-url https://download.pytorch.org/whl/cu128
+# then:
+#   pip install -r requirements-gpu.txt && pip install -e .
+# Keep every non-torch pin identical to requirements.txt.
+-r requirements.txt

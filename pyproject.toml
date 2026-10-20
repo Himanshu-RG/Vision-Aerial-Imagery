@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aerial-ovd"
+version = "0.1.0"
+description = "Adaptive vocabulary selection for open-vocabulary object detection in aerial imagery (frozen Grounding DINO)."
+requires-python = ">=3.10,<3.13"
+authors = [{ name = "Team Transmontane" }]
+# Runtime dependencies are pinned in requirements*.txt (torch wheels differ per machine).
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+markers = [
+    "gpu: needs a CUDA GPU",
+    "network: needs internet access",
+    "slow: takes more than a few seconds",
+]

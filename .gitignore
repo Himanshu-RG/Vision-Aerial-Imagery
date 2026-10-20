@@ -1,0 +1,26 @@
+# Large / local-only artefacts
+*.pdf
+data/raw/
+data/images/
+checkpoints/
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.zip
+outputs/predictions/
+outputs/tmp/
+outputs/logs/*.jsonl
+configs/paths.local.yaml
+.venv/
+venv/
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/

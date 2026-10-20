@@ -1,0 +1,4 @@
+# Copy to configs/paths.local.yaml (gitignored) and edit per machine,
+# or set the AOVD_STORE environment variable instead.
+# The store holds datasets, checkpoints and the HF cache -- keep it OUT of OneDrive/git.
+store: "D:/aerial-ovd-store"   # dev laptop; e.g. "E:/aerial-ovd-store" on the RTX 5060 machine

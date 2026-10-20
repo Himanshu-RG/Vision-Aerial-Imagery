@@ -1,0 +1,20 @@
+# Checkpoints used by the project. `revision: null` means "resolve the current commit and
+# record it in configs/checkpoints.lock.json"; once locked, downloads use the locked SHA.
+# Only the files listed are downloaded (e.g. we skip the duplicate pytorch_model.bin).
+checkpoints:
+  - name: grounding-dino-tiny
+    role: detector (frozen)
+    repo_id: IDEA-Research/grounding-dino-tiny
+    revision: null
+    files: [config.json, preprocessor_config.json, model.safetensors, tokenizer.json,
+            tokenizer_config.json, special_tokens_map.json, vocab.txt, added_tokens.json]
+  - name: remoteclip-vit-b-32
+    role: selector encoder (remote-sensing CLIP)
+    repo_id: chendelong/RemoteCLIP
+    revision: null
+    files: [RemoteCLIP-ViT-B-32.pt]
+  - name: openai-clip-vit-b-32
+    role: selector encoder (natural-image CLIP baseline)
+    repo_id: timm/vit_base_patch32_clip_224.openai
+    revision: null
+    files: [open_clip_config.json, open_clip_pytorch_model.bin]

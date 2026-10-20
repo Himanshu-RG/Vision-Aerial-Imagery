@@ -1,0 +1,20 @@
+# CPU / dev-laptop environment. Exact resolved versions: requirements-lock-<host>.txt
+# Install torch first from the CPU index:
+#   pip install torch==2.7.1 torchvision==0.22.1 --index-url https://download.pytorch.org/whl/cpu
+# then:
+#   pip install -r requirements.txt && pip install -e .
+torch==2.7.1
+torchvision==0.22.1
+transformers==4.57.3
+huggingface_hub>=0.34,<1.0
+safetensors>=0.4
+open_clip_torch>=2.32
+pycocotools>=2.0.8
+numpy>=1.26,<3
+pillow>=10.2
+pyyaml>=6.0
+pydantic>=2.6,<3
+pandas>=2.2
+matplotlib>=3.8
+psutil>=5.9
+pytest>=8.0
