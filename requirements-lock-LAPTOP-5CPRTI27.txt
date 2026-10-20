@@ -1,4 +1,4 @@
--e git+https://github.com/Himanshu-RG/Vision-Aerial-Imagery.git@1bf7a571dd56155fa5a594721a39a8c5f6108c87#egg=aerial_ovd
+-e git+https://github.com/Himanshu-RG/Vision-Aerial-Imagery.git@654efbb0e400636114ad9aa8dc0bdef2d470a43c#egg=aerial_ovd
 annotated-types==0.8.0
 certifi==2026.10.19
 charset-normalizer==3.5.2

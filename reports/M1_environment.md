@@ -59,8 +59,8 @@ Total is 1.77 GB, which fits in the 5.93 GB free on D: with a 1 GB margin. **Not
 
 **H0 (prompt length):** 80 raw names = **251 / 256 tokens**, so there is no truncation for raw names. Details are in `reports/M0_gap_hypotheses_novelty.md`.
 
-## Experiment machine audit (audited 2026-10-20 17:05 UTC; commit 36a5d2b by `Amit-adh`; reviewed 2026-10-21)
-**Host:** `LAPTOP-5CPRTI27`, recorded in `outputs/env/LAPTOP-5CPRTI27.json` and `requirements-lock-LAPTOP-5CPRTI27.txt`. The audit ran at git `1bf7a57` with a clean tree.
+## Experiment machine audit (audited 2026-10-20 17:05 UTC; commit 2e26ba2 by `Amit-adh`; reviewed 2026-10-21)
+**Host:** `LAPTOP-5CPRTI27`, recorded in `outputs/env/LAPTOP-5CPRTI27.json` and `requirements-lock-LAPTOP-5CPRTI27.txt`. The audit ran at git `654efbb` with a clean tree.
 
 | Item | Value |
 |---|---|
