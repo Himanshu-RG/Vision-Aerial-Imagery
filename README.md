@@ -5,12 +5,12 @@ Research code (Team Transmontane). We study whether choosing a small, image-rele
 > **Start with [CONTEXT.md](CONTEXT.md).** It is the project's ground truth: goals, rules, frozen decisions, status, and results. Per-module reports live in [reports/](reports/).
 
 ## Status
-Modules 0 (literature) and 1 (environment) are in progress. No experimental results exist yet.
+M0 (literature) is done. M1 (environment) is done on the dev laptop; the RTX 5060 audit is pending. No experimental results exist yet. Next: M2 (dataset).
 
 ## Two-machine setup
 | Machine | Use | Torch wheel |
 |---|---|---|
-| Dev laptop (RTX 3050, 4 GB) | code, unit tests, CPU smoke tests on a data subset | CPU |
+| Dev laptop (RTX 3050 Ti, 4 GB; CPU torch only) | code, unit tests, CPU smoke tests on a data subset | CPU |
 | Experiment machine (RTX 5060, 8 GB) | all reported experiments and all latency numbers | **cu128** (Blackwell needs torch ≥ 2.7 + CUDA 12.8) |
 
 Code, configs, small manifests, metrics, and env audits are synced through git. Datasets, checkpoints, and raw predictions live in a per-machine **store** outside the repo.

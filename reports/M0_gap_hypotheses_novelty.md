@@ -47,3 +47,14 @@ Two findings frame the gap:
 2. **Gate:** implement M6 (uncertainty/coverage retention) and M7 (adaptive budget) **only if** M4/M5 show a selector beating the full vocabulary on dev (H2 holds).
 3. **If H1 fails** (no oracle headroom under COCO mAP): stop method work and pivot to an analysis paper explaining why the prior study's oracle gain does not carry over (e.g., truncation, metric choice).
 4. **If H1 holds but H2 fails:** report the negative result, then analyse where selection errors occur (vocabulary recall vs. detection) before deciding on M5.
+
+## 5. Exit criteria (M0)
+| Criterion (master prompt) | Status |
+|---|---|
+| Related-work comparison table | ✅ `M0_literature_matrix.md` §1 (13 works) |
+| Overlap of existing methods with each component | ✅ matrix §2 |
+| Precise gap statement with citations | ✅ §1 |
+| Falsifiable hypotheses | ✅ §2 (H0 already tested: falsified for raw names) |
+| Novelty-risk assessment | ✅ §3 |
+| Decision on which components to implement | ✅ §4 (gated) |
+| **Exit:** defensible hypothesis + documented understanding of the closest prior work | ✅ **Met.** Pre-submission re-checks remain open (matrix §4); they do not block M2 |
