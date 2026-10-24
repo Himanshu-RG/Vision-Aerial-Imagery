@@ -79,6 +79,6 @@ def test_prompt_names():
     assert prompt_name("Front loader/Bulldozer") == "front loader/bulldozer"
     assert prompt_name("Small Car") == "small car"
     assert prompt_name("Small Car", policy="raw") == "Small Car"
-    assert build_prompt(["a", "b c"]) == "a. b c."
+    assert build_prompt(["a", "b c"]) == "a . b c ."
     with pytest.raises(ValueError):
         build_prompt([])

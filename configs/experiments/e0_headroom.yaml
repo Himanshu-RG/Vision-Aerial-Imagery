@@ -1,0 +1,17 @@
+# E0 headroom check (oracle diagnostics; NOT a method comparison).
+# Question: is there room for vocabulary selection to help on LAE-80C with frozen GDINO-T?
+name: e0_headroom
+split: dev                 # tuning split only (D2/D18); test is never touched here
+n_images: 200              # class-stratified, deterministic sample of the dev split
+sample_seed: 2026
+seed: 0
+random_seed: 0             # random_matched vocabulary
+naming_policy: light       # D14
+conditions: [full, oracle_gt, oracle_source, random_matched]
+detector:
+  checkpoint: grounding-dino-tiny      # pinned in configs/checkpoints.lock.json
+  device: cuda
+  precision: fp32                      # fp16 only as a later, separate ablation
+  num_select: 900                      # D21: keep up to 900 (query, class) pairs per image
+  class_reduce: mean                   # D20: official positive-map averaging
+  warmup: 3

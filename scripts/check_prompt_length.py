@@ -1,6 +1,6 @@
 """H0 check: does an "all classes in one prompt" input exceed Grounding DINO's 256-token text limit?
 
-Builds the prompt the way the HF Grounding DINO examples do ("name1. name2. ... nameN.", lower-case)
+Builds the prompt in the official Grounding DINO format ("name1 . name2 . ... nameN .", lower-case)
 and counts BERT tokens, including [CLS] and [SEP]. Only tokenizer files are needed.
 
 Usage:
@@ -18,7 +18,8 @@ MAX_TEXT_LEN = 256  # GroundingDinoConfig.max_text_len for IDEA-Research/groundi
 
 
 def build_prompt(names: list[str]) -> str:
-    return " ".join(f"{n.strip().lower()}." for n in names)
+    # Official Grounding DINO caption format (demo/test_ap_on_coco.py): "a . b . c ."
+    return " . ".join(n.strip().lower() for n in names) + " ."
 
 
 def count_tokens(tokenizer, text: str) -> int:

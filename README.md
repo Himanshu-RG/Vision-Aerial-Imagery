@@ -5,7 +5,7 @@ Research code (Team Transmontane). We study whether choosing a small, image-rele
 > **Start with [CONTEXT.md](CONTEXT.md).** It is the project's ground truth: goals, rules, frozen decisions, status, and results. Per-module reports live in [reports/](reports/).
 
 ## Status
-M0 (literature), M1 (environment, both machines) and M2 (dataset: LAE-80C validated, dev/test split frozen, evaluation protocol defined) are done. No experimental results exist yet. Next: M3 (Grounding DINO baseline) + M9 (metric validation).
+M0 (literature), M1 (environment, both machines) and M2 (dataset: LAE-80C validated, split frozen, evaluation protocol defined) are done. M3 pipeline built and the evaluator validated (known-answer tests); no experimental results yet. Next: E0 headroom check on the RTX 5060.
 
 ## Two-machine setup
 | Machine | Use | Torch wheel |

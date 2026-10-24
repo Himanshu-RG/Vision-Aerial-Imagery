@@ -31,7 +31,7 @@ def prompt_name(raw: str, policy: str = "light") -> str:
 
 
 def build_prompt(names: list[str]) -> str:
-    """Grounding DINO text input: 'name1. name2. ... nameN.'"""
+    """Grounding DINO text input in the official format: 'name1 . name2 . ... nameN .'"""
     if not names:
         raise ValueError("cannot build a prompt from an empty vocabulary")
-    return " ".join(f"{n}." for n in names)
+    return " . ".join(names) + " ."
