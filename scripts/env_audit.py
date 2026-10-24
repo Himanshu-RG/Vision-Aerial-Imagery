@@ -128,13 +128,22 @@ def collect() -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out", type=Path, default=None)
+    parser.add_argument("--write-lock", action="store_true",
+                        help="also write requirements-lock-<hostname>.txt (UTF-8, LF) from pip freeze")
     args = parser.parse_args()
     info = collect()
     out = args.out or REPO_ROOT / "outputs" / "env" / f"{info['hostname']}.json"
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(info, indent=2), encoding="utf-8")
+    out.write_text(json.dumps(info, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps(info, indent=2))
     print(f"\nwritten: {out}")
+    if args.write_lock:
+        # Avoid shell redirection: Windows PowerShell 5.1 `>` writes UTF-16, which git treats as binary.
+        frozen = subprocess.run([sys.executable, "-m", "pip", "freeze", "--exclude-editable"],
+                                capture_output=True, text=True, check=True).stdout
+        lock = REPO_ROOT / f"requirements-lock-{info['hostname']}.txt"
+        lock.write_text(frozen.replace("\r\n", "\n"), encoding="utf-8", newline="\n")
+        print(f"written: {lock}")
 
 
 if __name__ == "__main__":

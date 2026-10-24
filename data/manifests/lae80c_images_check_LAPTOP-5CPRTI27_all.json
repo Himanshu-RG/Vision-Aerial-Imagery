@@ -1,5 +1,6 @@
 {
   "host": "LAPTOP-5CPRTI27",
+  "note": "zip_* fields restored from commit 6b70fe3 (first run on this host); the re-run in b95a7be found images already extracted and did not touch the zip",
   "revision": "60ce78a91a09ea9975eba6de18ffe621936dbc0f",
   "split": "all",
   "validation": {
@@ -10,5 +11,9 @@
       "size_mismatch": [],
       "unreadable": []
     }
-  }
+  },
+  "zip_deleted": true,
+  "zip_members": 3592,
+  "zip_members_not_in_annotations": [],
+  "zip_sha256": "288988fe25a3d7173c5085d0660b785bdc6a819559db3d7af78e60a1ee7cb398"
 }

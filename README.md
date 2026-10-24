@@ -28,7 +28,7 @@ pip install torch==2.7.1 torchvision==0.22.1 --index-url https://download.pytorc
 # 3. everything else + this package
 pip install -r requirements.txt        # or requirements-gpu.txt on the GPU machine
 pip install -e .
-pip freeze > requirements-lock-$(hostname).txt
+python scripts/env_audit.py --write-lock   # env JSON + UTF-8 lock file (don't use `pip freeze >` in PowerShell: it writes UTF-16)
 
 # 4. tell the code where the store is
 cp configs/paths.example.yaml configs/paths.local.yaml   # edit `store:`; or set AOVD_STORE

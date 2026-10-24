@@ -112,7 +112,8 @@ Vocabulary selectors receive only the decoded image pixels, resized/cropped by t
   - `images.zip` sha256: `288988fe25a3d7173c5085d0660b785bdc6a819559db3d7af78e60a1ee7cb398`.
   - The zip has 3,592 members, all listed in the annotations, with no extras.
   - The zip was deleted after extraction. The dev images take 399 MB at `<store>/datasets/LAE-80C-images`.
-- RTX 5060, all images: **pending** (the team runs it).
+- **RTX 5060, all images: 3,592 / 3,592 OK** (commits 6b70fe3 and b95a7be by Amit). The zip sha256 is identical to the laptop's (`288988fe…`).
+  - The second run found the images already extracted and dropped the zip fields from the check file. They were restored from 6b70fe3, and `fetch_lae80c_images.py` now keeps them on re-runs.
 
 ## Known limitations
 - Exhaustive within-source annotation is assumed, not verified.
@@ -123,7 +124,7 @@ Vocabulary selectors receive only the decoded image pixels, resized/cropped by t
 ## Exit criteria
 | Criterion | Status |
 |---|---|
-| Validated dataset manifest | ✅ annotations; ✅ dev images (laptop, 730/730); ⏳ all images on the RTX 5060 |
+| Validated dataset manifest | ✅ annotations; ✅ dev images (laptop, 730/730); ✅ all images (RTX 5060, 3,592/3,592) |
 | Documented vocabulary + naming policy | ✅ |
 | Frozen evaluation protocol | ✅ defined (D15); implemented and validated in M9 |
 | Frozen split committed before any detector run | ✅ |

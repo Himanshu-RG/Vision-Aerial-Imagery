@@ -124,6 +124,13 @@ def main() -> int:
 
     record["validation"] = validate(img_dir, wanted)
     out = MAN / f"lae80c_images_check_{record['host']}_{args.split}.json"
+    if out.is_file():
+        # A re-run with images already extracted does not touch the zip; keep the zip facts
+        # recorded by the earlier run instead of silently dropping them.
+        previous = json.loads(out.read_text(encoding="utf-8"))
+        for key in ("zip_sha256", "zip_members", "zip_members_not_in_annotations", "zip_deleted"):
+            if key not in record and key in previous:
+                record[key] = previous[key]
     out.write_text(json.dumps(record, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
     v = record["validation"]
     print(f"{v['n_ok']}/{v['n_expected']} images OK; problems: "
