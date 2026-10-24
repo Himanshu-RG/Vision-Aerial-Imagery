@@ -1,0 +1,240 @@
+{
+  "cleaning": {
+    "clipped_min_area_kept": 0.584,
+    "counts": {
+      "clipped_to_image": 972,
+      "exact_duplicate": 19,
+      "tiny_box_flagged": 23
+    },
+    "examples": {
+      "clipped_to_image": [
+        {
+          "area_kept": 0.824,
+          "id": 2135
+        },
+        {
+          "area_kept": 0.875,
+          "id": 2146
+        },
+        {
+          "area_kept": 0.938,
+          "id": 2179
+        },
+        {
+          "area_kept": 0.828,
+          "id": 2236
+        },
+        {
+          "area_kept": 0.837,
+          "id": 2246
+        }
+      ],
+      "exact_duplicate": [
+        25871,
+        25872,
+        25873,
+        25874,
+        25875
+      ],
+      "tiny_box_flagged": [
+        21553,
+        39341,
+        44080,
+        44339,
+        44341
+      ]
+    },
+    "n_annotations_in": 86558,
+    "n_annotations_out": 86539,
+    "n_images": 3592
+  },
+  "config": {
+    "cleaning": {
+      "clip_to_image": true,
+      "drop_exact_duplicates": true,
+      "drop_nonpositive": true,
+      "tiny_side_flag_px": 2
+    },
+    "dataset": {
+      "annotation_file": "LAE-80C/LAE-80C-benchmark.json",
+      "hf_repo": "jaychempan/LAE-1M",
+      "images_zip": "LAE-80C/images.zip",
+      "local_dir": "datasets/LAE-1M",
+      "revision": "60ce78a91a09ea9975eba6de18ffe621936dbc0f"
+    },
+    "size_bins_px2": [
+      1024,
+      9216
+    ],
+    "split": {
+      "dev_fraction": 0.2,
+      "method": "iterative_stratification",
+      "seed": 2026
+    }
+  },
+  "inputs": {
+    "annotation_json_sha256": "7e848c531a0bdfdfea58ea3db298ad7db697084a3c5bd98fa4f353b316599fb2"
+  },
+  "outputs_sha256": {
+    "lae80c_dev_ids.txt": "131348ae32b1f97774ced5b5d7aa4e358ae1867b1da3ae9e1570ddd65b2b7f8c",
+    "lae80c_manifest.csv": "c10beece000bf7524cf53c013564d89fe1f67cf65eae949132193e26897e3abb",
+    "lae80c_test_ids.txt": "1d6b2c398d3154c9b3ef58572931d0826ceb302f0a12f3f0d0e65380511dbd0e",
+    "lae80c_vocabulary.csv": "73a99cb90d1e2e6600cb3b6e8fffc57cfdec891a2754e5d9fe0e824aeca0f051"
+  },
+  "stats": {
+    "boxes_per_image": {
+      "max": 668,
+      "mean": 24.09
+    },
+    "classes_missing_from_dev": [
+      "helipad"
+    ],
+    "classes_per_image_mean": 2.243,
+    "classes_with_lt3_dev_images": {
+      "Cargo Car": 2,
+      "Fixed-wing Aircraft": 2,
+      "Flat Car": 1,
+      "Ground Grader": 2,
+      "Haul Truck": 2,
+      "Locomotive": 2,
+      "Passenger Car": 2,
+      "Reach Stacker": 1,
+      "Sailboat": 2,
+      "Straddle Carrier": 1,
+      "Tower": 2,
+      "Tower crane": 2,
+      "Tractor": 2,
+      "Yacht": 2,
+      "container crane": 1,
+      "helicopter": 2,
+      "helipad": 0
+    },
+    "full_prompt_light_names": "airplane. airport. ground track field. harbor. baseball field. overpass. basketball court. bridge. stadium. storage tank. tennis court. expressway service area. train station. expressway toll station. vehicle. golf field. windmill. dam. helicopter. roundabout. soccer ball field. swimming pool. container crane. helipad. bus. cargo truck. dry cargo ship. dump truck. engineering ship. excavator. fishing boat. intersection. liquid cargo ship. motorboat. passenger ship. small car. tractor. trailer. truck tractor. tugboat. van. warship. working condensing tower. unworking condensing tower. working chimney. unworking chimney. fixed-wing aircraft. small aircraft. cargo plane. pickup truck. utility truck. passenger car. cargo car. flat car. locomotive. sailboat. barge. ferry. yacht. oil tanker. engineering vehicle. tower crane. reach stacker. straddle carrier. mobile crane. haul truck. front loader/bulldozer. cement mixer. ground grader. hut/tent. shed. building. aircraft hangar. damaged building. facility. construction site. shipping container lot. shipping container. pylon. tower.",
+    "images_per_source_and_split": {
+      "DIOR-18C": {
+        "dev": 108,
+        "test": 428
+      },
+      "DOTA-6C": {
+        "dev": 28,
+        "test": 109
+      },
+      "FAIR-18C": {
+        "dev": 435,
+        "test": 1695
+      },
+      "PP-4C": {
+        "dev": 8,
+        "test": 23
+      },
+      "Xview-34C": {
+        "dev": 151,
+        "test": 607
+      }
+    },
+    "n_boxes": 86539,
+    "n_images": 3592,
+    "size_bins_share": {
+      "large": 0.0568,
+      "medium": 0.3507,
+      "small": 0.5925
+    },
+    "source_label_space": {
+      "DIOR-18C": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "DOTA-6C": [
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "FAIR-18C": [
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42
+      ],
+      "PP-4C": [
+        43,
+        44,
+        45,
+        46
+      ],
+      "Xview-34C": [
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80
+      ]
+    }
+  },
+  "store_outputs_sha256": {
+    "all.json": "e9de4750474bf3d1646ed0be673f8e0d3df78b4ba987693681d4f7223b12690d",
+    "dev.json": "6813e4c5c937ccc3715bee295d258db08177189b40dbb161b9c25478e7049cd1",
+    "test.json": "5dae32f8a1103b58f8c166b4a029a9e8f8b5dee1feb1fdb3675a7378cc576e20"
+  }
+}

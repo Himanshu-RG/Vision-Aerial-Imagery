@@ -1,0 +1,18 @@
+{
+  "host": "LAPTOP-8N8B1VIP",
+  "revision": "60ce78a91a09ea9975eba6de18ffe621936dbc0f",
+  "split": "dev",
+  "validation": {
+    "n_expected": 730,
+    "n_ok": 730,
+    "problems": {
+      "missing": [],
+      "size_mismatch": [],
+      "unreadable": []
+    }
+  },
+  "zip_deleted": true,
+  "zip_members": 3592,
+  "zip_members_not_in_annotations": [],
+  "zip_sha256": "288988fe25a3d7173c5085d0660b785bdc6a819559db3d7af78e60a1ee7cb398"
+}

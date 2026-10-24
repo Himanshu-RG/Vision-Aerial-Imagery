@@ -1,0 +1,21 @@
+# LAE-80C data protocol (Module 2). Changing anything here after the split is frozen
+# requires a new decision row in CONTEXT.md §8.
+dataset:
+  hf_repo: jaychempan/LAE-1M
+  revision: 60ce78a91a09ea9975eba6de18ffe621936dbc0f   # resolved 2026-10-24
+  annotation_file: LAE-80C/LAE-80C-benchmark.json
+  images_zip: LAE-80C/images.zip
+  local_dir: datasets/LAE-1M            # relative to the store
+
+cleaning:
+  clip_to_image: true          # boxes overflowing tile edges are clipped (FAIR/DOTA crops)
+  drop_exact_duplicates: true  # same image, class and box (rounded to 0.1 px)
+  drop_nonpositive: true       # zero/negative width or height after clipping
+  tiny_side_flag_px: 2         # boxes with a side < 2 px are kept but flagged
+
+split:
+  dev_fraction: 0.20           # dev = all tuning; test = final evaluation only
+  seed: 2026
+  method: iterative_stratification   # multi-label (class presence) stratification, Sechidis et al. 2011
+
+size_bins_px2: [1024, 9216]    # COCO small < 32^2 <= medium < 96^2 <= large
