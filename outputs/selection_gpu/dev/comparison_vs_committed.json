@@ -1,0 +1,24 @@
+{
+  "clip_openai_b32": {
+    "max_abs_score_diff": 1.6391277313232422e-06,
+    "k3_identical_sets": 1.0,
+    "k8_identical_sets": 1.0,
+    "k20_identical_sets": 1.0,
+    "ref_ms_median": 68.46855001640506,
+    "other_ms_median": 8.259300004283432,
+    "ref_device": "cpu",
+    "other_device": "cuda",
+    "other_host": "LAPTOP-5CPRTI27"
+  },
+  "remoteclip_b32": {
+    "max_abs_score_diff": 1.1324882507324219e-06,
+    "k3_identical_sets": 1.0,
+    "k8_identical_sets": 1.0,
+    "k20_identical_sets": 1.0,
+    "ref_ms_median": 71.08414999675006,
+    "other_ms_median": 7.91360000584973,
+    "ref_device": "cpu",
+    "other_device": "cuda",
+    "other_host": "LAPTOP-5CPRTI27"
+  }
+}

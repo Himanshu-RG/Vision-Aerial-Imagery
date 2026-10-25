@@ -3909,7 +3909,14 @@
         "ci_high": 0.18651976557036534,
         "n_boot": 1000,
         "seed": 0,
-        "ci_excludes_zero": true
+        "ci_excludes_zero": true,
+        "boot_mean": 0.15128998840898064,
+        "boot_sd": 0.017246296435796834,
+        "bias": 0.02549065630346073,
+        "bias_flag": true,
+        "basic_ci_low": 0.06507889864067448,
+        "basic_ci_high": 0.1323334075427378,
+        "basic_ci_excludes_zero": true
       },
       "source_aware": {
         "diff_point": 0.11217470664533959,
@@ -3917,7 +3924,14 @@
         "ci_high": 0.16628716819204367,
         "n_boot": 1000,
         "seed": 0,
-        "ci_excludes_zero": true
+        "ci_excludes_zero": true,
+        "boot_mean": 0.13246552462954736,
+        "boot_sd": 0.016179605640027957,
+        "bias": 0.020290817984207773,
+        "bias_flag": true,
+        "basic_ci_low": 0.0580622450986355,
+        "basic_ci_high": 0.12228185739865965,
+        "basic_ci_excludes_zero": true
       }
     },
     "oracle_source": {
@@ -3927,7 +3941,14 @@
         "ci_high": 0.044601074825368715,
         "n_boot": 1000,
         "seed": 0,
-        "ci_excludes_zero": true
+        "ci_excludes_zero": true,
+        "boot_mean": 0.02475553513274942,
+        "boot_sd": 0.007776723422229895,
+        "bias": 0.008256025353727967,
+        "bias_flag": true,
+        "basic_ci_low": -0.011602055267325807,
+        "basic_ci_high": 0.019577194342670676,
+        "basic_ci_excludes_zero": false
       },
       "source_aware": {
         "diff_point": 0.0028748843188411144,
@@ -3935,7 +3956,14 @@
         "ci_high": 0.02145411832125263,
         "n_boot": 1000,
         "seed": 0,
-        "ci_excludes_zero": false
+        "ci_excludes_zero": false,
+        "boot_mean": 0.005931071353316106,
+        "boot_sd": 0.008134898370038097,
+        "bias": 0.0030561870344749916,
+        "bias_flag": true,
+        "basic_ci_low": -0.0157043496835704,
+        "basic_ci_high": 0.015781513632761857,
+        "basic_ci_excludes_zero": false
       }
     },
     "random_matched": {
@@ -3945,7 +3973,14 @@
         "ci_high": 0.007921611857268055,
         "n_boot": 1000,
         "seed": 0,
-        "ci_excludes_zero": false
+        "ci_excludes_zero": false,
+        "boot_mean": -0.009936372439751156,
+        "boot_sd": 0.007731592832303234,
+        "bias": -0.0023420520503470346,
+        "bias_flag": true,
+        "basic_ci_low": -0.0231102526360763,
+        "basic_ci_high": 0.006608556926372855,
+        "basic_ci_excludes_zero": false
       },
       "source_aware": {
         "diff_point": -0.020749871871040885,
@@ -3953,7 +3988,14 @@
         "ci_high": -0.006050309126119172,
         "n_boot": 1000,
         "seed": 0,
-        "ci_excludes_zero": true
+        "ci_excludes_zero": true,
+        "boot_mean": -0.028307588572207328,
+        "boot_sd": 0.010986501187487303,
+        "bias": -0.007557716701166443,
+        "bias_flag": true,
+        "basic_ci_low": -0.035449434615962595,
+        "basic_ci_high": 0.006214889345297944,
+        "basic_ci_excludes_zero": false
       }
     }
   }

@@ -21,7 +21,16 @@ run `e0_headroom-e8585910cbfb` · host `LAPTOP-5CPRTI27` · git `32ef56d` (dirty
 
 `*` = CI excludes 0.
 
-_Bootstrap bias diagnostics not present in this metrics file (evaluated before they were added)._
+Bootstrap diagnostics (percentile CI is the pre-registered headline; 'basic' CI shown for robustness):
+
+| condition | protocol | bootstrap mean | sd | bias | bias flag | basic CI |
+|---|---|---|---|---|---|---|
+| oracle: source label space | standard | +0.0248 | 0.0078 | +0.0083 | True | [-0.0116, +0.0196] |
+| oracle: source label space | source_aware | +0.0059 | 0.0081 | +0.0031 | True | [-0.0157, +0.0158] |
+| oracle: GT classes in image | standard | +0.1513 | 0.0172 | +0.0255 | True | [+0.0651, +0.1323] |
+| oracle: GT classes in image | source_aware | +0.1325 | 0.0162 | +0.0203 | True | [+0.0581, +0.1223] |
+| control: random, size-matched | standard | -0.0099 | 0.0077 | -0.0023 | True | [-0.0231, +0.0066] |
+| control: random, size-matched | source_aware | -0.0283 | 0.0110 | -0.0076 | True | [-0.0354, +0.0062] |
 
 ## Table 3 — mean per-class AP50@900 by source (classes with GT in the sample; std | src-aware)
 
