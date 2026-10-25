@@ -140,6 +140,22 @@ def main() -> int:
     gt_classes = {iid: [int(c) for c in r["classes"].split()] for iid, r in by_id.items()}
     image_ids = sample_images(rows, cfg["split"], cfg.get("n_images"), cfg["sample_seed"])
 
+    # Precomputed deployable selector scores (outputs/selection/<split>/<name>.npz, committed).
+    selector_scores, selector_meta = {}, {}
+    for cond in cfg["conditions"]:
+        if cond.startswith("sel:"):
+            import numpy as np
+
+            name = cond.split(":")[1]
+            if name in selector_scores:
+                continue
+            npz = REPO_ROOT / "outputs" / "selection" / cfg["split"] / f"{name}.npz"
+            z = np.load(npz, allow_pickle=False)
+            if list(z["cat_ids"]) != sorted(int(c) for c in z["cat_ids"]):
+                raise ValueError(f"{npz}: category ids are not sorted")
+            selector_scores[name] = {int(i): z["scores"][j] for j, i in enumerate(z["image_ids"])}
+            selector_meta[name] = {"file": npz.relative_to(REPO_ROOT).as_posix(), "meta": json.loads(str(z["meta"]))}
+
     lock = json.loads((REPO_ROOT / "configs" / "checkpoints.lock.json").read_text(encoding="utf-8"))
     ckpt_name = det_cfg["checkpoint"]
     meta = {
@@ -149,7 +165,7 @@ def main() -> int:
         "git_dirty": bool(subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True,
                                          cwd=REPO_ROOT).stdout.strip()),
         "torch": torch.__version__, "cuda": torch.version.cuda, "checkpoint_lock": lock.get(ckpt_name),
-        "image_ids": image_ids, "gpu_at_start": gpu_snapshot(torch),
+        "image_ids": image_ids, "gpu_at_start": gpu_snapshot(torch), "selectors": selector_meta,
         "latency_definition": "per (image, condition): preprocess (tokenise + positive map + image "
                               "resize/normalise) + forward + postprocess; excludes disk I/O and "
                               "model loading (reported separately as load_ms / model_load_s)",
@@ -165,7 +181,7 @@ def main() -> int:
 
     img_dir = store / "datasets" / "LAE-80C-images"
     conditions = cfg["conditions"]
-    files = {c: run_dir / f"{c}.jsonl" for c in conditions}
+    files = {c: run_dir / (c.replace(":", "__") + ".jsonl") for c in conditions}  # ":" is not allowed in Windows file names
     finished = {c: done_ids(p) for c, p in files.items()}
 
     # Warm-up (not recorded): first-call CUDA/cuDNN set-up would otherwise inflate latency.
@@ -194,7 +210,8 @@ def main() -> int:
             log.error("image load failed", extra={"image_id": iid, "error": repr(e)})
             continue
         for c in todo:
-            vocab = vocabulary_for(c, iid, all_ids, gt_classes, source_space, seed=cfg.get("random_seed", 0))
+            vocab = vocabulary_for(c, iid, all_ids, gt_classes, source_space, seed=cfg.get("random_seed", 0),
+                                   selector_scores=selector_scores)
             rec = {"image_id": iid, "condition": c, "vocab": vocab, "load_ms": round(load_ms, 2)}
             try:
                 if torch.cuda.is_available():

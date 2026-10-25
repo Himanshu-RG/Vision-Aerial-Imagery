@@ -5,7 +5,7 @@ Research code (Team Transmontane). We study whether choosing a small, image-rele
 > **Start with [CONTEXT.md](CONTEXT.md).** It is the project's ground truth: goals, rules, frozen decisions, status, and results. Per-module reports live in [reports/](reports/).
 
 ## Status
-M0 (literature), M1 (environment, both machines) and M2 (dataset: LAE-80C validated, split frozen, evaluation protocol defined) are done. M3 (Grounding DINO pipeline, validated evaluator) is done, and the E0 headroom check ran on the RTX 5060 (2026-10-25): the oracle vocabulary raises AP50@900 from 0.015 to 0.140 on 200 dev images (oracle diagnostic, `reports/E0_headroom.md`). Next: M4 (deployable selectors + simple baselines).
+M0–M3 done; E0 headroom check done (oracle vocabulary: AP50 0.015 → 0.140). M4 in progress: selection quality measured (global CLIP keeps few present classes at small budgets); detection with selected vocabularies next. Overview for reviewers: [reports/PROJECT_OVERVIEW.md](reports/PROJECT_OVERVIEW.md).
 
 ## Two-machine setup
 | Machine | Use | Torch wheel |

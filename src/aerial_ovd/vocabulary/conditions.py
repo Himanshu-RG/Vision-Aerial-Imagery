@@ -15,13 +15,38 @@ from __future__ import annotations
 import random
 from typing import Mapping
 
-DEPLOYABLE = ("full",)
+DEPLOYABLE = ("full",)  # plus "sel:<selector>:k<k>" (precomputed deployable selector scores, top-k)
 ORACLE = ("oracle_gt", "oracle_source", "random_matched")
 ALL_CONDITIONS = DEPLOYABLE + ORACLE
 
 
+def parse_selector_condition(condition: str) -> tuple[str, int]:
+    """'sel:remoteclip_b32:k8' -> ('remoteclip_b32', 8)."""
+    parts = condition.split(":")
+    if len(parts) != 3 or parts[0] != "sel" or not parts[2].startswith("k") or not parts[2][1:].isdigit():
+        raise ValueError(f"bad selector condition {condition!r}; expected 'sel:<selector>:k<int>'")
+    k = int(parts[2][1:])
+    if k < 1:
+        raise ValueError("budget k must be >= 1")
+    return parts[1], k
+
+
 def vocabulary_for(condition: str, image_id: int, all_ids: list[int], gt_classes: Mapping[int, list[int]],
-                   source_space: Mapping[int, set[int]], seed: int) -> list[int]:
+                   source_space: Mapping[int, set[int]], seed: int,
+                   selector_scores: Mapping[str, Mapping[int, "object"]] | None = None) -> list[int]:
+    """selector_scores: selector name -> image_id -> score vector aligned with sorted(all_ids)."""
+    if condition.startswith("sel:"):
+        import numpy as np
+
+        name, k = parse_selector_condition(condition)
+        if selector_scores is None or name not in selector_scores:
+            raise ValueError(f"no precomputed scores for selector {name!r}")
+        s = np.asarray(selector_scores[name][image_id], dtype=float)
+        if np.isnan(s).any():
+            raise ValueError(f"selector {name} failed on image {image_id} (NaN scores)")
+        order = np.argsort(-s, kind="stable")[: min(k, len(s))]
+        ids_sorted = sorted(all_ids)
+        return sorted(ids_sorted[i] for i in order)
     if condition == "full":
         return sorted(all_ids)
     if condition == "oracle_gt":

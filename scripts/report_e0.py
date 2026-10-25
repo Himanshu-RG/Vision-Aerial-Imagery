@@ -23,6 +23,8 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("metrics_dir", type=Path)
     args = ap.parse_args()
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")  # Windows consoles default to cp1252
     m = json.loads((args.metrics_dir / "metrics.json").read_text(encoding="utf-8"))
     cfg = json.loads((args.metrics_dir / "run_config.json").read_text(encoding="utf-8"))
     vocab = list(csv.DictReader((REPO_ROOT / "data" / "manifests" / "lae80c_vocabulary.csv").open(encoding="utf-8")))

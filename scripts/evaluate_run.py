@@ -59,7 +59,7 @@ def main() -> int:
     out = {"run_id": meta["run_id"], "host": meta["host"], "git_commit": meta["git_commit"],
            "device": cfg["detector"]["device"], "n_images": len(image_ids), "conditions": {}}
     for cond in cfg["conditions"]:
-        path = args.run_dir / f"{cond}.jsonl"
+        path = args.run_dir / (cond.replace(":", "__") + ".jsonl")
         recs = read_records(path) if path.is_file() else {}
         ok = [r for iid, r in recs.items() if iid in set(image_ids) and r["status"] == "ok"]
         failed = [iid for iid in image_ids if recs.get(iid, {}).get("status") != "ok"]

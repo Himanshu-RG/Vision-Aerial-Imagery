@@ -1,0 +1,37 @@
+# M4: do deployable global selectors improve detection? (H2) -- dev split only.
+# Same 200-image sample and detector settings as E0, so numbers are directly comparable.
+# Selector scores are precomputed on the dev laptop and committed (outputs/selection/dev/*.npz),
+# so both machines use identical vocabularies. The frequency prior is fit on dev labels:
+# its dev numbers are in-sample (optimistic).
+name: m4_selectors_det
+split: dev
+n_images: 200
+sample_seed: 2026
+seed: 0
+random_seed: 0
+naming_policy: light
+conditions:
+  - full
+  - oracle_gt
+  - sel:frequency:k3
+  - sel:frequency:k8
+  - sel:frequency:k20
+  - sel:frequency:k40
+  - sel:clip_openai_b32:k3
+  - sel:clip_openai_b32:k8
+  - sel:clip_openai_b32:k20
+  - sel:clip_openai_b32:k40
+  - sel:remoteclip_b32:k3
+  - sel:remoteclip_b32:k8
+  - sel:remoteclip_b32:k20
+  - sel:remoteclip_b32:k40
+  - sel:random_s0:k3
+  - sel:random_s0:k8
+  - sel:random_s0:k20
+detector:
+  checkpoint: grounding-dino-tiny
+  device: cuda
+  precision: fp32
+  num_select: 900
+  class_reduce: mean
+  warmup: 3
