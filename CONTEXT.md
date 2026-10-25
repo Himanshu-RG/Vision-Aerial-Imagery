@@ -2,7 +2,7 @@
 
 > **Single source of truth for this project.** Any agent or person resuming work must read this file first.
 > It is updated at the end of every phase (module). If this file conflicts with memory, chat history, or other docs, **this file wins** — unless it is stale, in which case fix it first.
-> Last updated: 2026-10-24 · Phase: **M0 ✅ + M1 ✅ + M2 ✅ · M3 🟡 (pipeline built, CPU smoke OK) + M9 🟡 (evaluator validated) · next: run E0 on the RTX 5060 (GPU smoke first; runbook §12 step 5)**. No experimental results exist yet.
+> Last updated: 2026-10-25 · Phase: **M0 ✅ + M1 ✅ + M2 ✅ + M3 ✅ · E0 headroom check done (H1 supported, §6/§10) · M9 🟡 (bootstrap bias diagnostics added; E0 re-score pending, §12 step 5.8) · next: M4 (deployable selectors + simple baselines), pending the user's go-ahead**. The only experimental results so far are E0's oracle diagnostics on 200 dev images (`reports/E0_headroom.md`).
 
 ---
 
@@ -46,13 +46,13 @@ The research directions to investigate are (a) global–local category relevance
 | torch / CUDA | torch 2.7.1+cpu, torchvision 0.22.1+cpu; no CUDA | torch **2.7.1+cu128**, torchvision 0.22.1+cu128, CUDA build 12.8, `cuda_available: true`, cuDNN 90701 |
 | Shared exact pins (both) | transformers 4.57.3, huggingface_hub 0.36.2, safetensors 0.8.0, open_clip_torch 3.3.0, pycocotools 2.0.11, **numpy 2.2.6**, pillow 12.3.0, pyyaml 6.0.3, pydantic 2.14.1, **pandas 2.3.3**, **matplotlib 3.10.9**, psutil 7.2.2, pytest 9.1.1 | same |
 | Records | `outputs/env/LAPTOP-8N8B1VIP.json` (re-audited 2026-10-24 at b95a7be, dirty tree), `requirements-lock-LAPTOP-8N8B1VIP.txt` (51 packages) | `outputs/env/LAPTOP-5CPRTI27.json` (re-audited 2026-10-24 at 6b70fe3, clean tree; interpreter `D:\aerial-ovd-store\venv`, Python 3.10.11), `requirements-lock-LAPTOP-5CPRTI27.txt` (53 packages; UTF-8 since 1bc146a) |
-| Tests | **39 passed** at M3 (2026-10-24: 16 utility + 7 data + 16 M3 evaluator/detector/conditions). M2: 23; M1: 16/16 | **23 passed** (2026-10-24, pasted by the user) but in a **Python 3.11.9 venv**, not the reference `D:\aerial-ovd-store\venv` (Python 3.10.11, cu128). Pytest in the reference env is still unrecorded. The 16 M3 tests have not run there yet (the M3 code is not committed yet) |
+| Tests | **40 passed** (2026-10-25, `D:\aerial-ovd-store\venv`, uncommitted tree after E0: 39 from M3 + 1 bootstrap-diagnostics test). M3: 39; M2: 23; M1: 16/16 | **23 passed** (2026-10-24, pasted by the user) but in a **Python 3.11.9 venv**, not the reference `D:\aerial-ovd-store\venv` (Python 3.10.11, cu128). Pytest in the reference env is still unrecorded (E0 ran at 32ef56d, but no pytest result was recorded with it) |
 
 - **Sync:** via GitHub, remote `origin` = https://github.com/Himanshu-RG/Vision-Aerial-Imagery.git (branch `main`, first pushed 2026-10-20). Commits use each machine's global git identity: `Himanshu-RG` on the dev laptop, `Amit-adh` on the experiment machine (commit 2e26ba2).
 - **Pinned stack (both machines):** torch 2.7.1 / torchvision 0.22.1. Use the CPU wheels on the laptop and the **cu128** wheels on the RTX 5060 (Blackwell needs torch ≥ 2.7 + CUDA 12.8). `requirements.txt` now holds **exact pins** for every package, aligned to the RTX 5060 reference env (D13). `requirements-gpu.txt` (cu128) includes `requirements.txt` via `-r`. Exact locks are in `requirements-lock-<host>.txt`.
 - **Version alignment (M1, 2026-10-21):** the RTX 5060 (Python 3.10) had resolved numpy 2.2.6 / pandas 2.3.3 / matplotlib 3.10.9, while the laptop had 2.4.6 / 3.0.6 / 3.11.2. The laptop was reinstalled to the RTX 5060 versions. **Accepted residual differences:** the torch build (+cpu vs +cu128); the Python minor version (3.10 vs 3.11); the py3.10 backports `exceptiongroup`/`tomli` (RTX 5060 only); minor transitive versions of contourpy, fonttools, networkx, wcwidth.
 - **Checkpoints** (`configs/checkpoints.yaml`; the 2026-10-20 dry-run resolved these commits; the sha256 lock `configs/checkpoints.lock.json` is written on the first real download, D11):
-  - `IDEA-Research/grounding-dino-tiny` **downloaded and locked (M3)** at commit **`a2bb814dd30d776dcf7e30523b00659f4f141c71`**, fetched 2026-10-24 10:17 UTC on the dev laptop. Lock has sha256 + size of all 8 files, e.g. `model.safetensors` sha256 `1a2412ef…42f3` (689,359,096 bytes). The **RTX 5060 has not fetched it yet**: `fetch_checkpoints.py` re-uses the locked commit and aborts on any sha256 mismatch.
+  - `IDEA-Research/grounding-dino-tiny` **downloaded and locked (M3)** at commit **`a2bb814dd30d776dcf7e30523b00659f4f141c71`**, fetched 2026-10-24 10:17 UTC on the dev laptop. Lock has sha256 + size of all 8 files, e.g. `model.safetensors` sha256 `1a2412ef…42f3` (689,359,096 bytes). The **RTX 5060 has it too** (E0, 2026-10-25: "sha256 matches the lock", `reports/E0_headroom.md`). `fetch_checkpoints.py` re-uses the locked commit and aborts on any sha256 mismatch.
   - `chendelong/RemoteCLIP@bf1d8a3ccf…` (577.2 MB): not downloaded yet.
   - `timm/vit_base_patch32_clip_224.openai@a6f597a30f…` (577.2 MB): not downloaded yet. Both CLIP encoders are selector encoders (D7) for M4.
   - Dry-run total: 1.77 GB.
@@ -67,7 +67,7 @@ Full matrix with 13 works and verification levels ([FT] full text via LLM-assist
 |---|---|---|
 | **Grounding DINO** (Liu et al., ECCV 2024; arXiv 2303.05499; github IDEA-Research/GroundingDINO) [META+repo] | Detector used here. BERT text encoder, `max_text_len` = **256** in the grounding-dino-tiny config. HF checkpoint `IDEA-Research/grounding-dino-tiny`. | Primary detector |
 | **VocAda** (Liu, Hayes, Mancini, Ricci, Volpi, Csurka; ICIP 2025, pp. 540–545; arXiv 2506.00333; github OatmealLiu/VocAda) [FT] | Training-free pipeline: LLaVA-Next-7B caption → spaCy noun phrases → class selection by CLIP-text top-k (k=1 default) or by LLM. Detectors: Detic, VLDet, CoDet (**not GDINO**). Data: COCO OVE, Objects365 CDTE (**not aerial**). Gains up to +3.3 AP (COCO) and +2.2 AP (O365). Overhead 5.6 s/img with 17 GB (CLIP variant) or 10.7 s/img with 31 GB (LLM variant) on a V100. Retains 94.8% (CLIP) and 86.1% (LLM) of relevant classes. | Closest method; baseline E5 ("VocAda-style", not a reproduction) |
-| **Tsourveloudis, "Do Open-Vocabulary Detectors Transfer to Aerial Imagery? A Comparative Evaluation"** (arXiv 2601.22164, Jan 2026) [FT] | Zero-shot evaluation on LAE-80C of GDINO, OWLv2, YOLO-World, YOLOE, and LLMDet. **Oracle per-image vocabulary (~3.2 classes) gives ~15× higher F1 than the 80-class prompt** (0.5% → 7.4%). (Our M2 count from the LAE-80C JSON is **2.24** classes/image; the discrepancy is unexplained, §11. Our secondary, standard all-80-class evaluation (D15) is the one meant for comparability with this paper.) Prompt engineering ("Aerial view of", synonyms) does not help. Metrics are P/R/F1 with IoA 0.7, not COCO mAP. **No deployable selector.** It **explicitly calls for "intelligent vocabulary filtering" as future work.** It does not discuss the 256-token limit. | Closest study; motivates headroom; our E0 replicates its direction with mAP |
+| **Tsourveloudis, "Do Open-Vocabulary Detectors Transfer to Aerial Imagery? A Comparative Evaluation"** (arXiv 2601.22164, Jan 2026) [FT] | Zero-shot evaluation on LAE-80C of GDINO, OWLv2, YOLO-World, YOLOE, and LLMDet. **Oracle per-image vocabulary (~3.2 classes) gives ~15× higher F1 than the 80-class prompt** (0.5% → 7.4%). (Our M2 count from the LAE-80C JSON is **2.24** classes/image; the discrepancy is unexplained, §11. Our secondary, standard all-80-class evaluation (D15) is the one meant for comparability with this paper.) Prompt engineering ("Aerial view of", synonyms) does not help. Metrics are P/R/F1 with IoA 0.7, not COCO mAP. **No deployable selector.** It **explicitly calls for "intelligent vocabulary filtering" as future work.** It does not discuss the 256-token limit. | Closest study; motivates headroom; our E0 (2026-10-25) replicates its direction with COCO AP50 (§6 H1) |
 | **LAE-DINO / LAE-1M** (Pan et al., AAAI 2025, 39(6):6281–6289; arXiv 2408.09110; github jaychempan/LAE-DINO; HF `jaychempan/LAE-1M`, MIT) [AB+repo+HF] | Dynamic Vocabulary Construction is a **training-time** mechanism. LAE-80C benchmark: 80 classes, COCO JSON, images.zip 1.97 GB, built from DOTA-v2 / DIOR / FAIR1M / xView val splits. **Image count resolved in M2: 3,592 images, 86,558 boxes** (matches the citing paper). The HF README's "~20k (val)" does not describe this file. Facts from the file: §5a. | Primary dataset source |
 | **TagCLIP** (Lin et al., AAAI 2024, 38:3513–3521; arXiv 2312.12828; github linyq2117/TagCLIP) [AB+repo] | Training-free **local-to-global** CLIP multi-label classification for natural images (VOC2007 92.8 mAP, COCO2014 68.7 mAP). Tagging only, no downstream detector. | Direct overlap with the global–local idea; must be a baseline |
 | **CastDet** (Y. Li et al., ECCV 2024; arXiv 2311.11646; github lizzy8587/CastDet) [AB] | **Training-based** CLIP-activated student–teacher self-training with **RemoteCLIP as an extra teacher**, plus a dynamic label queue. **46.5% mAP on VisDroneZSD novel classes.** No vocabulary selection. | Aerial OVD context; supports RemoteCLIP for aerial semantics |
@@ -124,6 +124,10 @@ Full matrix with 13 works and verification levels ([FT] full text via LLM-assist
     - Token counts are unchanged: light 249, raw 251.
     - `prepare_lae80c.py` was re-run. Only `full_prompt_light_names` in the prepare report changed; the split is unchanged.
 - **H1:** oracle vocabulary > full vocabulary in mAP@50 on dev, with a bootstrap CI excluding 0 (the headroom).
+  - **Result (E0, 2026-10-25, `reports/E0_headroom.md`): SUPPORTED.** On 200 dev images, oracle_gt AP50@900 is **0.140** vs. full **0.015** (standard) / **0.028** (source-aware). Paired bootstrap difference vs. full: **+0.126 [+0.119, +0.187]** (standard) and **+0.112 [+0.102, +0.166]** (source-aware). Both CIs exclude 0. AR@900 rises from 0.124 to 0.467.
+  - Caveat: the percentile CIs are shifted (point estimate near the lower end; §11 risk 19). The report judges that H1 does not depend on the interval method, because the effect is ~10× its distance from 0.
+- **E0 finding: content, not size.** The size-matched random control (`random_matched`, 2.2 classes) is **no better than full**: −0.008 [−0.022, +0.008] standard (n.s.); −0.021 [−0.048, −0.006] source-aware (CI excludes 0). Fewer tokens alone do not help. A selector that drops present classes can do worse than the full vocabulary, so **vocabulary recall is the critical property**.
+- **E0 finding: per-image granularity is needed.** The source-label-space oracle (~21 classes) reaches only 0.031 AP50@900 vs. 0.140 for the GT oracle (~2 classes); within-source confusion dominates (per-source table in `reports/generated/E0_tables.md`, Table 3).
 - **H2:** some deployable global selector at a matched budget beats the full vocabulary.
 - **H3:** local evidence raises vocabulary recall for small-object classes at a matched mean vocabulary size.
 - **H4:** uncertainty-aware retention raises detection recall at a matched mean vocabulary size.
@@ -132,7 +136,11 @@ Full matrix with 13 works and verification levels ([FT] full text via LLM-assist
 - **H7 (added M2; `reports/M2_dataset.md` "New hypothesis"):** a substantial share of the full-vs-oracle gap under standard evaluation comes from **cross-source label-space mismatch** (§5a).
   - **Prediction:** the gap shrinks under source-aware evaluation (D15), and the source-label-space oracle recovers much of the per-image-oracle gain.
   - **Falsified if** the gap under source-aware evaluation stays within the bootstrap CI of the standard-evaluation gap.
-- **Gate:** M6/M7 proceed only if M4/M5 show a selector beating the full vocabulary on dev (H2 holds). If H1 fails, pivot to an analysis paper. If H1 holds but H2 fails, report the negative result and analyse selection errors before M5.
+  - **Result (E0, 2026-10-25): holds by the pre-registered criterion, but the share is small.** The source-aware gap (+0.112) lies below the standard-gap CI [+0.119, +0.187]. Only **~11% of the gap** (0.126 → 0.112) comes from how standard evaluation treats the disjoint label spaces; ~89% remains.
+    - The source-label-space oracle gains only **+0.003 [−0.010, +0.022] (n.s.)** under source-aware evaluation (+0.017 [+0.013, +0.045] under standard).
+    - Source-aware evaluation roughly doubles the full vocabulary's AP50@900 (0.015 → 0.028). Only 44,362 of its 180,000 predictions fall in the image's source label space (~75% go to classes not annotated for that source).
+    - Interpretation (report): the prior study's reading (overlapping classes confuse the detector) is largely confirmed; standard evaluation additionally inflates the full-vocabulary penalty. The H7 and random-control intervals should be read with the bootstrap caveat (§11 risk 19).
+- **Gate:** M6/M7 proceed only if M4/M5 show a selector beating the full vocabulary on dev (H2 holds). If H1 fails, pivot to an analysis paper. If H1 holds but H2 fails, report the negative result and analyse selection errors before M5. **Status after E0: H1 holds, so M4 (test H2) is the next step** (`reports/E0_headroom.md` "Decision").
 
 ## 7. Module roadmap & status
 | Module | Description | Status |
@@ -140,32 +148,41 @@ Full matrix with 13 works and verification levels ([FT] full text via LLM-assist
 | M0 | Literature audit & novelty | ✅ exit criteria met (`reports/M0_gap_hypotheses_novelty.md` §5). Pre-submission re-checks remain open (§5) |
 | M1 | Repo & compute audit | ✅ exit criteria met on both machines (`reports/M1_environment.md` "Exit criteria"). Open item: pytest in the RTX 5060 *reference* env (D13) not yet recorded (a 3.11.9 venv there passed 23/23) |
 | M2 | Dataset selection & validation, frozen protocol | ✅ exit criteria met (`reports/M2_dataset.md` "Exit criteria"): manifest, naming policy (D14), evaluation protocol defined (D15; implemented in M9), split frozen (D18). RTX 5060 full image validation **done** (3,592/3,592 OK) |
-| M3 | Grounding DINO baseline | 🟡 **pipeline ✅, GPU smoke + E0 pending** (`reports/M3_baseline.md` "Exit criteria"). Done: reproducible inference (pinned checkpoint + lock, config-hash run id, provenance), saved predictions, CPU smoke test on the laptop. Pending: GPU smoke on the RTX 5060, then baseline numbers (E0) |
-| M4 | Master vocab + simple baselines (A full, B fixed-reduced, C random, D global CLIP, E VocAda-style) | ⬜ |
+| M3 | Grounding DINO baseline | ✅ **pipeline + E0 baseline** (`reports/M3_baseline.md` "Exit criteria": all ✅). Reproducible inference (pinned checkpoint + lock, config-hash run id, provenance), saved predictions, CPU smoke (laptop), GPU smoke + full E0 on the RTX 5060 (run `e0_headroom-e8585910cbfb`, 0/800 failures). Full-vocabulary baseline on the 200-image dev sample: AP50@900 0.0146 standard / 0.0282 source-aware, AR@900 0.124, median latency 418 ms. The full-dev-split baseline comes with M4 |
+| M4 | Master vocab + simple baselines (A full, B fixed-reduced, C random, D global CLIP, E VocAda-style) | ⬜ **next** (pending the user's go-ahead). E0-derived design requirements: see "M4 to-do" below |
 | M5 | Global–local relevance | ⬜ |
 | M6 | Uncertainty-aware retention | ⬜ (gated) |
 | M7 | Adaptive budget | ⬜ (gated) |
 | M8 | Unified experiment runner (E1–E8) | ⬜ (grows with M3–M4; the M3 config-driven `scripts/run_detection.py` + `scripts/evaluate_run.py` are its starting point) |
-| M9 | Metrics + validation on known examples | 🟡 **evaluator validated with known-answer tests + bootstrap; P/R/F1 operating point pending**. Done: the standard and source-aware evaluators (D15), the known-answer tests (`reports/M3_baseline.md` "Evaluation"), and the paired bootstrap (fast AP50 matches COCOeval to 1e-9). The real-data fast-vs-COCOeval check passed on the CPU smoke run. Pending: P/R/F1 at an operating point chosen on dev. Bootstrap CIs cover AP50@900 only |
+| M9 | Metrics + validation on known examples | 🟡 **evaluator validated; bootstrap bias diagnostics added; E0 not yet re-scored with them; P/R/F1 operating point pending**. Done: the standard and source-aware evaluators (D15), the known-answer tests (`reports/M3_baseline.md` "Evaluation"), and the paired bootstrap (fast AP50 matches COCOeval to 1e-9). The real-data fast-vs-COCOeval check passed on the CPU smoke run. After E0 (uncommitted): `paired_bootstrap` also returns `boot_mean`, `boot_sd`, `bias`, `bias_flag` (|bias| > 0.25 · sd) and a "basic" (reverse-percentile) interval; the percentile CI stays the pre-registered headline; 1 new test. Pending: re-score E0 with the diagnostics (§12 step 5.8); P/R/F1 at an operating point chosen on dev. Bootstrap CIs cover AP50@900 only |
 | M10 | Failure analysis | ⬜ |
 | M11 | Cross-dataset generalization | ⬜ (VisDrone mapping deferred here from M2, D19) |
-| M12 | Efficiency / resume / profiling | ⬜ (cross-cutting) |
-| M13 | Reproducibility & tests | ⬜ (cross-cutting; 39 tests exist: 16 utility + 7 data/split/naming + 16 M3 evaluator/detector/conditions) |
+| M12 | Efficiency / resume / profiling | ⬜ (cross-cutting). From E0: profile the ~0.4 s/image absolute GDINO-T latency (HF implementation, fp32?) and confirm latency on an idle GPU (§11 risks 20–21) |
+| M13 | Reproducibility & tests | ⬜ (cross-cutting; 40 tests exist: 16 utility + 7 data/split/naming + 17 M3/M9 evaluator/detector/conditions) |
 | M14 | Paper / publication readiness | ⬜ |
 
 Dependency chain: M0 → M2. M1 → M2 → M3 → M4 → M5 → M6 → M7 → M10/M11 → M14. M9 runs alongside M3 and gates trust in its numbers.
 
 **M2 to-do (from `reports/M1_environment.md`): done.** Image count resolved (3,592); manifest built; boxes and categories validated and cleaned (D17); split frozen (D18); naming policy "light" + token re-check 249/256 (D14); VisDrone mapping deferred to M11 (D19).
 
-**M3 + M9 to-do** (from `reports/M2_dataset.md` "Next"; status from `reports/M3_baseline.md`):
+**M3 + M9 to-do** (from `reports/M2_dataset.md` "Next"; status from `reports/M3_baseline.md` and `reports/E0_headroom.md`):
 0. ~~RTX 5060 full image fetch~~ done 2026-10-24 (3,592/3,592 OK).
-1. ~~Fetch the GDINO-T checkpoint~~ done on the dev laptop; locked (§4). The RTX 5060 still has to fetch it (§12 step 5).
+1. ~~Fetch the GDINO-T checkpoint~~ done on both machines; locked (§4).
 2. ~~Detector inference with positive-map class scoring~~ done: `src/aerial_ovd/detector/gdino.py`, mean over tokens (D20 supersedes D5), top-900 (D21).
 3. ~~Source-aware and standard COCO evaluators with known-answer tests~~ done: `src/aerial_ovd/evaluation/coco_eval.py`, all known-answer tests pass.
 4. ~~CPU smoke test on the laptop~~ done. It was a pipeline check only and is not a result: 3 images × 4 conditions all `ok`, 900 detections each. The sampler rounding bug it exposed is fixed and tested.
-5. **Next:** on the RTX 5060, run pytest in the reference env, then the GPU smoke test, then E0 (§10), then evaluate and commit the metrics. Runbook: §12 step 5.
-6. After E0: decide the gates H1 (headroom) and H7 (label-space share) (§6), then go to M4.
-7. M9 remainder: P/R/F1 at an operating point chosen on dev (D15).
+5. ~~GPU smoke + E0 on the RTX 5060, evaluate, commit metrics~~ done 2026-10-25 (Amit, commit `c2d854f`). Still open: pytest in the reference env was not recorded (§11 risk 11).
+6. ~~Decide the gates H1 and H7~~ done: H1 supported, H7 holds by its criterion but the share is small (§6).
+7. **Open:** re-score E0 with the bootstrap bias diagnostics (§12 step 5.8).
+8. **Open (M9 remainder):** P/R/F1 at an operating point chosen on dev (D15).
+
+**M4 to-do: design requirements derived from E0** (`reports/E0_headroom.md` "Decision"; dev data only, no test data):
+- (a) high **vocabulary recall at small budgets** (2–5 classes);
+- (b) report the **vocabulary-recall vs. AP** relationship, because a dropped present class is costly (the random control shows that size alone does not help);
+- (c) budgets fine-grained at the small end, e.g. k ∈ {1, 2, 3, 5, 8, 12, 20, 40, 80};
+- (d) selector cost ≲ **85 ms/image** on the RTX 5060 for a latency win (H6);
+- (e) report both evaluation protocols (D15).
+- Interpretation limit: any selector's gain is capped by the oracle (≈ 0.140 AP50@900 on the E0 sample) and by the 18 classes the detector cannot find (§11 risk 18).
 
 ## 8. Frozen / chosen decisions
 | ID | Decision | Reason | Date |
@@ -222,20 +239,50 @@ vision/                      (git repo root, branch main; remote origin = github
                              fetch_lae80c_images.py (pinned images.zip → extract a split → validate every image),
                              run_detection.py (M3: config-driven runner; exact-size stratified sample, resume, incremental JSONL,
                                                failure/OOM logging, warm-up, GPU snapshot at start/end, provenance),
-                             evaluate_run.py (M3: both protocols, latency/memory summary, paired bootstrap vs `full`,
-                                              fast-vs-COCOeval consistency check that aborts on mismatch)
-  tests/                     39 unit tests (16 utility + test_data_lae80c.py: 7 + test_coco_eval.py and test_gdino_and_conditions.py: 16)
+                             evaluate_run.py (M3: both protocols, latency/memory summary, paired bootstrap vs `full` (+ bias
+                                              diagnostics after E0), fast-vs-COCOeval consistency check that aborts on mismatch),
+                             report_e0.py (E0: writes reports/generated/E0_tables.md from a metrics dir; no hand-typed numbers)
+  tests/                     40 unit tests (16 utility + test_data_lae80c.py: 7 + test_coco_eval.py and test_gdino_and_conditions.py: 17)
   outputs/{logs,predictions,metrics,figures,env}/   (predictions ignored; env + metrics committed)
                              predictions/<run_id>/: run_config.json, <condition>.jsonl, log.jsonl (run_id = <name>-<config hash>)
-                             metrics/<run_id>/: metrics.json, run_config.json (committed)
+                             metrics/<run_id>/: metrics.json, run_config.json (committed). E0: metrics/e0_headroom-e8585910cbfb/ (c2d854f)
   reports/                   per-module reports (M0_literature_matrix.md, M0_gap_hypotheses_novelty.md, M1_environment.md, M2_dataset.md,
-                             M3_baseline.md, ...)
+                             M3_baseline.md, E0_headroom.md, ...); reports/generated/ = script-generated tables (E0_tables.md)
 <store>/ (not committed)     hf_cache/, datasets/LAE-1M/ (raw HF download), datasets/LAE-80C-clean/{all,dev,test}.json (cleaned COCO GT;
                              sha256 in lae80c_prepare_report.json), datasets/LAE-80C-images/ (images), checkpoints/grounding-dino-tiny/ (M3)
 ```
 
-## 10. First experiment: E0 headroom check (configured in M3; **not run yet**)
+## 10. First experiment: E0 headroom check (configured in M3; **done 2026-10-25**, oracle diagnostic, not a method comparison)
 **Config:** `configs/experiments/e0_headroom.yaml`. Runbook commands: §12 step 5. Inference protocol: `reports/M3_baseline.md` "Inference protocol".
+**Report:** `reports/E0_headroom.md`. **Tables:** `reports/generated/E0_tables.md` (generated by `scripts/report_e0.py` from `outputs/metrics/e0_headroom-e8585910cbfb/metrics.json`).
+
+**Run:** `e0_headroom-e8585910cbfb` on `LAPTOP-5CPRTI27` (RTX 5060, torch 2.7.1+cu128, CUDA 12.8), code at `32ef56d` (clean tree), metrics committed by Amit in `c2d854f`. Checkpoint `a2bb814dd3` (sha256 matches the lock). 200 dev images, no test images. **0 / 800** (image, condition) failures. Model load 14.94 s. GPU at start: 1,716 MB used by other processes (nvidia-smi), 0% util, 10 W; at end: 97% util, 100.7 W.
+
+**Results** (AP50@900; latency = median end-to-end, forward in parentheses):
+
+| Condition | Mean vocab (tokens) | AP50 standard | AP50 source-aware | AR@900 | R50 small/med/large | Latency ms | Peak MB |
+|---|---|---|---|---|---|---|---|
+| full (deployable) | 80 (249) | 0.0146 | 0.0282 | 0.124 | 0.106/0.186/0.379 | 418 (380) | 2188 |
+| oracle diagnostic: source label space | 20.7 (63) | 0.0311 | 0.0311 | 0.293 | 0.243/0.397/0.700 | 344 (308) | 1907 |
+| oracle diagnostic: GT classes in image | 2.2 (8) | 0.1404 | 0.1404 | 0.467 | 0.450/0.694/0.916 | 333 (297) | 1902 |
+| control: random, size-matched | 2.2 (9) | 0.0070 | 0.0075 | 0.015 | 0.011/0.014/0.052 | 332 (296) | 1899 |
+
+Paired bootstrap of the AP50@900 difference vs. full (1,000 resamples, 95% percentile CI; `*` = excludes 0):
+- oracle_gt: +0.1258 [+0.1193, +0.1865]* standard; +0.1122 [+0.1021, +0.1663]* source-aware.
+- oracle_source: +0.0165 [+0.0134, +0.0446]* standard; +0.0029 [−0.0100, +0.0215] source-aware.
+- random_matched: −0.0076 [−0.0218, +0.0079] standard; −0.0207 [−0.0477, −0.0061]* source-aware.
+- The metrics file predates the bias diagnostics (§12 step 5.8).
+
+**Summary of findings** (details in the report):
+- H1 supported; H7 holds but explains only ~11% of the gap (§6).
+- Content, not size: the random control is no better than full.
+- Within-source confusion dominates. Per-source mean per-class AP50, source-aware, full → source oracle → GT oracle: DIOR 0.060 → 0.064 → 0.259; FAIR 0.011 → 0.018 → 0.117; xView 0.013 → 0.012 → 0.085.
+- Small objects gain most in recall (R50 small 0.106 → 0.450).
+- Detector ceiling: 18 of 75 classes stay at ~0 AP50 even with the oracle (§11 risk 18).
+- Efficiency: small vocabularies cut median latency 418 → ~333 ms (−20%), so a selector must cost ≲ 85 ms/image to be latency-neutral at oracle-like sizes (H6).
+- Success criterion (§10 "Criteria" below) met: 0 failures, oracle > full with CIs excluding 0. Decision: build deployable selectors (M4) and test H2.
+
+**Pre-run plan (kept for the record):**
 - **Sample:** 200 dev images from the frozen dev split (D18), exact-size class-stratified, sample seed 2026 (D22).
 - **Hardware:** RTX 5060, reference env (D9, D13).
 - **Detector settings:**
@@ -264,7 +311,7 @@ Every condition is scored under **both evaluations** (D15): primary source-aware
 - **Rethink if:** oracle ≈ full (no headroom), or oracle AP50 ≈ 0 (detector too weak, so address tiling first, §11 risk 17).
 
 ## 11. Risks / open issues
-1. GDINO-T may be near the floor on aerial images (the prior study saw ~4% recall even with an oracle vocabulary). Tiling may be needed, applied identically to all methods.
+1. GDINO-T may be near the floor on aerial images (the prior study saw ~4% recall even with an oracle vocabulary). Tiling may be needed, applied identically to all methods. **Partly confirmed by E0 (2026-10-25):** the full vocabulary gives only 0.015 / 0.028 AP50@900 (standard / source-aware) and even the GT oracle only 0.140 (AR@900 0.467). See risk 18.
 2. 256-token limit: resolved for raw names (251/256) and for the frozen "light" names (**249/256**, D14), but the **7-token margin** means any prefix or synonym change can silently truncate. Always re-run the token check (D10).
 3. ~~LAE-80C image count is unresolved~~ **Resolved in M2 (2026-10-24):** the annotation JSON has **3,592 images** (86,558 boxes), matching the citing paper. The HF README's "~20k (val)" does not describe this file.
 4. **LAE-80C class names have naming problems:**
@@ -276,14 +323,18 @@ Every condition is scored under **both evaluations** (D15): primary source-aware
 7. ~~No GitHub remote~~ Resolved 2026-10-20: `origin` configured and pushed. Large files (data, checkpoints, predictions) are still not backed up off-machine.
 8. [FT] literature facts were extracted by LLM-assisted querying, not a line-by-line read. Re-verify numbers before quoting them.
 9. Determinism is best-effort (`warn_only=True`); some CUDA ops are nondeterministic.
-10. **RTX 5060 GPU-memory anomaly (largely explained):** at the first audit nvidia-smi reported 7081/8151 MB used; the 2026-10-24 re-audit shows 1665/8151 MB, so the earlier reading was another process using the GPU, not an accounting bug. Before any latency or memory run (D9), confirm the GPU is idle and record `torch.cuda.mem_get_info()` at run start. This is an **M12 requirement**. It is partly implemented in M3: `run_detection.py` records `gpu_at_start` / `gpu_at_end` in `run_config.json` (torch free/total, nvidia-smi used MB, util %, power). Confirming that the GPU is idle remains a manual step.
-11. On the RTX 5060, `pytest` passed 23/23 in a **Python 3.11.9 venv** that is not the audited reference env (`D:\aerial-ovd-store\venv`, Python 3.10.11, cu128). Experiments must run in the reference env; re-run `pytest` there and record it before the first GPU experiment. Expect 39 tests after pulling M3. `run_detection.py` exits with code 2 if the config asks for CUDA and none is available (wrong venv).
+10. **RTX 5060 GPU-memory anomaly (largely explained):** at the first audit nvidia-smi reported 7081/8151 MB used; the 2026-10-24 re-audit shows 1665/8151 MB, and E0's start snapshot 1,716 MB (risk 20), so the earlier reading was another process using the GPU, not an accounting bug. Before any latency or memory run (D9), confirm the GPU is idle and record `torch.cuda.mem_get_info()` at run start. This is an **M12 requirement**. It is partly implemented in M3: `run_detection.py` records `gpu_at_start` / `gpu_at_end` in `run_config.json` (torch free/total, nvidia-smi used MB, util %, power). Confirming that the GPU is idle remains a manual step.
+11. On the RTX 5060, `pytest` passed 23/23 in a **Python 3.11.9 venv** that is not the audited reference env (`D:\aerial-ovd-store\venv`, Python 3.10.11, cu128). Experiments must run in the reference env; re-run `pytest` there and record it before the first GPU experiment. **Still unrecorded after E0** (E0 ran in the reference venv per `reports/E0_headroom.md`, but no pytest result was recorded). Expect 40 tests after pulling the post-E0 commit. `run_detection.py` exits with code 2 if the config asks for CUDA and none is available (wrong venv).
 12. **Disjoint label spaces + source-identifying image sizes (shortcut risk).** The five sources annotate disjoint class sets, and image size reveals the source (600² FAIR, 800² DIOR, 1024² xView/DOTA, irregular PP; §5a). A selector that sees size or metadata could "learn" the label space instead of the image content. Mitigation: D16 (pixels only; M4 tests on the selector API); evaluator-only use of the source (D15). Note: pixels at the selector's fixed preprocessing may still carry source cues (resolution, sensor style); this is not tested yet.
 13. **Long tail:** `helipad` is in 1 image in the whole benchmark (test only, so absent from dev and untunable); 16 classes have only 1–2 dev images; `container crane`, `Flat Car`, `Straddle Carrier`, `Reach Stacker` are in 3–5 images overall. Per-class AP is unreliable; pool rare classes by frequency band (D15). `PP-4C` has only 31 images (8 in dev). In E0 (200 images) per-class AP covers only the classes present in the sample (75 of the 79 dev classes, D22), and PP has only 2 images there.
 14. **Exhaustive within-source annotation is an unverified assumption.** Under the source-aware evaluation (D15), a correct detection of an unannotated object of an in-label-space class counts as a false positive; if a source is not exhaustively annotated, scores are biased downward. Standard for DIOR/DOTA/FAIR1M/xView, but not checked by us.
 15. **Classes per image 2.24 (our count from the JSON) vs. ~3.2 in arXiv 2601.22164 is unexplained.** It affects the comparability of our oracle-vocabulary results with that paper. Possible causes are not investigated (TBD).
 16. **HF-vs-official numerical equivalence is not verified.** HF transformers re-implements Grounding DINO. We assume it matches the official IDEA-Research code because both use the same checkpoint, preprocessing, caption format, and class scoring (D20). That has not been checked against the official code. Any comparison with numbers from the official repo must carry this caveat (`reports/M3_baseline.md` "Known limitations").
-17. **Single resolution; 59% of objects are small.** E0 runs at one resolution (shortest edge 800, longest ≤ 1333). 59.3% of boxes are COCO-small (62.3% in dev, §5a), so recall on small objects may be bounded by resolution and not by vocabulary (compare risk 1). If tiling is added later, it must apply identically to all methods.
+17. **Single resolution; 59% of objects are small.** E0 runs at one resolution (shortest edge 800, longest ≤ 1333). 59.3% of boxes are COCO-small (62.3% in dev, §5a), so recall on small objects may be bounded by resolution and not by vocabulary (compare risk 1). If tiling is added later, it must apply identically to all methods. E0: small objects benefit most in recall (R50 small 0.106 full → 0.450 GT oracle); per the report, tiling could still change the ceiling (risk 18).
+18. **Detector ceiling (E0).** Even with the GT-oracle vocabulary, AP50@900 is only **0.140**, and **18 of 75 classes stay at ~0 AP50**: fine-grained vehicles (Pickup Truck, Utility Truck, Passenger Car, Cargo Car, Truck Tractor, Tractor), attribute classes (working chimney, unworking chimney, unworking condensing tower), and basketball court, tennis court, Intersection, Locomotive, Front loader/Bulldozer, Ground Grader, Aircraft Hangar, Construction Site, Tower. No vocabulary selector can fix these; they cap what selection can achieve with GDINO-T at this resolution. Any selector gain must be framed against this ceiling.
+19. **Bootstrap percentile shift (E0).** The point estimates sit near the lower end of the percentile CIs (e.g. +0.126 in [+0.119, +0.187]), so the resampling distribution is shifted. A plausible cause is that categories drop out of resamples, which changes the per-class mean AP. **Mitigation (uncommitted at the time of writing):** `paired_bootstrap` now reports `boot_mean`, `boot_sd`, `bias`, `bias_flag` and a "basic" interval. **E0 must be re-scored** on the RTX 5060, where the predictions live (§12 step 5.8). H1 does not depend on the interval method; read the H7 and random-control intervals with this caveat.
+20. **E0 latency was measured on a GPU that was not idle (D9 not fully met).** At run start nvidia-smi showed **1,716 MB** in use by other processes (0% util, 10 W; `run_config.json` `gpu_at_start`). Amit's commit message attributes this to the display running on the RTX 5060. Accuracy is unaffected, but **latency must be re-confirmed on an idle GPU before any number goes into the paper**.
+21. **High absolute latency (~0.4 s/image).** GDINO-T median end-to-end latency is 418 ms (full) / ~333 ms (small vocabularies) on the RTX 5060, which is high for this GPU. The overhead is identical across conditions, so comparisons are fair. The cause (HF implementation, fp32) is unprofiled: **profile in M12**.
 
 ## 12. How to resume (for any agent)
 1. Read this file fully, then the latest `reports/M*_*.md`.
@@ -303,7 +354,13 @@ Every condition is scored under **both evaluations** (D15): primary source-aware
       - Re-running the same command, or passing `--resume outputs/predictions/<run_id>`, continues an interrupted run.
       - Failed images are logged and stay in the denominator.
    6. `python scripts/evaluate_run.py outputs/predictions/<run_id>`. It writes `outputs/metrics/<run_id>/{metrics.json, run_config.json}`, prints the summary table and the bootstrap CIs, and aborts if fast AP50 ≠ COCOeval.
-   7. Commit `outputs/metrics/<run_id>/` (predictions are gitignored) and write the E0 report. Then run the context-keeper (step 6).
+   7. Commit `outputs/metrics/<run_id>/` (predictions are gitignored) and write the E0 report. Then run the context-keeper (step 6). *(Steps 1–7 done 2026-10-25 except the pytest record in step 1: run `e0_headroom-e8585910cbfb`, commit `c2d854f`.)*
+   8. **Re-score E0 with the bootstrap bias diagnostics (Amit, RTX 5060; the predictions exist only there).** In the reference env:
+      - `git pull` (brings the updated `coco_eval.py`, `scripts/report_e0.py`, and this file);
+      - `python scripts/evaluate_run.py outputs/predictions/e0_headroom-e8585910cbfb`;
+      - `python scripts/report_e0.py outputs/metrics/e0_headroom-e8585910cbfb` (rewrites `reports/generated/E0_tables.md`);
+      - commit `outputs/metrics/e0_headroom-e8585910cbfb/` and `reports/generated/`.
+      - Then compare the new tables with `reports/E0_headroom.md`. Point estimates and percentile CIs should not change (same seed); update the report if the bias flags or basic intervals change any conclusion.
 6. Follow the rules in §3. After finishing a phase, run the **context-keeper** agent (`.claude/agents/context-keeper.md`). It updates this file from repo facts only (§4–§8, §13, §14) and does not commit; the lead reviews and commits.
 
 ## 13. Change log
@@ -317,6 +374,7 @@ Every condition is scored under **both evaluations** (D15): primary source-aware
 | 2026-10-24 | M2 end (after 2c36846) | Context-keeper update from `reports/M2_dataset.md` + `data/manifests/*`: header; §4 data policy (dev 730 images, 399 MB; RTX 5060 full fetch pending); §5 LAE-80C image count resolved (3,592) and new §5a dataset facts; §6 H0 re-check 249/256 and new H7; §7 M2 ✅ (RTX 5060 full image validation pending), M3 + M9 next, M13 23 tests; §8 D14–D17 added, D18 (D2 executed: dev 730 / test 2,862, seed 2026, ID-list sha256), D19 (D3 refinement: VisDrone mapping deferred to M11); §9 new files; §10 E0 adds the source-label-space oracle and both evaluations; §11 risk 3 resolved, risks 2/4/6/11 updated, risks 12–15 added; §12 data step for the RTX 5060; §14 M2 row |
 | 2026-10-24 | M2 close-out | RTX 5060 (Amit, commits 6b70fe3, 89b937b, b95a7be): all 3,592 images OK, zip sha256 identical; env re-audited in the reference venv (Python 3.10.11, cu128, all pins match; nvidia-smi 1665 MB used). Fixes: the 5060 lock file converted from UTF-16 to UTF-8; `env_audit.py --write-lock` added (no shell redirection); `fetch_lae80c_images.py` keeps earlier zip facts on re-run, and the 5060 check file's zip fields restored from 6b70fe3. Open: pytest in the reference env |
 | 2026-10-24 | M3 pipeline + M9 evaluator (after 1bc146a) | Context-keeper update from `reports/M3_baseline.md`, the lock file, the E0 config and the new code. Header: next = E0 on the RTX 5060. §4: GDINO-T downloaded and locked (`a2bb814d…`, `model.safetensors` `1a2412ef…`); tests 39; disk / nvidia-smi / audit commits refreshed from the 2026-10-24 env JSONs; mangled venv path fixed (also in §11 risk 11). §6: H0 re-check with the official caption format (249/251 unchanged). §7: M3 🟡, M9 🟡, M13 39 tests, M3+M9 to-do updated. §8: D20 (supersedes D5), D21, D22. §9: new files. §10: E0 config (fp32, not fp16), conditions, metrics. §11: risks 6/10/11/13 updated, risks 16–17 added. §12: E0 runbook (step 5). §14: M2 close-out commit filled in, M3 row |
+| 2026-10-25 | E0 headroom check (after c2d854f) | Context-keeper update from `reports/E0_headroom.md`, `reports/generated/E0_tables.md`, `outputs/metrics/e0_headroom-e8585910cbfb/{metrics.json,run_config.json}`, the updated `reports/M3_baseline.md` and the uncommitted bootstrap-diagnostics diff. Header: M3 ✅, E0 done, next = M4 pending the user's go-ahead. §4: tests 40 (dev laptop, 2026-10-25); GDINO-T present on the RTX 5060. §5: 2601.22164 row notes E0 replication. §6: H1 SUPPORTED, H7 holds by its criterion but explains ~11% of the gap, "content not size" and per-image-granularity findings, gate status. §7: M3 ✅, M4 next with E0-derived design requirements (a)–(e), M9 🟡 (bias diagnostics added, E0 re-score pending), M12 profiling note, M13 40 tests, M3+M9 to-do closed out. §9: `scripts/report_e0.py`, `reports/E0_headroom.md`, `reports/generated/`, E0 metrics dir. §10: E0 results table, bootstrap CIs, findings summary. §11: risk 1 partly confirmed; risks 10/11/17 updated; risks 18 (detector ceiling), 19 (bootstrap percentile shift), 20 (GPU not idle, 1,716 MB), 21 (~0.4 s/image latency) added. §12: step 5.8 (re-score E0 with the diagnostics). §14: M3 commit filled in (`32ef56d`), E0 rows. README status line updated |
 
 ## 14. Phase log
 | Phase | Commit | Key commands | Outcome |
@@ -329,4 +387,6 @@ Every condition is scored under **both evaluations** (D15): primary source-aware
 | M1 version alignment | `caa24df` | exact pins in `requirements.txt`; laptop reinstalled to match; `pytest` (16/16); `python scripts/env_audit.py`; laptop lock refreshed | Both machines on numpy 2.2.6 / pandas 2.3.3 / matplotlib 3.10.9; D13 recorded; M1 ✅; next M2 |
 | M2 dataset & frozen protocol (dev laptop `LAPTOP-8N8B1VIP`, 2026-10-24) | `427b885` | `python scripts/prepare_lae80c.py` (2nd run: byte-identical outputs, verified); `python scripts/check_prompt_length.py --classes configs/lae80c_classes_light.txt`; `python scripts/fetch_lae80c_images.py --split dev --delete-zip`; `pytest` | Image count resolved (3,592 images / 86,558 boxes → 86,539 after cleaning, D17); disjoint source label spaces found (H7, D15); split frozen dev 730 / test 2,862 (D18); "light" names 249/256 tokens (D14); dev images 730/730 OK; **23 passed**. M2 ✅ |
 | M2 close-out (RTX 5060 data + env fixes) | `1bc146a` (RTX 5060 artifacts: `6b70fe3`, `89b937b`, `b95a7be`) | on `LAPTOP-5CPRTI27`: `python scripts/fetch_lae80c_images.py --split all --delete-zip` (run twice), `python scripts/env_audit.py`; on the laptop: lock re-encoding, `env_audit.py --write-lock`, `pytest` (23 passed) | All 3,592 images OK on the experiment machine; lock files readable; M2 fully closed |
-| M3 pipeline + M9 evaluator validation (dev laptop `LAPTOP-8N8B1VIP`, 2026-10-24) | (this commit) | `scripts/fetch_checkpoints.py` (GDINO-T only; lock written 2026-10-24 10:17 UTC); `python scripts/prepare_lae80c.py` (re-run for the official prompt format: only `full_prompt_light_names` changed, split unchanged); `scripts/check_prompt_length.py` (light 249, raw 251, unchanged); `python scripts/run_detection.py --config configs/experiments/e0_headroom.yaml --device cpu --n-images 4` (smoke run `e0_headroom-6690095f1631`: 3 images because of a sampler rounding bug, since fixed); `scripts/evaluate_run.py` on the smoke run (metrics deleted, not results); `pytest` (**39 passed**) | Detector wrapper, E0 conditions, runner, and evaluator built. Known-answer tests and the bootstrap validated; the smoke run's consistency check passed. D20–D22 recorded. M3 🟡 / M9 🟡. **No experimental results yet**; next is E0 on the RTX 5060 |
+| M3 pipeline + M9 evaluator validation (dev laptop `LAPTOP-8N8B1VIP`, 2026-10-24) | `32ef56d` | `scripts/fetch_checkpoints.py` (GDINO-T only; lock written 2026-10-24 10:17 UTC); `python scripts/prepare_lae80c.py` (re-run for the official prompt format: only `full_prompt_light_names` changed, split unchanged); `scripts/check_prompt_length.py` (light 249, raw 251, unchanged); `python scripts/run_detection.py --config configs/experiments/e0_headroom.yaml --device cpu --n-images 4` (smoke run `e0_headroom-6690095f1631`: 3 images because of a sampler rounding bug, since fixed); `scripts/evaluate_run.py` on the smoke run (metrics deleted, not results); `pytest` (**39 passed**) | Detector wrapper, E0 conditions, runner, and evaluator built. Known-answer tests and the bootstrap validated; the smoke run's consistency check passed. D20–D22 recorded. M3 🟡 / M9 🟡. **No experimental results yet**; next is E0 on the RTX 5060 |
+| E0 headroom check (RTX 5060 `LAPTOP-5CPRTI27`, Amit, 2026-10-25) | `c2d854f` (code at `32ef56d`, clean tree) | `python scripts/run_detection.py --config configs/experiments/e0_headroom.yaml` (GPU smoke with `--n-images 5` first, per the §12 runbook; exact commands not recorded in the report); `python scripts/evaluate_run.py outputs/predictions/e0_headroom-e8585910cbfb` | Run `e0_headroom-e8585910cbfb`: 200 dev images × 4 conditions, 0/800 failures; metrics + run config committed. H1 supported (oracle_gt AP50@900 0.140 vs. full 0.015 std / 0.028 src-aware, CIs exclude 0); H7 holds but small (~11% of the gap). GPU had 1,716 MB in use at start |
+| E0 analysis + bootstrap diagnostics (dev laptop `LAPTOP-8N8B1VIP`, 2026-10-25) | (this commit) | `python scripts/report_e0.py outputs/metrics/e0_headroom-e8585910cbfb` (writes `reports/generated/E0_tables.md`); `pytest` (**40 passed**) | `reports/E0_headroom.md` written; M3 report updated (M3 ✅); `paired_bootstrap` bias diagnostics + basic interval + 1 test (E0 not yet re-scored with them, §12 step 5.8). Next: M4, pending the user's go-ahead |

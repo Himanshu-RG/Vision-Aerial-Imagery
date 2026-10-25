@@ -212,5 +212,15 @@ def paired_bootstrap(m_a: dict, m_b: dict, n_boot: int = 1000, seed: int = 0, al
         s = [ids[j] for j in rng.integers(0, len(ids), len(ids))]
         diffs.append(ap50_from_matches(m_b, s) - ap50_from_matches(m_a, s))
     lo, hi = np.quantile(diffs, [alpha / 2, 1 - alpha / 2])
+    d = np.asarray(diffs)
+    boot_mean, boot_sd = float(d.mean()), float(d.std(ddof=1))
+    # Percentile CI is the pre-registered headline. Mean AP over categories is not a smooth statistic
+    # (rare categories drop out of resamples), so the bootstrap distribution can be shifted; we also
+    # report the bias and the "basic" (reverse-percentile) interval as a diagnostic.
+    basic_lo, basic_hi = 2 * point - hi, 2 * point - lo
     return {"diff_point": point, "ci_low": float(lo), "ci_high": float(hi), "n_boot": n_boot, "seed": seed,
-            "ci_excludes_zero": bool(lo > 0 or hi < 0)}
+            "ci_excludes_zero": bool(lo > 0 or hi < 0),
+            "boot_mean": boot_mean, "boot_sd": boot_sd, "bias": boot_mean - point,
+            "bias_flag": bool(abs(boot_mean - point) > 0.25 * boot_sd) if boot_sd > 0 else False,
+            "basic_ci_low": float(basic_lo), "basic_ci_high": float(basic_hi),
+            "basic_ci_excludes_zero": bool(basic_lo > 0 or basic_hi < 0)}

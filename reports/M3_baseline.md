@@ -5,7 +5,8 @@ Build a trustworthy, reproducible reference pipeline (frozen Grounding DINO → 
 
 ## Status
 - Pipeline implemented and validated on the dev laptop (CPU, 3-image smoke test).
-- **No experimental results yet.** E0 runs on the RTX 5060; it is the next step.
+- **2026-10-25: E0 ran on the RTX 5060** (`e0_headroom-e8585910cbfb`, 0 failures). Results are in `reports/E0_headroom.md`.
+- Full-vocabulary baseline on the 200-image dev sample: AP50@900 0.0146 (standard) / 0.0282 (source-aware); AR@900 0.124; median latency 418 ms.
 
 ## Files
 | Path | Purpose |
@@ -85,10 +86,10 @@ With 3 images the numbers have no statistical meaning, so they are deliberately 
 | Reproducible inference with recorded parameters | ✅ (pinned checkpoint + lock, config hash run id, provenance) |
 | Validated metrics | ✅ known-answer tests + real-data consistency check |
 | Saved predictions | ✅ JSONL per condition (not committed); metrics + run config committed |
-| Smoke test before the full run | ✅ CPU (laptop); ⏳ GPU smoke on the RTX 5060 |
-| Baseline numbers | ⏳ E0 on the RTX 5060 |
+| Smoke test before the full run | ✅ CPU (laptop); ✅ GPU smoke + full run on the RTX 5060 |
+| Baseline numbers | ✅ full-vocabulary baseline on 200 dev images (E0). The full-dev-split baseline comes with M4 |
 
 ## Next
-1. The RTX 5060 runs the GPU smoke test, then E0 (commands in CONTEXT §12 / the chat runbook).
-2. Evaluate E0, then decide per the M0 gates: H1 (headroom) and H7 (label-space share).
-3. Then M4 baselines.
+1. ~~RTX 5060: GPU smoke test, then E0~~ done 2026-10-25 (see `reports/E0_headroom.md`).
+2. Re-score E0 on the RTX 5060 with the bootstrap bias diagnostics (`evaluate_run.py` + `report_e0.py`).
+3. M4: deployable selectors and simple baselines, following the design requirements in `reports/E0_headroom.md` ("Decision").

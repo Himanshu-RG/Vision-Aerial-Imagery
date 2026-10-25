@@ -125,3 +125,16 @@ def test_paired_bootstrap_identical_conditions_gives_zero():
     m = per_image_matches(gt, preds, ids)
     r = paired_bootstrap(m, m, n_boot=50, seed=1)
     assert r["diff_point"] == 0 and r["ci_low"] == 0 and r["ci_high"] == 0 and not r["ci_excludes_zero"]
+
+
+def test_paired_bootstrap_reports_bias_diagnostics():
+    from aerial_ovd.evaluation.coco_eval import paired_bootstrap, per_image_matches
+
+    gt, preds_a = _random_case(6)
+    _, preds_b = _random_case(7)
+    ids = [im["id"] for im in gt["images"]]
+    r = paired_bootstrap(per_image_matches(gt, preds_a, ids), per_image_matches(gt, preds_b, ids), n_boot=100, seed=0)
+    for key in ("boot_mean", "boot_sd", "bias", "bias_flag", "basic_ci_low", "basic_ci_high"):
+        assert key in r
+    assert r["basic_ci_low"] == pytest.approx(2 * r["diff_point"] - r["ci_high"])
+    assert r["bias"] == pytest.approx(r["boot_mean"] - r["diff_point"])
