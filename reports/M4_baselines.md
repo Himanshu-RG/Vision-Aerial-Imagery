@@ -45,7 +45,7 @@ Vocabulary recall (mean over images of |selected ∩ GT| / |GT|), from the gener
 4. **Small objects are lost by global evidence.** At k = 5, the share of (image, class) pairs whose objects are mostly small (< 32² px) that get selected is **0.043 for CLIP and 0.155 for RemoteCLIP**, vs 0.435 / 0.354 for the other pairs.
    - This is direct, pre-registered-style evidence for the M5 motivation: global image embeddings under-represent small objects, so local (crop) evidence is needed.
    - Caveat: small-dominated pairs are mostly FAIR vehicles, so object size and source are confounded. M5 should break the analysis down by source.
-5. **Cost:** ~50 ms per image for either CLIP on the laptop CPU. GPU timing for H6 is pending on the RTX 5060. E0 implies a budget of ≲ 85 ms per image for a net latency win.
+5. **Cost:** ~50–70 ms per image for either CLIP on the laptop CPU (49–52 ms in one run, 69–71 ms in the next; CPU timing is noisy and not a latency result). GPU timing for H6 is pending on the RTX 5060. E0 implies a budget of ≲ 85 ms per image for a net latency win.
 
 ## Step 2 — detection with selected vocabularies (pending, RTX 5060)
 - Config `configs/experiments/m4_selectors_detection.yaml`: the same 200-image dev sample and detector settings as E0.
