@@ -117,3 +117,83 @@ def vocabulary_recall(selected: np.ndarray, gt: set[int]) -> float:
     if not gt:
         raise ValueError("vocabulary recall is undefined for an image without GT classes")
     return len(set(selected.tolist()) & gt) / len(gt)
+
+
+# ---------------------------------------------------------------------------------------------
+# Module 5: global + local (crop) evidence.
+# Every view (the whole image and each crop) is scored with CLIP; per-view class probabilities use
+# the model's own logit scale (softmax over the master vocabulary), so global and local evidence are
+# on the same scale. Views are stored once; combinations are evaluated offline (see m5 script).
+# ---------------------------------------------------------------------------------------------
+
+DEFAULT_GRIDS = (2, 3, 4)       # fixed a priori: 4 + 9 + 16 = 29 crops
+DEFAULT_OVERLAP = 0.25          # each crop is 25% larger than its grid cell (overlap with neighbours)
+
+
+def crop_boxes(width: int, height: int, grid: int, overlap: float = DEFAULT_OVERLAP) -> list[tuple[int, int, int, int]]:
+    """Overlapping grid x grid crops covering the image; boxes (x0, y0, x1, y1) in pixels."""
+    if grid < 1 or not 0 <= overlap < 1:
+        raise ValueError("grid >= 1 and 0 <= overlap < 1 required")
+    cw = min(width, round(width / grid * (1 + overlap)))
+    ch = min(height, round(height / grid * (1 + overlap)))
+    xs = [round(i * (width - cw) / (grid - 1)) for i in range(grid)] if grid > 1 else [0]
+    ys = [round(j * (height - ch) / (grid - 1)) for j in range(grid)] if grid > 1 else [0]
+    return [(x, y, x + cw, y + ch) for y in ys for x in xs]
+
+
+def view_logits(sel: "CLIPSelector", image, grids=DEFAULT_GRIDS, overlap: float = DEFAULT_OVERLAP,
+                batch: int = 32):
+    """Scaled logits (logit_scale * cosine) for the whole image and every crop.
+
+    Returns (global_logits (C,), crop_logits (V, C), crop_grid_ids (V,), boxes (V, 4)).
+    Only the pixels are used (rule D16): crop geometry depends on the decoded image size only.
+    """
+    import torch
+
+    W, H = image.size
+    boxes, gids = [], []
+    for g in grids:
+        for b in crop_boxes(W, H, g, overlap):
+            boxes.append(b)
+            gids.append(g)
+    views = [image] + [image.crop(b) for b in boxes]
+    scale = float(sel.model.logit_scale.exp()) if hasattr(sel.model, "logit_scale") else 100.0
+    out = []
+    with torch.no_grad():
+        for i in range(0, len(views), batch):
+            x = torch.stack([sel.preprocess(v) for v in views[i:i + batch]]).to(sel.device)
+            e = sel.model.encode_image(x).float()
+            e = e / e.norm(dim=-1, keepdim=True)
+            out.append((scale * e @ sel.text_emb.T).cpu())
+    logits = torch.cat(out).numpy().astype(np.float32)
+    return logits[0], logits[1:], np.array(gids, dtype=np.int16), np.array(boxes, dtype=np.int32)
+
+
+def softmax(x: np.ndarray, axis: int = -1) -> np.ndarray:
+    z = x - x.max(axis=axis, keepdims=True)
+    e = np.exp(z)
+    return e / e.sum(axis=axis, keepdims=True)
+
+
+def combine_views(global_logits: np.ndarray, crop_logits: np.ndarray, crop_grid_ids: np.ndarray,
+                  alpha: float, agg: str = "max", grids=DEFAULT_GRIDS) -> np.ndarray:
+    """score_c = alpha * p_global(c) + (1 - alpha) * agg_{crops in grids} p_crop(c).
+
+    alpha = 1 -> global only; alpha = 0 -> local only. Probabilities are per-view softmax over classes.
+    """
+    if not 0 <= alpha <= 1:
+        raise ValueError("alpha must be in [0, 1]")
+    pg = softmax(global_logits.astype(np.float64))
+    if alpha == 1.0:
+        return pg
+    mask = np.isin(crop_grid_ids, list(grids))
+    if not mask.any():
+        raise ValueError("no crops for the requested grids")
+    pc = softmax(crop_logits[mask].astype(np.float64), axis=-1)
+    if agg == "max":
+        pl = pc.max(axis=0)
+    elif agg == "mean":
+        pl = pc.mean(axis=0)
+    else:
+        raise ValueError("agg must be 'max' or 'mean'")
+    return alpha * pg + (1 - alpha) * pl

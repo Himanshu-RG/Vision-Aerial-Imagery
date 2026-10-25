@@ -24,3 +24,5 @@ __pycache__/
 .DS_Store
 Thumbs.db
 .vscode/
+outputs/selection/*/views_*.npz
+outputs/selection_gpu/*/views_*.npz

@@ -1,0 +1,4226 @@
+{
+  "split": "dev",
+  "selection_rule": "D28: max class-wise ranking mAP; ties -> fewer crops, higher alpha, max",
+  "models": {
+    "clip_openai_b32": {
+      "views_meta": {
+        "model": "clip_openai_b32",
+        "split": "dev",
+        "device": "cpu",
+        "host": "LAPTOP-8N8B1VIP",
+        "git_commit": "3f97bdc30240cc456e6ef2f15a543c41c84827af",
+        "git_dirty_code": true,
+        "grids": [
+          2,
+          3,
+          4
+        ],
+        "overlap": 0.25,
+        "n_crops": 29,
+        "templates": [
+          "a satellite image of a {}.",
+          "an aerial photo of a {}.",
+          "a photo of a {}."
+        ],
+        "logit_scale": 100.00000762939453,
+        "model_load_s": 21.54,
+        "failed": [],
+        "timing_note": "image_ms = all 1 + n_crops views of one image (batched), excl. disk I/O; CPU is not a latency result"
+      },
+      "variants": {
+        "global": {
+          "ranking_mAP": 0.16728557947283185,
+          "1": {
+            "vocab_recall": 0.1011545988258317,
+            "pair_recall": 0.08307501549907005,
+            "pair_recall_small": 0.009574468085106383,
+            "pair_recall_not_small": 0.18573551263001487,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.007623888182973317,
+            "pair_recall_small_Xview-34C": 0.007936507936507936
+          },
+          "2": {
+            "vocab_recall": 0.14938519243313764,
+            "pair_recall": 0.11903285802851829,
+            "pair_recall_small": 0.013829787234042552,
+            "pair_recall_not_small": 0.2659732540861813,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.010165184243964422,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "3": {
+            "vocab_recall": 0.18907860404435747,
+            "pair_recall": 0.14879107253564786,
+            "pair_recall_small": 0.02127659574468085,
+            "pair_recall_not_small": 0.32689450222882616,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.017789072426937738,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "5": {
+            "vocab_recall": 0.2682795172863666,
+            "pair_recall": 0.20644761314321142,
+            "pair_recall_small": 0.0425531914893617,
+            "pair_recall_not_small": 0.43536404160475484,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.03811944091486658,
+            "pair_recall_small_Xview-34C": 0.05555555555555555
+          },
+          "8": {
+            "vocab_recall": 0.3558153946510111,
+            "pair_recall": 0.28766274023558586,
+            "pair_recall_small": 0.09893617021276596,
+            "pair_recall_not_small": 0.5512630014858841,
+            "pair_recall_small_DIOR-18C": 0.16666666666666666,
+            "pair_recall_small_FAIR-18C": 0.09529860228716645,
+            "pair_recall_small_Xview-34C": 0.1111111111111111
+          },
+          "12": {
+            "vocab_recall": 0.4456947162426615,
+            "pair_recall": 0.38189708617482954,
+            "pair_recall_small": 0.19680851063829788,
+            "pair_recall_not_small": 0.6404160475482912,
+            "pair_recall_small_DIOR-18C": 0.3333333333333333,
+            "pair_recall_small_FAIR-18C": 0.19695044472681067,
+            "pair_recall_small_Xview-34C": 0.1746031746031746
+          },
+          "20": {
+            "vocab_recall": 0.6094341161121982,
+            "pair_recall": 0.5616862988220707,
+            "pair_recall_small": 0.4117021276595745,
+            "pair_recall_not_small": 0.7711738484398217,
+            "pair_recall_small_DIOR-18C": 0.7083333333333334,
+            "pair_recall_small_FAIR-18C": 0.4167725540025413,
+            "pair_recall_small_Xview-34C": 0.3253968253968254
+          },
+          "40": {
+            "vocab_recall": 0.8643248532289627,
+            "pair_recall": 0.8543087414755115,
+            "pair_recall_small": 0.8138297872340425,
+            "pair_recall_not_small": 0.9108469539375929,
+            "pair_recall_small_DIOR-18C": 0.875,
+            "pair_recall_small_FAIR-18C": 0.8310038119440915,
+            "pair_recall_small_Xview-34C": 0.7063492063492064
+          },
+          "alpha": 1.0,
+          "agg": "max",
+          "grids": [
+            2,
+            3,
+            4
+          ],
+          "n_crops": 29
+        },
+        "a0_max_g2": {
+          "ranking_mAP": 0.17049622674225867,
+          "1": {
+            "vocab_recall": 0.09716894977168948,
+            "pair_recall": 0.07191568505889646,
+            "pair_recall_small": 0.009574468085106383,
+            "pair_recall_not_small": 0.1589895988112927,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.007623888182973317,
+            "pair_recall_small_Xview-34C": 0.007936507936507936
+          },
+          "2": {
+            "vocab_recall": 0.14591487279843443,
+            "pair_recall": 0.11283323000619963,
+            "pair_recall_small": 0.01702127659574468,
+            "pair_recall_not_small": 0.24665676077265974,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.01397712833545108,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "3": {
+            "vocab_recall": 0.18924820613176777,
+            "pair_recall": 0.14879107253564786,
+            "pair_recall_small": 0.02553191489361702,
+            "pair_recall_not_small": 0.3209509658246657,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.020330368487928845,
+            "pair_recall_small_Xview-34C": 0.047619047619047616
+          },
+          "5": {
+            "vocab_recall": 0.27055283757338555,
+            "pair_recall": 0.21140731556106634,
+            "pair_recall_small": 0.05425531914893617,
+            "pair_recall_not_small": 0.4309063893016345,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.04955527318932656,
+            "pair_recall_small_Xview-34C": 0.07142857142857142
+          },
+          "8": {
+            "vocab_recall": 0.3453359425962165,
+            "pair_recall": 0.28022318660880347,
+            "pair_recall_small": 0.1074468085106383,
+            "pair_recall_not_small": 0.5215453194650818,
+            "pair_recall_small_DIOR-18C": 0.20833333333333334,
+            "pair_recall_small_FAIR-18C": 0.10165184243964422,
+            "pair_recall_small_Xview-34C": 0.12698412698412698
+          },
+          "12": {
+            "vocab_recall": 0.4695319634703196,
+            "pair_recall": 0.39801611903285805,
+            "pair_recall_small": 0.20638297872340425,
+            "pair_recall_not_small": 0.6656760772659732,
+            "pair_recall_small_DIOR-18C": 0.4166666666666667,
+            "pair_recall_small_FAIR-18C": 0.20330368487928843,
+            "pair_recall_small_Xview-34C": 0.18253968253968253
+          },
+          "20": {
+            "vocab_recall": 0.6373010437051533,
+            "pair_recall": 0.5871047737135772,
+            "pair_recall_small": 0.4351063829787234,
+            "pair_recall_not_small": 0.799405646359584,
+            "pair_recall_small_DIOR-18C": 0.5416666666666666,
+            "pair_recall_small_FAIR-18C": 0.4498094027954257,
+            "pair_recall_small_Xview-34C": 0.31746031746031744
+          },
+          "40": {
+            "vocab_recall": 0.8766422048271364,
+            "pair_recall": 0.8710477371357719,
+            "pair_recall_small": 0.8361702127659575,
+            "pair_recall_not_small": 0.9197622585438335,
+            "pair_recall_small_DIOR-18C": 0.9583333333333334,
+            "pair_recall_small_FAIR-18C": 0.8475222363405337,
+            "pair_recall_small_Xview-34C": 0.7380952380952381
+          },
+          "alpha": 0.0,
+          "agg": "max",
+          "grids": [
+            2
+          ],
+          "n_crops": 4
+        },
+        "a0_max_g23": {
+          "ranking_mAP": 0.174759989846231,
+          "1": {
+            "vocab_recall": 0.08315068493150685,
+            "pair_recall": 0.06323620582765034,
+            "pair_recall_small": 0.006382978723404255,
+            "pair_recall_not_small": 0.1426448736998514,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.0025412960609911056,
+            "pair_recall_small_Xview-34C": 0.015873015873015872
+          },
+          "2": {
+            "vocab_recall": 0.13302511415525112,
+            "pair_recall": 0.10415375077495351,
+            "pair_recall_small": 0.015957446808510637,
+            "pair_recall_not_small": 0.22734026745913818,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.011435832274459974,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "3": {
+            "vocab_recall": 0.17452217873450748,
+            "pair_recall": 0.13763174209547427,
+            "pair_recall_small": 0.02021276595744681,
+            "pair_recall_not_small": 0.3016344725111441,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.016518424396442185,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "5": {
+            "vocab_recall": 0.24893020221787346,
+            "pair_recall": 0.19652820830750156,
+            "pair_recall_small": 0.045744680851063826,
+            "pair_recall_not_small": 0.40713224368499257,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.04066073697585769,
+            "pair_recall_small_Xview-34C": 0.06349206349206349
+          },
+          "8": {
+            "vocab_recall": 0.33901174168297454,
+            "pair_recall": 0.27836329820210787,
+            "pair_recall_small": 0.09787234042553192,
+            "pair_recall_not_small": 0.5304606240713224,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.09148665819567979,
+            "pair_recall_small_Xview-34C": 0.1349206349206349
+          },
+          "12": {
+            "vocab_recall": 0.4409817351598173,
+            "pair_recall": 0.3738375697458152,
+            "pair_recall_small": 0.1925531914893617,
+            "pair_recall_not_small": 0.6270430906389302,
+            "pair_recall_small_DIOR-18C": 0.2916666666666667,
+            "pair_recall_small_FAIR-18C": 0.18678526048284624,
+            "pair_recall_small_Xview-34C": 0.20634920634920634
+          },
+          "20": {
+            "vocab_recall": 0.6294667318982388,
+            "pair_recall": 0.5914445133292002,
+            "pair_recall_small": 0.4734042553191489,
+            "pair_recall_not_small": 0.7563150074294205,
+            "pair_recall_small_DIOR-18C": 0.375,
+            "pair_recall_small_FAIR-18C": 0.4866581956797967,
+            "pair_recall_small_Xview-34C": 0.40476190476190477
+          },
+          "40": {
+            "vocab_recall": 0.8894732550554469,
+            "pair_recall": 0.8803471791692499,
+            "pair_recall_small": 0.8521276595744681,
+            "pair_recall_not_small": 0.9197622585438335,
+            "pair_recall_small_DIOR-18C": 0.8333333333333334,
+            "pair_recall_small_FAIR-18C": 0.8792884371029225,
+            "pair_recall_small_Xview-34C": 0.6825396825396826
+          },
+          "alpha": 0.0,
+          "agg": "max",
+          "grids": [
+            2,
+            3
+          ],
+          "n_crops": 13
+        },
+        "a0_max_g234": {
+          "ranking_mAP": 0.16862852499408718,
+          "1": {
+            "vocab_recall": 0.08321917808219179,
+            "pair_recall": 0.06261624302541847,
+            "pair_recall_small": 0.006382978723404255,
+            "pair_recall_not_small": 0.1411589895988113,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.0038119440914866584,
+            "pair_recall_small_Xview-34C": 0.007936507936507936
+          },
+          "2": {
+            "vocab_recall": 0.13453196347031962,
+            "pair_recall": 0.10353378797272164,
+            "pair_recall_small": 0.011702127659574468,
+            "pair_recall_not_small": 0.23179791976225855,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.007623888182973317,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "3": {
+            "vocab_recall": 0.16903131115459882,
+            "pair_recall": 0.1314321140731556,
+            "pair_recall_small": 0.023404255319148935,
+            "pair_recall_not_small": 0.2823179791976226,
+            "pair_recall_small_DIOR-18C": 0.16666666666666666,
+            "pair_recall_small_FAIR-18C": 0.01905972045743329,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "5": {
+            "vocab_recall": 0.2412361382909328,
+            "pair_recall": 0.18970861748295104,
+            "pair_recall_small": 0.047872340425531915,
+            "pair_recall_not_small": 0.38781575037147104,
+            "pair_recall_small_DIOR-18C": 0.16666666666666666,
+            "pair_recall_small_FAIR-18C": 0.044472681067344345,
+            "pair_recall_small_Xview-34C": 0.047619047619047616
+          },
+          "8": {
+            "vocab_recall": 0.32733365949119375,
+            "pair_recall": 0.2709237445753255,
+            "pair_recall_small": 0.11063829787234042,
+            "pair_recall_not_small": 0.4947994056463596,
+            "pair_recall_small_DIOR-18C": 0.25,
+            "pair_recall_small_FAIR-18C": 0.10927573062261753,
+            "pair_recall_small_Xview-34C": 0.09523809523809523
+          },
+          "12": {
+            "vocab_recall": 0.4339253098499674,
+            "pair_recall": 0.37321760694358336,
+            "pair_recall_small": 0.20638297872340425,
+            "pair_recall_not_small": 0.6062407132243685,
+            "pair_recall_small_DIOR-18C": 0.25,
+            "pair_recall_small_FAIR-18C": 0.2071156289707751,
+            "pair_recall_small_Xview-34C": 0.1984126984126984
+          },
+          "20": {
+            "vocab_recall": 0.6349804305283756,
+            "pair_recall": 0.5883446993180409,
+            "pair_recall_small": 0.4776595744680851,
+            "pair_recall_not_small": 0.7429420505200595,
+            "pair_recall_small_DIOR-18C": 0.4166666666666667,
+            "pair_recall_small_FAIR-18C": 0.49174078780177893,
+            "pair_recall_small_Xview-34C": 0.3968253968253968
+          },
+          "40": {
+            "vocab_recall": 0.8917221135029355,
+            "pair_recall": 0.8859268443893367,
+            "pair_recall_small": 0.874468085106383,
+            "pair_recall_not_small": 0.9019316493313522,
+            "pair_recall_small_DIOR-18C": 0.75,
+            "pair_recall_small_FAIR-18C": 0.9047013977128335,
+            "pair_recall_small_Xview-34C": 0.7063492063492064
+          },
+          "alpha": 0.0,
+          "agg": "max",
+          "grids": [
+            2,
+            3,
+            4
+          ],
+          "n_crops": 29
+        },
+        "a0_mean_g2": {
+          "ranking_mAP": 0.18078227418687023,
+          "1": {
+            "vocab_recall": 0.09389432485322896,
+            "pair_recall": 0.07377557346559206,
+            "pair_recall_small": 0.010638297872340425,
+            "pair_recall_not_small": 0.16196136701337296,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.008894536213468869,
+            "pair_recall_small_Xview-34C": 0.007936507936507936
+          },
+          "2": {
+            "vocab_recall": 0.1434262883235486,
+            "pair_recall": 0.1153130812151271,
+            "pair_recall_small": 0.014893617021276596,
+            "pair_recall_not_small": 0.2555720653789004,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.011435832274459974,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "3": {
+            "vocab_recall": 0.19366764514024787,
+            "pair_recall": 0.1568505889646621,
+            "pair_recall_small": 0.026595744680851064,
+            "pair_recall_not_small": 0.3387815750371471,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.021601016518424398,
+            "pair_recall_small_Xview-34C": 0.047619047619047616
+          },
+          "5": {
+            "vocab_recall": 0.26225212002609266,
+            "pair_recall": 0.2101673899566026,
+            "pair_recall_small": 0.05106382978723404,
+            "pair_recall_not_small": 0.4323922734026746,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.045743329097839895,
+            "pair_recall_small_Xview-34C": 0.07142857142857142
+          },
+          "8": {
+            "vocab_recall": 0.35481245923026744,
+            "pair_recall": 0.2882827030378177,
+            "pair_recall_small": 0.10957446808510639,
+            "pair_recall_not_small": 0.537890044576523,
+            "pair_recall_small_DIOR-18C": 0.16666666666666666,
+            "pair_recall_small_FAIR-18C": 0.10292249047013977,
+            "pair_recall_small_Xview-34C": 0.14285714285714285
+          },
+          "12": {
+            "vocab_recall": 0.4739269406392694,
+            "pair_recall": 0.4116553006819591,
+            "pair_recall_small": 0.225531914893617,
+            "pair_recall_not_small": 0.6716196136701337,
+            "pair_recall_small_DIOR-18C": 0.375,
+            "pair_recall_small_FAIR-18C": 0.22744599745870395,
+            "pair_recall_small_Xview-34C": 0.18253968253968253
+          },
+          "20": {
+            "vocab_recall": 0.6500293542074365,
+            "pair_recall": 0.6081835089894606,
+            "pair_recall_small": 0.4734042553191489,
+            "pair_recall_not_small": 0.7964338781575037,
+            "pair_recall_small_DIOR-18C": 0.4583333333333333,
+            "pair_recall_small_FAIR-18C": 0.49682337992376113,
+            "pair_recall_small_Xview-34C": 0.3333333333333333
+          },
+          "40": {
+            "vocab_recall": 0.8890753424657536,
+            "pair_recall": 0.8859268443893367,
+            "pair_recall_small": 0.8606382978723405,
+            "pair_recall_not_small": 0.9212481426448736,
+            "pair_recall_small_DIOR-18C": 0.9583333333333334,
+            "pair_recall_small_FAIR-18C": 0.8703939008894537,
+            "pair_recall_small_Xview-34C": 0.7777777777777778
+          },
+          "alpha": 0.0,
+          "agg": "mean",
+          "grids": [
+            2
+          ],
+          "n_crops": 4
+        },
+        "a0_mean_g23": {
+          "ranking_mAP": 0.17750578303377876,
+          "1": {
+            "vocab_recall": 0.09200913242009132,
+            "pair_recall": 0.0712957222566646,
+            "pair_recall_small": 0.009574468085106383,
+            "pair_recall_not_small": 0.1575037147102526,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.007623888182973317,
+            "pair_recall_small_Xview-34C": 0.007936507936507936
+          },
+          "2": {
+            "vocab_recall": 0.1368737769080235,
+            "pair_recall": 0.11097334159950403,
+            "pair_recall_small": 0.015957446808510637,
+            "pair_recall_not_small": 0.2436849925705795,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.011435832274459974,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "3": {
+            "vocab_recall": 0.17615622961513372,
+            "pair_recall": 0.14321140731556106,
+            "pair_recall_small": 0.02127659574468085,
+            "pair_recall_not_small": 0.3135215453194651,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.016518424396442185,
+            "pair_recall_small_Xview-34C": 0.03968253968253968
+          },
+          "5": {
+            "vocab_recall": 0.25081376386170906,
+            "pair_recall": 0.20210787352758836,
+            "pair_recall_small": 0.04893617021276596,
+            "pair_recall_not_small": 0.4160475482912333,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.04193138500635324,
+            "pair_recall_small_Xview-34C": 0.07936507936507936
+          },
+          "8": {
+            "vocab_recall": 0.3534768427919113,
+            "pair_recall": 0.2920024798512089,
+            "pair_recall_small": 0.11382978723404255,
+            "pair_recall_not_small": 0.5408618127786032,
+            "pair_recall_small_DIOR-18C": 0.16666666666666666,
+            "pair_recall_small_FAIR-18C": 0.10673443456162643,
+            "pair_recall_small_Xview-34C": 0.15079365079365079
+          },
+          "12": {
+            "vocab_recall": 0.4622243966079582,
+            "pair_recall": 0.4042157470551767,
+            "pair_recall_small": 0.23617021276595745,
+            "pair_recall_not_small": 0.6389301634472511,
+            "pair_recall_small_DIOR-18C": 0.3333333333333333,
+            "pair_recall_small_FAIR-18C": 0.2363405336721728,
+            "pair_recall_small_Xview-34C": 0.2222222222222222
+          },
+          "20": {
+            "vocab_recall": 0.6507599478147423,
+            "pair_recall": 0.6280223186608803,
+            "pair_recall_small": 0.5297872340425532,
+            "pair_recall_not_small": 0.7652303120356612,
+            "pair_recall_small_DIOR-18C": 0.4583333333333333,
+            "pair_recall_small_FAIR-18C": 0.5489199491740788,
+            "pair_recall_small_Xview-34C": 0.42063492063492064
+          },
+          "40": {
+            "vocab_recall": 0.8962214611872145,
+            "pair_recall": 0.9001859888406696,
+            "pair_recall_small": 0.8925531914893617,
+            "pair_recall_not_small": 0.9108469539375929,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.9148665819567979,
+            "pair_recall_small_Xview-34C": 0.746031746031746
+          },
+          "alpha": 0.0,
+          "agg": "mean",
+          "grids": [
+            2,
+            3
+          ],
+          "n_crops": 13
+        },
+        "a0_mean_g234": {
+          "ranking_mAP": 0.1701424479452229,
+          "1": {
+            "vocab_recall": 0.08146118721461186,
+            "pair_recall": 0.06199628022318661,
+            "pair_recall_small": 0.00851063829787234,
+            "pair_recall_not_small": 0.13670133729569092,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.0063532401524777635,
+            "pair_recall_small_Xview-34C": 0.007936507936507936
+          },
+          "2": {
+            "vocab_recall": 0.12860893672537507,
+            "pair_recall": 0.10105393676379418,
+            "pair_recall_small": 0.013829787234042552,
+            "pair_recall_not_small": 0.22288261515601784,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.010165184243964422,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "3": {
+            "vocab_recall": 0.15761741682974556,
+            "pair_recall": 0.1277123372597644,
+            "pair_recall_small": 0.02446808510638298,
+            "pair_recall_not_small": 0.27191679049034173,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.022871664548919948,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "5": {
+            "vocab_recall": 0.23314253098499674,
+            "pair_recall": 0.19156850588964663,
+            "pair_recall_small": 0.052127659574468084,
+            "pair_recall_not_small": 0.3863298662704309,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.04955527318932656,
+            "pair_recall_small_Xview-34C": 0.06349206349206349
+          },
+          "8": {
+            "vocab_recall": 0.32949282452707107,
+            "pair_recall": 0.2833230006199628,
+            "pair_recall_small": 0.12872340425531914,
+            "pair_recall_not_small": 0.49925705794947994,
+            "pair_recall_small_DIOR-18C": 0.16666666666666666,
+            "pair_recall_small_FAIR-18C": 0.12452350698856417,
+            "pair_recall_small_Xview-34C": 0.15079365079365079
+          },
+          "12": {
+            "vocab_recall": 0.45635844748858445,
+            "pair_recall": 0.41103533787972724,
+            "pair_recall_small": 0.2712765957446808,
+            "pair_recall_not_small": 0.6062407132243685,
+            "pair_recall_small_DIOR-18C": 0.3333333333333333,
+            "pair_recall_small_FAIR-18C": 0.2744599745870394,
+            "pair_recall_small_Xview-34C": 0.24603174603174602
+          },
+          "20": {
+            "vocab_recall": 0.6542172211350293,
+            "pair_recall": 0.6429014259144451,
+            "pair_recall_small": 0.5808510638297872,
+            "pair_recall_not_small": 0.7295690936106983,
+            "pair_recall_small_DIOR-18C": 0.5416666666666666,
+            "pair_recall_small_FAIR-18C": 0.613722998729352,
+            "pair_recall_small_Xview-34C": 0.3888888888888889
+          },
+          "40": {
+            "vocab_recall": 0.8991894977168949,
+            "pair_recall": 0.9070055796652201,
+            "pair_recall_small": 0.9180851063829787,
+            "pair_recall_not_small": 0.8915304606240714,
+            "pair_recall_small_DIOR-18C": 0.875,
+            "pair_recall_small_FAIR-18C": 0.9377382465057179,
+            "pair_recall_small_Xview-34C": 0.8015873015873016
+          },
+          "alpha": 0.0,
+          "agg": "mean",
+          "grids": [
+            2,
+            3,
+            4
+          ],
+          "n_crops": 29
+        },
+        "a0.25_max_g2": {
+          "ranking_mAP": 0.17711269872838292,
+          "1": {
+            "vocab_recall": 0.09729615133724721,
+            "pair_recall": 0.07377557346559206,
+            "pair_recall_small": 0.009574468085106383,
+            "pair_recall_not_small": 0.16344725111441308,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.007623888182973317,
+            "pair_recall_small_Xview-34C": 0.007936507936507936
+          },
+          "2": {
+            "vocab_recall": 0.148015329419439,
+            "pair_recall": 0.11469311841289523,
+            "pair_recall_small": 0.018085106382978722,
+            "pair_recall_not_small": 0.24962852897473997,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.015247776365946633,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "3": {
+            "vocab_recall": 0.19360893672537507,
+            "pair_recall": 0.15189088654680719,
+            "pair_recall_small": 0.02553191489361702,
+            "pair_recall_not_small": 0.32838038632986627,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.021601016518424398,
+            "pair_recall_small_Xview-34C": 0.03968253968253968
+          },
+          "5": {
+            "vocab_recall": 0.273749184605349,
+            "pair_recall": 0.21264724116553008,
+            "pair_recall_small": 0.047872340425531915,
+            "pair_recall_not_small": 0.4427934621099554,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.04066073697585769,
+            "pair_recall_small_Xview-34C": 0.07936507936507936
+          },
+          "8": {
+            "vocab_recall": 0.35683137638617085,
+            "pair_recall": 0.2882827030378177,
+            "pair_recall_small": 0.1074468085106383,
+            "pair_recall_not_small": 0.5408618127786032,
+            "pair_recall_small_DIOR-18C": 0.20833333333333334,
+            "pair_recall_small_FAIR-18C": 0.09911054637865312,
+            "pair_recall_small_Xview-34C": 0.14285714285714285
+          },
+          "12": {
+            "vocab_recall": 0.4696118721461187,
+            "pair_recall": 0.39987600743955365,
+            "pair_recall_small": 0.20957446808510638,
+            "pair_recall_not_small": 0.6656760772659732,
+            "pair_recall_small_DIOR-18C": 0.4166666666666667,
+            "pair_recall_small_FAIR-18C": 0.204574332909784,
+            "pair_recall_small_Xview-34C": 0.1984126984126984
+          },
+          "20": {
+            "vocab_recall": 0.6396510110893673,
+            "pair_recall": 0.5864848109113453,
+            "pair_recall_small": 0.4297872340425532,
+            "pair_recall_not_small": 0.8053491827637445,
+            "pair_recall_small_DIOR-18C": 0.5833333333333334,
+            "pair_recall_small_FAIR-18C": 0.4409148665819568,
+            "pair_recall_small_Xview-34C": 0.3253968253968254
+          },
+          "40": {
+            "vocab_recall": 0.8810485975212002,
+            "pair_recall": 0.8735275883446993,
+            "pair_recall_small": 0.8382978723404255,
+            "pair_recall_not_small": 0.9227340267459139,
+            "pair_recall_small_DIOR-18C": 0.9583333333333334,
+            "pair_recall_small_FAIR-18C": 0.8500635324015248,
+            "pair_recall_small_Xview-34C": 0.7380952380952381
+          },
+          "alpha": 0.25,
+          "agg": "max",
+          "grids": [
+            2
+          ],
+          "n_crops": 4
+        },
+        "a0.25_max_g23": {
+          "ranking_mAP": 0.18271238365710096,
+          "1": {
+            "vocab_recall": 0.09278538812785388,
+            "pair_recall": 0.0712957222566646,
+            "pair_recall_small": 0.010638297872340425,
+            "pair_recall_not_small": 0.15601783060921248,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.007623888182973317,
+            "pair_recall_small_Xview-34C": 0.015873015873015872
+          },
+          "2": {
+            "vocab_recall": 0.14349478147423353,
+            "pair_recall": 0.11097334159950403,
+            "pair_recall_small": 0.015957446808510637,
+            "pair_recall_not_small": 0.2436849925705795,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.011435832274459974,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "3": {
+            "vocab_recall": 0.18427103718199608,
+            "pair_recall": 0.14321140731556106,
+            "pair_recall_small": 0.018085106382978722,
+            "pair_recall_not_small": 0.3179791976225854,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.01397712833545108,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "5": {
+            "vocab_recall": 0.2572863666014351,
+            "pair_recall": 0.20086794792312462,
+            "pair_recall_small": 0.04148936170212766,
+            "pair_recall_not_small": 0.4234769687964339,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.035578144853875476,
+            "pair_recall_small_Xview-34C": 0.06349206349206349
+          },
+          "8": {
+            "vocab_recall": 0.3366144814090019,
+            "pair_recall": 0.27526348419094854,
+            "pair_recall_small": 0.09361702127659574,
+            "pair_recall_not_small": 0.5289747399702823,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.08640406607369759,
+            "pair_recall_small_Xview-34C": 0.1349206349206349
+          },
+          "12": {
+            "vocab_recall": 0.4401369863013698,
+            "pair_recall": 0.37321760694358336,
+            "pair_recall_small": 0.18723404255319148,
+            "pair_recall_not_small": 0.6329866270430906,
+            "pair_recall_small_DIOR-18C": 0.25,
+            "pair_recall_small_FAIR-18C": 0.18170266836086404,
+            "pair_recall_small_Xview-34C": 0.20634920634920634
+          },
+          "20": {
+            "vocab_recall": 0.6336904761904761,
+            "pair_recall": 0.5939243645381277,
+            "pair_recall_small": 0.4723404255319149,
+            "pair_recall_not_small": 0.763744427934621,
+            "pair_recall_small_DIOR-18C": 0.375,
+            "pair_recall_small_FAIR-18C": 0.4891994917407878,
+            "pair_recall_small_Xview-34C": 0.38095238095238093
+          },
+          "40": {
+            "vocab_recall": 0.8863111545988258,
+            "pair_recall": 0.8778673279603224,
+            "pair_recall_small": 0.851063829787234,
+            "pair_recall_not_small": 0.9153046062407132,
+            "pair_recall_small_DIOR-18C": 0.875,
+            "pair_recall_small_FAIR-18C": 0.8742058449809402,
+            "pair_recall_small_Xview-34C": 0.6984126984126984
+          },
+          "alpha": 0.25,
+          "agg": "max",
+          "grids": [
+            2,
+            3
+          ],
+          "n_crops": 13
+        },
+        "a0.25_max_g234": {
+          "ranking_mAP": 0.1793672624144878,
+          "1": {
+            "vocab_recall": 0.08657534246575344,
+            "pair_recall": 0.06633601983880967,
+            "pair_recall_small": 0.007446808510638298,
+            "pair_recall_not_small": 0.1485884101040119,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.005082592121982211,
+            "pair_recall_small_Xview-34C": 0.007936507936507936
+          },
+          "2": {
+            "vocab_recall": 0.13934931506849313,
+            "pair_recall": 0.1078735275883447,
+            "pair_recall_small": 0.014893617021276596,
+            "pair_recall_not_small": 0.237741456166419,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.011435832274459974,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "3": {
+            "vocab_recall": 0.18033268101761252,
+            "pair_recall": 0.13949163050216987,
+            "pair_recall_small": 0.023404255319148935,
+            "pair_recall_not_small": 0.3016344725111441,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.01905972045743329,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "5": {
+            "vocab_recall": 0.2525375081539465,
+            "pair_recall": 0.1977681339119653,
+            "pair_recall_small": 0.047872340425531915,
+            "pair_recall_not_small": 0.40713224368499257,
+            "pair_recall_small_DIOR-18C": 0.16666666666666666,
+            "pair_recall_small_FAIR-18C": 0.044472681067344345,
+            "pair_recall_small_Xview-34C": 0.047619047619047616
+          },
+          "8": {
+            "vocab_recall": 0.3370825179386823,
+            "pair_recall": 0.27712337259764414,
+            "pair_recall_small": 0.10957446808510639,
+            "pair_recall_not_small": 0.5111441307578009,
+            "pair_recall_small_DIOR-18C": 0.25,
+            "pair_recall_small_FAIR-18C": 0.10546378653113088,
+            "pair_recall_small_Xview-34C": 0.1111111111111111
+          },
+          "12": {
+            "vocab_recall": 0.4451255707762557,
+            "pair_recall": 0.38003719776813394,
+            "pair_recall_small": 0.20212765957446807,
+            "pair_recall_not_small": 0.6285289747399703,
+            "pair_recall_small_DIOR-18C": 0.25,
+            "pair_recall_small_FAIR-18C": 0.20584498094027953,
+            "pair_recall_small_Xview-34C": 0.1746031746031746
+          },
+          "20": {
+            "vocab_recall": 0.6377658186562296,
+            "pair_recall": 0.5908245505269684,
+            "pair_recall_small": 0.4787234042553192,
+            "pair_recall_not_small": 0.7473997028231798,
+            "pair_recall_small_DIOR-18C": 0.4166666666666667,
+            "pair_recall_small_FAIR-18C": 0.49428208386277,
+            "pair_recall_small_Xview-34C": 0.3888888888888889
+          },
+          "40": {
+            "vocab_recall": 0.9000896934116112,
+            "pair_recall": 0.8908865468071916,
+            "pair_recall_small": 0.8765957446808511,
+            "pair_recall_not_small": 0.9108469539375929,
+            "pair_recall_small_DIOR-18C": 0.7916666666666666,
+            "pair_recall_small_FAIR-18C": 0.9021601016518425,
+            "pair_recall_small_Xview-34C": 0.7301587301587301
+          },
+          "alpha": 0.25,
+          "agg": "max",
+          "grids": [
+            2,
+            3,
+            4
+          ],
+          "n_crops": 29
+        },
+        "a0.25_mean_g2": {
+          "ranking_mAP": 0.18626842316860354,
+          "1": {
+            "vocab_recall": 0.0994422700587084,
+            "pair_recall": 0.07935523868567886,
+            "pair_recall_small": 0.009574468085106383,
+            "pair_recall_not_small": 0.17682020802377416,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.007623888182973317,
+            "pair_recall_small_Xview-34C": 0.007936507936507936
+          },
+          "2": {
+            "vocab_recall": 0.14828930202217872,
+            "pair_recall": 0.11779293242405456,
+            "pair_recall_small": 0.015957446808510637,
+            "pair_recall_not_small": 0.2600297176820208,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.012706480304955527,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "3": {
+            "vocab_recall": 0.2006767775603392,
+            "pair_recall": 0.15809051456912585,
+            "pair_recall_small": 0.022340425531914895,
+            "pair_recall_not_small": 0.3476968796433878,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.017789072426937738,
+            "pair_recall_small_Xview-34C": 0.03968253968253968
+          },
+          "5": {
+            "vocab_recall": 0.27205805609915196,
+            "pair_recall": 0.217606943583385,
+            "pair_recall_small": 0.05106382978723404,
+            "pair_recall_not_small": 0.45022288261515603,
+            "pair_recall_small_DIOR-18C": 0.16666666666666666,
+            "pair_recall_small_FAIR-18C": 0.043202033036848796,
+            "pair_recall_small_Xview-34C": 0.07936507936507936
+          },
+          "8": {
+            "vocab_recall": 0.36484670580560985,
+            "pair_recall": 0.2926224426534408,
+            "pair_recall_small": 0.10425531914893617,
+            "pair_recall_not_small": 0.5557206537890045,
+            "pair_recall_small_DIOR-18C": 0.16666666666666666,
+            "pair_recall_small_FAIR-18C": 0.096569250317662,
+            "pair_recall_small_Xview-34C": 0.14285714285714285
+          },
+          "12": {
+            "vocab_recall": 0.4750913242009132,
+            "pair_recall": 0.4079355238685679,
+            "pair_recall_small": 0.21382978723404256,
+            "pair_recall_not_small": 0.6790490341753344,
+            "pair_recall_small_DIOR-18C": 0.3333333333333333,
+            "pair_recall_small_FAIR-18C": 0.21728081321473952,
+            "pair_recall_small_Xview-34C": 0.1746031746031746
+          },
+          "20": {
+            "vocab_recall": 0.6429060665362035,
+            "pair_recall": 0.5995040297582145,
+            "pair_recall_small": 0.4563829787234043,
+            "pair_recall_not_small": 0.799405646359584,
+            "pair_recall_small_DIOR-18C": 0.5,
+            "pair_recall_small_FAIR-18C": 0.4726810673443456,
+            "pair_recall_small_Xview-34C": 0.3412698412698413
+          },
+          "40": {
+            "vocab_recall": 0.8892563600782779,
+            "pair_recall": 0.8840669559826411,
+            "pair_recall_small": 0.8563829787234043,
+            "pair_recall_not_small": 0.9227340267459139,
+            "pair_recall_small_DIOR-18C": 0.9583333333333334,
+            "pair_recall_small_FAIR-18C": 0.8678526048284625,
+            "pair_recall_small_Xview-34C": 0.7619047619047619
+          },
+          "alpha": 0.25,
+          "agg": "mean",
+          "grids": [
+            2
+          ],
+          "n_crops": 4
+        },
+        "a0.25_mean_g23": {
+          "ranking_mAP": 0.1888722485300832,
+          "1": {
+            "vocab_recall": 0.10165688193085452,
+            "pair_recall": 0.07997520148791072,
+            "pair_recall_small": 0.010638297872340425,
+            "pair_recall_not_small": 0.17682020802377416,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.008894536213468869,
+            "pair_recall_small_Xview-34C": 0.007936507936507936
+          },
+          "2": {
+            "vocab_recall": 0.1527870189171559,
+            "pair_recall": 0.12089274643521389,
+            "pair_recall_small": 0.015957446808510637,
+            "pair_recall_not_small": 0.2674591381872214,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.012706480304955527,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "3": {
+            "vocab_recall": 0.1971607958251794,
+            "pair_recall": 0.15623062616243025,
+            "pair_recall_small": 0.02553191489361702,
+            "pair_recall_not_small": 0.3387815750371471,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.021601016518424398,
+            "pair_recall_small_Xview-34C": 0.03968253968253968
+          },
+          "5": {
+            "vocab_recall": 0.26429549902152644,
+            "pair_recall": 0.20892746435213888,
+            "pair_recall_small": 0.04680851063829787,
+            "pair_recall_not_small": 0.43536404160475484,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.03811944091486658,
+            "pair_recall_small_Xview-34C": 0.0873015873015873
+          },
+          "8": {
+            "vocab_recall": 0.34627201565557725,
+            "pair_recall": 0.2845629262244265,
+            "pair_recall_small": 0.10106382978723404,
+            "pair_recall_not_small": 0.5408618127786032,
+            "pair_recall_small_DIOR-18C": 0.16666666666666666,
+            "pair_recall_small_FAIR-18C": 0.09529860228716645,
+            "pair_recall_small_Xview-34C": 0.12698412698412698
+          },
+          "12": {
+            "vocab_recall": 0.4664367253750816,
+            "pair_recall": 0.40359578425294484,
+            "pair_recall_small": 0.22340425531914893,
+            "pair_recall_not_small": 0.6552748885586924,
+            "pair_recall_small_DIOR-18C": 0.3333333333333333,
+            "pair_recall_small_FAIR-18C": 0.22236340533672172,
+            "pair_recall_small_Xview-34C": 0.21428571428571427
+          },
+          "20": {
+            "vocab_recall": 0.6515818656229615,
+            "pair_recall": 0.6181029138251705,
+            "pair_recall_small": 0.5031914893617021,
+            "pair_recall_not_small": 0.7786032689450223,
+            "pair_recall_small_DIOR-18C": 0.4583333333333333,
+            "pair_recall_small_FAIR-18C": 0.5260482846251588,
+            "pair_recall_small_Xview-34C": 0.36507936507936506
+          },
+          "40": {
+            "vocab_recall": 0.902349967384214,
+            "pair_recall": 0.8989460632362059,
+            "pair_recall_small": 0.8840425531914894,
+            "pair_recall_not_small": 0.9197622585438335,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.9047013977128335,
+            "pair_recall_small_Xview-34C": 0.753968253968254
+          },
+          "alpha": 0.25,
+          "agg": "mean",
+          "grids": [
+            2,
+            3
+          ],
+          "n_crops": 13
+        },
+        "a0.25_mean_g234": {
+          "ranking_mAP": 0.18573089396513387,
+          "1": {
+            "vocab_recall": 0.09670254403131115,
+            "pair_recall": 0.0731556106633602,
+            "pair_recall_small": 0.007446808510638298,
+            "pair_recall_not_small": 0.1649331352154532,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.005082592121982211,
+            "pair_recall_small_Xview-34C": 0.007936507936507936
+          },
+          "2": {
+            "vocab_recall": 0.14618884540117413,
+            "pair_recall": 0.11469311841289523,
+            "pair_recall_small": 0.015957446808510637,
+            "pair_recall_not_small": 0.2526002971768202,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.012706480304955527,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "3": {
+            "vocab_recall": 0.18391878669275927,
+            "pair_recall": 0.1444513329200248,
+            "pair_recall_small": 0.02553191489361702,
+            "pair_recall_not_small": 0.31054977711738485,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.021601016518424398,
+            "pair_recall_small_Xview-34C": 0.03968253968253968
+          },
+          "5": {
+            "vocab_recall": 0.25573385518590996,
+            "pair_recall": 0.20458772473651582,
+            "pair_recall_small": 0.05,
+            "pair_recall_not_small": 0.42050520059435365,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.045743329097839895,
+            "pair_recall_small_Xview-34C": 0.07142857142857142
+          },
+          "8": {
+            "vocab_recall": 0.34088388780169604,
+            "pair_recall": 0.28208307501549906,
+            "pair_recall_small": 0.1074468085106383,
+            "pair_recall_not_small": 0.5260029717682021,
+            "pair_recall_small_DIOR-18C": 0.16666666666666666,
+            "pair_recall_small_FAIR-18C": 0.10673443456162643,
+            "pair_recall_small_Xview-34C": 0.10317460317460317
+          },
+          "12": {
+            "vocab_recall": 0.4640492498369211,
+            "pair_recall": 0.4097954122752635,
+            "pair_recall_small": 0.2531914893617021,
+            "pair_recall_not_small": 0.6285289747399703,
+            "pair_recall_small_DIOR-18C": 0.375,
+            "pair_recall_small_FAIR-18C": 0.2579415501905972,
+            "pair_recall_small_Xview-34C": 0.20634920634920634
+          },
+          "20": {
+            "vocab_recall": 0.6666731898238748,
+            "pair_recall": 0.6441413515189088,
+            "pair_recall_small": 0.5521276595744681,
+            "pair_recall_not_small": 0.7726597325408618,
+            "pair_recall_small_DIOR-18C": 0.4583333333333333,
+            "pair_recall_small_FAIR-18C": 0.5806861499364676,
+            "pair_recall_small_Xview-34C": 0.3968253968253968
+          },
+          "40": {
+            "vocab_recall": 0.9065622961513373,
+            "pair_recall": 0.907625542467452,
+            "pair_recall_small": 0.9074468085106383,
+            "pair_recall_not_small": 0.9078751857355126,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.9263024142312579,
+            "pair_recall_small_Xview-34C": 0.7857142857142857
+          },
+          "alpha": 0.25,
+          "agg": "mean",
+          "grids": [
+            2,
+            3,
+            4
+          ],
+          "n_crops": 29
+        },
+        "a0.5_max_g2": {
+          "ranking_mAP": 0.18228149654405718,
+          "1": {
+            "vocab_recall": 0.09967058056099151,
+            "pair_recall": 0.07749535027898326,
+            "pair_recall_small": 0.009574468085106383,
+            "pair_recall_not_small": 0.1723625557206538,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.007623888182973317,
+            "pair_recall_small_Xview-34C": 0.007936507936507936
+          },
+          "2": {
+            "vocab_recall": 0.14577788649706455,
+            "pair_recall": 0.1134531928084315,
+            "pair_recall_small": 0.014893617021276596,
+            "pair_recall_not_small": 0.2511144130757801,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.012706480304955527,
+            "pair_recall_small_Xview-34C": 0.015873015873015872
+          },
+          "3": {
+            "vocab_recall": 0.19684116112198302,
+            "pair_recall": 0.15437073775573465,
+            "pair_recall_small": 0.02446808510638298,
+            "pair_recall_not_small": 0.33580980683506684,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.020330368487928845,
+            "pair_recall_small_Xview-34C": 0.03968253968253968
+          },
+          "5": {
+            "vocab_recall": 0.2764090019569471,
+            "pair_recall": 0.21698698078115314,
+            "pair_recall_small": 0.05106382978723404,
+            "pair_recall_not_small": 0.4487369985141159,
+            "pair_recall_small_DIOR-18C": 0.16666666666666666,
+            "pair_recall_small_FAIR-18C": 0.04193138500635324,
+            "pair_recall_small_Xview-34C": 0.0873015873015873
+          },
+          "8": {
+            "vocab_recall": 0.3711480756686236,
+            "pair_recall": 0.29696218226906385,
+            "pair_recall_small": 0.10212765957446808,
+            "pair_recall_not_small": 0.5690936106983655,
+            "pair_recall_small_DIOR-18C": 0.16666666666666666,
+            "pair_recall_small_FAIR-18C": 0.09529860228716645,
+            "pair_recall_small_Xview-34C": 0.1349206349206349
+          },
+          "12": {
+            "vocab_recall": 0.4702739726027397,
+            "pair_recall": 0.4011159330440174,
+            "pair_recall_small": 0.20851063829787234,
+            "pair_recall_not_small": 0.6701337295690936,
+            "pair_recall_small_DIOR-18C": 0.4166666666666667,
+            "pair_recall_small_FAIR-18C": 0.20838627700127066,
+            "pair_recall_small_Xview-34C": 0.1746031746031746
+          },
+          "20": {
+            "vocab_recall": 0.6383953033268102,
+            "pair_recall": 0.5852448853068816,
+            "pair_recall_small": 0.4297872340425532,
+            "pair_recall_not_small": 0.8023774145616642,
+            "pair_recall_small_DIOR-18C": 0.5833333333333334,
+            "pair_recall_small_FAIR-18C": 0.43964421855146124,
+            "pair_recall_small_Xview-34C": 0.3333333333333333
+          },
+          "40": {
+            "vocab_recall": 0.884187866927593,
+            "pair_recall": 0.8766274023558587,
+            "pair_recall_small": 0.8436170212765958,
+            "pair_recall_not_small": 0.9227340267459139,
+            "pair_recall_small_DIOR-18C": 0.9583333333333334,
+            "pair_recall_small_FAIR-18C": 0.8538754764930114,
+            "pair_recall_small_Xview-34C": 0.753968253968254
+          },
+          "alpha": 0.5,
+          "agg": "max",
+          "grids": [
+            2
+          ],
+          "n_crops": 4
+        },
+        "a0.5_max_g23": {
+          "ranking_mAP": 0.1923871212393309,
+          "1": {
+            "vocab_recall": 0.09689497716894978,
+            "pair_recall": 0.07687538747675139,
+            "pair_recall_small": 0.010638297872340425,
+            "pair_recall_not_small": 0.16939078751857356,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.007623888182973317,
+            "pair_recall_small_Xview-34C": 0.015873015873015872
+          },
+          "2": {
+            "vocab_recall": 0.15244455316373123,
+            "pair_recall": 0.11903285802851829,
+            "pair_recall_small": 0.015957446808510637,
+            "pair_recall_not_small": 0.26300148588410105,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.011435832274459974,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "3": {
+            "vocab_recall": 0.18645140247879974,
+            "pair_recall": 0.14507129572225666,
+            "pair_recall_small": 0.02127659574468085,
+            "pair_recall_not_small": 0.3179791976225854,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.01397712833545108,
+            "pair_recall_small_Xview-34C": 0.047619047619047616
+          },
+          "5": {
+            "vocab_recall": 0.26429549902152644,
+            "pair_recall": 0.20520768753874769,
+            "pair_recall_small": 0.04042553191489362,
+            "pair_recall_not_small": 0.43536404160475484,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.03176620076238882,
+            "pair_recall_small_Xview-34C": 0.07936507936507936
+          },
+          "8": {
+            "vocab_recall": 0.3425260926288323,
+            "pair_recall": 0.2758834469931804,
+            "pair_recall_small": 0.09361702127659574,
+            "pair_recall_not_small": 0.5304606240713224,
+            "pair_recall_small_DIOR-18C": 0.16666666666666666,
+            "pair_recall_small_FAIR-18C": 0.08513341804320203,
+            "pair_recall_small_Xview-34C": 0.1349206349206349
+          },
+          "12": {
+            "vocab_recall": 0.4602609262883236,
+            "pair_recall": 0.3899566026038438,
+            "pair_recall_small": 0.19787234042553192,
+            "pair_recall_not_small": 0.6582466567607727,
+            "pair_recall_small_DIOR-18C": 0.2916666666666667,
+            "pair_recall_small_FAIR-18C": 0.193138500635324,
+            "pair_recall_small_Xview-34C": 0.20634920634920634
+          },
+          "20": {
+            "vocab_recall": 0.637573385518591,
+            "pair_recall": 0.5908245505269684,
+            "pair_recall_small": 0.4531914893617021,
+            "pair_recall_not_small": 0.7830609212481426,
+            "pair_recall_small_DIOR-18C": 0.5,
+            "pair_recall_small_FAIR-18C": 0.4650571791613723,
+            "pair_recall_small_Xview-34C": 0.36507936507936506
+          },
+          "40": {
+            "vocab_recall": 0.8902609262883235,
+            "pair_recall": 0.8784872907625543,
+            "pair_recall_small": 0.8457446808510638,
+            "pair_recall_not_small": 0.924219910846954,
+            "pair_recall_small_DIOR-18C": 0.875,
+            "pair_recall_small_FAIR-18C": 0.8653113087674714,
+            "pair_recall_small_Xview-34C": 0.7142857142857143
+          },
+          "alpha": 0.5,
+          "agg": "max",
+          "grids": [
+            2,
+            3
+          ],
+          "n_crops": 13
+        },
+        "a0.5_max_g234": {
+          "ranking_mAP": 0.1887946701330811,
+          "1": {
+            "vocab_recall": 0.09440639269406394,
+            "pair_recall": 0.07191568505889646,
+            "pair_recall_small": 0.006382978723404255,
+            "pair_recall_not_small": 0.16344725111441308,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.005082592121982211,
+            "pair_recall_small_Xview-34C": 0.0
+          },
+          "2": {
+            "vocab_recall": 0.15096053489889105,
+            "pair_recall": 0.11593304401735896,
+            "pair_recall_small": 0.013829787234042552,
+            "pair_recall_not_small": 0.2585438335809807,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.011435832274459974,
+            "pair_recall_small_Xview-34C": 0.015873015873015872
+          },
+          "3": {
+            "vocab_recall": 0.18953359425962166,
+            "pair_recall": 0.1463112213267204,
+            "pair_recall_small": 0.022340425531914895,
+            "pair_recall_not_small": 0.31946508172362553,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.017789072426937738,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "5": {
+            "vocab_recall": 0.25895303326810176,
+            "pair_recall": 0.20272783632982022,
+            "pair_recall_small": 0.04468085106382979,
+            "pair_recall_not_small": 0.4234769687964339,
+            "pair_recall_small_DIOR-18C": 0.16666666666666666,
+            "pair_recall_small_FAIR-18C": 0.03811944091486658,
+            "pair_recall_small_Xview-34C": 0.06349206349206349
+          },
+          "8": {
+            "vocab_recall": 0.33153294194390087,
+            "pair_recall": 0.268443893366398,
+            "pair_recall_small": 0.09680851063829787,
+            "pair_recall_not_small": 0.5081723625557206,
+            "pair_recall_small_DIOR-18C": 0.25,
+            "pair_recall_small_FAIR-18C": 0.09275730622617535,
+            "pair_recall_small_Xview-34C": 0.09523809523809523
+          },
+          "12": {
+            "vocab_recall": 0.45415525114155253,
+            "pair_recall": 0.38375697458152513,
+            "pair_recall_small": 0.20212765957446807,
+            "pair_recall_not_small": 0.637444279346211,
+            "pair_recall_small_DIOR-18C": 0.2916666666666667,
+            "pair_recall_small_FAIR-18C": 0.20076238881829733,
+            "pair_recall_small_Xview-34C": 0.1984126984126984
+          },
+          "20": {
+            "vocab_recall": 0.6407208088714937,
+            "pair_recall": 0.5951642901425914,
+            "pair_recall_small": 0.4787234042553192,
+            "pair_recall_not_small": 0.7578008915304606,
+            "pair_recall_small_DIOR-18C": 0.4166666666666667,
+            "pair_recall_small_FAIR-18C": 0.49555273189326554,
+            "pair_recall_small_Xview-34C": 0.38095238095238093
+          },
+          "40": {
+            "vocab_recall": 0.8993819308545336,
+            "pair_recall": 0.8877867327960323,
+            "pair_recall_small": 0.8680851063829788,
+            "pair_recall_not_small": 0.9153046062407132,
+            "pair_recall_small_DIOR-18C": 0.7916666666666666,
+            "pair_recall_small_FAIR-18C": 0.8932655654383735,
+            "pair_recall_small_Xview-34C": 0.7222222222222222
+          },
+          "alpha": 0.5,
+          "agg": "max",
+          "grids": [
+            2,
+            3,
+            4
+          ],
+          "n_crops": 29
+        },
+        "a0.5_mean_g2": {
+          "ranking_mAP": 0.1838895399748886,
+          "1": {
+            "vocab_recall": 0.10366601435094586,
+            "pair_recall": 0.08369497830130192,
+            "pair_recall_small": 0.009574468085106383,
+            "pair_recall_not_small": 0.18722139673105498,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.007623888182973317,
+            "pair_recall_small_Xview-34C": 0.007936507936507936
+          },
+          "2": {
+            "vocab_recall": 0.15700097847358122,
+            "pair_recall": 0.12337259764414135,
+            "pair_recall_small": 0.014893617021276596,
+            "pair_recall_not_small": 0.274888558692422,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.011435832274459974,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "3": {
+            "vocab_recall": 0.2017726679712981,
+            "pair_recall": 0.15995040297582144,
+            "pair_recall_small": 0.023404255319148935,
+            "pair_recall_not_small": 0.35066864784546803,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.01905972045743329,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "5": {
+            "vocab_recall": 0.2744553163731246,
+            "pair_recall": 0.21636701797892127,
+            "pair_recall_small": 0.045744680851063826,
+            "pair_recall_not_small": 0.45468053491827637,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.03811944091486658,
+            "pair_recall_small_Xview-34C": 0.07936507936507936
+          },
+          "8": {
+            "vocab_recall": 0.3642058056099151,
+            "pair_recall": 0.29138251704897705,
+            "pair_recall_small": 0.09468085106382979,
+            "pair_recall_not_small": 0.5661218424962853,
+            "pair_recall_small_DIOR-18C": 0.20833333333333334,
+            "pair_recall_small_FAIR-18C": 0.08767471410419314,
+            "pair_recall_small_Xview-34C": 0.11904761904761904
+          },
+          "12": {
+            "vocab_recall": 0.4708904109589041,
+            "pair_recall": 0.402975821450713,
+            "pair_recall_small": 0.20638297872340425,
+            "pair_recall_not_small": 0.6775631500742942,
+            "pair_recall_small_DIOR-18C": 0.3333333333333333,
+            "pair_recall_small_FAIR-18C": 0.20838627700127066,
+            "pair_recall_small_Xview-34C": 0.1746031746031746
+          },
+          "20": {
+            "vocab_recall": 0.6395254403131115,
+            "pair_recall": 0.5914445133292002,
+            "pair_recall_small": 0.44148936170212766,
+            "pair_recall_not_small": 0.8008915304606241,
+            "pair_recall_small_DIOR-18C": 0.5833333333333334,
+            "pair_recall_small_FAIR-18C": 0.45108005082592123,
+            "pair_recall_small_Xview-34C": 0.3492063492063492
+          },
+          "40": {
+            "vocab_recall": 0.8833317025440313,
+            "pair_recall": 0.879727216367018,
+            "pair_recall_small": 0.8542553191489362,
+            "pair_recall_not_small": 0.9153046062407132,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.866581956797967,
+            "pair_recall_small_Xview-34C": 0.7619047619047619
+          },
+          "alpha": 0.5,
+          "agg": "mean",
+          "grids": [
+            2
+          ],
+          "n_crops": 4
+        },
+        "a0.5_mean_g23": {
+          "ranking_mAP": 0.18551692002655767,
+          "1": {
+            "vocab_recall": 0.1030952380952381,
+            "pair_recall": 0.08431494110353378,
+            "pair_recall_small": 0.010638297872340425,
+            "pair_recall_not_small": 0.18722139673105498,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.008894536213468869,
+            "pair_recall_small_Xview-34C": 0.007936507936507936
+          },
+          "2": {
+            "vocab_recall": 0.15417971298108282,
+            "pair_recall": 0.12089274643521389,
+            "pair_recall_small": 0.015957446808510637,
+            "pair_recall_not_small": 0.2674591381872214,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.012706480304955527,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "3": {
+            "vocab_recall": 0.1947749510763209,
+            "pair_recall": 0.15375077495350278,
+            "pair_recall_small": 0.023404255319148935,
+            "pair_recall_not_small": 0.33580980683506684,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.017789072426937738,
+            "pair_recall_small_Xview-34C": 0.03968253968253968
+          },
+          "5": {
+            "vocab_recall": 0.27461513372472274,
+            "pair_recall": 0.21636701797892127,
+            "pair_recall_small": 0.04680851063829787,
+            "pair_recall_not_small": 0.45319465081723626,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.03939008894536213,
+            "pair_recall_small_Xview-34C": 0.07936507936507936
+          },
+          "8": {
+            "vocab_recall": 0.36518590998043055,
+            "pair_recall": 0.29510229386236825,
+            "pair_recall_small": 0.10319148936170212,
+            "pair_recall_not_small": 0.563150074294205,
+            "pair_recall_small_DIOR-18C": 0.16666666666666666,
+            "pair_recall_small_FAIR-18C": 0.09911054637865312,
+            "pair_recall_small_Xview-34C": 0.11904761904761904
+          },
+          "12": {
+            "vocab_recall": 0.45905088062622307,
+            "pair_recall": 0.39429634221946686,
+            "pair_recall_small": 0.20425531914893616,
+            "pair_recall_not_small": 0.6597325408618128,
+            "pair_recall_small_DIOR-18C": 0.2916666666666667,
+            "pair_recall_small_FAIR-18C": 0.204574332909784,
+            "pair_recall_small_Xview-34C": 0.19047619047619047
+          },
+          "20": {
+            "vocab_recall": 0.6445254403131114,
+            "pair_recall": 0.6013639181649101,
+            "pair_recall_small": 0.46595744680851064,
+            "pair_recall_not_small": 0.7904903417533432,
+            "pair_recall_small_DIOR-18C": 0.4583333333333333,
+            "pair_recall_small_FAIR-18C": 0.48792884371029227,
+            "pair_recall_small_Xview-34C": 0.3333333333333333
+          },
+          "40": {
+            "vocab_recall": 0.8892677756033922,
+            "pair_recall": 0.8865468071915685,
+            "pair_recall_small": 0.8712765957446809,
+            "pair_recall_not_small": 0.9078751857355126,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.8894536213468869,
+            "pair_recall_small_Xview-34C": 0.746031746031746
+          },
+          "alpha": 0.5,
+          "agg": "mean",
+          "grids": [
+            2,
+            3
+          ],
+          "n_crops": 13
+        },
+        "a0.5_mean_g234": {
+          "ranking_mAP": 0.18442139969023033,
+          "1": {
+            "vocab_recall": 0.1057208088714938,
+            "pair_recall": 0.08431494110353378,
+            "pair_recall_small": 0.007446808510638298,
+            "pair_recall_not_small": 0.19167904903417535,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.005082592121982211,
+            "pair_recall_small_Xview-34C": 0.007936507936507936
+          },
+          "2": {
+            "vocab_recall": 0.1518966079582518,
+            "pair_recall": 0.11965282083075016,
+            "pair_recall_small": 0.014893617021276596,
+            "pair_recall_not_small": 0.2659732540861813,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.011435832274459974,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "3": {
+            "vocab_recall": 0.1887573385518591,
+            "pair_recall": 0.14879107253564786,
+            "pair_recall_small": 0.02446808510638298,
+            "pair_recall_not_small": 0.3224368499257058,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.01905972045743329,
+            "pair_recall_small_Xview-34C": 0.03968253968253968
+          },
+          "5": {
+            "vocab_recall": 0.2659849967384214,
+            "pair_recall": 0.20768753874767515,
+            "pair_recall_small": 0.043617021276595745,
+            "pair_recall_not_small": 0.43684992570579495,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.035578144853875476,
+            "pair_recall_small_Xview-34C": 0.07936507936507936
+          },
+          "8": {
+            "vocab_recall": 0.3590215264187867,
+            "pair_recall": 0.29138251704897705,
+            "pair_recall_small": 0.10319148936170212,
+            "pair_recall_not_small": 0.5542347696879644,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.10165184243964422,
+            "pair_recall_small_Xview-34C": 0.1111111111111111
+          },
+          "12": {
+            "vocab_recall": 0.4548939986953685,
+            "pair_recall": 0.3967761934283943,
+            "pair_recall_small": 0.22127659574468084,
+            "pair_recall_not_small": 0.6419019316493314,
+            "pair_recall_small_DIOR-18C": 0.375,
+            "pair_recall_small_FAIR-18C": 0.22109275730622618,
+            "pair_recall_small_Xview-34C": 0.1984126984126984
+          },
+          "20": {
+            "vocab_recall": 0.6550163078930201,
+            "pair_recall": 0.6199628022318661,
+            "pair_recall_small": 0.5010638297872341,
+            "pair_recall_not_small": 0.7860326894502229,
+            "pair_recall_small_DIOR-18C": 0.4583333333333333,
+            "pair_recall_small_FAIR-18C": 0.5260482846251588,
+            "pair_recall_small_Xview-34C": 0.36507936507936506
+          },
+          "40": {
+            "vocab_recall": 0.9025326157860404,
+            "pair_recall": 0.9014259144451333,
+            "pair_recall_small": 0.8946808510638298,
+            "pair_recall_not_small": 0.9108469539375929,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.9110546378653113,
+            "pair_recall_small_Xview-34C": 0.7857142857142857
+          },
+          "alpha": 0.5,
+          "agg": "mean",
+          "grids": [
+            2,
+            3,
+            4
+          ],
+          "n_crops": 29
+        },
+        "a0.75_max_g2": {
+          "ranking_mAP": 0.17781290020497978,
+          "1": {
+            "vocab_recall": 0.10366601435094586,
+            "pair_recall": 0.08245505269683819,
+            "pair_recall_small": 0.00851063829787234,
+            "pair_recall_not_small": 0.18573551263001487,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.0063532401524777635,
+            "pair_recall_small_Xview-34C": 0.007936507936507936
+          },
+          "2": {
+            "vocab_recall": 0.15372309197651662,
+            "pair_recall": 0.12027278363298202,
+            "pair_recall_small": 0.013829787234042552,
+            "pair_recall_not_small": 0.2689450222882615,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.010165184243964422,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "3": {
+            "vocab_recall": 0.20092791911285063,
+            "pair_recall": 0.1568505889646621,
+            "pair_recall_small": 0.02127659574468085,
+            "pair_recall_not_small": 0.3462109955423477,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.017789072426937738,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "5": {
+            "vocab_recall": 0.27891878669275927,
+            "pair_recall": 0.21512709237445754,
+            "pair_recall_small": 0.04468085106382979,
+            "pair_recall_not_small": 0.45319465081723626,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.03811944091486658,
+            "pair_recall_small_Xview-34C": 0.07142857142857142
+          },
+          "8": {
+            "vocab_recall": 0.3748679060665362,
+            "pair_recall": 0.29882207067575944,
+            "pair_recall_small": 0.09893617021276596,
+            "pair_recall_not_small": 0.5780089153046062,
+            "pair_recall_small_DIOR-18C": 0.20833333333333334,
+            "pair_recall_small_FAIR-18C": 0.09529860228716645,
+            "pair_recall_small_Xview-34C": 0.10317460317460317
+          },
+          "12": {
+            "vocab_recall": 0.4701500326157861,
+            "pair_recall": 0.3967761934283943,
+            "pair_recall_small": 0.19680851063829788,
+            "pair_recall_not_small": 0.6760772659732541,
+            "pair_recall_small_DIOR-18C": 0.4583333333333333,
+            "pair_recall_small_FAIR-18C": 0.19440914866581957,
+            "pair_recall_small_Xview-34C": 0.16666666666666666
+          },
+          "20": {
+            "vocab_recall": 0.630666992824527,
+            "pair_recall": 0.5796652200867948,
+            "pair_recall_small": 0.4223404255319149,
+            "pair_recall_not_small": 0.799405646359584,
+            "pair_recall_small_DIOR-18C": 0.625,
+            "pair_recall_small_FAIR-18C": 0.42947903430749684,
+            "pair_recall_small_Xview-34C": 0.3333333333333333
+          },
+          "40": {
+            "vocab_recall": 0.8749070450097847,
+            "pair_recall": 0.8710477371357719,
+            "pair_recall_small": 0.8404255319148937,
+            "pair_recall_not_small": 0.9138187221396731,
+            "pair_recall_small_DIOR-18C": 0.9583333333333334,
+            "pair_recall_small_FAIR-18C": 0.8487928843710292,
+            "pair_recall_small_Xview-34C": 0.7698412698412699
+          },
+          "alpha": 0.75,
+          "agg": "max",
+          "grids": [
+            2
+          ],
+          "n_crops": 4
+        },
+        "a0.75_max_g23": {
+          "ranking_mAP": 0.18937471703695977,
+          "1": {
+            "vocab_recall": 0.10286692759295499,
+            "pair_recall": 0.08307501549907005,
+            "pair_recall_small": 0.009574468085106383,
+            "pair_recall_not_small": 0.18573551263001487,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.007623888182973317,
+            "pair_recall_small_Xview-34C": 0.007936507936507936
+          },
+          "2": {
+            "vocab_recall": 0.15246738421395956,
+            "pair_recall": 0.11903285802851829,
+            "pair_recall_small": 0.014893617021276596,
+            "pair_recall_not_small": 0.26448736998514116,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.010165184243964422,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "3": {
+            "vocab_recall": 0.1984034572733203,
+            "pair_recall": 0.15313081215127092,
+            "pair_recall_small": 0.02021276595744681,
+            "pair_recall_not_small": 0.3387815750371471,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.015247776365946633,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "5": {
+            "vocab_recall": 0.2718525766470972,
+            "pair_recall": 0.21326720396776194,
+            "pair_recall_small": 0.047872340425531915,
+            "pair_recall_not_small": 0.4442793462109955,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.03939008894536213,
+            "pair_recall_small_Xview-34C": 0.0873015873015873
+          },
+          "8": {
+            "vocab_recall": 0.3611676451402479,
+            "pair_recall": 0.2864228146311221,
+            "pair_recall_small": 0.09787234042553192,
+            "pair_recall_not_small": 0.549777117384844,
+            "pair_recall_small_DIOR-18C": 0.16666666666666666,
+            "pair_recall_small_FAIR-18C": 0.0940279542566709,
+            "pair_recall_small_Xview-34C": 0.1111111111111111
+          },
+          "12": {
+            "vocab_recall": 0.459633072407045,
+            "pair_recall": 0.3880967141971482,
+            "pair_recall_small": 0.18617021276595744,
+            "pair_recall_not_small": 0.6701337295690936,
+            "pair_recall_small_DIOR-18C": 0.25,
+            "pair_recall_small_FAIR-18C": 0.18297331639135958,
+            "pair_recall_small_Xview-34C": 0.1984126984126984
+          },
+          "20": {
+            "vocab_recall": 0.6305055446836269,
+            "pair_recall": 0.5827650340979541,
+            "pair_recall_small": 0.4329787234042553,
+            "pair_recall_not_small": 0.7919762258543833,
+            "pair_recall_small_DIOR-18C": 0.5,
+            "pair_recall_small_FAIR-18C": 0.44472681067344344,
+            "pair_recall_small_Xview-34C": 0.3492063492063492
+          },
+          "40": {
+            "vocab_recall": 0.8918248532289628,
+            "pair_recall": 0.8791072535647861,
+            "pair_recall_small": 0.8521276595744681,
+            "pair_recall_not_small": 0.9167904903417533,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.8691232528589581,
+            "pair_recall_small_Xview-34C": 0.7301587301587301
+          },
+          "alpha": 0.75,
+          "agg": "max",
+          "grids": [
+            2,
+            3
+          ],
+          "n_crops": 13
+        },
+        "a0.75_max_g234": {
+          "ranking_mAP": 0.18836327924443907,
+          "1": {
+            "vocab_recall": 0.1052641878669276,
+            "pair_recall": 0.08369497830130192,
+            "pair_recall_small": 0.00851063829787234,
+            "pair_recall_not_small": 0.1887072808320951,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.0063532401524777635,
+            "pair_recall_small_Xview-34C": 0.007936507936507936
+          },
+          "2": {
+            "vocab_recall": 0.15749021526418785,
+            "pair_recall": 0.12089274643521389,
+            "pair_recall_small": 0.01276595744680851,
+            "pair_recall_not_small": 0.27191679049034173,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.011435832274459974,
+            "pair_recall_small_Xview-34C": 0.007936507936507936
+          },
+          "3": {
+            "vocab_recall": 0.20172537508153948,
+            "pair_recall": 0.15437073775573465,
+            "pair_recall_small": 0.02127659574468085,
+            "pair_recall_not_small": 0.34026745913818723,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.016518424396442185,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "5": {
+            "vocab_recall": 0.26603065883887805,
+            "pair_recall": 0.20706757594544328,
+            "pair_recall_small": 0.0425531914893617,
+            "pair_recall_not_small": 0.43684992570579495,
+            "pair_recall_small_DIOR-18C": 0.16666666666666666,
+            "pair_recall_small_FAIR-18C": 0.03430749682337993,
+            "pair_recall_small_Xview-34C": 0.07142857142857142
+          },
+          "8": {
+            "vocab_recall": 0.34128180039138944,
+            "pair_recall": 0.2727836329820211,
+            "pair_recall_small": 0.08723404255319149,
+            "pair_recall_not_small": 0.5319465081723626,
+            "pair_recall_small_DIOR-18C": 0.20833333333333334,
+            "pair_recall_small_FAIR-18C": 0.08259212198221093,
+            "pair_recall_small_Xview-34C": 0.09523809523809523
+          },
+          "12": {
+            "vocab_recall": 0.4577250489236791,
+            "pair_recall": 0.38375697458152513,
+            "pair_recall_small": 0.19787234042553192,
+            "pair_recall_not_small": 0.6433878157503715,
+            "pair_recall_small_DIOR-18C": 0.3333333333333333,
+            "pair_recall_small_FAIR-18C": 0.19822109275730623,
+            "pair_recall_small_Xview-34C": 0.1746031746031746
+          },
+          "20": {
+            "vocab_recall": 0.6414187866927593,
+            "pair_recall": 0.5964042157470552,
+            "pair_recall_small": 0.46170212765957447,
+            "pair_recall_not_small": 0.7845468053491828,
+            "pair_recall_small_DIOR-18C": 0.5,
+            "pair_recall_small_FAIR-18C": 0.4815756035578145,
+            "pair_recall_small_Xview-34C": 0.3333333333333333
+          },
+          "40": {
+            "vocab_recall": 0.8974527071102414,
+            "pair_recall": 0.8840669559826411,
+            "pair_recall_small": 0.8659574468085106,
+            "pair_recall_not_small": 0.9093610698365527,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.8869123252858958,
+            "pair_recall_small_Xview-34C": 0.7222222222222222
+          },
+          "alpha": 0.75,
+          "agg": "max",
+          "grids": [
+            2,
+            3,
+            4
+          ],
+          "n_crops": 29
+        },
+        "a0.75_mean_g2": {
+          "ranking_mAP": 0.17872474636930652,
+          "1": {
+            "vocab_recall": 0.10252446183953033,
+            "pair_recall": 0.08369497830130192,
+            "pair_recall_small": 0.009574468085106383,
+            "pair_recall_not_small": 0.18722139673105498,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.007623888182973317,
+            "pair_recall_small_Xview-34C": 0.007936507936507936
+          },
+          "2": {
+            "vocab_recall": 0.15235322896281797,
+            "pair_recall": 0.12089274643521389,
+            "pair_recall_small": 0.014893617021276596,
+            "pair_recall_not_small": 0.2689450222882615,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.011435832274459974,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "3": {
+            "vocab_recall": 0.190882257012394,
+            "pair_recall": 0.15065096094234345,
+            "pair_recall_small": 0.02127659574468085,
+            "pair_recall_not_small": 0.3313521545319465,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.017789072426937738,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "5": {
+            "vocab_recall": 0.2741699282452707,
+            "pair_recall": 0.2138871667699938,
+            "pair_recall_small": 0.043617021276595745,
+            "pair_recall_not_small": 0.45170876671619614,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.03811944091486658,
+            "pair_recall_small_Xview-34C": 0.06349206349206349
+          },
+          "8": {
+            "vocab_recall": 0.3677087410306588,
+            "pair_recall": 0.2944823310601364,
+            "pair_recall_small": 0.10212765957446808,
+            "pair_recall_not_small": 0.563150074294205,
+            "pair_recall_small_DIOR-18C": 0.16666666666666666,
+            "pair_recall_small_FAIR-18C": 0.09783989834815757,
+            "pair_recall_small_Xview-34C": 0.11904761904761904
+          },
+          "12": {
+            "vocab_recall": 0.46577462491846056,
+            "pair_recall": 0.39801611903285805,
+            "pair_recall_small": 0.20957446808510638,
+            "pair_recall_not_small": 0.6612184249628529,
+            "pair_recall_small_DIOR-18C": 0.375,
+            "pair_recall_small_FAIR-18C": 0.2096569250317662,
+            "pair_recall_small_Xview-34C": 0.18253968253968253
+          },
+          "20": {
+            "vocab_recall": 0.6255414220482713,
+            "pair_recall": 0.5759454432734036,
+            "pair_recall_small": 0.41914893617021276,
+            "pair_recall_not_small": 0.7949479940564635,
+            "pair_recall_small_DIOR-18C": 0.7083333333333334,
+            "pair_recall_small_FAIR-18C": 0.4243964421855146,
+            "pair_recall_small_Xview-34C": 0.3333333333333333
+          },
+          "40": {
+            "vocab_recall": 0.8774184605348989,
+            "pair_recall": 0.8691878487290763,
+            "pair_recall_small": 0.8351063829787234,
+            "pair_recall_not_small": 0.9167904903417533,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.843710292249047,
+            "pair_recall_small_Xview-34C": 0.7619047619047619
+          },
+          "alpha": 0.75,
+          "agg": "mean",
+          "grids": [
+            2
+          ],
+          "n_crops": 4
+        },
+        "a0.75_mean_g23": {
+          "ranking_mAP": 0.17847770417167327,
+          "1": {
+            "vocab_recall": 0.10423679060665361,
+            "pair_recall": 0.08493490390576565,
+            "pair_recall_small": 0.009574468085106383,
+            "pair_recall_not_small": 0.1901931649331352,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.007623888182973317,
+            "pair_recall_small_Xview-34C": 0.007936507936507936
+          },
+          "2": {
+            "vocab_recall": 0.1492710371819961,
+            "pair_recall": 0.11841289522628642,
+            "pair_recall_small": 0.014893617021276596,
+            "pair_recall_not_small": 0.26300148588410105,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.011435832274459974,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "3": {
+            "vocab_recall": 0.1908692106979778,
+            "pair_recall": 0.15065096094234345,
+            "pair_recall_small": 0.02127659574468085,
+            "pair_recall_not_small": 0.3313521545319465,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.017789072426937738,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "5": {
+            "vocab_recall": 0.2703000652315721,
+            "pair_recall": 0.2101673899566026,
+            "pair_recall_small": 0.04680851063829787,
+            "pair_recall_not_small": 0.43833580980683506,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.03939008894536213,
+            "pair_recall_small_Xview-34C": 0.07936507936507936
+          },
+          "8": {
+            "vocab_recall": 0.3657795172863666,
+            "pair_recall": 0.2926224426534408,
+            "pair_recall_small": 0.09893617021276596,
+            "pair_recall_not_small": 0.563150074294205,
+            "pair_recall_small_DIOR-18C": 0.16666666666666666,
+            "pair_recall_small_FAIR-18C": 0.0940279542566709,
+            "pair_recall_small_Xview-34C": 0.11904761904761904
+          },
+          "12": {
+            "vocab_recall": 0.4595515329419439,
+            "pair_recall": 0.3899566026038438,
+            "pair_recall_small": 0.20106382978723406,
+            "pair_recall_not_small": 0.6537890044576523,
+            "pair_recall_small_DIOR-18C": 0.2916666666666667,
+            "pair_recall_small_FAIR-18C": 0.20076238881829733,
+            "pair_recall_small_Xview-34C": 0.19047619047619047
+          },
+          "20": {
+            "vocab_recall": 0.6311236138290934,
+            "pair_recall": 0.5846249225046497,
+            "pair_recall_small": 0.43829787234042555,
+            "pair_recall_not_small": 0.7890044576523031,
+            "pair_recall_small_DIOR-18C": 0.5833333333333334,
+            "pair_recall_small_FAIR-18C": 0.4485387547649301,
+            "pair_recall_small_Xview-34C": 0.3492063492063492
+          },
+          "40": {
+            "vocab_recall": 0.885009784735812,
+            "pair_recall": 0.8791072535647861,
+            "pair_recall_small": 0.8553191489361702,
+            "pair_recall_not_small": 0.912332838038633,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.8729351969504447,
+            "pair_recall_small_Xview-34C": 0.7380952380952381
+          },
+          "alpha": 0.75,
+          "agg": "mean",
+          "grids": [
+            2,
+            3
+          ],
+          "n_crops": 13
+        },
+        "a0.75_mean_g234": {
+          "ranking_mAP": 0.17722076215104565,
+          "1": {
+            "vocab_recall": 0.10423679060665361,
+            "pair_recall": 0.08493490390576565,
+            "pair_recall_small": 0.009574468085106383,
+            "pair_recall_not_small": 0.1901931649331352,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.007623888182973317,
+            "pair_recall_small_Xview-34C": 0.007936507936507936
+          },
+          "2": {
+            "vocab_recall": 0.14858610567514674,
+            "pair_recall": 0.11779293242405456,
+            "pair_recall_small": 0.014893617021276596,
+            "pair_recall_not_small": 0.26151560178306094,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.011435832274459974,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "3": {
+            "vocab_recall": 0.18790117416829746,
+            "pair_recall": 0.14755114693118412,
+            "pair_recall_small": 0.02021276595744681,
+            "pair_recall_not_small": 0.32540861812778604,
+            "pair_recall_small_DIOR-18C": 0.08333333333333333,
+            "pair_recall_small_FAIR-18C": 0.016518424396442185,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "5": {
+            "vocab_recall": 0.26756033920417477,
+            "pair_recall": 0.20830750154990701,
+            "pair_recall_small": 0.045744680851063826,
+            "pair_recall_not_small": 0.43536404160475484,
+            "pair_recall_small_DIOR-18C": 0.125,
+            "pair_recall_small_FAIR-18C": 0.03811944091486658,
+            "pair_recall_small_Xview-34C": 0.07936507936507936
+          },
+          "8": {
+            "vocab_recall": 0.36125896934116114,
+            "pair_recall": 0.2920024798512089,
+            "pair_recall_small": 0.10106382978723404,
+            "pair_recall_not_small": 0.5586924219910847,
+            "pair_recall_small_DIOR-18C": 0.16666666666666666,
+            "pair_recall_small_FAIR-18C": 0.096569250317662,
+            "pair_recall_small_Xview-34C": 0.11904761904761904
+          },
+          "12": {
+            "vocab_recall": 0.4561497064579257,
+            "pair_recall": 0.39429634221946686,
+            "pair_recall_small": 0.2148936170212766,
+            "pair_recall_not_small": 0.6448736998514116,
+            "pair_recall_small_DIOR-18C": 0.375,
+            "pair_recall_small_FAIR-18C": 0.21601016518424396,
+            "pair_recall_small_Xview-34C": 0.18253968253968253
+          },
+          "20": {
+            "vocab_recall": 0.6427902804957599,
+            "pair_recall": 0.6007439553626782,
+            "pair_recall_small": 0.46382978723404256,
+            "pair_recall_not_small": 0.7919762258543833,
+            "pair_recall_small_DIOR-18C": 0.5833333333333334,
+            "pair_recall_small_FAIR-18C": 0.4815756035578145,
+            "pair_recall_small_Xview-34C": 0.3333333333333333
+          },
+          "40": {
+            "vocab_recall": 0.8918476842791911,
+            "pair_recall": 0.8859268443893367,
+            "pair_recall_small": 0.8691489361702127,
+            "pair_recall_not_small": 0.9093610698365527,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.8881829733163914,
+            "pair_recall_small_Xview-34C": 0.746031746031746
+          },
+          "alpha": 0.75,
+          "agg": "mean",
+          "grids": [
+            2,
+            3,
+            4
+          ],
+          "n_crops": 29
+        }
+      },
+      "chosen": "a0.5_max_g23",
+      "best_local_only": "a0_mean_g2",
+      "bootstrap": {
+        "a0.5_max_g23_minus_global": {
+          "3": {
+            "diff": -0.002627201565557732,
+            "ci_low": -0.020800880626223095,
+            "ci_high": 0.017387190150032608,
+            "excludes_zero": false
+          },
+          "8": {
+            "diff": -0.013289302022178737,
+            "ci_low": -0.036019324853228965,
+            "ci_high": 0.008571754729288974,
+            "excludes_zero": false
+          },
+          "20": {
+            "diff": 0.028139269406392695,
+            "ci_low": 0.004737198303979126,
+            "ci_high": 0.050940313111545975,
+            "excludes_zero": true
+          }
+        },
+        "small_pair_recall_k8": {
+          "diff": -0.0053191489361702204,
+          "ci_low": -0.026512977986541668,
+          "ci_high": 0.015591070434298436,
+          "excludes_zero": false
+        }
+      },
+      "views_ms_median": 883.7343500053976
+    },
+    "remoteclip_b32": {
+      "views_meta": {
+        "model": "remoteclip_b32",
+        "split": "dev",
+        "device": "cpu",
+        "host": "LAPTOP-8N8B1VIP",
+        "git_commit": "3f97bdc30240cc456e6ef2f15a543c41c84827af",
+        "git_dirty_code": true,
+        "grids": [
+          2,
+          3,
+          4
+        ],
+        "overlap": 0.25,
+        "n_crops": 29,
+        "templates": [
+          "a satellite image of a {}.",
+          "an aerial photo of a {}.",
+          "a photo of a {}."
+        ],
+        "logit_scale": 99.85401153564453,
+        "model_load_s": 20.33,
+        "failed": [],
+        "timing_note": "image_ms = all 1 + n_crops views of one image (batched), excl. disk I/O; CPU is not a latency result"
+      },
+      "variants": {
+        "global": {
+          "ranking_mAP": 0.24485433038173307,
+          "1": {
+            "vocab_recall": 0.13013698630136986,
+            "pair_recall": 0.08555486670799752,
+            "pair_recall_small": 0.03404255319148936,
+            "pair_recall_not_small": 0.1575037147102526,
+            "pair_recall_small_DIOR-18C": 0.375,
+            "pair_recall_small_FAIR-18C": 0.0241423125794155,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "2": {
+            "vocab_recall": 0.18348336594911935,
+            "pair_recall": 0.13391196528208307,
+            "pair_recall_small": 0.07446808510638298,
+            "pair_recall_not_small": 0.21693907875185736,
+            "pair_recall_small_DIOR-18C": 0.6666666666666666,
+            "pair_recall_small_FAIR-18C": 0.060991105463786534,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "3": {
+            "vocab_recall": 0.22147423352902804,
+            "pair_recall": 0.16924984500929943,
+            "pair_recall_small": 0.10319148936170212,
+            "pair_recall_not_small": 0.26151560178306094,
+            "pair_recall_small_DIOR-18C": 0.7916666666666666,
+            "pair_recall_small_FAIR-18C": 0.08767471410419314,
+            "pair_recall_small_Xview-34C": 0.05555555555555555
+          },
+          "5": {
+            "vocab_recall": 0.302423352902805,
+            "pair_recall": 0.23806571605703658,
+            "pair_recall_small": 0.15531914893617021,
+            "pair_recall_not_small": 0.3536404160475483,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.1423125794155019,
+            "pair_recall_small_Xview-34C": 0.07936507936507936
+          },
+          "8": {
+            "vocab_recall": 0.4102120026092628,
+            "pair_recall": 0.33353998760074394,
+            "pair_recall_small": 0.22234042553191488,
+            "pair_recall_not_small": 0.4888558692421991,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.21473951715374842,
+            "pair_recall_small_Xview-34C": 0.12698412698412698
+          },
+          "12": {
+            "vocab_recall": 0.5196216568819307,
+            "pair_recall": 0.44141351518908867,
+            "pair_recall_small": 0.3191489361702128,
+            "pair_recall_not_small": 0.612184249628529,
+            "pair_recall_small_DIOR-18C": 0.9583333333333334,
+            "pair_recall_small_FAIR-18C": 0.3138500635324015,
+            "pair_recall_small_Xview-34C": 0.2222222222222222
+          },
+          "20": {
+            "vocab_recall": 0.6682126549249836,
+            "pair_recall": 0.6075635461872287,
+            "pair_recall_small": 0.5074468085106383,
+            "pair_recall_not_small": 0.7473997028231798,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.5095298602287166,
+            "pair_recall_small_Xview-34C": 0.3888888888888889
+          },
+          "40": {
+            "vocab_recall": 0.8817433137638617,
+            "pair_recall": 0.8629882207067576,
+            "pair_recall_small": 0.8297872340425532,
+            "pair_recall_not_small": 0.9093610698365527,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.8449809402795425,
+            "pair_recall_small_Xview-34C": 0.6984126984126984
+          },
+          "alpha": 1.0,
+          "agg": "max",
+          "grids": [
+            2,
+            3,
+            4
+          ],
+          "n_crops": 29
+        },
+        "a0_max_g2": {
+          "ranking_mAP": 0.24018449110495127,
+          "1": {
+            "vocab_recall": 0.16126875407697328,
+            "pair_recall": 0.11097334159950403,
+            "pair_recall_small": 0.05638297872340425,
+            "pair_recall_not_small": 0.18722139673105498,
+            "pair_recall_small_DIOR-18C": 0.20833333333333334,
+            "pair_recall_small_FAIR-18C": 0.05590851334180432,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "2": {
+            "vocab_recall": 0.21753587736464447,
+            "pair_recall": 0.17110973341599503,
+            "pair_recall_small": 0.1202127659574468,
+            "pair_recall_not_small": 0.24219910846953938,
+            "pair_recall_small_DIOR-18C": 0.2916666666666667,
+            "pair_recall_small_FAIR-18C": 0.12452350698856417,
+            "pair_recall_small_Xview-34C": 0.047619047619047616
+          },
+          "3": {
+            "vocab_recall": 0.2619993476842792,
+            "pair_recall": 0.21264724116553008,
+            "pair_recall_small": 0.16170212765957448,
+            "pair_recall_not_small": 0.2838038632986627,
+            "pair_recall_small_DIOR-18C": 0.5,
+            "pair_recall_small_FAIR-18C": 0.16518424396442186,
+            "pair_recall_small_Xview-34C": 0.06349206349206349
+          },
+          "5": {
+            "vocab_recall": 0.3387133072407045,
+            "pair_recall": 0.28394296342219466,
+            "pair_recall_small": 0.23191489361702128,
+            "pair_recall_not_small": 0.35661218424962854,
+            "pair_recall_small_DIOR-18C": 0.7916666666666666,
+            "pair_recall_small_FAIR-18C": 0.23506988564167725,
+            "pair_recall_small_Xview-34C": 0.09523809523809523
+          },
+          "8": {
+            "vocab_recall": 0.4310241356816699,
+            "pair_recall": 0.36205827650340977,
+            "pair_recall_small": 0.2872340425531915,
+            "pair_recall_not_small": 0.46656760772659733,
+            "pair_recall_small_DIOR-18C": 0.875,
+            "pair_recall_small_FAIR-18C": 0.2909783989834816,
+            "pair_recall_small_Xview-34C": 0.14285714285714285
+          },
+          "12": {
+            "vocab_recall": 0.5262312459230267,
+            "pair_recall": 0.4556726596404216,
+            "pair_recall_small": 0.37127659574468086,
+            "pair_recall_not_small": 0.5735512630014858,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.3710292249047014,
+            "pair_recall_small_Xview-34C": 0.2619047619047619
+          },
+          "20": {
+            "vocab_recall": 0.6582566862361384,
+            "pair_recall": 0.6013639181649101,
+            "pair_recall_small": 0.5212765957446809,
+            "pair_recall_not_small": 0.7132243684992571,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.5247776365946633,
+            "pair_recall_small_Xview-34C": 0.40476190476190477
+          },
+          "40": {
+            "vocab_recall": 0.8980365296803652,
+            "pair_recall": 0.8958462492250465,
+            "pair_recall_small": 0.9,
+            "pair_recall_not_small": 0.8900445765230312,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.9148665819567979,
+            "pair_recall_small_Xview-34C": 0.7857142857142857
+          },
+          "alpha": 0.0,
+          "agg": "max",
+          "grids": [
+            2
+          ],
+          "n_crops": 4
+        },
+        "a0_max_g23": {
+          "ranking_mAP": 0.22717789503683222,
+          "1": {
+            "vocab_recall": 0.15203359425962165,
+            "pair_recall": 0.10353378797272164,
+            "pair_recall_small": 0.05,
+            "pair_recall_not_small": 0.17830609212481427,
+            "pair_recall_small_DIOR-18C": 0.20833333333333334,
+            "pair_recall_small_FAIR-18C": 0.052096569250317665,
+            "pair_recall_small_Xview-34C": 0.007936507936507936
+          },
+          "2": {
+            "vocab_recall": 0.2220107632093933,
+            "pair_recall": 0.17482951022938623,
+            "pair_recall_small": 0.1276595744680851,
+            "pair_recall_not_small": 0.24071322436849926,
+            "pair_recall_small_DIOR-18C": 0.3333333333333333,
+            "pair_recall_small_FAIR-18C": 0.13595933926302414,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "3": {
+            "vocab_recall": 0.2726386170906719,
+            "pair_recall": 0.22380657160570366,
+            "pair_recall_small": 0.1851063829787234,
+            "pair_recall_not_small": 0.27786032689450224,
+            "pair_recall_small_DIOR-18C": 0.375,
+            "pair_recall_small_FAIR-18C": 0.2020330368487929,
+            "pair_recall_small_Xview-34C": 0.03968253968253968
+          },
+          "5": {
+            "vocab_recall": 0.3362932159165036,
+            "pair_recall": 0.2926224426534408,
+            "pair_recall_small": 0.251063829787234,
+            "pair_recall_not_small": 0.35066864784546803,
+            "pair_recall_small_DIOR-18C": 0.4583333333333333,
+            "pair_recall_small_FAIR-18C": 0.2668360864040661,
+            "pair_recall_small_Xview-34C": 0.10317460317460317
+          },
+          "8": {
+            "vocab_recall": 0.41166177429876055,
+            "pair_recall": 0.3595784252944823,
+            "pair_recall_small": 0.2978723404255319,
+            "pair_recall_not_small": 0.4457652303120357,
+            "pair_recall_small_DIOR-18C": 0.5833333333333334,
+            "pair_recall_small_FAIR-18C": 0.312579415501906,
+            "pair_recall_small_Xview-34C": 0.14285714285714285
+          },
+          "12": {
+            "vocab_recall": 0.5123173515981735,
+            "pair_recall": 0.4476131432114073,
+            "pair_recall_small": 0.3627659574468085,
+            "pair_recall_not_small": 0.5661218424962853,
+            "pair_recall_small_DIOR-18C": 0.7083333333333334,
+            "pair_recall_small_FAIR-18C": 0.36721728081321475,
+            "pair_recall_small_Xview-34C": 0.2619047619047619
+          },
+          "20": {
+            "vocab_recall": 0.6522684279191128,
+            "pair_recall": 0.5895846249225046,
+            "pair_recall_small": 0.48829787234042554,
+            "pair_recall_not_small": 0.7310549777117384,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.48284625158831,
+            "pair_recall_small_Xview-34C": 0.4365079365079365
+          },
+          "40": {
+            "vocab_recall": 0.9124657534246574,
+            "pair_recall": 0.9045257284562926,
+            "pair_recall_small": 0.8978723404255319,
+            "pair_recall_not_small": 0.9138187221396731,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.9148665819567979,
+            "pair_recall_small_Xview-34C": 0.7698412698412699
+          },
+          "alpha": 0.0,
+          "agg": "max",
+          "grids": [
+            2,
+            3
+          ],
+          "n_crops": 13
+        },
+        "a0_max_g234": {
+          "ranking_mAP": 0.22672777056728785,
+          "1": {
+            "vocab_recall": 0.14220482713633398,
+            "pair_recall": 0.09609423434593925,
+            "pair_recall_small": 0.039361702127659576,
+            "pair_recall_not_small": 0.17533432392273401,
+            "pair_recall_small_DIOR-18C": 0.16666666666666666,
+            "pair_recall_small_FAIR-18C": 0.04066073697585769,
+            "pair_recall_small_Xview-34C": 0.007936507936507936
+          },
+          "2": {
+            "vocab_recall": 0.2069765166340509,
+            "pair_recall": 0.16119032858028517,
+            "pair_recall_small": 0.10531914893617021,
+            "pair_recall_not_small": 0.23922734026745915,
+            "pair_recall_small_DIOR-18C": 0.20833333333333334,
+            "pair_recall_small_FAIR-18C": 0.1156289707750953,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "3": {
+            "vocab_recall": 0.26247879973907373,
+            "pair_recall": 0.217606943583385,
+            "pair_recall_small": 0.16808510638297872,
+            "pair_recall_not_small": 0.2867756315007429,
+            "pair_recall_small_DIOR-18C": 0.375,
+            "pair_recall_small_FAIR-18C": 0.18170266836086404,
+            "pair_recall_small_Xview-34C": 0.03968253968253968
+          },
+          "5": {
+            "vocab_recall": 0.3256539465101109,
+            "pair_recall": 0.2882827030378177,
+            "pair_recall_small": 0.24574468085106382,
+            "pair_recall_not_small": 0.3476968796433878,
+            "pair_recall_small_DIOR-18C": 0.4583333333333333,
+            "pair_recall_small_FAIR-18C": 0.2668360864040661,
+            "pair_recall_small_Xview-34C": 0.07142857142857142
+          },
+          "8": {
+            "vocab_recall": 0.41094422700587074,
+            "pair_recall": 0.3601983880967142,
+            "pair_recall_small": 0.2978723404255319,
+            "pair_recall_not_small": 0.4472511144130758,
+            "pair_recall_small_DIOR-18C": 0.5416666666666666,
+            "pair_recall_small_FAIR-18C": 0.31003811944091486,
+            "pair_recall_small_Xview-34C": 0.16666666666666666
+          },
+          "12": {
+            "vocab_recall": 0.5074429223744292,
+            "pair_recall": 0.444513329200248,
+            "pair_recall_small": 0.35851063829787233,
+            "pair_recall_not_small": 0.5646359583952452,
+            "pair_recall_small_DIOR-18C": 0.6666666666666666,
+            "pair_recall_small_FAIR-18C": 0.3646759847522236,
+            "pair_recall_small_Xview-34C": 0.25396825396825395
+          },
+          "20": {
+            "vocab_recall": 0.657426614481409,
+            "pair_recall": 0.5933044017358958,
+            "pair_recall_small": 0.48723404255319147,
+            "pair_recall_not_small": 0.7414561664190193,
+            "pair_recall_small_DIOR-18C": 0.8333333333333334,
+            "pair_recall_small_FAIR-18C": 0.48792884371029227,
+            "pair_recall_small_Xview-34C": 0.40476190476190477
+          },
+          "40": {
+            "vocab_recall": 0.9018607305936073,
+            "pair_recall": 0.8902665840049597,
+            "pair_recall_small": 0.875531914893617,
+            "pair_recall_not_small": 0.9108469539375929,
+            "pair_recall_small_DIOR-18C": 0.9583333333333334,
+            "pair_recall_small_FAIR-18C": 0.8831003811944091,
+            "pair_recall_small_Xview-34C": 0.8095238095238095
+          },
+          "alpha": 0.0,
+          "agg": "max",
+          "grids": [
+            2,
+            3,
+            4
+          ],
+          "n_crops": 29
+        },
+        "a0_mean_g2": {
+          "ranking_mAP": 0.26587848606559855,
+          "1": {
+            "vocab_recall": 0.16336757990867581,
+            "pair_recall": 0.11779293242405456,
+            "pair_recall_small": 0.07446808510638298,
+            "pair_recall_not_small": 0.17830609212481427,
+            "pair_recall_small_DIOR-18C": 0.20833333333333334,
+            "pair_recall_small_FAIR-18C": 0.07878017789072427,
+            "pair_recall_small_Xview-34C": 0.015873015873015872
+          },
+          "2": {
+            "vocab_recall": 0.22218199608610564,
+            "pair_recall": 0.1754494730316181,
+            "pair_recall_small": 0.13404255319148936,
+            "pair_recall_not_small": 0.23328380386329867,
+            "pair_recall_small_DIOR-18C": 0.3333333333333333,
+            "pair_recall_small_FAIR-18C": 0.1423125794155019,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "3": {
+            "vocab_recall": 0.27054957599478147,
+            "pair_recall": 0.22070675759454433,
+            "pair_recall_small": 0.17659574468085107,
+            "pair_recall_not_small": 0.2823179791976226,
+            "pair_recall_small_DIOR-18C": 0.5833333333333334,
+            "pair_recall_small_FAIR-18C": 0.18424396442185514,
+            "pair_recall_small_Xview-34C": 0.03968253968253968
+          },
+          "5": {
+            "vocab_recall": 0.34704664057403783,
+            "pair_recall": 0.29324240545567265,
+            "pair_recall_small": 0.24361702127659574,
+            "pair_recall_not_small": 0.362555720653789,
+            "pair_recall_small_DIOR-18C": 0.7083333333333334,
+            "pair_recall_small_FAIR-18C": 0.25285895806861497,
+            "pair_recall_small_Xview-34C": 0.0873015873015873
+          },
+          "8": {
+            "vocab_recall": 0.4387622309197652,
+            "pair_recall": 0.37011779293242403,
+            "pair_recall_small": 0.2968085106382979,
+            "pair_recall_not_small": 0.4725111441307578,
+            "pair_recall_small_DIOR-18C": 0.875,
+            "pair_recall_small_FAIR-18C": 0.29860228716645487,
+            "pair_recall_small_Xview-34C": 0.16666666666666666
+          },
+          "12": {
+            "vocab_recall": 0.5293835616438357,
+            "pair_recall": 0.4593924364538128,
+            "pair_recall_small": 0.37340425531914895,
+            "pair_recall_not_small": 0.5794947994056464,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.3735705209656925,
+            "pair_recall_small_Xview-34C": 0.2619047619047619
+          },
+          "20": {
+            "vocab_recall": 0.6706881930854534,
+            "pair_recall": 0.615623062616243,
+            "pair_recall_small": 0.5414893617021277,
+            "pair_recall_not_small": 0.7191679049034175,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.542566709021601,
+            "pair_recall_small_Xview-34C": 0.4444444444444444
+          },
+          "40": {
+            "vocab_recall": 0.9097945205479452,
+            "pair_recall": 0.9082455052696838,
+            "pair_recall_small": 0.9117021276595745,
+            "pair_recall_not_small": 0.9034175334323923,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.9263024142312579,
+            "pair_recall_small_Xview-34C": 0.8015873015873016
+          },
+          "alpha": 0.0,
+          "agg": "mean",
+          "grids": [
+            2
+          ],
+          "n_crops": 4
+        },
+        "a0_mean_g23": {
+          "ranking_mAP": 0.2613445717372019,
+          "1": {
+            "vocab_recall": 0.1775570776255708,
+            "pair_recall": 0.13763174209547427,
+            "pair_recall_small": 0.11595744680851064,
+            "pair_recall_not_small": 0.16790490341753342,
+            "pair_recall_small_DIOR-18C": 0.25,
+            "pair_recall_small_FAIR-18C": 0.12452350698856417,
+            "pair_recall_small_Xview-34C": 0.03968253968253968
+          },
+          "2": {
+            "vocab_recall": 0.24035551206784084,
+            "pair_recall": 0.19714817110973343,
+            "pair_recall_small": 0.17340425531914894,
+            "pair_recall_not_small": 0.2303120356612184,
+            "pair_recall_small_DIOR-18C": 0.3333333333333333,
+            "pair_recall_small_FAIR-18C": 0.18678526048284624,
+            "pair_recall_small_Xview-34C": 0.047619047619047616
+          },
+          "3": {
+            "vocab_recall": 0.28828930202217873,
+            "pair_recall": 0.24550526968381897,
+            "pair_recall_small": 0.22021276595744682,
+            "pair_recall_not_small": 0.28083209509658247,
+            "pair_recall_small_DIOR-18C": 0.4166666666666667,
+            "pair_recall_small_FAIR-18C": 0.24015247776365947,
+            "pair_recall_small_Xview-34C": 0.047619047619047616
+          },
+          "5": {
+            "vocab_recall": 0.3532681017612524,
+            "pair_recall": 0.30254184748915064,
+            "pair_recall_small": 0.25957446808510637,
+            "pair_recall_not_small": 0.362555720653789,
+            "pair_recall_small_DIOR-18C": 0.5,
+            "pair_recall_small_FAIR-18C": 0.2795425667090216,
+            "pair_recall_small_Xview-34C": 0.07936507936507936
+          },
+          "8": {
+            "vocab_recall": 0.4416634050880626,
+            "pair_recall": 0.3794172349659021,
+            "pair_recall_small": 0.30638297872340425,
+            "pair_recall_not_small": 0.4814264487369985,
+            "pair_recall_small_DIOR-18C": 0.6666666666666666,
+            "pair_recall_small_FAIR-18C": 0.3138500635324015,
+            "pair_recall_small_Xview-34C": 0.18253968253968253
+          },
+          "12": {
+            "vocab_recall": 0.5263698630136986,
+            "pair_recall": 0.46373217606943584,
+            "pair_recall_small": 0.37872340425531914,
+            "pair_recall_not_small": 0.5824665676077266,
+            "pair_recall_small_DIOR-18C": 0.75,
+            "pair_recall_small_FAIR-18C": 0.37738246505717915,
+            "pair_recall_small_Xview-34C": 0.30952380952380953
+          },
+          "20": {
+            "vocab_recall": 0.6790247879973907,
+            "pair_recall": 0.6218226906385617,
+            "pair_recall_small": 0.526595744680851,
+            "pair_recall_not_small": 0.7548291233283804,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.5196950444726811,
+            "pair_recall_small_Xview-34C": 0.49206349206349204
+          },
+          "40": {
+            "vocab_recall": 0.9305479452054796,
+            "pair_recall": 0.9274643521388717,
+            "pair_recall_small": 0.9287234042553192,
+            "pair_recall_not_small": 0.9257057949479941,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.940279542566709,
+            "pair_recall_small_Xview-34C": 0.8412698412698413
+          },
+          "alpha": 0.0,
+          "agg": "mean",
+          "grids": [
+            2,
+            3
+          ],
+          "n_crops": 13
+        },
+        "a0_mean_g234": {
+          "ranking_mAP": 0.2506682246051454,
+          "1": {
+            "vocab_recall": 0.14412100456621005,
+            "pair_recall": 0.12275263484190949,
+            "pair_recall_small": 0.12127659574468085,
+            "pair_recall_not_small": 0.12481426448736999,
+            "pair_recall_small_DIOR-18C": 0.16666666666666666,
+            "pair_recall_small_FAIR-18C": 0.1397712833545108,
+            "pair_recall_small_Xview-34C": 0.0
+          },
+          "2": {
+            "vocab_recall": 0.23665688193085455,
+            "pair_recall": 0.1996280223186609,
+            "pair_recall_small": 0.19042553191489361,
+            "pair_recall_not_small": 0.212481426448737,
+            "pair_recall_small_DIOR-18C": 0.3333333333333333,
+            "pair_recall_small_FAIR-18C": 0.2121982210927573,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "3": {
+            "vocab_recall": 0.28244455316373124,
+            "pair_recall": 0.2448853068815871,
+            "pair_recall_small": 0.2351063829787234,
+            "pair_recall_not_small": 0.2585438335809807,
+            "pair_recall_small_DIOR-18C": 0.375,
+            "pair_recall_small_FAIR-18C": 0.25667090216010163,
+            "pair_recall_small_Xview-34C": 0.07142857142857142
+          },
+          "5": {
+            "vocab_recall": 0.36359099804305284,
+            "pair_recall": 0.3155610663360198,
+            "pair_recall_small": 0.2712765957446808,
+            "pair_recall_not_small": 0.3774145616641902,
+            "pair_recall_small_DIOR-18C": 0.4166666666666667,
+            "pair_recall_small_FAIR-18C": 0.2884371029224905,
+            "pair_recall_small_Xview-34C": 0.12698412698412698
+          },
+          "8": {
+            "vocab_recall": 0.4481930854533594,
+            "pair_recall": 0.3880967141971482,
+            "pair_recall_small": 0.31382978723404253,
+            "pair_recall_not_small": 0.4918276374442793,
+            "pair_recall_small_DIOR-18C": 0.4583333333333333,
+            "pair_recall_small_FAIR-18C": 0.32655654383735705,
+            "pair_recall_small_Xview-34C": 0.1984126984126984
+          },
+          "12": {
+            "vocab_recall": 0.5299200913242009,
+            "pair_recall": 0.46683199008059517,
+            "pair_recall_small": 0.3723404255319149,
+            "pair_recall_not_small": 0.5988112927191679,
+            "pair_recall_small_DIOR-18C": 0.625,
+            "pair_recall_small_FAIR-18C": 0.3735705209656925,
+            "pair_recall_small_Xview-34C": 0.30952380952380953
+          },
+          "20": {
+            "vocab_recall": 0.690507175472929,
+            "pair_recall": 0.634221946683199,
+            "pair_recall_small": 0.5340425531914894,
+            "pair_recall_not_small": 0.774145616641902,
+            "pair_recall_small_DIOR-18C": 0.7916666666666666,
+            "pair_recall_small_FAIR-18C": 0.5273189326556544,
+            "pair_recall_small_Xview-34C": 0.5238095238095238
+          },
+          "40": {
+            "vocab_recall": 0.9373287671232877,
+            "pair_recall": 0.9299442033477991,
+            "pair_recall_small": 0.9297872340425531,
+            "pair_recall_not_small": 0.9301634472511144,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.9351969504447268,
+            "pair_recall_small_Xview-34C": 0.8809523809523809
+          },
+          "alpha": 0.0,
+          "agg": "mean",
+          "grids": [
+            2,
+            3,
+            4
+          ],
+          "n_crops": 29
+        },
+        "a0.25_max_g2": {
+          "ranking_mAP": 0.2557910786469676,
+          "1": {
+            "vocab_recall": 0.1551598173515982,
+            "pair_recall": 0.10725356478611284,
+            "pair_recall_small": 0.0574468085106383,
+            "pair_recall_not_small": 0.17682020802377416,
+            "pair_recall_small_DIOR-18C": 0.20833333333333334,
+            "pair_recall_small_FAIR-18C": 0.05717916137229987,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "2": {
+            "vocab_recall": 0.21502446183953036,
+            "pair_recall": 0.16676999380037197,
+            "pair_recall_small": 0.11170212765957446,
+            "pair_recall_not_small": 0.2436849925705795,
+            "pair_recall_small_DIOR-18C": 0.4166666666666667,
+            "pair_recall_small_FAIR-18C": 0.11181702668360864,
+            "pair_recall_small_Xview-34C": 0.03968253968253968
+          },
+          "3": {
+            "vocab_recall": 0.2621819960861057,
+            "pair_recall": 0.21078735275883448,
+            "pair_recall_small": 0.15319148936170213,
+            "pair_recall_not_small": 0.2912332838038633,
+            "pair_recall_small_DIOR-18C": 0.625,
+            "pair_recall_small_FAIR-18C": 0.15247776365946633,
+            "pair_recall_small_Xview-34C": 0.05555555555555555
+          },
+          "5": {
+            "vocab_recall": 0.33881604696673184,
+            "pair_recall": 0.28208307501549906,
+            "pair_recall_small": 0.225531914893617,
+            "pair_recall_not_small": 0.3610698365527489,
+            "pair_recall_small_DIOR-18C": 0.8333333333333334,
+            "pair_recall_small_FAIR-18C": 0.22998729351969505,
+            "pair_recall_small_Xview-34C": 0.07142857142857142
+          },
+          "8": {
+            "vocab_recall": 0.44151500326157855,
+            "pair_recall": 0.37135771853688776,
+            "pair_recall_small": 0.2904255319148936,
+            "pair_recall_not_small": 0.48439821693907875,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.2935196950444727,
+            "pair_recall_small_Xview-34C": 0.14285714285714285
+          },
+          "12": {
+            "vocab_recall": 0.533012067840835,
+            "pair_recall": 0.4612523248605084,
+            "pair_recall_small": 0.3702127659574468,
+            "pair_recall_not_small": 0.5884101040118871,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.3697585768742058,
+            "pair_recall_small_Xview-34C": 0.2619047619047619
+          },
+          "20": {
+            "vocab_recall": 0.6572178734507502,
+            "pair_recall": 0.6001239925604464,
+            "pair_recall_small": 0.5159574468085106,
+            "pair_recall_not_small": 0.7176820208023774,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.5222363405336722,
+            "pair_recall_small_Xview-34C": 0.38095238095238093
+          },
+          "40": {
+            "vocab_recall": 0.89675799086758,
+            "pair_recall": 0.8927464352138872,
+            "pair_recall_small": 0.8914893617021277,
+            "pair_recall_not_small": 0.8945022288261516,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.9059720457433291,
+            "pair_recall_small_Xview-34C": 0.7777777777777778
+          },
+          "alpha": 0.25,
+          "agg": "max",
+          "grids": [
+            2
+          ],
+          "n_crops": 4
+        },
+        "a0.25_max_g23": {
+          "ranking_mAP": 0.24832824596840145,
+          "1": {
+            "vocab_recall": 0.148824200913242,
+            "pair_recall": 0.10167389956602604,
+            "pair_recall_small": 0.05,
+            "pair_recall_not_small": 0.1738484398216939,
+            "pair_recall_small_DIOR-18C": 0.20833333333333334,
+            "pair_recall_small_FAIR-18C": 0.05082592121982211,
+            "pair_recall_small_Xview-34C": 0.015873015873015872
+          },
+          "2": {
+            "vocab_recall": 0.21984181343770381,
+            "pair_recall": 0.1735895846249225,
+            "pair_recall_small": 0.12659574468085105,
+            "pair_recall_not_small": 0.23922734026745915,
+            "pair_recall_small_DIOR-18C": 0.3333333333333333,
+            "pair_recall_small_FAIR-18C": 0.13468869123252858,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "3": {
+            "vocab_recall": 0.27596053489889105,
+            "pair_recall": 0.22628642281463113,
+            "pair_recall_small": 0.1819148936170213,
+            "pair_recall_not_small": 0.28826151560178304,
+            "pair_recall_small_DIOR-18C": 0.4166666666666667,
+            "pair_recall_small_FAIR-18C": 0.19440914866581957,
+            "pair_recall_small_Xview-34C": 0.047619047619047616
+          },
+          "5": {
+            "vocab_recall": 0.3392270058708415,
+            "pair_recall": 0.2944823310601364,
+            "pair_recall_small": 0.2553191489361702,
+            "pair_recall_not_small": 0.3491827637444279,
+            "pair_recall_small_DIOR-18C": 0.5833333333333334,
+            "pair_recall_small_FAIR-18C": 0.2681067344345616,
+            "pair_recall_small_Xview-34C": 0.10317460317460317
+          },
+          "8": {
+            "vocab_recall": 0.42437866927592954,
+            "pair_recall": 0.36639801611903283,
+            "pair_recall_small": 0.3,
+            "pair_recall_not_small": 0.4591381872213967,
+            "pair_recall_small_DIOR-18C": 0.7083333333333334,
+            "pair_recall_small_FAIR-18C": 0.3113087674714104,
+            "pair_recall_small_Xview-34C": 0.14285714285714285
+          },
+          "12": {
+            "vocab_recall": 0.516404109589041,
+            "pair_recall": 0.4500929944203348,
+            "pair_recall_small": 0.3617021276595745,
+            "pair_recall_not_small": 0.5735512630014858,
+            "pair_recall_small_DIOR-18C": 0.875,
+            "pair_recall_small_FAIR-18C": 0.3646759847522236,
+            "pair_recall_small_Xview-34C": 0.23809523809523808
+          },
+          "20": {
+            "vocab_recall": 0.6567889758643183,
+            "pair_recall": 0.5902045877247365,
+            "pair_recall_small": 0.48404255319148937,
+            "pair_recall_not_small": 0.7384843982169391,
+            "pair_recall_small_DIOR-18C": 0.9583333333333334,
+            "pair_recall_small_FAIR-18C": 0.4764930114358323,
+            "pair_recall_small_Xview-34C": 0.4365079365079365
+          },
+          "40": {
+            "vocab_recall": 0.9114383561643836,
+            "pair_recall": 0.9008059516429014,
+            "pair_recall_small": 0.8914893617021277,
+            "pair_recall_not_small": 0.9138187221396731,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.9097839898348158,
+            "pair_recall_small_Xview-34C": 0.753968253968254
+          },
+          "alpha": 0.25,
+          "agg": "max",
+          "grids": [
+            2,
+            3
+          ],
+          "n_crops": 13
+        },
+        "a0.25_max_g234": {
+          "ranking_mAP": 0.24568319617312037,
+          "1": {
+            "vocab_recall": 0.14493150684931508,
+            "pair_recall": 0.09795412275263485,
+            "pair_recall_small": 0.04042553191489362,
+            "pair_recall_not_small": 0.17830609212481427,
+            "pair_recall_small_DIOR-18C": 0.16666666666666666,
+            "pair_recall_small_FAIR-18C": 0.04066073697585769,
+            "pair_recall_small_Xview-34C": 0.015873015873015872
+          },
+          "2": {
+            "vocab_recall": 0.20754729288975865,
+            "pair_recall": 0.16119032858028517,
+            "pair_recall_small": 0.10212765957446808,
+            "pair_recall_not_small": 0.2436849925705795,
+            "pair_recall_small_DIOR-18C": 0.25,
+            "pair_recall_small_FAIR-18C": 0.11054637865311309,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "3": {
+            "vocab_recall": 0.2653440965427266,
+            "pair_recall": 0.22070675759454433,
+            "pair_recall_small": 0.17127659574468085,
+            "pair_recall_not_small": 0.2897473997028232,
+            "pair_recall_small_DIOR-18C": 0.375,
+            "pair_recall_small_FAIR-18C": 0.18424396442185514,
+            "pair_recall_small_Xview-34C": 0.047619047619047616
+          },
+          "5": {
+            "vocab_recall": 0.3333137638617091,
+            "pair_recall": 0.29324240545567265,
+            "pair_recall_small": 0.2478723404255319,
+            "pair_recall_not_small": 0.35661218424962854,
+            "pair_recall_small_DIOR-18C": 0.5,
+            "pair_recall_small_FAIR-18C": 0.2668360864040661,
+            "pair_recall_small_Xview-34C": 0.07142857142857142
+          },
+          "8": {
+            "vocab_recall": 0.42132093933463793,
+            "pair_recall": 0.3651580905145691,
+            "pair_recall_small": 0.298936170212766,
+            "pair_recall_not_small": 0.4576523031203566,
+            "pair_recall_small_DIOR-18C": 0.5416666666666666,
+            "pair_recall_small_FAIR-18C": 0.312579415501906,
+            "pair_recall_small_Xview-34C": 0.15873015873015872
+          },
+          "12": {
+            "vocab_recall": 0.5150342465753425,
+            "pair_recall": 0.44885306881587106,
+            "pair_recall_small": 0.35851063829787233,
+            "pair_recall_not_small": 0.575037147102526,
+            "pair_recall_small_DIOR-18C": 0.7916666666666666,
+            "pair_recall_small_FAIR-18C": 0.3634053367217281,
+            "pair_recall_small_Xview-34C": 0.23809523809523808
+          },
+          "20": {
+            "vocab_recall": 0.6602576647097195,
+            "pair_recall": 0.5933044017358958,
+            "pair_recall_small": 0.4808510638297872,
+            "pair_recall_not_small": 0.75037147102526,
+            "pair_recall_small_DIOR-18C": 0.9583333333333334,
+            "pair_recall_small_FAIR-18C": 0.4764930114358323,
+            "pair_recall_small_Xview-34C": 0.4126984126984127
+          },
+          "40": {
+            "vocab_recall": 0.9021347031963469,
+            "pair_recall": 0.8927464352138872,
+            "pair_recall_small": 0.8776595744680851,
+            "pair_recall_not_small": 0.9138187221396731,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.8831003811944091,
+            "pair_recall_small_Xview-34C": 0.8174603174603174
+          },
+          "alpha": 0.25,
+          "agg": "max",
+          "grids": [
+            2,
+            3,
+            4
+          ],
+          "n_crops": 29
+        },
+        "a0.25_mean_g2": {
+          "ranking_mAP": 0.2670693464230066,
+          "1": {
+            "vocab_recall": 0.16567351598173516,
+            "pair_recall": 0.11283323000619963,
+            "pair_recall_small": 0.06170212765957447,
+            "pair_recall_not_small": 0.18424962852897475,
+            "pair_recall_small_DIOR-18C": 0.25,
+            "pair_recall_small_FAIR-18C": 0.060991105463786534,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "2": {
+            "vocab_recall": 0.2189269406392694,
+            "pair_recall": 0.17234965902045876,
+            "pair_recall_small": 0.12446808510638298,
+            "pair_recall_not_small": 0.23922734026745915,
+            "pair_recall_small_DIOR-18C": 0.4166666666666667,
+            "pair_recall_small_FAIR-18C": 0.12833545108005082,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "3": {
+            "vocab_recall": 0.2699673842139595,
+            "pair_recall": 0.2194668319900806,
+            "pair_recall_small": 0.1702127659574468,
+            "pair_recall_not_small": 0.28826151560178304,
+            "pair_recall_small_DIOR-18C": 0.6666666666666666,
+            "pair_recall_small_FAIR-18C": 0.17407878017789072,
+            "pair_recall_small_Xview-34C": 0.03968253968253968
+          },
+          "5": {
+            "vocab_recall": 0.35301696020874107,
+            "pair_recall": 0.29324240545567265,
+            "pair_recall_small": 0.23191489361702128,
+            "pair_recall_not_small": 0.3789004457652303,
+            "pair_recall_small_DIOR-18C": 0.8333333333333334,
+            "pair_recall_small_FAIR-18C": 0.23761118170266837,
+            "pair_recall_small_Xview-34C": 0.07142857142857142
+          },
+          "8": {
+            "vocab_recall": 0.4440476190476191,
+            "pair_recall": 0.37135771853688776,
+            "pair_recall_small": 0.2936170212765957,
+            "pair_recall_not_small": 0.4799405646359584,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.2935196950444727,
+            "pair_recall_small_Xview-34C": 0.16666666666666666
+          },
+          "12": {
+            "vocab_recall": 0.5307762557077625,
+            "pair_recall": 0.46001239925604465,
+            "pair_recall_small": 0.3617021276595745,
+            "pair_recall_not_small": 0.5973254086181278,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.3570520965692503,
+            "pair_recall_small_Xview-34C": 0.2777777777777778
+          },
+          "20": {
+            "vocab_recall": 0.6670466405740378,
+            "pair_recall": 0.6069435833849969,
+            "pair_recall_small": 0.5212765957446809,
+            "pair_recall_not_small": 0.7265973254086181,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.5222363405336722,
+            "pair_recall_small_Xview-34C": 0.42063492063492064
+          },
+          "40": {
+            "vocab_recall": 0.9014155251141552,
+            "pair_recall": 0.8995660260384377,
+            "pair_recall_small": 0.8946808510638298,
+            "pair_recall_not_small": 0.9063893016344725,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.9097839898348158,
+            "pair_recall_small_Xview-34C": 0.7777777777777778
+          },
+          "alpha": 0.25,
+          "agg": "mean",
+          "grids": [
+            2
+          ],
+          "n_crops": 4
+        },
+        "a0.25_mean_g23": {
+          "ranking_mAP": 0.26863948875376653,
+          "1": {
+            "vocab_recall": 0.16643835616438357,
+            "pair_recall": 0.12275263484190949,
+            "pair_recall_small": 0.08829787234042553,
+            "pair_recall_not_small": 0.17087667161961367,
+            "pair_recall_small_DIOR-18C": 0.2916666666666667,
+            "pair_recall_small_FAIR-18C": 0.09275730622617535,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "2": {
+            "vocab_recall": 0.24350456621004565,
+            "pair_recall": 0.19714817110973343,
+            "pair_recall_small": 0.16382978723404254,
+            "pair_recall_not_small": 0.2436849925705795,
+            "pair_recall_small_DIOR-18C": 0.5,
+            "pair_recall_small_FAIR-18C": 0.17153748411689962,
+            "pair_recall_small_Xview-34C": 0.03968253968253968
+          },
+          "3": {
+            "vocab_recall": 0.2874445531637313,
+            "pair_recall": 0.24364538127712337,
+            "pair_recall_small": 0.21170212765957447,
+            "pair_recall_not_small": 0.28826151560178304,
+            "pair_recall_small_DIOR-18C": 0.6666666666666666,
+            "pair_recall_small_FAIR-18C": 0.22236340533672172,
+            "pair_recall_small_Xview-34C": 0.047619047619047616
+          },
+          "5": {
+            "vocab_recall": 0.3630512067840834,
+            "pair_recall": 0.3106013639181649,
+            "pair_recall_small": 0.26170212765957446,
+            "pair_recall_not_small": 0.3789004457652303,
+            "pair_recall_small_DIOR-18C": 0.75,
+            "pair_recall_small_FAIR-18C": 0.27573062261753495,
+            "pair_recall_small_Xview-34C": 0.07142857142857142
+          },
+          "8": {
+            "vocab_recall": 0.45450424005218526,
+            "pair_recall": 0.38685678859268446,
+            "pair_recall_small": 0.30531914893617024,
+            "pair_recall_not_small": 0.5007429420505201,
+            "pair_recall_small_DIOR-18C": 0.8333333333333334,
+            "pair_recall_small_FAIR-18C": 0.31003811944091486,
+            "pair_recall_small_Xview-34C": 0.16666666666666666
+          },
+          "12": {
+            "vocab_recall": 0.5396575342465754,
+            "pair_recall": 0.47055176689398637,
+            "pair_recall_small": 0.36914893617021277,
+            "pair_recall_not_small": 0.612184249628529,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.36721728081321475,
+            "pair_recall_small_Xview-34C": 0.2698412698412698
+          },
+          "20": {
+            "vocab_recall": 0.6894471624266145,
+            "pair_recall": 0.629262244265344,
+            "pair_recall_small": 0.5287234042553192,
+            "pair_recall_not_small": 0.7696879643387816,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.5184243964421855,
+            "pair_recall_small_Xview-34C": 0.5
+          },
+          "40": {
+            "vocab_recall": 0.9159589041095891,
+            "pair_recall": 0.9138251704897706,
+            "pair_recall_small": 0.9127659574468086,
+            "pair_recall_not_small": 0.9153046062407132,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.9237611181702668,
+            "pair_recall_small_Xview-34C": 0.8253968253968254
+          },
+          "alpha": 0.25,
+          "agg": "mean",
+          "grids": [
+            2,
+            3
+          ],
+          "n_crops": 13
+        },
+        "a0.25_mean_g234": {
+          "ranking_mAP": 0.2673173893898954,
+          "1": {
+            "vocab_recall": 0.16474885844748857,
+            "pair_recall": 0.12585244885306882,
+            "pair_recall_small": 0.09680851063829787,
+            "pair_recall_not_small": 0.1664190193164933,
+            "pair_recall_small_DIOR-18C": 0.25,
+            "pair_recall_small_FAIR-18C": 0.10419313850063533,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "2": {
+            "vocab_recall": 0.24902968036529674,
+            "pair_recall": 0.20520768753874769,
+            "pair_recall_small": 0.1829787234042553,
+            "pair_recall_not_small": 0.2362555720653789,
+            "pair_recall_small_DIOR-18C": 0.5833333333333334,
+            "pair_recall_small_FAIR-18C": 0.19440914866581957,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "3": {
+            "vocab_recall": 0.2880381604696673,
+            "pair_recall": 0.24922504649721017,
+            "pair_recall_small": 0.2297872340425532,
+            "pair_recall_not_small": 0.2763744427934621,
+            "pair_recall_small_DIOR-18C": 0.6666666666666666,
+            "pair_recall_small_FAIR-18C": 0.24396442185514614,
+            "pair_recall_small_Xview-34C": 0.047619047619047616
+          },
+          "5": {
+            "vocab_recall": 0.36558871493802997,
+            "pair_recall": 0.3180409175449473,
+            "pair_recall_small": 0.2776595744680851,
+            "pair_recall_not_small": 0.37444279346210996,
+            "pair_recall_small_DIOR-18C": 0.7083333333333334,
+            "pair_recall_small_FAIR-18C": 0.2909783989834816,
+            "pair_recall_small_Xview-34C": 0.10317460317460317
+          },
+          "8": {
+            "vocab_recall": 0.4711497064579256,
+            "pair_recall": 0.40173589584624925,
+            "pair_recall_small": 0.32127659574468087,
+            "pair_recall_not_small": 0.5141158989598811,
+            "pair_recall_small_DIOR-18C": 0.7916666666666666,
+            "pair_recall_small_FAIR-18C": 0.3278271918678526,
+            "pair_recall_small_Xview-34C": 0.18253968253968253
+          },
+          "12": {
+            "vocab_recall": 0.5443036529680366,
+            "pair_recall": 0.47489150650960943,
+            "pair_recall_small": 0.37446808510638296,
+            "pair_recall_not_small": 0.6151560178306092,
+            "pair_recall_small_DIOR-18C": 0.875,
+            "pair_recall_small_FAIR-18C": 0.37229987293519695,
+            "pair_recall_small_Xview-34C": 0.2857142857142857
+          },
+          "20": {
+            "vocab_recall": 0.6937703848662753,
+            "pair_recall": 0.6354618722876627,
+            "pair_recall_small": 0.5340425531914894,
+            "pair_recall_not_small": 0.7771173848439822,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.5260482846251588,
+            "pair_recall_small_Xview-34C": 0.49206349206349204
+          },
+          "40": {
+            "vocab_recall": 0.9272146118721463,
+            "pair_recall": 0.9181649101053937,
+            "pair_recall_small": 0.9117021276595745,
+            "pair_recall_not_small": 0.9271916790490342,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.9148665819567979,
+            "pair_recall_small_Xview-34C": 0.873015873015873
+          },
+          "alpha": 0.25,
+          "agg": "mean",
+          "grids": [
+            2,
+            3,
+            4
+          ],
+          "n_crops": 29
+        },
+        "a0.5_max_g2": {
+          "ranking_mAP": 0.25638048497769583,
+          "1": {
+            "vocab_recall": 0.14618721461187217,
+            "pair_recall": 0.09981401115933045,
+            "pair_recall_small": 0.04893617021276596,
+            "pair_recall_not_small": 0.17087667161961367,
+            "pair_recall_small_DIOR-18C": 0.25,
+            "pair_recall_small_FAIR-18C": 0.045743329097839895,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "2": {
+            "vocab_recall": 0.21019569471624266,
+            "pair_recall": 0.1624302541847489,
+            "pair_recall_small": 0.10531914893617021,
+            "pair_recall_not_small": 0.24219910846953938,
+            "pair_recall_small_DIOR-18C": 0.5416666666666666,
+            "pair_recall_small_FAIR-18C": 0.10165184243964422,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "3": {
+            "vocab_recall": 0.2567367906066536,
+            "pair_recall": 0.20954742715437075,
+            "pair_recall_small": 0.15319148936170213,
+            "pair_recall_not_small": 0.28826151560178304,
+            "pair_recall_small_DIOR-18C": 0.6666666666666666,
+            "pair_recall_small_FAIR-18C": 0.15247776365946633,
+            "pair_recall_small_Xview-34C": 0.047619047619047616
+          },
+          "5": {
+            "vocab_recall": 0.3470352250489237,
+            "pair_recall": 0.28580285182889026,
+            "pair_recall_small": 0.22234042553191488,
+            "pair_recall_not_small": 0.37444279346210996,
+            "pair_recall_small_DIOR-18C": 0.875,
+            "pair_recall_small_FAIR-18C": 0.22490470139771285,
+            "pair_recall_small_Xview-34C": 0.07142857142857142
+          },
+          "8": {
+            "vocab_recall": 0.4415818656229614,
+            "pair_recall": 0.37011779293242403,
+            "pair_recall_small": 0.2904255319148936,
+            "pair_recall_not_small": 0.4814264487369985,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.289707750952986,
+            "pair_recall_small_Xview-34C": 0.16666666666666666
+          },
+          "12": {
+            "vocab_recall": 0.5262312459230267,
+            "pair_recall": 0.45629262244265345,
+            "pair_recall_small": 0.3617021276595745,
+            "pair_recall_not_small": 0.5884101040118871,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.3583227445997459,
+            "pair_recall_small_Xview-34C": 0.2698412698412698
+          },
+          "20": {
+            "vocab_recall": 0.6556881930854535,
+            "pair_recall": 0.5939243645381277,
+            "pair_recall_small": 0.5042553191489362,
+            "pair_recall_not_small": 0.7191679049034175,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.5108005082592122,
+            "pair_recall_small_Xview-34C": 0.36507936507936506
+          },
+          "40": {
+            "vocab_recall": 0.8944292237442923,
+            "pair_recall": 0.8902665840049597,
+            "pair_recall_small": 0.8797872340425532,
+            "pair_recall_not_small": 0.9049034175334324,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.8932655654383735,
+            "pair_recall_small_Xview-34C": 0.7698412698412699
+          },
+          "alpha": 0.5,
+          "agg": "max",
+          "grids": [
+            2
+          ],
+          "n_crops": 4
+        },
+        "a0.5_max_g23": {
+          "ranking_mAP": 0.25253312152860835,
+          "1": {
+            "vocab_recall": 0.14511415525114155,
+            "pair_recall": 0.10105393676379418,
+            "pair_recall_small": 0.05425531914893617,
+            "pair_recall_not_small": 0.1664190193164933,
+            "pair_recall_small_DIOR-18C": 0.2916666666666667,
+            "pair_recall_small_FAIR-18C": 0.05082592121982211,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "2": {
+            "vocab_recall": 0.22435094585779516,
+            "pair_recall": 0.17792932424054556,
+            "pair_recall_small": 0.12872340425531914,
+            "pair_recall_not_small": 0.24665676077265974,
+            "pair_recall_small_DIOR-18C": 0.4583333333333333,
+            "pair_recall_small_FAIR-18C": 0.13341804320203304,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "3": {
+            "vocab_recall": 0.27080071754729285,
+            "pair_recall": 0.2231866088034718,
+            "pair_recall_small": 0.1797872340425532,
+            "pair_recall_not_small": 0.2838038632986627,
+            "pair_recall_small_DIOR-18C": 0.5833333333333334,
+            "pair_recall_small_FAIR-18C": 0.18932655654383734,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "5": {
+            "vocab_recall": 0.35043705153294197,
+            "pair_recall": 0.30068195908245504,
+            "pair_recall_small": 0.25851063829787235,
+            "pair_recall_not_small": 0.35958395245170877,
+            "pair_recall_small_DIOR-18C": 0.75,
+            "pair_recall_small_FAIR-18C": 0.2681067344345616,
+            "pair_recall_small_Xview-34C": 0.09523809523809523
+          },
+          "8": {
+            "vocab_recall": 0.43454827136333984,
+            "pair_recall": 0.37321760694358336,
+            "pair_recall_small": 0.2978723404255319,
+            "pair_recall_not_small": 0.4784546805349183,
+            "pair_recall_small_DIOR-18C": 0.8333333333333334,
+            "pair_recall_small_FAIR-18C": 0.3062261753494282,
+            "pair_recall_small_Xview-34C": 0.1349206349206349
+          },
+          "12": {
+            "vocab_recall": 0.5195221787345075,
+            "pair_recall": 0.4519528828270304,
+            "pair_recall_small": 0.3617021276595745,
+            "pair_recall_not_small": 0.5780089153046062,
+            "pair_recall_small_DIOR-18C": 0.875,
+            "pair_recall_small_FAIR-18C": 0.3646759847522236,
+            "pair_recall_small_Xview-34C": 0.23809523809523808
+          },
+          "20": {
+            "vocab_recall": 0.6702560339204174,
+            "pair_recall": 0.6038437693738375,
+            "pair_recall_small": 0.5,
+            "pair_recall_not_small": 0.7488855869242199,
+            "pair_recall_small_DIOR-18C": 0.9583333333333334,
+            "pair_recall_small_FAIR-18C": 0.49301143583227447,
+            "pair_recall_small_Xview-34C": 0.4523809523809524
+          },
+          "40": {
+            "vocab_recall": 0.9055022831050228,
+            "pair_recall": 0.8952262864228147,
+            "pair_recall_small": 0.8851063829787233,
+            "pair_recall_not_small": 0.9093610698365527,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.9021601016518425,
+            "pair_recall_small_Xview-34C": 0.753968253968254
+          },
+          "alpha": 0.5,
+          "agg": "max",
+          "grids": [
+            2,
+            3
+          ],
+          "n_crops": 13
+        },
+        "a0.5_max_g234": {
+          "ranking_mAP": 0.251430017310108,
+          "1": {
+            "vocab_recall": 0.14095890410958903,
+            "pair_recall": 0.09485430874147552,
+            "pair_recall_small": 0.03723404255319149,
+            "pair_recall_not_small": 0.17533432392273401,
+            "pair_recall_small_DIOR-18C": 0.25,
+            "pair_recall_small_FAIR-18C": 0.03430749682337993,
+            "pair_recall_small_Xview-34C": 0.015873015873015872
+          },
+          "2": {
+            "vocab_recall": 0.21227332028701895,
+            "pair_recall": 0.1680099194048357,
+            "pair_recall_small": 0.11170212765957446,
+            "pair_recall_not_small": 0.24665676077265974,
+            "pair_recall_small_DIOR-18C": 0.4166666666666667,
+            "pair_recall_small_FAIR-18C": 0.1156289707750953,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "3": {
+            "vocab_recall": 0.26449934768427913,
+            "pair_recall": 0.21884686918784874,
+            "pair_recall_small": 0.16808510638297872,
+            "pair_recall_not_small": 0.2897473997028232,
+            "pair_recall_small_DIOR-18C": 0.5,
+            "pair_recall_small_FAIR-18C": 0.17662007623888182,
+            "pair_recall_small_Xview-34C": 0.03968253968253968
+          },
+          "5": {
+            "vocab_recall": 0.33921559034572735,
+            "pair_recall": 0.2957222566646001,
+            "pair_recall_small": 0.24893617021276596,
+            "pair_recall_not_small": 0.3610698365527489,
+            "pair_recall_small_DIOR-18C": 0.5833333333333334,
+            "pair_recall_small_FAIR-18C": 0.2681067344345616,
+            "pair_recall_small_Xview-34C": 0.05555555555555555
+          },
+          "8": {
+            "vocab_recall": 0.43646771037182,
+            "pair_recall": 0.3756974581525109,
+            "pair_recall_small": 0.30425531914893617,
+            "pair_recall_not_small": 0.475482912332838,
+            "pair_recall_small_DIOR-18C": 0.75,
+            "pair_recall_small_FAIR-18C": 0.3189326556543837,
+            "pair_recall_small_Xview-34C": 0.11904761904761904
+          },
+          "12": {
+            "vocab_recall": 0.5209018264840183,
+            "pair_recall": 0.4550526968381897,
+            "pair_recall_small": 0.3638297872340426,
+            "pair_recall_not_small": 0.5824665676077266,
+            "pair_recall_small_DIOR-18C": 0.8333333333333334,
+            "pair_recall_small_FAIR-18C": 0.3697585768742058,
+            "pair_recall_small_Xview-34C": 0.23015873015873015
+          },
+          "20": {
+            "vocab_recall": 0.6670156555772994,
+            "pair_recall": 0.5995040297582145,
+            "pair_recall_small": 0.48936170212765956,
+            "pair_recall_not_small": 0.7533432392273403,
+            "pair_recall_small_DIOR-18C": 0.9583333333333334,
+            "pair_recall_small_FAIR-18C": 0.4841168996188056,
+            "pair_recall_small_Xview-34C": 0.42857142857142855
+          },
+          "40": {
+            "vocab_recall": 0.9004452054794522,
+            "pair_recall": 0.8896466212027279,
+            "pair_recall_small": 0.8712765957446809,
+            "pair_recall_not_small": 0.9153046062407132,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.8767471410419314,
+            "pair_recall_small_Xview-34C": 0.8095238095238095
+          },
+          "alpha": 0.5,
+          "agg": "max",
+          "grids": [
+            2,
+            3,
+            4
+          ],
+          "n_crops": 29
+        },
+        "a0.5_mean_g2": {
+          "ranking_mAP": 0.26484571106292043,
+          "1": {
+            "vocab_recall": 0.14331050228310502,
+            "pair_recall": 0.09919404835709858,
+            "pair_recall_small": 0.05106382978723404,
+            "pair_recall_not_small": 0.1664190193164933,
+            "pair_recall_small_DIOR-18C": 0.2916666666666667,
+            "pair_recall_small_FAIR-18C": 0.04701397712833545,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "2": {
+            "vocab_recall": 0.21044520547945206,
+            "pair_recall": 0.16181029138251704,
+            "pair_recall_small": 0.11063829787234042,
+            "pair_recall_not_small": 0.23328380386329867,
+            "pair_recall_small_DIOR-18C": 0.625,
+            "pair_recall_small_FAIR-18C": 0.10546378653113088,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "3": {
+            "vocab_recall": 0.26323222439660793,
+            "pair_recall": 0.21264724116553008,
+            "pair_recall_small": 0.15638297872340426,
+            "pair_recall_not_small": 0.2912332838038633,
+            "pair_recall_small_DIOR-18C": 0.7916666666666666,
+            "pair_recall_small_FAIR-18C": 0.15374841168996187,
+            "pair_recall_small_Xview-34C": 0.03968253968253968
+          },
+          "5": {
+            "vocab_recall": 0.34952380952380957,
+            "pair_recall": 0.287042777433354,
+            "pair_recall_small": 0.22021276595744682,
+            "pair_recall_not_small": 0.3803863298662704,
+            "pair_recall_small_DIOR-18C": 0.7916666666666666,
+            "pair_recall_small_FAIR-18C": 0.22363405336721728,
+            "pair_recall_small_Xview-34C": 0.07936507936507936
+          },
+          "8": {
+            "vocab_recall": 0.4374836921069798,
+            "pair_recall": 0.36577805331680097,
+            "pair_recall_small": 0.27872340425531916,
+            "pair_recall_not_small": 0.487369985141159,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.28081321473951715,
+            "pair_recall_small_Xview-34C": 0.1349206349206349
+          },
+          "12": {
+            "vocab_recall": 0.5281735159817351,
+            "pair_recall": 0.4593924364538128,
+            "pair_recall_small": 0.35638297872340424,
+            "pair_recall_not_small": 0.6032689450222882,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.35324015247776364,
+            "pair_recall_small_Xview-34C": 0.2619047619047619
+          },
+          "20": {
+            "vocab_recall": 0.6753359425962165,
+            "pair_recall": 0.6187228766274023,
+            "pair_recall_small": 0.5255319148936171,
+            "pair_recall_not_small": 0.7488855869242199,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.5260482846251588,
+            "pair_recall_small_Xview-34C": 0.42857142857142855
+          },
+          "40": {
+            "vocab_recall": 0.8929794520547946,
+            "pair_recall": 0.8865468071915685,
+            "pair_recall_small": 0.874468085106383,
+            "pair_recall_not_small": 0.9034175334323923,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.8894536213468869,
+            "pair_recall_small_Xview-34C": 0.753968253968254
+          },
+          "alpha": 0.5,
+          "agg": "mean",
+          "grids": [
+            2
+          ],
+          "n_crops": 4
+        },
+        "a0.5_mean_g23": {
+          "ranking_mAP": 0.2669399890503748,
+          "1": {
+            "vocab_recall": 0.14525114155251143,
+            "pair_recall": 0.10291382517048978,
+            "pair_recall_small": 0.0574468085106383,
+            "pair_recall_not_small": 0.1664190193164933,
+            "pair_recall_small_DIOR-18C": 0.3333333333333333,
+            "pair_recall_small_FAIR-18C": 0.053367217280813214,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "2": {
+            "vocab_recall": 0.22521689497716896,
+            "pair_recall": 0.18040917544947302,
+            "pair_recall_small": 0.14148936170212767,
+            "pair_recall_not_small": 0.23476968796433878,
+            "pair_recall_small_DIOR-18C": 0.6666666666666666,
+            "pair_recall_small_FAIR-18C": 0.1397712833545108,
+            "pair_recall_small_Xview-34C": 0.03968253968253968
+          },
+          "3": {
+            "vocab_recall": 0.27774135681669926,
+            "pair_recall": 0.23310601363918165,
+            "pair_recall_small": 0.19574468085106383,
+            "pair_recall_not_small": 0.2852897473997028,
+            "pair_recall_small_DIOR-18C": 0.75,
+            "pair_recall_small_FAIR-18C": 0.20076238881829733,
+            "pair_recall_small_Xview-34C": 0.047619047619047616
+          },
+          "5": {
+            "vocab_recall": 0.36589367253750815,
+            "pair_recall": 0.30998140111593303,
+            "pair_recall_small": 0.2553191489361702,
+            "pair_recall_not_small": 0.3863298662704309,
+            "pair_recall_small_DIOR-18C": 0.8333333333333334,
+            "pair_recall_small_FAIR-18C": 0.2655654383735705,
+            "pair_recall_small_Xview-34C": 0.07142857142857142
+          },
+          "8": {
+            "vocab_recall": 0.4478832354859752,
+            "pair_recall": 0.38003719776813394,
+            "pair_recall_small": 0.298936170212766,
+            "pair_recall_not_small": 0.4933135215453195,
+            "pair_recall_small_DIOR-18C": 0.875,
+            "pair_recall_small_FAIR-18C": 0.30495552731893266,
+            "pair_recall_small_Xview-34C": 0.14285714285714285
+          },
+          "12": {
+            "vocab_recall": 0.5479778212654924,
+            "pair_recall": 0.4773713577185369,
+            "pair_recall_small": 0.37446808510638296,
+            "pair_recall_not_small": 0.6210995542347697,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.3761118170266836,
+            "pair_recall_small_Xview-34C": 0.25396825396825395
+          },
+          "20": {
+            "vocab_recall": 0.6880528375733855,
+            "pair_recall": 0.6261624302541847,
+            "pair_recall_small": 0.5276595744680851,
+            "pair_recall_not_small": 0.763744427934621,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.5196950444726811,
+            "pair_recall_small_Xview-34C": 0.48412698412698413
+          },
+          "40": {
+            "vocab_recall": 0.9097260273972603,
+            "pair_recall": 0.9051456912585245,
+            "pair_recall_small": 0.8978723404255319,
+            "pair_recall_not_small": 0.9153046062407132,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.9097839898348158,
+            "pair_recall_small_Xview-34C": 0.8015873015873016
+          },
+          "alpha": 0.5,
+          "agg": "mean",
+          "grids": [
+            2,
+            3
+          ],
+          "n_crops": 13
+        },
+        "a0.5_mean_g234": {
+          "ranking_mAP": 0.2640006754904624,
+          "1": {
+            "vocab_recall": 0.14821917808219176,
+            "pair_recall": 0.1078735275883447,
+            "pair_recall_small": 0.0627659574468085,
+            "pair_recall_not_small": 0.17087667161961367,
+            "pair_recall_small_DIOR-18C": 0.3333333333333333,
+            "pair_recall_small_FAIR-18C": 0.060991105463786534,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "2": {
+            "vocab_recall": 0.22982876712328765,
+            "pair_recall": 0.18660880347179168,
+            "pair_recall_small": 0.14893617021276595,
+            "pair_recall_not_small": 0.23922734026745915,
+            "pair_recall_small_DIOR-18C": 0.625,
+            "pair_recall_small_FAIR-18C": 0.14993646759847523,
+            "pair_recall_small_Xview-34C": 0.03968253968253968
+          },
+          "3": {
+            "vocab_recall": 0.28897423352902807,
+            "pair_recall": 0.2430254184748915,
+            "pair_recall_small": 0.21382978723404256,
+            "pair_recall_not_small": 0.2838038632986627,
+            "pair_recall_small_DIOR-18C": 0.75,
+            "pair_recall_small_FAIR-18C": 0.22236340533672172,
+            "pair_recall_small_Xview-34C": 0.047619047619047616
+          },
+          "5": {
+            "vocab_recall": 0.37082517938682313,
+            "pair_recall": 0.3180409175449473,
+            "pair_recall_small": 0.2723404255319149,
+            "pair_recall_not_small": 0.3818722139673105,
+            "pair_recall_small_DIOR-18C": 0.8333333333333334,
+            "pair_recall_small_FAIR-18C": 0.2833545108005083,
+            "pair_recall_small_Xview-34C": 0.0873015873015873
+          },
+          "8": {
+            "vocab_recall": 0.45996249184605353,
+            "pair_recall": 0.3930564166150031,
+            "pair_recall_small": 0.3127659574468085,
+            "pair_recall_not_small": 0.5052005943536404,
+            "pair_recall_small_DIOR-18C": 0.875,
+            "pair_recall_small_FAIR-18C": 0.32147395171537485,
+            "pair_recall_small_Xview-34C": 0.14285714285714285
+          },
+          "12": {
+            "vocab_recall": 0.5596559034572732,
+            "pair_recall": 0.4848109113453193,
+            "pair_recall_small": 0.3797872340425532,
+            "pair_recall_not_small": 0.6315007429420505,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.3799237611181703,
+            "pair_recall_small_Xview-34C": 0.2698412698412698
+          },
+          "20": {
+            "vocab_recall": 0.6974135681669927,
+            "pair_recall": 0.6379417234965902,
+            "pair_recall_small": 0.5351063829787234,
+            "pair_recall_not_small": 0.7815750371471025,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.5298602287166455,
+            "pair_recall_small_Xview-34C": 0.47619047619047616
+          },
+          "40": {
+            "vocab_recall": 0.9155479452054794,
+            "pair_recall": 0.9051456912585245,
+            "pair_recall_small": 0.8957446808510638,
+            "pair_recall_not_small": 0.9182763744427934,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.9008894536213469,
+            "pair_recall_small_Xview-34C": 0.8412698412698413
+          },
+          "alpha": 0.5,
+          "agg": "mean",
+          "grids": [
+            2,
+            3,
+            4
+          ],
+          "n_crops": 29
+        },
+        "a0.75_max_g2": {
+          "ranking_mAP": 0.25439058095817724,
+          "1": {
+            "vocab_recall": 0.1342351598173516,
+            "pair_recall": 0.09237445753254804,
+            "pair_recall_small": 0.04148936170212766,
+            "pair_recall_not_small": 0.16344725111441308,
+            "pair_recall_small_DIOR-18C": 0.2916666666666667,
+            "pair_recall_small_FAIR-18C": 0.035578144853875476,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "2": {
+            "vocab_recall": 0.20432811480756682,
+            "pair_recall": 0.15437073775573465,
+            "pair_recall_small": 0.0925531914893617,
+            "pair_recall_not_small": 0.24071322436849926,
+            "pair_recall_small_DIOR-18C": 0.5833333333333334,
+            "pair_recall_small_FAIR-18C": 0.08513341804320203,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "3": {
+            "vocab_recall": 0.2517139595564253,
+            "pair_recall": 0.20272783632982022,
+            "pair_recall_small": 0.1478723404255319,
+            "pair_recall_not_small": 0.27934621099554235,
+            "pair_recall_small_DIOR-18C": 0.75,
+            "pair_recall_small_FAIR-18C": 0.14358322744599747,
+            "pair_recall_small_Xview-34C": 0.047619047619047616
+          },
+          "5": {
+            "vocab_recall": 0.33943248532289627,
+            "pair_recall": 0.27650340979541227,
+            "pair_recall_small": 0.2053191489361702,
+            "pair_recall_not_small": 0.37592867756315007,
+            "pair_recall_small_DIOR-18C": 0.875,
+            "pair_recall_small_FAIR-18C": 0.20330368487928843,
+            "pair_recall_small_Xview-34C": 0.07936507936507936
+          },
+          "8": {
+            "vocab_recall": 0.4316503587736464,
+            "pair_recall": 0.3601983880967142,
+            "pair_recall_small": 0.2680851063829787,
+            "pair_recall_not_small": 0.4888558692421991,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.27064803049555275,
+            "pair_recall_small_Xview-34C": 0.11904761904761904
+          },
+          "12": {
+            "vocab_recall": 0.532420091324201,
+            "pair_recall": 0.46187228766274024,
+            "pair_recall_small": 0.35638297872340424,
+            "pair_recall_not_small": 0.6092124814264487,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.3570520965692503,
+            "pair_recall_small_Xview-34C": 0.23809523809523808
+          },
+          "20": {
+            "vocab_recall": 0.6689090019569471,
+            "pair_recall": 0.6088034717916925,
+            "pair_recall_small": 0.5117021276595745,
+            "pair_recall_not_small": 0.7444279346210996,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.5184243964421855,
+            "pair_recall_small_Xview-34C": 0.373015873015873
+          },
+          "40": {
+            "vocab_recall": 0.889187866927593,
+            "pair_recall": 0.879727216367018,
+            "pair_recall_small": 0.8638297872340426,
+            "pair_recall_not_small": 0.9019316493313522,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.8754764930114358,
+            "pair_recall_small_Xview-34C": 0.7619047619047619
+          },
+          "alpha": 0.75,
+          "agg": "max",
+          "grids": [
+            2
+          ],
+          "n_crops": 4
+        },
+        "a0.75_max_g23": {
+          "ranking_mAP": 0.2517178993560417,
+          "1": {
+            "vocab_recall": 0.13783105022831052,
+            "pair_recall": 0.09485430874147552,
+            "pair_recall_small": 0.0425531914893617,
+            "pair_recall_not_small": 0.16790490341753342,
+            "pair_recall_small_DIOR-18C": 0.3333333333333333,
+            "pair_recall_small_FAIR-18C": 0.035578144853875476,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "2": {
+            "vocab_recall": 0.20641715590345724,
+            "pair_recall": 0.1605703657780533,
+            "pair_recall_small": 0.1074468085106383,
+            "pair_recall_not_small": 0.23476968796433878,
+            "pair_recall_small_DIOR-18C": 0.625,
+            "pair_recall_small_FAIR-18C": 0.10419313850063533,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "3": {
+            "vocab_recall": 0.262353228962818,
+            "pair_recall": 0.21326720396776194,
+            "pair_recall_small": 0.16595744680851063,
+            "pair_recall_not_small": 0.27934621099554235,
+            "pair_recall_small_DIOR-18C": 0.75,
+            "pair_recall_small_FAIR-18C": 0.16899618805590852,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "5": {
+            "vocab_recall": 0.3522863666014351,
+            "pair_recall": 0.29510229386236825,
+            "pair_recall_small": 0.23829787234042554,
+            "pair_recall_not_small": 0.37444279346210996,
+            "pair_recall_small_DIOR-18C": 0.7916666666666666,
+            "pair_recall_small_FAIR-18C": 0.24650571791613723,
+            "pair_recall_small_Xview-34C": 0.07142857142857142
+          },
+          "8": {
+            "vocab_recall": 0.4486464448793216,
+            "pair_recall": 0.3775573465592065,
+            "pair_recall_small": 0.2946808510638298,
+            "pair_recall_not_small": 0.4933135215453195,
+            "pair_recall_small_DIOR-18C": 0.875,
+            "pair_recall_small_FAIR-18C": 0.3036848792884371,
+            "pair_recall_small_Xview-34C": 0.11904761904761904
+          },
+          "12": {
+            "vocab_recall": 0.5288682322243966,
+            "pair_recall": 0.4606323620582765,
+            "pair_recall_small": 0.3648936170212766,
+            "pair_recall_not_small": 0.5943536404160475,
+            "pair_recall_small_DIOR-18C": 0.875,
+            "pair_recall_small_FAIR-18C": 0.37229987293519695,
+            "pair_recall_small_Xview-34C": 0.21428571428571427
+          },
+          "20": {
+            "vocab_recall": 0.6766405740378343,
+            "pair_recall": 0.6094234345939243,
+            "pair_recall_small": 0.5,
+            "pair_recall_not_small": 0.7622585438335809,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.49428208386277,
+            "pair_recall_small_Xview-34C": 0.4365079365079365
+          },
+          "40": {
+            "vocab_recall": 0.8980593607305936,
+            "pair_recall": 0.8846869187848729,
+            "pair_recall_small": 0.8648936170212767,
+            "pair_recall_not_small": 0.912332838038633,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.8780177890724269,
+            "pair_recall_small_Xview-34C": 0.753968253968254
+          },
+          "alpha": 0.75,
+          "agg": "max",
+          "grids": [
+            2,
+            3
+          ],
+          "n_crops": 13
+        },
+        "a0.75_max_g234": {
+          "ranking_mAP": 0.2560757987598424,
+          "1": {
+            "vocab_recall": 0.1380593607305936,
+            "pair_recall": 0.09547427154370738,
+            "pair_recall_small": 0.04148936170212766,
+            "pair_recall_not_small": 0.17087667161961367,
+            "pair_recall_small_DIOR-18C": 0.3333333333333333,
+            "pair_recall_small_FAIR-18C": 0.03430749682337993,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "2": {
+            "vocab_recall": 0.20537834311806913,
+            "pair_recall": 0.15933044017358958,
+            "pair_recall_small": 0.10106382978723404,
+            "pair_recall_not_small": 0.24071322436849926,
+            "pair_recall_small_DIOR-18C": 0.5833333333333334,
+            "pair_recall_small_FAIR-18C": 0.09783989834815757,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "3": {
+            "vocab_recall": 0.2565883887801696,
+            "pair_recall": 0.21140731556106634,
+            "pair_recall_small": 0.1595744680851064,
+            "pair_recall_not_small": 0.2838038632986627,
+            "pair_recall_small_DIOR-18C": 0.6666666666666666,
+            "pair_recall_small_FAIR-18C": 0.1613722998729352,
+            "pair_recall_small_Xview-34C": 0.03968253968253968
+          },
+          "5": {
+            "vocab_recall": 0.35187540769732545,
+            "pair_recall": 0.3000619962802232,
+            "pair_recall_small": 0.2404255319148936,
+            "pair_recall_not_small": 0.3833580980683507,
+            "pair_recall_small_DIOR-18C": 0.7916666666666666,
+            "pair_recall_small_FAIR-18C": 0.25158831003811943,
+            "pair_recall_small_Xview-34C": 0.05555555555555555
+          },
+          "8": {
+            "vocab_recall": 0.4482257012393998,
+            "pair_recall": 0.3825170489770614,
+            "pair_recall_small": 0.30319148936170215,
+            "pair_recall_not_small": 0.4933135215453195,
+            "pair_recall_small_DIOR-18C": 0.8333333333333334,
+            "pair_recall_small_FAIR-18C": 0.31512071156289706,
+            "pair_recall_small_Xview-34C": 0.11904761904761904
+          },
+          "12": {
+            "vocab_recall": 0.5285844748858448,
+            "pair_recall": 0.45629262244265345,
+            "pair_recall_small": 0.35425531914893615,
+            "pair_recall_not_small": 0.5988112927191679,
+            "pair_recall_small_DIOR-18C": 0.875,
+            "pair_recall_small_FAIR-18C": 0.36086404066073696,
+            "pair_recall_small_Xview-34C": 0.20634920634920634
+          },
+          "20": {
+            "vocab_recall": 0.6727592954990215,
+            "pair_recall": 0.6069435833849969,
+            "pair_recall_small": 0.4957446808510638,
+            "pair_recall_not_small": 0.7622585438335809,
+            "pair_recall_small_DIOR-18C": 0.9583333333333334,
+            "pair_recall_small_FAIR-18C": 0.49301143583227447,
+            "pair_recall_small_Xview-34C": 0.42063492063492064
+          },
+          "40": {
+            "vocab_recall": 0.8935844748858447,
+            "pair_recall": 0.8747675139491631,
+            "pair_recall_small": 0.847872340425532,
+            "pair_recall_not_small": 0.912332838038633,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.8538754764930114,
+            "pair_recall_small_Xview-34C": 0.7777777777777778
+          },
+          "alpha": 0.75,
+          "agg": "max",
+          "grids": [
+            2,
+            3,
+            4
+          ],
+          "n_crops": 29
+        },
+        "a0.75_mean_g2": {
+          "ranking_mAP": 0.25958053553659016,
+          "1": {
+            "vocab_recall": 0.1354337899543379,
+            "pair_recall": 0.09113453192808431,
+            "pair_recall_small": 0.03829787234042553,
+            "pair_recall_not_small": 0.1649331352154532,
+            "pair_recall_small_DIOR-18C": 0.2916666666666667,
+            "pair_recall_small_FAIR-18C": 0.03176620076238882,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "2": {
+            "vocab_recall": 0.19868884540117418,
+            "pair_recall": 0.14879107253564786,
+            "pair_recall_small": 0.09148936170212765,
+            "pair_recall_not_small": 0.2288261515601783,
+            "pair_recall_small_DIOR-18C": 0.6666666666666666,
+            "pair_recall_small_FAIR-18C": 0.08132147395171538,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "3": {
+            "vocab_recall": 0.2474445531637312,
+            "pair_recall": 0.19280843149411037,
+            "pair_recall_small": 0.13191489361702127,
+            "pair_recall_not_small": 0.27786032689450224,
+            "pair_recall_small_DIOR-18C": 0.7916666666666666,
+            "pair_recall_small_FAIR-18C": 0.12198221092757307,
+            "pair_recall_small_Xview-34C": 0.05555555555555555
+          },
+          "5": {
+            "vocab_recall": 0.3318069145466406,
+            "pair_recall": 0.26596404215747055,
+            "pair_recall_small": 0.18829787234042553,
+            "pair_recall_not_small": 0.37444279346210996,
+            "pair_recall_small_DIOR-18C": 0.8333333333333334,
+            "pair_recall_small_FAIR-18C": 0.1855146124523507,
+            "pair_recall_small_Xview-34C": 0.07142857142857142
+          },
+          "8": {
+            "vocab_recall": 0.43790443574690147,
+            "pair_recall": 0.36391816491010537,
+            "pair_recall_small": 0.26595744680851063,
+            "pair_recall_not_small": 0.5007429420505201,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.2681067344345616,
+            "pair_recall_small_Xview-34C": 0.11904761904761904
+          },
+          "12": {
+            "vocab_recall": 0.5272260273972603,
+            "pair_recall": 0.4531928084314941,
+            "pair_recall_small": 0.3478723404255319,
+            "pair_recall_not_small": 0.600297176820208,
+            "pair_recall_small_DIOR-18C": 0.9583333333333334,
+            "pair_recall_small_FAIR-18C": 0.3468869123252859,
+            "pair_recall_small_Xview-34C": 0.23015873015873015
+          },
+          "20": {
+            "vocab_recall": 0.6772994129158513,
+            "pair_recall": 0.6168629882207067,
+            "pair_recall_small": 0.5170212765957447,
+            "pair_recall_not_small": 0.7563150074294205,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.5222363405336722,
+            "pair_recall_small_Xview-34C": 0.3888888888888889
+          },
+          "40": {
+            "vocab_recall": 0.898310502283105,
+            "pair_recall": 0.8865468071915685,
+            "pair_recall_small": 0.8702127659574468,
+            "pair_recall_not_small": 0.9093610698365527,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.8805590851334181,
+            "pair_recall_small_Xview-34C": 0.7777777777777778
+          },
+          "alpha": 0.75,
+          "agg": "mean",
+          "grids": [
+            2
+          ],
+          "n_crops": 4
+        },
+        "a0.75_mean_g23": {
+          "ranking_mAP": 0.25809872534514355,
+          "1": {
+            "vocab_recall": 0.13372146118721462,
+            "pair_recall": 0.09113453192808431,
+            "pair_recall_small": 0.04148936170212766,
+            "pair_recall_not_small": 0.16047548291233285,
+            "pair_recall_small_DIOR-18C": 0.3333333333333333,
+            "pair_recall_small_FAIR-18C": 0.03430749682337993,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "2": {
+            "vocab_recall": 0.2000815394651011,
+            "pair_recall": 0.15313081215127092,
+            "pair_recall_small": 0.10212765957446808,
+            "pair_recall_not_small": 0.22436849925705796,
+            "pair_recall_small_DIOR-18C": 0.7083333333333334,
+            "pair_recall_small_FAIR-18C": 0.09275730622617535,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "3": {
+            "vocab_recall": 0.2531979778212655,
+            "pair_recall": 0.20458772473651582,
+            "pair_recall_small": 0.15106382978723404,
+            "pair_recall_not_small": 0.27934621099554235,
+            "pair_recall_small_DIOR-18C": 0.7916666666666666,
+            "pair_recall_small_FAIR-18C": 0.14612452350698857,
+            "pair_recall_small_Xview-34C": 0.047619047619047616
+          },
+          "5": {
+            "vocab_recall": 0.34354207436399214,
+            "pair_recall": 0.28580285182889026,
+            "pair_recall_small": 0.225531914893617,
+            "pair_recall_not_small": 0.3699851411589896,
+            "pair_recall_small_DIOR-18C": 0.875,
+            "pair_recall_small_FAIR-18C": 0.22998729351969505,
+            "pair_recall_small_Xview-34C": 0.06349206349206349
+          },
+          "8": {
+            "vocab_recall": 0.45319145466405736,
+            "pair_recall": 0.38189708617482954,
+            "pair_recall_small": 0.2936170212765957,
+            "pair_recall_not_small": 0.5052005943536404,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.29733163913595934,
+            "pair_recall_small_Xview-34C": 0.14285714285714285
+          },
+          "12": {
+            "vocab_recall": 0.5479794520547945,
+            "pair_recall": 0.47613143211407316,
+            "pair_recall_small": 0.3702127659574468,
+            "pair_recall_not_small": 0.6240713224368499,
+            "pair_recall_small_DIOR-18C": 0.9583333333333334,
+            "pair_recall_small_FAIR-18C": 0.3748411689961881,
+            "pair_recall_small_Xview-34C": 0.2222222222222222
+          },
+          "20": {
+            "vocab_recall": 0.6898450750163079,
+            "pair_recall": 0.6261624302541847,
+            "pair_recall_small": 0.5202127659574468,
+            "pair_recall_not_small": 0.774145616641902,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.5209656925031766,
+            "pair_recall_small_Xview-34C": 0.42063492063492064
+          },
+          "40": {
+            "vocab_recall": 0.895957273320287,
+            "pair_recall": 0.8884066955982641,
+            "pair_recall_small": 0.8712765957446809,
+            "pair_recall_not_small": 0.912332838038633,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.8805590851334181,
+            "pair_recall_small_Xview-34C": 0.7857142857142857
+          },
+          "alpha": 0.75,
+          "agg": "mean",
+          "grids": [
+            2,
+            3
+          ],
+          "n_crops": 13
+        },
+        "a0.75_mean_g234": {
+          "ranking_mAP": 0.2612451838543078,
+          "1": {
+            "vocab_recall": 0.13623287671232878,
+            "pair_recall": 0.0929944203347799,
+            "pair_recall_small": 0.0425531914893617,
+            "pair_recall_not_small": 0.16344725111441308,
+            "pair_recall_small_DIOR-18C": 0.3333333333333333,
+            "pair_recall_small_FAIR-18C": 0.035578144853875476,
+            "pair_recall_small_Xview-34C": 0.023809523809523808
+          },
+          "2": {
+            "vocab_recall": 0.1990084801043705,
+            "pair_recall": 0.15251084934903905,
+            "pair_recall_small": 0.10106382978723404,
+            "pair_recall_not_small": 0.22436849925705796,
+            "pair_recall_small_DIOR-18C": 0.625,
+            "pair_recall_small_FAIR-18C": 0.0940279542566709,
+            "pair_recall_small_Xview-34C": 0.031746031746031744
+          },
+          "3": {
+            "vocab_recall": 0.2607436399217221,
+            "pair_recall": 0.2120272783632982,
+            "pair_recall_small": 0.16382978723404254,
+            "pair_recall_not_small": 0.27934621099554235,
+            "pair_recall_small_DIOR-18C": 0.7916666666666666,
+            "pair_recall_small_FAIR-18C": 0.16264294790343076,
+            "pair_recall_small_Xview-34C": 0.03968253968253968
+          },
+          "5": {
+            "vocab_recall": 0.35253750815394647,
+            "pair_recall": 0.2926224426534408,
+            "pair_recall_small": 0.23404255319148937,
+            "pair_recall_not_small": 0.37444279346210996,
+            "pair_recall_small_DIOR-18C": 0.875,
+            "pair_recall_small_FAIR-18C": 0.24015247776365947,
+            "pair_recall_small_Xview-34C": 0.06349206349206349
+          },
+          "8": {
+            "vocab_recall": 0.4639905414220482,
+            "pair_recall": 0.39429634221946686,
+            "pair_recall_small": 0.3074468085106383,
+            "pair_recall_not_small": 0.5156017830609212,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.31639135959339265,
+            "pair_recall_small_Xview-34C": 0.12698412698412698
+          },
+          "12": {
+            "vocab_recall": 0.5552625570776255,
+            "pair_recall": 0.4810911345319281,
+            "pair_recall_small": 0.3702127659574468,
+            "pair_recall_not_small": 0.6359583952451708,
+            "pair_recall_small_DIOR-18C": 0.9166666666666666,
+            "pair_recall_small_FAIR-18C": 0.3761118170266836,
+            "pair_recall_small_Xview-34C": 0.2222222222222222
+          },
+          "20": {
+            "vocab_recall": 0.6960437051532942,
+            "pair_recall": 0.6305021698698078,
+            "pair_recall_small": 0.5234042553191489,
+            "pair_recall_not_small": 0.7800891530460624,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.5247776365946633,
+            "pair_recall_small_Xview-34C": 0.42063492063492064
+          },
+          "40": {
+            "vocab_recall": 0.9093378995433791,
+            "pair_recall": 0.8995660260384377,
+            "pair_recall_small": 0.8829787234042553,
+            "pair_recall_not_small": 0.9227340267459139,
+            "pair_recall_small_DIOR-18C": 1.0,
+            "pair_recall_small_FAIR-18C": 0.8894536213468869,
+            "pair_recall_small_Xview-34C": 0.8174603174603174
+          },
+          "alpha": 0.75,
+          "agg": "mean",
+          "grids": [
+            2,
+            3,
+            4
+          ],
+          "n_crops": 29
+        }
+      },
+      "chosen": "a0.25_mean_g23",
+      "best_local_only": "a0_mean_g2",
+      "bootstrap": {
+        "a0.25_mean_g23_minus_global": {
+          "3": {
+            "diff": 0.06597031963470319,
+            "ci_low": 0.04560445205479451,
+            "ci_high": 0.08524172374429223,
+            "excludes_zero": true
+          },
+          "8": {
+            "diff": 0.04429223744292237,
+            "ci_low": 0.023674657534246576,
+            "ci_high": 0.06490924657534246,
+            "excludes_zero": true
+          },
+          "20": {
+            "diff": 0.021234507501630785,
+            "ci_low": 0.001620515329419436,
+            "ci_high": 0.04165667808219177,
+            "excludes_zero": true
+          }
+        },
+        "small_pair_recall_k8": {
+          "diff": 0.08297872340425536,
+          "ci_low": 0.05993421230014289,
+          "ci_high": 0.10643209790696055,
+          "excludes_zero": true
+        }
+      },
+      "views_ms_median": 917.8480000118725
+    }
+  }
+}

@@ -63,3 +63,33 @@ def test_selector_condition_parsing_and_topk_vocabulary():
         vocabulary_for("sel:missing:k2", 7, all_ids, {}, {}, 0, scores)
     with pytest.raises(ValueError):
         vocabulary_for("sel:s:k2", 7, all_ids, {}, {}, 0, {"s": {7: np.array([np.nan, 1, 1, 1])}})
+
+
+def test_crop_boxes_cover_image_with_overlap():
+    from aerial_ovd.vocabulary.selectors import crop_boxes
+
+    b = crop_boxes(600, 600, 3, 0.25)
+    assert len(b) == 9
+    assert min(x0 for x0, _, _, _ in b) == 0 and max(x1 for _, _, x1, _ in b) == 600
+    assert min(y0 for _, y0, _, _ in b) == 0 and max(y1 for _, _, _, y1 in b) == 600
+    assert all(x1 - x0 == 250 and y1 - y0 == 250 for x0, y0, x1, y1 in b)   # 600/3*1.25
+    assert crop_boxes(100, 50, 1) == [(0, 0, 100, 50)]
+    with pytest.raises(ValueError):
+        crop_boxes(100, 100, 0)
+
+
+def test_combine_views_limits_and_aggregation():
+    from aerial_ovd.vocabulary.selectors import combine_views, softmax
+
+    g = np.array([2.0, 0.0, 0.0])
+    crops = np.array([[0.0, 3.0, 0.0], [0.0, 0.0, 3.0], [5.0, 0.0, 0.0]])
+    gids = np.array([2, 2, 3])
+    assert np.allclose(combine_views(g, crops, gids, 1.0), softmax(g))
+    local_max = combine_views(g, crops, gids, 0.0, "max", grids=(2,))
+    assert np.allclose(local_max, softmax(crops[:2], axis=-1).max(0))     # grid-3 crop excluded
+    local_mean = combine_views(g, crops, gids, 0.0, "mean", grids=(2, 3))
+    assert np.allclose(local_mean, softmax(crops, axis=-1).mean(0))
+    mix = combine_views(g, crops, gids, 0.5, "max", grids=(2, 3))
+    assert np.allclose(mix, 0.5 * softmax(g) + 0.5 * softmax(crops, axis=-1).max(0))
+    with pytest.raises(ValueError):
+        combine_views(g, crops, gids, 1.5)

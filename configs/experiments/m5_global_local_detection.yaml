@@ -1,0 +1,36 @@
+# M5: does global + local (crop) evidence improve detection over global-only selection? (H3) -- dev only.
+# Same 200-image sample and detector settings as E0/M4. The global selectors are repeated so the
+# comparison global vs global+local is paired within one run (and checks reproducibility vs M4).
+# The *_gl / *_local selectors are chosen on dev by rule D28 (scripts/m5_global_local.py) and committed
+# as outputs/selection/dev/<model>_{gl,local}.npz.
+name: m5_global_local_det
+split: dev
+n_images: 200
+sample_seed: 2026
+seed: 0
+random_seed: 0
+naming_policy: light
+conditions:
+  - full
+  - oracle_gt
+  - sel:remoteclip_b32:k3
+  - sel:remoteclip_b32:k8
+  - sel:remoteclip_b32:k20
+  - sel:remoteclip_b32_gl:k3
+  - sel:remoteclip_b32_gl:k8
+  - sel:remoteclip_b32_gl:k20
+  - sel:remoteclip_b32_local:k3
+  - sel:remoteclip_b32_local:k8
+  - sel:remoteclip_b32_local:k20
+  - sel:clip_openai_b32:k8
+  - sel:clip_openai_b32:k20
+  - sel:clip_openai_b32_gl:k3
+  - sel:clip_openai_b32_gl:k8
+  - sel:clip_openai_b32_gl:k20
+detector:
+  checkpoint: grounding-dino-tiny
+  device: cuda
+  precision: fp32
+  num_select: 900
+  class_reduce: mean
+  warmup: 3
