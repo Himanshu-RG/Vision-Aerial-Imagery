@@ -39,7 +39,8 @@ Paired bootstrap of AP50@900 vs. `full` (1,000 resamples, 95% percentile CI):
    - By its pre-registered criterion H7 holds (0.112 lies below the standard-protocol CI [0.119, 0.187]), **but the share is small.**
    - **Conclusion:** the prior study's interpretation (too many overlapping classes confuse the detector) is largely confirmed. Standard evaluation of LAE-80C additionally inflates the full-vocabulary penalty.
 3. **Which classes matter, not how many.**
-   - A random vocabulary of the same small size (2.2 classes) is *no better* than the full vocabulary (standard −0.008, n.s.; source-aware −0.021, CI excludes 0). Fewer tokens alone do not help.
+   - A random vocabulary of the same small size (2.2 classes) is *no better* than the full vocabulary (standard −0.008, n.s.; source-aware −0.021). Fewer tokens alone do not help.
+   - *Correction (2026-10-25):* the source-aware percentile CI excluded 0, but the robustness checks added later (basic CI [−0.035, +0.006]; per-class sign test 7 better / 32 worse) do not all agree. So "worse than full" is **not** a robust claim; "no better" is.
    - So a selector that drops present classes can easily do *worse* than the full vocabulary. **Vocabulary recall is the critical property.**
 4. **Within-source confusion dominates.**
    - With the ~21 classes of the correct source, AP50 is 0.031 vs. 0.140 for the ~2 classes actually present.
@@ -58,6 +59,16 @@ Paired bootstrap of AP50@900 vs. `full` (1,000 resamples, 95% percentile CI):
    - Small vocabularies cut median end-to-end latency from 418 to ~333 ms (−20%) and the forward pass from 380 to ~297 ms; peak memory 2,188 → ~1,900 MB.
    - **Implication for H6:** at an oracle-like vocabulary size, a selector is latency-neutral only if it costs ≲ 85 ms per image on this GPU.
    - Absolute GDINO-T latency (~0.4 s/image) is high for this GPU. It is identical across conditions, so comparisons are fair; the cause (HF implementation, fp32) is to be profiled in M12.
+
+## Robustness re-check (added 2026-10-25)
+E0 was re-scored with bootstrap bias diagnostics (Amit, commit `0111bee`). Robustness table: `reports/generated/e0_headroom_tables.md`.
+- **H1 is robust:** oracle_gt has basic CI [+0.065, +0.132] (standard) and [+0.058, +0.122] (source-aware); per-class sign test 68/1 and 66/3.
+- **Not robust:**
+  - the source-label-space oracle's +0.017 under standard evaluation (basic CI includes 0);
+  - random being *worse* than full.
+
+  Both percentile CIs had excluded 0.
+- The H7 share estimate (~11%) is a point estimate and unaffected; its significance should not be overstated.
 
 ## Caveats
 - 200 dev images. Per-class AP for many classes rests on 1–2 images; the largest per-class gains (stadium, soccer ball field, Hut/Tent, …) are anecdotal.

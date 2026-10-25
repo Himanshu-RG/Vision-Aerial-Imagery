@@ -16,6 +16,24 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 ORACLE = {"oracle_gt", "oracle_source", "random_matched"}
 
 
+def sign_test(m: dict, cond: str, ref: str, proto: str) -> tuple[int, int, float]:
+    """Per-class paired sign test on AP50@900 (classes with GT; ties dropped). Two-sided exact binomial p.
+
+    Complements the image bootstrap, whose percentile interval is biased for class-averaged AP."""
+    from math import comb
+
+    a = m["conditions"][ref][proto]["per_class"]
+    b = m["conditions"][cond][proto]["per_class"]
+    diffs = [b[k]["AP50"] - a[k]["AP50"] for k in a if k in b]
+    pos = sum(d > 1e-12 for d in diffs)
+    neg = sum(d < -1e-12 for d in diffs)
+    n = pos + neg
+    if n == 0:
+        return 0, 0, 1.0
+    tail = sum(comb(n, i) for i in range(0, min(pos, neg) + 1)) / 2 ** n
+    return pos, neg, min(1.0, 2 * tail)
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("metrics_dir", type=Path)
@@ -30,7 +48,9 @@ def main() -> int:
          f"torch {cfg['torch']} · split `{cfg['config']['split']}` · {len(cfg['image_ids'])} images · "
          f"bootstrap n={boot.get('n_boot')} vs `{boot.get('reference')}`", "",
          "`(oracle)` = uses ground-truth information; a diagnostic, never a method. "
-         "Δ = paired bootstrap AP50@900 difference vs the reference with 95% percentile CI; `*` = CI excludes 0.", "",
+         "Δ = paired image-level bootstrap AP50@900 difference vs the reference, 95% percentile CI (pre-registered); "
+         "`*` = CI excludes 0. Because the percentile CI is biased for class-averaged AP, two robustness checks follow "
+         "in the second table: the 'basic' bootstrap CI and a per-class sign test.", "",
          "| condition | vocab | tokens | failed | AP50@900 std | Δ std | AP50@900 src-aware | Δ src-aware | AR@900 std "
          "| R50 small | latency med ms |", "|---|---|---|---|---|---|---|---|---|---|---|"]
 
@@ -51,6 +71,25 @@ def main() -> int:
         L.append(f"| {label} | {r['vocab_size_mean'] or 0:.1f} | {r['text_tokens_mean'] or 0:.0f} | {r['n_failed_or_missing']} "
                  f"| {s['AP50@900']:.4f} | {d(cond, 'standard')} | {a['AP50@900']:.4f} | {d(cond, 'source_aware')} "
                  f"| {s['AR@900']:.3f} | {s['R50_small']:.3f} | {lat if lat is None else round(lat)} |")
+    ref = boot.get("reference")
+    L += ["", "## Robustness of the differences vs the reference", "",
+          "| condition | protocol | Δ | percentile CI | basic CI | bias flag | classes better / worse | sign-test p | robust* |",
+          "|---|---|---|---|---|---|---|---|---|"]
+    for cond in cfg["config"]["conditions"]:
+        b = boot.get(cond)
+        if not isinstance(b, dict) or ref not in m["conditions"]:
+            continue
+        for proto in ("standard", "source_aware"):
+            v = b[proto]
+            pos, neg, p = sign_test(m, cond, ref, proto)
+            if "basic_ci_low" in v:
+                basic = f"[{v['basic_ci_low']:+.4f}, {v['basic_ci_high']:+.4f}]"
+                agree = v["ci_excludes_zero"] and v["basic_ci_excludes_zero"] and p < 0.05 and (pos > neg) == (v["diff_point"] > 0)
+            else:
+                basic, agree = "–", False
+            L.append(f"| {cond} | {proto} | {v['diff_point']:+.4f} | [{v['ci_low']:+.4f}, {v['ci_high']:+.4f}] | {basic} "
+                     f"| {v.get('bias_flag', '–')} | {pos} / {neg} | {p:.3g} | {'yes' if agree else 'no'} |")
+    L += ["", "`robust*` = percentile CI and basic CI both exclude 0 AND the per-class sign test agrees in direction with p < 0.05."]
     out = REPO_ROOT / "reports" / "generated" / f"{cfg['config']['name']}_tables.md"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text("\n".join(L) + "\n", encoding="utf-8", newline="\n")

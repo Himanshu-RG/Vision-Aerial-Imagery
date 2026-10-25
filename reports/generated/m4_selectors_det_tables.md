@@ -2,7 +2,7 @@
 
 run `m4_selectors_det-16d38bd056f8` · host `LAPTOP-5CPRTI27` · git `913a99e` (dirty=False) · torch 2.7.1+cu128 · split `dev` · 200 images · bootstrap n=1000 vs `full`
 
-`(oracle)` = uses ground-truth information; a diagnostic, never a method. Δ = paired bootstrap AP50@900 difference vs the reference with 95% percentile CI; `*` = CI excludes 0.
+`(oracle)` = uses ground-truth information; a diagnostic, never a method. Δ = paired image-level bootstrap AP50@900 difference vs the reference, 95% percentile CI (pre-registered); `*` = CI excludes 0. Because the percentile CI is biased for class-averaged AP, two robustness checks follow in the second table: the 'basic' bootstrap CI and a per-class sign test.
 
 | condition | vocab | tokens | failed | AP50@900 std | Δ std | AP50@900 src-aware | Δ src-aware | AR@900 std | R50 small | latency med ms |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -23,3 +23,42 @@ run `m4_selectors_det-16d38bd056f8` · host `LAPTOP-5CPRTI27` · git `913a99e` (
 | sel:random_s0:k3 | 3.0 | 11 | 0 | 0.0008 | -0.0138 [-0.0235, -0.0033]* | 0.0024 | -0.0258 [-0.0519, -0.0129]* | 0.023 | 0.013 | 363 |
 | sel:random_s0:k8 | 8.0 | 26 | 0 | 0.0021 | -0.0125 [-0.0217, -0.0009]* | 0.0063 | -0.0220 [-0.0463, -0.0047]* | 0.046 | 0.047 | 371 |
 | sel:random_s0:k20 | 20.0 | 63 | 0 | 0.0036 | -0.0110 [-0.0213, +0.0034] | 0.0106 | -0.0176 [-0.0444, +0.0025] | 0.057 | 0.051 | 383 |
+
+## Robustness of the differences vs the reference
+
+| condition | protocol | Δ | percentile CI | basic CI | bias flag | classes better / worse | sign-test p | robust* |
+|---|---|---|---|---|---|---|---|---|
+| oracle_gt | standard | +0.1258 | [+0.1193, +0.1865] | [+0.0651, +0.1323] | True | 68 / 1 | 2.37e-19 | yes |
+| oracle_gt | source_aware | +0.1122 | [+0.1021, +0.1663] | [+0.0581, +0.1223] | True | 66 / 3 | 1.86e-16 | yes |
+| sel:frequency:k3 | standard | -0.0115 | [-0.0206, -0.0002] | [-0.0228, -0.0024] | True | 3 / 33 | 2.27e-07 | yes |
+| sel:frequency:k3 | source_aware | -0.0238 | [-0.0485, -0.0098] | [-0.0379, +0.0009] | True | 3 / 33 | 2.27e-07 | no |
+| sel:frequency:k8 | standard | -0.0113 | [-0.0200, -0.0000] | [-0.0226, -0.0027] | True | 7 / 29 | 0.000313 | yes |
+| sel:frequency:k8 | source_aware | -0.0224 | [-0.0462, -0.0074] | [-0.0374, +0.0014] | True | 7 / 29 | 0.000313 | no |
+| sel:frequency:k20 | standard | -0.0116 | [-0.0198, +0.0001] | [-0.0233, -0.0034] | True | 17 / 23 | 0.43 | no |
+| sel:frequency:k20 | source_aware | -0.0229 | [-0.0463, -0.0077] | [-0.0382, +0.0004] | True | 17 / 23 | 0.43 | no |
+| sel:frequency:k40 | standard | -0.0087 | [-0.0168, +0.0044] | [-0.0218, -0.0006] | False | 25 / 17 | 0.28 | no |
+| sel:frequency:k40 | source_aware | -0.0108 | [-0.0233, +0.0047] | [-0.0263, +0.0017] | False | 26 / 15 | 0.117 | no |
+| sel:clip_openai_b32:k3 | standard | +0.0229 | [+0.0050, +0.0513] | [-0.0055, +0.0408] | True | 28 / 19 | 0.243 | no |
+| sel:clip_openai_b32:k3 | source_aware | +0.0404 | [+0.0163, +0.0654] | [+0.0154, +0.0645] | False | 26 / 20 | 0.461 | no |
+| sel:clip_openai_b32:k8 | standard | +0.0043 | [+0.0006, +0.0189] | [-0.0103, +0.0079] | True | 32 / 14 | 0.0114 | no |
+| sel:clip_openai_b32:k8 | source_aware | +0.0179 | [+0.0081, +0.0346] | [+0.0012, +0.0276] | True | 31 / 13 | 0.00956 | yes |
+| sel:clip_openai_b32:k20 | standard | +0.0038 | [-0.0005, +0.0194] | [-0.0118, +0.0081] | True | 42 / 9 | 3.39e-06 | no |
+| sel:clip_openai_b32:k20 | source_aware | +0.0210 | [+0.0104, +0.0389] | [+0.0030, +0.0315] | True | 39 / 11 | 9.02e-05 | yes |
+| sel:clip_openai_b32:k40 | standard | +0.0008 | [-0.0006, +0.0086] | [-0.0070, +0.0022] | True | 39 / 5 | 1.41e-07 | no |
+| sel:clip_openai_b32:k40 | source_aware | +0.0117 | [+0.0048, +0.0274] | [-0.0040, +0.0186] | True | 38 / 5 | 2.5e-07 | no |
+| sel:remoteclip_b32:k3 | standard | +0.0271 | [+0.0123, +0.0611] | [-0.0069, +0.0419] | True | 26 / 22 | 0.665 | no |
+| sel:remoteclip_b32:k3 | source_aware | +0.0361 | [+0.0083, +0.0722] | [-0.0001, +0.0638] | True | 23 / 25 | 0.885 | no |
+| sel:remoteclip_b32:k8 | standard | +0.0203 | [+0.0111, +0.0455] | [-0.0050, +0.0294] | True | 37 / 15 | 0.00319 | no |
+| sel:remoteclip_b32:k8 | source_aware | +0.0299 | [+0.0162, +0.0464] | [+0.0135, +0.0437] | False | 35 / 16 | 0.011 | yes |
+| sel:remoteclip_b32:k20 | standard | +0.0032 | [-0.0025, +0.0237] | [-0.0173, +0.0089] | True | 39 / 14 | 0.000802 | no |
+| sel:remoteclip_b32:k20 | source_aware | +0.0121 | [+0.0018, +0.0346] | [-0.0104, +0.0224] | True | 39 / 13 | 0.00041 | no |
+| sel:remoteclip_b32:k40 | standard | +0.0028 | [+0.0004, +0.0136] | [-0.0079, +0.0053] | True | 32 / 11 | 0.00191 | no |
+| sel:remoteclip_b32:k40 | source_aware | +0.0114 | [+0.0041, +0.0237] | [-0.0008, +0.0188] | False | 34 / 8 | 6.88e-05 | no |
+| sel:random_s0:k3 | standard | -0.0138 | [-0.0235, -0.0033] | [-0.0244, -0.0041] | True | 6 / 32 | 2.43e-05 | yes |
+| sel:random_s0:k3 | source_aware | -0.0258 | [-0.0519, -0.0129] | [-0.0387, +0.0003] | True | 5 / 33 | 4.26e-06 | no |
+| sel:random_s0:k8 | standard | -0.0125 | [-0.0217, -0.0009] | [-0.0242, -0.0034] | True | 15 / 25 | 0.154 | no |
+| sel:random_s0:k8 | source_aware | -0.0220 | [-0.0463, -0.0047] | [-0.0392, +0.0024] | True | 13 / 27 | 0.0385 | no |
+| sel:random_s0:k20 | standard | -0.0110 | [-0.0213, +0.0034] | [-0.0255, -0.0007] | False | 19 / 24 | 0.542 | no |
+| sel:random_s0:k20 | source_aware | -0.0176 | [-0.0444, +0.0025] | [-0.0377, +0.0093] | True | 18 / 25 | 0.36 | no |
+
+`robust*` = percentile CI and basic CI both exclude 0 AND the per-class sign test agrees in direction with p < 0.05.

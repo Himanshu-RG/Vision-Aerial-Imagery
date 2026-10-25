@@ -138,3 +138,18 @@ def test_paired_bootstrap_reports_bias_diagnostics():
         assert key in r
     assert r["basic_ci_low"] == pytest.approx(2 * r["diff_point"] - r["ci_high"])
     assert r["bias"] == pytest.approx(r["boot_mean"] - r["diff_point"])
+
+
+def test_sign_test_on_per_class_ap():
+    import sys
+    from pathlib import Path
+
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+    from report_run import sign_test
+
+    pc = lambda vals: {"per_class": {str(i): {"AP50": v} for i, v in enumerate(vals)}}
+    m = {"conditions": {"ref": {"standard": pc([0.1] * 10)}, "a": {"standard": pc([0.2] * 10)},
+                        "b": {"standard": pc([0.1] * 10)}}}
+    pos, neg, p = sign_test(m, "a", "ref", "standard")
+    assert (pos, neg) == (10, 0) and p == pytest.approx(2 / 2 ** 10)
+    assert sign_test(m, "b", "ref", "standard") == (0, 0, 1.0)  # all ties
