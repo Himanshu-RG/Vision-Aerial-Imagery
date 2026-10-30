@@ -90,7 +90,8 @@ def main() -> int:
             L.append(f"| {cond} | {proto} | {v['diff_point']:+.4f} | [{v['ci_low']:+.4f}, {v['ci_high']:+.4f}] | {basic} "
                      f"| {v.get('bias_flag', '–')} | {pos} / {neg} | {p:.3g} | {'yes' if agree else 'no'} |")
     L += ["", "`robust*` = percentile CI and basic CI both exclude 0 AND the per-class sign test agrees in direction with p < 0.05."]
-    out = REPO_ROOT / "reports" / "generated" / f"{cfg['config']['name']}_tables.md"
+    suffix = args.metrics_dir.name.split("_vs_", 1)[1] if "_vs_" in args.metrics_dir.name else None
+    out = REPO_ROOT / "reports" / "generated" / (f"{cfg['config']['name']}_tables" + (f"_vs_{suffix}" if suffix else "") + ".md")
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text("\n".join(L) + "\n", encoding="utf-8", newline="\n")
     print(out.read_text(encoding="utf-8"))

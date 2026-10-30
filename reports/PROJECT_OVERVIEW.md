@@ -6,7 +6,8 @@
 - Experiment E0 complete.
 - M4 (simple baselines) complete except the caption-based baseline.
 - M5 (global + local selection) complete. It improves *selection* but not *detection*: a documented negative result.
-- M6–M7 (uncertainty-aware retention, adaptive budget): selection-level results done; detection run next.
+- M6–M7 (uncertainty-aware retention, adaptive budget) complete. **An adaptive per-image budget is the best method so far.**
+- Next: M8–M9 (consolidation, metrics, and the decision on a detector-side small-object test).
 
 Repository: <https://github.com/Himanshu-RG/Vision-Aerial-Imagery>. The living project log is [`CONTEXT.md`](../CONTEXT.md); module reports are in [`reports/`](.).
 
@@ -22,6 +23,7 @@ What we have established so far, all on the tuning (dev) split, with no test dat
 4. **A simple deployable selector already helps.** Ranking the 80 classes by whole-image CLIP / RemoteCLIP similarity and keeping the top 8–20 improves source-aware AP50 from **0.028 to 0.046–0.058** (×1.6–2.1). The gain is robust under three statistical checks and recovers up to ~27% of the oracle headroom. It also lowers end-to-end latency by ~19%, since the selector costs only ~8 ms on the GPU.
 5. **The remaining gap points to our core idea.** Global CLIP selection keeps few of the present classes at small budgets and **does not help small objects at all**: small-object recall drops at k = 3, and the FAIR source, with 91% small objects, does not improve. This motivates combining **global (whole-image) and local (crop-level) evidence**.
 6. **Local evidence improves selection but not detection.** Adding 13 overlapping crops to RemoteCLIP raises recall of small-object classes from 0.22 to 0.31 at 8 classes (significant; natural-image CLIP gains nothing). In detection, Grounding DINO then finds more small objects (recall 0.10 → 0.12–0.13), but localises them poorly, so AP does not improve, and the crops cost 83 ms per image. **The small-object bottleneck is the detector itself, not the vocabulary.**
+7. **The best method so far: an adaptive per-image vocabulary size.** Keep every class whose RemoteCLIP probability exceeds a threshold calibrated on other images (about 8 classes on average, more for ambiguous images, fewer for clear ones). AP50 rises to **0.055 under standard COCO scoring (×3.8 vs all 80 classes) and 0.071 source-aware (×2.5)**, robust on all three statistical checks under *both* protocols, which no earlier selector achieved. Keeping uncertain classes via crop evidence did not help detection.
 
 ---
 
@@ -247,7 +249,24 @@ Each rule's single setting was tuned on the 530 *other* dev images to hit a targ
 - **Calibrated coverage roughly holds** (target 80% → 76% achieved), but needs ~27 classes per image, so the per-image relevance signal is still weak.
 - Detection with these rules runs next.
 
-Full tables: [`generated/E0_tables.md`](generated/E0_tables.md), [`generated/e0_headroom_tables.md`](generated/e0_headroom_tables.md) (robustness), [`generated/M4_selection_tables.md`](generated/M4_selection_tables.md), [`generated/m4_selectors_det_tables.md`](generated/m4_selectors_det_tables.md), [`generated/M5_selection_tables.md`](generated/M5_selection_tables.md), [`generated/m5_global_local_det_tables.md`](generated/m5_global_local_det_tables.md), [`generated/M6_retention_tables.md`](generated/M6_retention_tables.md).
+### 7.7 M6/M7 step 2 — detection with retention and adaptive budgets (same 200 dev images, RTX 5060)
+| Selector | Average classes | AP50 standard | AP50 source-aware | Robust vs full (both protocols)? |
+|---|---|---|---|---|
+| Full vocabulary | 80 | 0.015 | 0.028 | – |
+| Fixed top-8 (M4) | 8 | 0.035 | 0.058 | source-aware only |
+| **Calibrated threshold** | ~8 | **0.055** | **0.071** | **yes** |
+| Calibrated threshold | ~20 | 0.047 | 0.069 | yes |
+| Probability-mass rule | ~20 | 0.049 | 0.067 | yes |
+| Uncertainty retention (crop disagreement) | ~8 | 0.033 | 0.046 | no |
+
+**What this shows:**
+- **Against a fixed top-k** at the same average size, adaptive budgets gain +0.02–0.03 AP50 at 8–20 classes. That passes 2 of our 3 checks (all 3 only for the probability-mass rule at ~20 classes under standard scoring), so it is **suggestive but not established** by our pre-declared criterion. The test split will settle it.
+- The gain comes mainly from **large objects** (AP50 0.088 → 0.128). Confident images get fewer, cleaner prompts, and ambiguous ones get more.
+- Image-level recall had predicted *no* gain, a second case where selection metrics mislead.
+- **Uncertainty retention did not help detection**, repeating the M5 pattern for small objects.
+- **Caveat:** the headline rule was the best of 9 conditions on these images. It is now fixed and will be confirmed once on the held-out test split.
+
+Full tables: [`generated/E0_tables.md`](generated/E0_tables.md), [`generated/e0_headroom_tables.md`](generated/e0_headroom_tables.md) (robustness), [`generated/M4_selection_tables.md`](generated/M4_selection_tables.md), [`generated/m4_selectors_det_tables.md`](generated/m4_selectors_det_tables.md), [`generated/M5_selection_tables.md`](generated/M5_selection_tables.md), [`generated/m5_global_local_det_tables.md`](generated/m5_global_local_det_tables.md), [`generated/M6_retention_tables.md`](generated/M6_retention_tables.md), [`generated/m6_retention_det_tables.md`](generated/m6_retention_det_tables.md) (+ `_vs_k3/_vs_k8/_vs_k20`).
 
 ---
 
@@ -260,14 +279,14 @@ Full tables: [`generated/E0_tables.md`](generated/E0_tables.md), [`generated/e0_
 | E4 | Global CLIP / RemoteCLIP top-k | ✓ | done: **robustly better than full at k = 8–20** (source-aware) |
 | E5 | Caption-based ("VocAda-style", small captioner) | ✓ | planned |
 | E6 | **Global + local (multi-scale crops) selection** | ✓ | done: better selection (small objects), **no detection gain**, 83 ms selector cost (vs ~8 ms global) |
-| E7 | **+ uncertainty-aware retention** (global–local disagreement; calibrated on held-out dev images) | ✓ | selection level: helps at ~3 classes; detection next |
-| E8 | **+ adaptive vocabulary budget** (threshold, probability mass) | ✓ | selection level: no gain over fixed top-k; detection next |
+| E7 | **+ uncertainty-aware retention** (global–local disagreement; calibrated on held-out dev images) | ✓ | done: selection gain at ~3 classes, **no detection gain** |
+| E8 | **+ adaptive vocabulary budget** (threshold, probability mass) | ✓ | done: **best method so far**: AP50 ×3.8 (standard) / ×2.5 (source-aware) vs full, robust; +0.02–0.03 vs fixed top-k |
 | — | Oracle diagnostics (GT classes, source class list) | ✗ | done (E0); used as upper bounds |
 
 Each method is compared at **matched average vocabulary sizes**, with accuracy–latency curves, recall broken down by object size and class rarity, both evaluation protocols, and paired bootstrap confidence intervals.
 
 ## 9. Next steps
-1. **M6/M7 detection run** on the RTX 5060 (H4, H5).
+1. **M8–M9:** consolidate the experiment registry; add precision / recall / F1 at a fixed operating point; **decide whether a detector-side small-object test is needed** (D31).
    - *Decided at M9:* whether a detector-side small-object test (tiled / higher-resolution inference, applied identically to every method) is needed. Until then the scope stays on vocabulary selection.
 2. **E5:** the caption-based (VocAda-style) baseline, with a small captioner.
 3. **M10–M11:** failure analysis (tiny objects, dense scenes, similar classes, rare classes) and per-source generalization. One-time final evaluation on the held-out test split.
