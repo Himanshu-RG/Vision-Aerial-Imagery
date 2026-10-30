@@ -5,7 +5,8 @@
 - Modules M0–M3 complete.
 - Experiment E0 complete.
 - M4 (simple baselines) complete except the caption-based baseline.
-- M5 (global + local selection): selection-level results done; detection run next.
+- M5 (global + local selection) complete. It improves *selection* but not *detection*: a documented negative result.
+- Next: M6–M7 (uncertainty-aware retention, adaptive budget) on the global RemoteCLIP selector.
 
 Repository: <https://github.com/Himanshu-RG/Vision-Aerial-Imagery>. The living project log is [`CONTEXT.md`](../CONTEXT.md); module reports are in [`reports/`](.).
 
@@ -20,7 +21,7 @@ What we have established so far, all on the tuning (dev) split, with no test dat
 3. **A benchmark artifact we identified explains only ~11% of that gap.** The LAE-80C benchmark merges five datasets that each annotate a *disjoint* set of classes. We show this distorts standard evaluation, and we propose a source-aware evaluation.
 4. **A simple deployable selector already helps.** Ranking the 80 classes by whole-image CLIP / RemoteCLIP similarity and keeping the top 8–20 improves source-aware AP50 from **0.028 to 0.046–0.058** (×1.6–2.1). The gain is robust under three statistical checks and recovers up to ~27% of the oracle headroom. It also lowers end-to-end latency by ~19%, since the selector costs only ~8 ms on the GPU.
 5. **The remaining gap points to our core idea.** Global CLIP selection keeps few of the present classes at small budgets and **does not help small objects at all**: small-object recall drops at k = 3, and the FAIR source, with 91% small objects, does not improve. This motivates combining **global (whole-image) and local (crop-level) evidence**.
-6. **Local evidence works, but only with an aerial-trained encoder.** Adding 13 overlapping crops to RemoteCLIP raises recall of small-object classes from 0.22 to 0.31 at 8 classes (significant), including within FAIR and xView. With natural-image CLIP, crops do not help. Detection results for this selector are next.
+6. **Local evidence improves selection but not detection.** Adding 13 overlapping crops to RemoteCLIP raises recall of small-object classes from 0.22 to 0.31 at 8 classes (significant; natural-image CLIP gains nothing). In detection, Grounding DINO then finds more small objects (recall 0.10 → 0.12–0.13), but localises them poorly, so AP does not improve, and the crops cost 83 ms per image. **The small-object bottleneck is the detector itself, not the vocabulary.**
 
 ---
 
@@ -143,7 +144,7 @@ Class relevance = cosine similarity between the image embedding and the averaged
 | M3 | Grounding DINO pipeline, two evaluators, bootstrap statistics; **known-answer tests** (feeding ground truth back gives AP = 1.0, etc.). 40 automated tests at M3; 46 now | ✅ |
 | E0 | Headroom experiment on 200 dev images (RTX 5060) | ✅ |
 | M4 | Baselines A–D (full, frequency prior, random, CLIP/RemoteCLIP top-k): selection quality on 730 dev images and detection on 200; robustness statistics. Caption-based baseline E deferred | ✅ (E pending) |
-| M5 | Global + local (crop) selection: 25 variants per encoder, chosen by a pre-declared rule; selection-level ablation done | 🟡 (detection pending) |
+| M5 | Global + local (crop) selection: 25 variants per encoder, chosen by a pre-declared rule; selection-level gain, no detection-level gain (negative result, reported) | ✅ |
 
 **Reproducibility:**
 - Every run is identified by a hash of its configuration and records its commit, machine, GPU state and checkpoint hashes.
@@ -224,7 +225,21 @@ The whole image plus overlapping crops (2×2 and 3×3 grids) are scored. Each vi
 - **For natural-image CLIP, crops do not help.** Local evidence requires an encoder that understands aerial imagery.
 - **Crop count:** 13 crops perform as well as 29, and 4 are close, which keeps the selector cheap. GPU timing is pending.
 
-Full tables: [`generated/E0_tables.md`](generated/E0_tables.md), [`generated/e0_headroom_tables.md`](generated/e0_headroom_tables.md) (robustness), [`generated/M4_selection_tables.md`](generated/M4_selection_tables.md), [`generated/m4_selectors_det_tables.md`](generated/m4_selectors_det_tables.md), [`generated/M5_selection_tables.md`](generated/M5_selection_tables.md).
+### 7.5 M5 step 2 — do crops improve detection? (same 200 dev images, RTX 5060)
+| RemoteCLIP selector, source-aware AP50 | 3 classes | 8 classes | 20 classes |
+|---|---|---|---|
+| Whole image (M4) | 0.064 | 0.058 | 0.040 |
+| Whole image + 13 crops | 0.060 | 0.053 | 0.044 |
+| Crops only | 0.067 | 0.061 | 0.040 |
+
+**What this shows:**
+- No difference is statistically significant (per-class sign tests, p ≥ 0.16).
+- With crops, small-object **recall** rises (0.102 → 0.123–0.132 at 8 classes), but small-object **AP falls** (0.035 → 0.021): the detector now looks for small objects but boxes and scores them poorly.
+- Crops cost 83 ms per image on the GPU, against ~8 ms for the whole-image selector, which removes the speed advantage.
+- The crop selector was reproduced exactly on the GPU machine from a clean commit.
+- **Conclusion:** improving the vocabulary cannot fix small-object detection on its own. That limit sits in the detector, at this input resolution. The whole-image RemoteCLIP selector stays the method's base.
+
+Full tables: [`generated/E0_tables.md`](generated/E0_tables.md), [`generated/e0_headroom_tables.md`](generated/e0_headroom_tables.md) (robustness), [`generated/M4_selection_tables.md`](generated/M4_selection_tables.md), [`generated/m4_selectors_det_tables.md`](generated/m4_selectors_det_tables.md), [`generated/M5_selection_tables.md`](generated/M5_selection_tables.md), [`generated/m5_global_local_det_tables.md`](generated/m5_global_local_det_tables.md).
 
 ---
 
@@ -236,7 +251,7 @@ Full tables: [`generated/E0_tables.md`](generated/E0_tables.md), [`generated/e0_
 | E3 | Random vocabulary (3 seeds) | ✓ (control) | done: worse than full |
 | E4 | Global CLIP / RemoteCLIP top-k | ✓ | done: **robustly better than full at k = 8–20** (source-aware) |
 | E5 | Caption-based ("VocAda-style", small captioner) | ✓ | planned |
-| E6 | **Global + local (multi-scale crops) selection** | ✓ | selection level ✓ (RemoteCLIP: significant gains, especially small objects); detection next |
+| E6 | **Global + local (multi-scale crops) selection** | ✓ | done: better selection (small objects), **no detection gain**, 83 ms selector cost (vs ~8 ms global) |
 | E7 | **+ uncertainty-aware retention** (calibrated on dev for a target vocabulary recall) | ✓ | planned (M6, gated) |
 | E8 | **+ adaptive vocabulary budget** | ✓ | planned (M7, gated) |
 | — | Oracle diagnostics (GT classes, source class list) | ✗ | done (E0); used as upper bounds |
@@ -244,11 +259,11 @@ Full tables: [`generated/E0_tables.md`](generated/E0_tables.md), [`generated/e0_
 Each method is compared at **matched average vocabulary sizes**, with accuracy–latency curves, recall broken down by object size and class rarity, both evaluation protocols, and paired bootstrap confidence intervals.
 
 ## 9. Next steps
-1. **M5 (finish):** detection with the global+local selector on the RTX 5060 (H3 at detection level), GPU timing of the crop views, and a simplified TagCLIP-style baseline.
-2. **M6/M7** (gate passed by M4): uncertainty-aware retention (keep classes until a target vocabulary recall is reached, calibrated on dev) and an adaptive per-image budget.
-3. **E5:** the caption-based (VocAda-style) baseline, with a small captioner.
-4. **M10–M11:** failure analysis (tiny objects, dense scenes, similar classes, rare classes) and per-source generalization. One-time final evaluation on the held-out test split.
-5. **M12–M14:** latency profiling, reproducibility package, paper draft.
+1. **M6/M7 next:** uncertainty-aware retention and an adaptive budget on the global RemoteCLIP selector, using global–local disagreement as one candidate uncertainty signal.
+   - *Later (M10/M12):* a detector-side test of small objects via tiled / higher-resolution inference, applied identically to every method.
+2. **E5:** the caption-based (VocAda-style) baseline, with a small captioner.
+3. **M10–M11:** failure analysis (tiny objects, dense scenes, similar classes, rare classes) and per-source generalization. One-time final evaluation on the held-out test split.
+4. **M12–M14:** latency profiling, reproducibility package, paper draft.
 
 ## 10. Risks and honest assessment
 - **Detector ceiling:** GDINO-T reaches only 0.14 AP50 even with a perfect vocabulary, so absolute numbers will be low. Higher input resolution or tiling may be needed, applied identically to all methods.

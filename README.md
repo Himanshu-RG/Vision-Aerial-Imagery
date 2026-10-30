@@ -5,7 +5,7 @@ Research code (Team Transmontane). We study whether choosing a small, image-rele
 > **Start with [CONTEXT.md](CONTEXT.md).** It is the project's ground truth: goals, rules, frozen decisions, status, and results. Per-module reports live in [reports/](reports/).
 
 ## Status
-M0–M4 done (dev split): E0 shows large headroom (oracle vocabulary AP50 0.015 → 0.140); a deployable RemoteCLIP/CLIP top-8–20 selector robustly improves source-aware AP50 0.028 → 0.046–0.058 and cuts latency ~19%, but does not help small objects. Next: M5 (global + local selection). Overview for reviewers: [reports/PROJECT_OVERVIEW.md](reports/PROJECT_OVERVIEW.md).
+M0–M5 done (dev split): E0 shows large headroom (oracle vocabulary AP50 0.015 → 0.140); a deployable RemoteCLIP/CLIP top-8–20 selector robustly improves source-aware AP50 0.028 → 0.046–0.058 and cuts latency ~19%. Crop (local) evidence improves selection of small-object classes but not detection (detector bottleneck). Next: M6–M7. Overview for reviewers: [reports/PROJECT_OVERVIEW.md](reports/PROJECT_OVERVIEW.md).
 
 ## Two-machine setup
 | Machine | Use | Torch wheel |
