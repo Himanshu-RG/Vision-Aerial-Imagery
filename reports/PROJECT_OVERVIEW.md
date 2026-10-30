@@ -260,7 +260,7 @@ Each method is compared at **matched average vocabulary sizes**, with accuracy�
 
 ## 9. Next steps
 1. **M6/M7 next:** uncertainty-aware retention and an adaptive budget on the global RemoteCLIP selector, using global–local disagreement as one candidate uncertainty signal.
-   - *Later (M10/M12):* a detector-side test of small objects via tiled / higher-resolution inference, applied identically to every method.
+   - *Decided at M9:* whether a detector-side small-object test (tiled / higher-resolution inference, applied identically to every method) is needed. Until then the scope stays on vocabulary selection.
 2. **E5:** the caption-based (VocAda-style) baseline, with a small captioner.
 3. **M10–M11:** failure analysis (tiny objects, dense scenes, similar classes, rare classes) and per-source generalization. One-time final evaluation on the held-out test split.
 4. **M12–M14:** latency profiling, reproducibility package, paper draft.
