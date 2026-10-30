@@ -1,0 +1,17 @@
+{
+  "selector": "remoteclip_b32_gl",
+  "variant": "a0.25_mean_g23",
+  "views_device": "cuda",
+  "views_host": "LAPTOP-5CPRTI27",
+  "views_git_commit": "0a6ca791930a29f2dd4215ca70ec925d0a638649",
+  "views_git_dirty_code": false,
+  "views_grids": [
+    2,
+    3
+  ],
+  "max_abs_score_diff": 3.401859851953626e-06,
+  "views_ms_median": 83.15474994014949,
+  "k3_identical_sets": 1.0,
+  "k8_identical_sets": 1.0,
+  "k20_identical_sets": 1.0
+}

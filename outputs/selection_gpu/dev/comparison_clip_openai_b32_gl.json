@@ -1,0 +1,17 @@
+{
+  "selector": "clip_openai_b32_gl",
+  "variant": "a0.5_max_g23",
+  "views_device": "cuda",
+  "views_host": "LAPTOP-5CPRTI27",
+  "views_git_commit": "0a6ca791930a29f2dd4215ca70ec925d0a638649",
+  "views_git_dirty_code": false,
+  "views_grids": [
+    2,
+    3
+  ],
+  "max_abs_score_diff": 1.1789180072246941e-05,
+  "views_ms_median": 78.3168000052683,
+  "k3_identical_sets": 1.0,
+  "k8_identical_sets": 1.0,
+  "k20_identical_sets": 1.0
+}
