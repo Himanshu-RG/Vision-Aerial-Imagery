@@ -90,6 +90,17 @@ def main() -> int:
             L.append(f"| {cond} | {proto} | {v['diff_point']:+.4f} | [{v['ci_low']:+.4f}, {v['ci_high']:+.4f}] | {basic} "
                      f"| {v.get('bias_flag', '–')} | {pos} / {neg} | {p:.3g} | {'yes' if agree else 'no'} |")
     L += ["", "`robust*` = percentile CI and basic CI both exclude 0 AND the per-class sign test agrees in direction with p < 0.05."]
+    if any("operating_points" in m["conditions"][c]["standard"] for c in m["conditions"]):
+        L += ["", "## Operating points (IoU 0.5, maxDets 900; fixed score thresholds pre-declared; best-F1 is a diagnostic)", "",
+              "| condition | protocol | P@0.25 | R@0.25 | F1@0.25 | P@0.35 | R@0.35 | F1@0.35 | best F1 (thr) |", "|---|---|---|---|---|---|---|---|---|"]
+        for cond in cfg["config"]["conditions"]:
+            for proto in ("standard", "source_aware"):
+                op = m["conditions"].get(cond, {}).get(proto, {}).get("operating_points")
+                if not op:
+                    continue
+                a, b, best = op["@0.25"], op["@0.35"], op["best_f1_diagnostic"]
+                L.append(f"| {cond} | {proto} | {a['precision']:.3f} | {a['recall']:.3f} | {a['f1']:.3f} | {b['precision']:.3f} "
+                         f"| {b['recall']:.3f} | {b['f1']:.3f} | {best['f1']:.3f} ({best['threshold']:.2f}) |")
     suffix = args.metrics_dir.name.split("_vs_", 1)[1] if "_vs_" in args.metrics_dir.name else None
     out = REPO_ROOT / "reports" / "generated" / (f"{cfg['config']['name']}_tables" + (f"_vs_{suffix}" if suffix else "") + ".md")
     out.parent.mkdir(parents=True, exist_ok=True)

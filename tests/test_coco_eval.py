@@ -153,3 +153,14 @@ def test_sign_test_on_per_class_ap():
     pos, neg, p = sign_test(m, "a", "ref", "standard")
     assert (pos, neg) == (10, 0) and p == pytest.approx(2 / 2 ** 10)
     assert sign_test(m, "b", "ref", "standard") == (0, 0, 1.0)  # all ties
+
+
+def test_prf_at_thresholds_known_answer():
+    from aerial_ovd.evaluation.coco_eval import per_image_matches, prf_at_thresholds
+
+    preds = _perfect() + [{"image_id": 1, "category_id": 1, "bbox": [70, 0, 10, 10], "score": 0.3}]  # 1 FP at 0.3
+    m = per_image_matches(_gt(), preds, [1, 2])
+    r = prf_at_thresholds(m, thresholds=(0.25, 0.35))
+    assert r["@0.35"]["precision"] == 1.0 and r["@0.35"]["recall"] == 1.0 and r["@0.35"]["fp"] == 0
+    assert r["@0.25"]["fp"] == 1 and r["@0.25"]["precision"] == pytest.approx(3 / 4) and r["@0.25"]["recall"] == 1.0
+    assert r["n_gt"] == 3 and r["best_f1_diagnostic"]["f1"] == pytest.approx(1.0)

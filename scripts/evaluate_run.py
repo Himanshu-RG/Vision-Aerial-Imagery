@@ -18,7 +18,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from aerial_ovd.evaluation.coco_eval import (  # noqa: E402
-    ap50_from_matches, evaluate, paired_bootstrap, per_image_matches,
+    ap50_from_matches, evaluate, paired_bootstrap, per_image_matches, prf_at_thresholds,
 )
 from aerial_ovd.utils.paths import get_store  # noqa: E402
 
@@ -84,6 +84,7 @@ def main() -> int:
             if abs(fast - res[proto]["AP50@900"]) > 1e-6:  # consistency check of the bootstrap machinery
                 raise RuntimeError(f"fast AP50 {fast} != COCOeval {res[proto]['AP50@900']} ({cond}, {proto})")
             res["_matches"][proto] = m
+            res[proto]["operating_points"] = prf_at_thresholds(m)
         out["conditions"][cond] = res
 
     # Paired image-level bootstrap of AP50@900 differences vs the reference condition.

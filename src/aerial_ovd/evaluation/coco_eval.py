@@ -224,3 +224,40 @@ def paired_bootstrap(m_a: dict, m_b: dict, n_boot: int = 1000, seed: int = 0, al
             "bias_flag": bool(abs(boot_mean - point) > 0.25 * boot_sd) if boot_sd > 0 else False,
             "basic_ci_low": float(basic_lo), "basic_ci_high": float(basic_hi),
             "basic_ci_excludes_zero": bool(basic_lo > 0 or basic_hi < 0)}
+
+
+# ---------------------------------------------------------------------------------------------
+# M9: precision / recall / F1 at fixed score thresholds (operating points), IoU 0.5, area "all",
+# maxDets 900, from the same per-image matches. Micro-averaged over all (category, image) pairs.
+# Fixed thresholds (pre-declared): 0.35 (Grounding DINO's common box threshold; used by arXiv 2601.22164)
+# and 0.25. The best-F1 threshold is reported only as a diagnostic (it is chosen on the evaluated images).
+# ---------------------------------------------------------------------------------------------
+OPERATING_POINTS = (0.25, 0.35)
+
+
+def prf_at_thresholds(m: dict, thresholds=OPERATING_POINTS, sweep: bool = True) -> dict:
+    scores, tp, n_gt = [], [], 0
+    for per in m["per_cat"].values():
+        for s, t, ig, npig in per.values():
+            keep = ~ig
+            scores.append(s[keep])
+            tp.append(t[keep])
+            n_gt += npig
+    s = np.concatenate(scores) if scores else np.zeros(0)
+    t = np.concatenate(tp) if tp else np.zeros(0, bool)
+
+    def at(th):
+        sel = s >= th
+        TP, FP = int((t & sel).sum()), int((~t & sel).sum())
+        P = TP / (TP + FP) if TP + FP else 0.0
+        R = TP / n_gt if n_gt else 0.0
+        return {"threshold": float(th), "precision": P, "recall": R, "f1": 2 * P * R / (P + R) if P + R else 0.0,
+                "tp": TP, "fp": FP, "fn": n_gt - TP}
+
+    out = {f"@{th:g}": at(th) for th in thresholds}
+    if sweep:
+        grid = np.round(np.arange(0.05, 0.96, 0.01), 2)
+        best = max((at(th) for th in grid), key=lambda r: r["f1"])
+        out["best_f1_diagnostic"] = best
+    out["n_gt"] = int(n_gt)
+    return out
