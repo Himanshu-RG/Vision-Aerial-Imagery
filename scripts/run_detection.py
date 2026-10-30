@@ -143,7 +143,7 @@ def main() -> int:
     # Precomputed deployable selector scores (outputs/selection/<split>/<name>.npz, committed).
     selector_scores, selector_meta = {}, {}
     for cond in cfg["conditions"]:
-        if cond.startswith("sel:"):
+        if cond.startswith(("sel:", "set:")):
             import numpy as np
 
             name = cond.split(":")[1]
@@ -153,7 +153,8 @@ def main() -> int:
             z = np.load(npz, allow_pickle=False)
             if list(z["cat_ids"]) != sorted(int(c) for c in z["cat_ids"]):
                 raise ValueError(f"{npz}: category ids are not sorted")
-            selector_scores[name] = {int(i): z["scores"][j] for j, i in enumerate(z["image_ids"])}
+            key = "selected" if cond.startswith("set:") else "scores"
+            selector_scores[name] = {int(i): z[key][j] for j, i in enumerate(z["image_ids"])}
             selector_meta[name] = {"file": npz.relative_to(REPO_ROOT).as_posix(), "meta": json.loads(str(z["meta"]))}
 
     lock = json.loads((REPO_ROOT / "configs" / "checkpoints.lock.json").read_text(encoding="utf-8"))

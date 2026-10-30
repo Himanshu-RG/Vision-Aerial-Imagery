@@ -1,0 +1,33 @@
+# M6/M7: do uncertainty-aware retention / adaptive budgets improve detection over fixed top-k at matched
+# mean vocabulary size? (H4, H5) -- dev only. Same 200-image sample and detector settings as E0/M4/M5.
+# Rule parameters were calibrated on the 530 OTHER dev images to a target mean size (D32); masks committed as
+# outputs/selection/dev/m6_<rule>_m<m>.npz by scripts/m6_retention.py.
+name: m6_retention_det
+split: dev
+n_images: 200
+sample_seed: 2026
+seed: 0
+random_seed: 0
+naming_policy: light
+conditions:
+  - full
+  - oracle_gt
+  - sel:remoteclip_b32:k3
+  - sel:remoteclip_b32:k8
+  - sel:remoteclip_b32:k20
+  - set:m6_retain_m3
+  - set:m6_threshold_m3
+  - set:m6_top_p_m3
+  - set:m6_retain_m8
+  - set:m6_threshold_m8
+  - set:m6_top_p_m8
+  - set:m6_retain_m20
+  - set:m6_threshold_m20
+  - set:m6_top_p_m20
+detector:
+  checkpoint: grounding-dino-tiny
+  device: cuda
+  precision: fp32
+  num_select: 900
+  class_reduce: mean
+  warmup: 3

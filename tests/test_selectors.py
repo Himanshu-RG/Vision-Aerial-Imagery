@@ -93,3 +93,15 @@ def test_combine_views_limits_and_aggregation():
     assert np.allclose(mix, 0.5 * softmax(g) + 0.5 * softmax(crops, axis=-1).max(0))
     with pytest.raises(ValueError):
         combine_views(g, crops, gids, 1.5)
+
+
+def test_set_condition_uses_boolean_mask():
+    from aerial_ovd.vocabulary.conditions import vocabulary_for
+
+    all_ids = [10, 2, 3]  # sorted -> [2, 3, 10]
+    sel = {"m6": {5: np.array([True, False, True])}}
+    assert vocabulary_for("set:m6", 5, all_ids, {}, {}, 0, sel) == [2, 10]
+    with pytest.raises(ValueError):
+        vocabulary_for("set:m6", 5, all_ids, {}, {}, 0, {"m6": {5: np.array([False, False, False])}})
+    with pytest.raises(ValueError):
+        vocabulary_for("set:nope", 5, all_ids, {}, {}, 0, sel)

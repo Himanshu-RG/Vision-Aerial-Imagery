@@ -6,7 +6,7 @@
 - Experiment E0 complete.
 - M4 (simple baselines) complete except the caption-based baseline.
 - M5 (global + local selection) complete. It improves *selection* but not *detection*: a documented negative result.
-- Next: M6–M7 (uncertainty-aware retention, adaptive budget) on the global RemoteCLIP selector.
+- M6–M7 (uncertainty-aware retention, adaptive budget): selection-level results done; detection run next.
 
 Repository: <https://github.com/Himanshu-RG/Vision-Aerial-Imagery>. The living project log is [`CONTEXT.md`](../CONTEXT.md); module reports are in [`reports/`](.).
 
@@ -239,7 +239,15 @@ The whole image plus overlapping crops (2×2 and 3×3 grids) are scored. Each vi
 - The crop selector was reproduced exactly on the GPU machine from a clean commit.
 - **Conclusion:** improving the vocabulary cannot fix small-object detection on its own. That limit sits in the detector, at this input resolution. The whole-image RemoteCLIP selector stays the method's base.
 
-Full tables: [`generated/E0_tables.md`](generated/E0_tables.md), [`generated/e0_headroom_tables.md`](generated/e0_headroom_tables.md) (robustness), [`generated/M4_selection_tables.md`](generated/M4_selection_tables.md), [`generated/m4_selectors_det_tables.md`](generated/m4_selectors_det_tables.md), [`generated/M5_selection_tables.md`](generated/M5_selection_tables.md), [`generated/m5_global_local_det_tables.md`](generated/m5_global_local_det_tables.md).
+### 7.6 M6/M7 step 1 — smarter vocabulary sizes (200 held-out dev images, no detector)
+Each rule's single setting was tuned on the 530 *other* dev images to hit a target average size, then compared with fixed top-k at the same size.
+
+- **Uncertainty retention** (a core of top-classes, plus classes whose crop evidence beats the whole-image score) helps at small budgets. At ~3 classes it keeps more of the present classes (0.217 → 0.266, significant), and small-object classes nearly triple (0.071 → 0.190). The gain fades at 8 classes and reverses at 20.
+- **Adaptive budgets** (a calibrated threshold, a probability-mass rule) do **not** beat fixed top-k at the same average size.
+- **Calibrated coverage roughly holds** (target 80% → 76% achieved), but needs ~27 classes per image, so the per-image relevance signal is still weak.
+- Detection with these rules runs next.
+
+Full tables: [`generated/E0_tables.md`](generated/E0_tables.md), [`generated/e0_headroom_tables.md`](generated/e0_headroom_tables.md) (robustness), [`generated/M4_selection_tables.md`](generated/M4_selection_tables.md), [`generated/m4_selectors_det_tables.md`](generated/m4_selectors_det_tables.md), [`generated/M5_selection_tables.md`](generated/M5_selection_tables.md), [`generated/m5_global_local_det_tables.md`](generated/m5_global_local_det_tables.md), [`generated/M6_retention_tables.md`](generated/M6_retention_tables.md).
 
 ---
 
@@ -252,14 +260,14 @@ Full tables: [`generated/E0_tables.md`](generated/E0_tables.md), [`generated/e0_
 | E4 | Global CLIP / RemoteCLIP top-k | ✓ | done: **robustly better than full at k = 8–20** (source-aware) |
 | E5 | Caption-based ("VocAda-style", small captioner) | ✓ | planned |
 | E6 | **Global + local (multi-scale crops) selection** | ✓ | done: better selection (small objects), **no detection gain**, 83 ms selector cost (vs ~8 ms global) |
-| E7 | **+ uncertainty-aware retention** (calibrated on dev for a target vocabulary recall) | ✓ | planned (M6, gated) |
-| E8 | **+ adaptive vocabulary budget** | ✓ | planned (M7, gated) |
+| E7 | **+ uncertainty-aware retention** (global–local disagreement; calibrated on held-out dev images) | ✓ | selection level: helps at ~3 classes; detection next |
+| E8 | **+ adaptive vocabulary budget** (threshold, probability mass) | ✓ | selection level: no gain over fixed top-k; detection next |
 | — | Oracle diagnostics (GT classes, source class list) | ✗ | done (E0); used as upper bounds |
 
 Each method is compared at **matched average vocabulary sizes**, with accuracy–latency curves, recall broken down by object size and class rarity, both evaluation protocols, and paired bootstrap confidence intervals.
 
 ## 9. Next steps
-1. **M6/M7 next:** uncertainty-aware retention and an adaptive budget on the global RemoteCLIP selector, using global–local disagreement as one candidate uncertainty signal.
+1. **M6/M7 detection run** on the RTX 5060 (H4, H5).
    - *Decided at M9:* whether a detector-side small-object test (tiled / higher-resolution inference, applied identically to every method) is needed. Until then the scope stays on vocabulary selection.
 2. **E5:** the caption-based (VocAda-style) baseline, with a small captioner.
 3. **M10–M11:** failure analysis (tiny objects, dense scenes, similar classes, rare classes) and per-source generalization. One-time final evaluation on the held-out test split.

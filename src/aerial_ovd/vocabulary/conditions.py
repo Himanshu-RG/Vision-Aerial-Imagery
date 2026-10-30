@@ -34,7 +34,22 @@ def parse_selector_condition(condition: str) -> tuple[str, int]:
 def vocabulary_for(condition: str, image_id: int, all_ids: list[int], gt_classes: Mapping[int, list[int]],
                    source_space: Mapping[int, set[int]], seed: int,
                    selector_scores: Mapping[str, Mapping[int, "object"]] | None = None) -> list[int]:
-    """selector_scores: selector name -> image_id -> score vector aligned with sorted(all_ids)."""
+    """selector_scores: selector name -> image_id -> score vector aligned with sorted(all_ids).
+
+    'set:<name>' conditions use a precomputed variable-size selection: selector_scores[name][image_id]
+    is then a boolean mask aligned with sorted(all_ids)."""
+    if condition.startswith("set:"):
+        import numpy as np
+
+        name = condition.split(":", 1)[1]
+        if not name or selector_scores is None or name not in selector_scores:
+            raise ValueError(f"no precomputed selection for {condition!r}")
+        mask = np.asarray(selector_scores[name][image_id], dtype=bool)
+        ids_sorted = sorted(all_ids)
+        ids = [ids_sorted[i] for i in np.where(mask)[0]]
+        if not ids:
+            raise ValueError(f"empty selection for image {image_id} under {condition}")
+        return ids
     if condition.startswith("sel:"):
         import numpy as np
 

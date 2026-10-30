@@ -46,6 +46,8 @@ def main() -> int:
     ap.add_argument("run_dir", type=Path)
     ap.add_argument("--n-boot", type=int, default=1000, help="paired image-level bootstrap resamples (0 = off)")
     ap.add_argument("--reference", default="full", help="condition every other condition is compared with")
+    ap.add_argument("--tag", default=None, help="write to outputs/metrics/<run_id>_vs_<tag>/ (use with a non-default "
+                                                 "--reference so the main metrics are not overwritten)")
     args = ap.parse_args()
     meta = json.loads((args.run_dir / "run_config.json").read_text(encoding="utf-8"))
     cfg, image_ids = meta["config"], meta["image_ids"]
@@ -97,7 +99,7 @@ def main() -> int:
     for r in out["conditions"].values():
         r.pop("_matches")
 
-    dst = REPO_ROOT / "outputs" / "metrics" / meta["run_id"]
+    dst = REPO_ROOT / "outputs" / "metrics" / (meta["run_id"] + (f"_vs_{args.tag}" if args.tag else ""))
     dst.mkdir(parents=True, exist_ok=True)
     (dst / "metrics.json").write_text(json.dumps(out, indent=2) + "\n", encoding="utf-8", newline="\n")
     # Provenance: the resolved config, env snapshot, image sample and checkpoint lock travel with the metrics.
