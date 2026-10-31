@@ -1,0 +1,29 @@
+# E5 baselines (dev only, same 200-image sample and detector settings): VocAda-style caption selector and the
+# crop-level TagCLIP-style selector, at matched budgets, vs our headline method and RemoteCLIP top-k.
+# Labelled baselines, NOT reproductions (D38). Selections precomputed and committed in outputs/selection/dev/.
+name: e5_caption_tagclip_det
+split: dev
+n_images: 200
+sample_seed: 2026
+seed: 0
+random_seed: 0
+naming_policy: light
+conditions:
+  - full
+  - oracle_gt
+  - sel:remoteclip_b32:k3
+  - sel:remoteclip_b32:k8
+  - set:m6_threshold_m8
+  - sel:caption_clip:k3
+  - sel:caption_clip:k8
+  - set:e5_caption_thr_m3
+  - set:e5_caption_thr_m8
+  - sel:tagclip_style:k3
+  - sel:tagclip_style:k8
+detector:
+  checkpoint: grounding-dino-tiny
+  device: cuda
+  precision: fp32
+  num_select: 900
+  class_reduce: mean
+  warmup: 3

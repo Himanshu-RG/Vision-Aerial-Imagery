@@ -18,3 +18,9 @@ checkpoints:
     repo_id: timm/vit_base_patch32_clip_224.openai
     revision: null
     files: [open_clip_config.json, open_clip_pytorch_model.bin]
+  - name: florence2-base
+    role: captioner for the VocAda-style caption baseline (E5)
+    repo_id: florence-community/Florence-2-base
+    revision: null
+    files: [config.json, generation_config.json, model.safetensors, preprocessor_config.json, processor_config.json,
+            added_tokens.json, merges.txt, special_tokens_map.json, tokenizer.json, tokenizer_config.json, vocab.json]

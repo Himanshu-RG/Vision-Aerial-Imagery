@@ -105,3 +105,16 @@ def test_set_condition_uses_boolean_mask():
         vocabulary_for("set:m6", 5, all_ids, {}, {}, 0, {"m6": {5: np.array([False, False, False])}})
     with pytest.raises(ValueError):
         vocabulary_for("set:nope", 5, all_ids, {}, {}, 0, sel)
+
+
+def test_caption_phrases():
+    import sys
+    from pathlib import Path
+
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+    from e5_caption_selector import phrases
+
+    p = phrases("The image is an aerial view of a parking lot with several white cars and a large storage tank.")
+    assert "parking" in p and "white cars" in p and "storage tank" in p
+    assert "the" not in p and "image" not in p and "several" not in p
+    assert phrases("") == []

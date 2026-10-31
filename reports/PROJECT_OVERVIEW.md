@@ -293,7 +293,7 @@ Full tables: [`generated/E0_tables.md`](generated/E0_tables.md), [`generated/e0_
 | E2 | Fixed reduced vocabulary (frequency prior) | ✓ | done: worse than full |
 | E3 | Random vocabulary (3 seeds) | ✓ (control) | done: worse than full |
 | E4 | Global CLIP / RemoteCLIP top-k | ✓ | done: **robustly better than full at k = 8–20** (source-aware) |
-| E5 | Caption-based ("VocAda-style", small captioner) | ✓ | planned |
+| E5 | Caption-based ("VocAda-style", Florence-2 captioner) + TagCLIP-style (crop-level) | ✓ | selection level: both below RemoteCLIP (caption: half the class-averaged recall; ~5.6 s/img); detection next |
 | E6 | **Global + local (multi-scale crops) selection** | ✓ | done: better selection (small objects), **no detection gain**, 83 ms selector cost (vs ~8 ms global) |
 | E7 | **+ uncertainty-aware retention** (global–local disagreement; calibrated on held-out dev images) | ✓ | done: selection gain at ~3 classes, **no detection gain** |
 | E8 | **+ adaptive vocabulary budget** (threshold, probability mass) | ✓ | done: **best method so far**: AP50 ×3.8 (standard) / ×2.5 (source-aware) vs full, robust; +0.02–0.03 vs fixed top-k |

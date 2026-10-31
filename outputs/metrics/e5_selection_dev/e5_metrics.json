@@ -1,0 +1,89 @@
+{
+  "n_eval": 200,
+  "n_calibration": 530,
+  "mean_phrases_per_caption": 36.24520547945205,
+  "captions_empty": 0,
+  "budgets": {
+    "3": {
+      "caption_topk": {
+        "mean_size": 3.0,
+        "vocab_recall": 0.18083333333333335,
+        "macro_pair_recall": 0.11546893046893046
+      },
+      "remoteclip_topk": {
+        "mean_size": 3.0,
+        "vocab_recall": 0.2175,
+        "macro_pair_recall": 0.2945621555621556
+      },
+      "caption_minus_remoteclip": {
+        "diff": -0.03666666666666666,
+        "ci_low": -0.101846875,
+        "ci_high": 0.025420833333333302,
+        "excludes_zero": false
+      },
+      "tagclip_style_topk": {
+        "mean_size": 3.0,
+        "vocab_recall": 0.17379166666666668,
+        "macro_pair_recall": 0.22283283104213333
+      }
+    },
+    "8": {
+      "caption_topk": {
+        "mean_size": 8.0,
+        "vocab_recall": 0.35454166666666664,
+        "macro_pair_recall": 0.211997668997669
+      },
+      "remoteclip_topk": {
+        "mean_size": 8.0,
+        "vocab_recall": 0.38762500000000005,
+        "macro_pair_recall": 0.507847247103061
+      },
+      "caption_minus_remoteclip": {
+        "diff": -0.03308333333333335,
+        "ci_low": -0.10443229166666666,
+        "ci_high": 0.041524999999999854,
+        "excludes_zero": false
+      },
+      "tagclip_style_topk": {
+        "mean_size": 8.0,
+        "vocab_recall": 0.33825000000000005,
+        "macro_pair_recall": 0.3753704416262556
+      }
+    },
+    "20": {
+      "caption_topk": {
+        "mean_size": 20.0,
+        "vocab_recall": 0.5329583333333333,
+        "macro_pair_recall": 0.4112294914387937
+      },
+      "remoteclip_topk": {
+        "mean_size": 20.0,
+        "vocab_recall": 0.6621250000000001,
+        "macro_pair_recall": 0.696778157173506
+      },
+      "caption_minus_remoteclip": {
+        "diff": -0.12916666666666665,
+        "ci_low": -0.2024625,
+        "ci_high": -0.05341250000000004,
+        "excludes_zero": true
+      },
+      "tagclip_style_topk": {
+        "mean_size": 20.0,
+        "vocab_recall": 0.6301666666666667,
+        "macro_pair_recall": 0.6307356451775057
+      }
+    }
+  },
+  "caption_threshold_m3": {
+    "t": 0.9295825958251954,
+    "mean_size": 2.89,
+    "vocab_recall": 0.17600000000000002,
+    "macro_pair_recall": 0.13803164703164703
+  },
+  "caption_threshold_m8": {
+    "t": 0.9087371826171875,
+    "mean_size": 8.04,
+    "vocab_recall": 0.3855416666666666,
+    "macro_pair_recall": 0.23606693306693308
+  }
+}
