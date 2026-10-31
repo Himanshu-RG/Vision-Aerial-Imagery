@@ -18,7 +18,7 @@
 | E2 | frequency prior | ✅ |
 | E3 | random | ✅ |
 | E4 | global CLIP / RemoteCLIP | ✅ |
-| E5 | caption-based (VocAda-style) | **not yet done** |
+| E5 | caption-based (VocAda-style) + TagCLIP-style | ✅ (added after M9; see `reports/E5_baselines.md`) |
 | E6 | global + local | ✅ |
 | E7 | retention | ✅ |
 | E8 | adaptive budget | ✅ |

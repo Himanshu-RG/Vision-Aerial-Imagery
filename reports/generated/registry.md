@@ -6,6 +6,17 @@
 | e0_headroom-e8585910cbfb | oracle | oracle_gt | 200 | 2.25 | 0.1404 | 0.1404 | 0.4668 | 0.0411 | 333.1 | 32ef56d |
 | e0_headroom-e8585910cbfb | oracle | oracle_source | 200 | 20.66 | 0.0311 | 0.0311 | 0.2925 | 0.0073 | 344.4 | 32ef56d |
 | e0_headroom-e8585910cbfb | E3 | random_matched | 200 | 2.25 | 0.007 | 0.0075 | 0.0154 | 0.0008 | 332.4 | 32ef56d |
+| e5_caption_tagclip_det-69e357c3b1f4 | E1 | full | 200 | 80.0 | 0.0146 | 0.0282 | 0.1245 | 0.0036 | 430.4 | 222905e |
+| e5_caption_tagclip_det-69e357c3b1f4 | oracle | oracle_gt | 200 | 2.25 | 0.1404 | 0.1404 | 0.4668 | 0.0411 | 340.1 | 222905e |
+| e5_caption_tagclip_det-69e357c3b1f4 | E4 | sel:remoteclip_b32:k3 | 200 | 3.0 | 0.0417 | 0.0643 | 0.1779 | 0.004 | 344.7 | 222905e |
+| e5_caption_tagclip_det-69e357c3b1f4 | E4 | sel:remoteclip_b32:k8 | 200 | 8.0 | 0.0349 | 0.0582 | 0.2476 | 0.0028 | 345.7 | 222905e |
+| e5_caption_tagclip_det-69e357c3b1f4 | E8 | set:m6_threshold_m8 | 200 | 7.77 | 0.055 | 0.0707 | 0.2588 | 0.0056 | 344.0 | 222905e |
+| e5_caption_tagclip_det-69e357c3b1f4 | E5 | sel:caption_clip:k3 | 200 | 3.0 | 0.0251 | 0.0324 | 0.0732 | 0.0116 | 341.2 | 222905e |
+| e5_caption_tagclip_det-69e357c3b1f4 | E5 | sel:caption_clip:k8 | 200 | 8.0 | 0.0216 | 0.0335 | 0.0976 | 0.0078 | 346.3 | 222905e |
+| e5_caption_tagclip_det-69e357c3b1f4 | E5 | set:e5_caption_thr_m3 | 200 | 2.89 | 0.027 | 0.0389 | 0.0821 | 0.0132 | 342.4 | 222905e |
+| e5_caption_tagclip_det-69e357c3b1f4 | E5 | set:e5_caption_thr_m8 | 200 | 8.04 | 0.0186 | 0.0347 | 0.1098 | 0.0098 | 346.5 | 222905e |
+| e5_caption_tagclip_det-69e357c3b1f4 | E5 | sel:tagclip_style:k3 | 200 | 3.0 | 0.0229 | 0.046 | 0.1473 | 0.002 | 342.0 | 222905e |
+| e5_caption_tagclip_det-69e357c3b1f4 | E5 | sel:tagclip_style:k8 | 200 | 8.0 | 0.0225 | 0.0525 | 0.195 | 0.0012 | 345.6 | 222905e |
 | m4_selectors_det-16d38bd056f8 | E1 | full | 200 | 80.0 | 0.0146 | 0.0282 | 0.1245 | 0.0036 | 467.0 | 913a99e |
 | m4_selectors_det-16d38bd056f8 | oracle | oracle_gt | 200 | 2.25 | 0.1404 | 0.1404 | 0.4668 | 0.0411 | 363.2 | 913a99e |
 | m4_selectors_det-16d38bd056f8 | E2 | sel:frequency:k3 | 200 | 3.0 | 0.0031 | 0.0044 | 0.0175 | 0.0302 | 362.2 | 913a99e |
@@ -53,3 +64,9 @@
 | m6_retention_det-8febbe4deb4a | E7 | set:m6_retain_m20 | 200 | 20.26 | 0.0186 | 0.042 | 0.2227 | 0.0012 | 451.0 | 0f8e1b4 |
 | m6_retention_det-8febbe4deb4a | E8 | set:m6_threshold_m20 | 200 | 19.78 | 0.0469 | 0.0686 | 0.2443 | 0.0032 | 452.4 | 0f8e1b4 |
 | m6_retention_det-8febbe4deb4a | E8 | set:m6_top_p_m20 | 200 | 20.0 | 0.0494 | 0.0673 | 0.2485 | 0.0056 | 451.6 | 0f8e1b4 |
+| m9_tiling_diag-31ec5d53a242 | E1 | full | 200 | 80.0 | 0.0146 | 0.0282 | 0.1245 | 0.0036 | 423.9 | ad8abbf |
+| m9_tiling_diag-31ec5d53a242 | other | full@tile2 | 200 | 80.0 | 0.0131 | 0.033 | 0.1324 | 0.0055 | 2135.1 | ad8abbf |
+| m9_tiling_diag-31ec5d53a242 | oracle | oracle_gt | 200 | 2.25 | 0.1404 | 0.1404 | 0.4668 | 0.0411 | 336.4 | ad8abbf |
+| m9_tiling_diag-31ec5d53a242 | oracle | oracle_gt@tile2 | 200 | 2.25 | 0.1135 | 0.1135 | 0.3936 | 0.0677 | 1689.7 | ad8abbf |
+| m9_tiling_diag-31ec5d53a242 | E8 | set:m6_threshold_m8 | 200 | 7.77 | 0.055 | 0.0707 | 0.2588 | 0.0056 | 342.9 | ad8abbf |
+| m9_tiling_diag-31ec5d53a242 | E8 | set:m6_threshold_m8@tile2 | 200 | 7.77 | 0.0385 | 0.0579 | 0.1922 | 0.0078 | 1712.7 | ad8abbf |

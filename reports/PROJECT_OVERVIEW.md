@@ -293,7 +293,7 @@ Full tables: [`generated/E0_tables.md`](generated/E0_tables.md), [`generated/e0_
 | E2 | Fixed reduced vocabulary (frequency prior) | ✓ | done: worse than full |
 | E3 | Random vocabulary (3 seeds) | ✓ (control) | done: worse than full |
 | E4 | Global CLIP / RemoteCLIP top-k | ✓ | done: **robustly better than full at k = 8–20** (source-aware) |
-| E5 | Caption-based ("VocAda-style", Florence-2 captioner) + TagCLIP-style (crop-level) | ✓ | selection level: both below RemoteCLIP (caption: half the class-averaged recall; ~5.6 s/img); detection next |
+| E5 | Caption-based ("VocAda-style", Florence-2 captioner) + TagCLIP-style (crop-level) | ✓ | done: **neither beats the headline method on AP50**; caption selector below RemoteCLIP top-8 (sign test), ~1.2 s/img on GPU; caption wins on pooled F1 at fixed thresholds via dense vehicle classes (reported) |
 | E6 | **Global + local (multi-scale crops) selection** | ✓ | done: better selection (small objects), **no detection gain**, 83 ms selector cost (vs ~8 ms global) |
 | E7 | **+ uncertainty-aware retention** (global–local disagreement; calibrated on held-out dev images) | ✓ | done: selection gain at ~3 classes, **no detection gain** |
 | E8 | **+ adaptive vocabulary budget** (threshold, probability mass) | ✓ | done: **best method so far**: AP50 ×3.8 (standard) / ×2.5 (source-aware) vs full, robust; +0.02–0.03 vs fixed top-k |
@@ -302,11 +302,9 @@ Full tables: [`generated/E0_tables.md`](generated/E0_tables.md), [`generated/e0_
 Each method is compared at **matched average vocabulary sizes**, with accuracy–latency curves, recall broken down by object size and class rarity, both evaluation protocols, and paired bootstrap confidence intervals.
 
 ## 9. Next steps
-1. **Remaining baselines:** a caption-based (VocAda-style) selector and a simplified TagCLIP-style selector.
-   - *Decided at M9:* whether a detector-side small-object test (tiled / higher-resolution inference, applied identically to every method) is needed. Until then the scope stays on vocabulary selection.
-2. **E5:** the caption-based (VocAda-style) baseline, with a small captioner.
-3. **M10–M11:** failure analysis (tiny objects, dense scenes, similar classes, rare classes) and per-source generalization. One-time final evaluation on the held-out test split.
-4. **M12–M14:** latency profiling, reproducibility package, paper draft.
+1. ~~Remaining baselines (E5)~~ done; ~~detector-side test~~ done at M9 (tiling does not help, D37).
+2. **M10–M11:** failure analysis (tiny objects, dense scenes, similar classes, rare classes) and per-source generalization. One-time final evaluation on the held-out test split.
+3. **M12–M14:** latency profiling, reproducibility package, paper draft.
 
 ## 10. Risks and honest assessment
 - **Detector ceiling:** GDINO-T reaches only 0.14 AP50 even with a perfect vocabulary, so absolute numbers will be low. Higher input resolution or tiling may be needed, applied identically to all methods.

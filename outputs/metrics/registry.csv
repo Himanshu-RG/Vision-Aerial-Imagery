@@ -3,6 +3,17 @@ e0_headroom-e8585910cbfb,E1,full,dev,200,LAPTOP-5CPRTI27,32ef56d,False,0,80.0,0.
 e0_headroom-e8585910cbfb,oracle,oracle_gt,dev,200,LAPTOP-5CPRTI27,32ef56d,False,0,2.25,0.1404,0.1404,0.0829,0.4668,0.4504,0.0411,333.1
 e0_headroom-e8585910cbfb,oracle,oracle_source,dev,200,LAPTOP-5CPRTI27,32ef56d,False,0,20.66,0.0311,0.0311,0.0178,0.2925,0.2427,0.0073,344.4
 e0_headroom-e8585910cbfb,E3,random_matched,dev,200,LAPTOP-5CPRTI27,32ef56d,False,0,2.25,0.007,0.0075,0.0019,0.0154,0.0113,0.0008,332.4
+e5_caption_tagclip_det-69e357c3b1f4,E1,full,dev,200,LAPTOP-5CPRTI27,222905e,False,0,80.0,0.0146,0.0282,0.0071,0.1245,0.1056,0.0036,430.4
+e5_caption_tagclip_det-69e357c3b1f4,oracle,oracle_gt,dev,200,LAPTOP-5CPRTI27,222905e,False,0,2.25,0.1404,0.1404,0.0829,0.4668,0.4504,0.0411,340.1
+e5_caption_tagclip_det-69e357c3b1f4,E4,sel:remoteclip_b32:k3,dev,200,LAPTOP-5CPRTI27,222905e,False,0,3.0,0.0417,0.0643,0.0256,0.1779,0.0713,0.004,344.7
+e5_caption_tagclip_det-69e357c3b1f4,E4,sel:remoteclip_b32:k8,dev,200,LAPTOP-5CPRTI27,222905e,False,0,8.0,0.0349,0.0582,0.0177,0.2476,0.1017,0.0028,345.7
+e5_caption_tagclip_det-69e357c3b1f4,E8,set:m6_threshold_m8,dev,200,LAPTOP-5CPRTI27,222905e,False,0,7.77,0.055,0.0707,0.0291,0.2588,0.103,0.0056,344.0
+e5_caption_tagclip_det-69e357c3b1f4,E5,sel:caption_clip:k3,dev,200,LAPTOP-5CPRTI27,222905e,False,0,3.0,0.0251,0.0324,0.0128,0.0732,0.0207,0.0116,341.2
+e5_caption_tagclip_det-69e357c3b1f4,E5,sel:caption_clip:k8,dev,200,LAPTOP-5CPRTI27,222905e,False,0,8.0,0.0216,0.0335,0.0106,0.0976,0.0837,0.0078,346.3
+e5_caption_tagclip_det-69e357c3b1f4,E5,set:e5_caption_thr_m3,dev,200,LAPTOP-5CPRTI27,222905e,False,0,2.89,0.027,0.0389,0.0126,0.0821,0.0104,0.0132,342.4
+e5_caption_tagclip_det-69e357c3b1f4,E5,set:e5_caption_thr_m8,dev,200,LAPTOP-5CPRTI27,222905e,False,0,8.04,0.0186,0.0347,0.0086,0.1098,0.095,0.0098,346.5
+e5_caption_tagclip_det-69e357c3b1f4,E5,sel:tagclip_style:k3,dev,200,LAPTOP-5CPRTI27,222905e,False,0,3.0,0.0229,0.046,0.009,0.1473,0.0024,0.002,342.0
+e5_caption_tagclip_det-69e357c3b1f4,E5,sel:tagclip_style:k8,dev,200,LAPTOP-5CPRTI27,222905e,False,0,8.0,0.0225,0.0525,0.0107,0.195,0.0939,0.0012,345.6
 m4_selectors_det-16d38bd056f8,E1,full,dev,200,LAPTOP-5CPRTI27,913a99e,False,0,80.0,0.0146,0.0282,0.0071,0.1245,0.1056,0.0036,467.0
 m4_selectors_det-16d38bd056f8,oracle,oracle_gt,dev,200,LAPTOP-5CPRTI27,913a99e,False,0,2.25,0.1404,0.1404,0.0829,0.4668,0.4504,0.0411,363.2
 m4_selectors_det-16d38bd056f8,E2,sel:frequency:k3,dev,200,LAPTOP-5CPRTI27,913a99e,False,0,3.0,0.0031,0.0044,0.0013,0.0175,0.0753,0.0302,362.2
@@ -50,3 +61,9 @@ m6_retention_det-8febbe4deb4a,E8,set:m6_top_p_m8,dev,200,LAPTOP-5CPRTI27,0f8e1b4
 m6_retention_det-8febbe4deb4a,E7,set:m6_retain_m20,dev,200,LAPTOP-5CPRTI27,0f8e1b4,False,0,20.26,0.0186,0.042,0.0088,0.2227,0.1044,0.0012,451.0
 m6_retention_det-8febbe4deb4a,E8,set:m6_threshold_m20,dev,200,LAPTOP-5CPRTI27,0f8e1b4,False,0,19.78,0.0469,0.0686,0.0247,0.2443,0.157,0.0032,452.4
 m6_retention_det-8febbe4deb4a,E8,set:m6_top_p_m20,dev,200,LAPTOP-5CPRTI27,0f8e1b4,False,0,20.0,0.0494,0.0673,0.0278,0.2485,0.1603,0.0056,451.6
+m9_tiling_diag-31ec5d53a242,E1,full,dev,200,LAPTOP-5CPRTI27,ad8abbf,False,0,80.0,0.0146,0.0282,0.0071,0.1245,0.1056,0.0036,423.9
+m9_tiling_diag-31ec5d53a242,other,full@tile2,dev,200,LAPTOP-5CPRTI27,ad8abbf,False,0,80.0,0.0131,0.033,0.0064,0.1324,0.1124,0.0055,2135.1
+m9_tiling_diag-31ec5d53a242,oracle,oracle_gt,dev,200,LAPTOP-5CPRTI27,ad8abbf,False,0,2.25,0.1404,0.1404,0.0829,0.4668,0.4504,0.0411,336.4
+m9_tiling_diag-31ec5d53a242,oracle,oracle_gt@tile2,dev,200,LAPTOP-5CPRTI27,ad8abbf,False,0,2.25,0.1135,0.1135,0.0545,0.3936,0.4846,0.0677,1689.7
+m9_tiling_diag-31ec5d53a242,E8,set:m6_threshold_m8,dev,200,LAPTOP-5CPRTI27,ad8abbf,False,0,7.77,0.055,0.0707,0.0291,0.2588,0.103,0.0056,342.9
+m9_tiling_diag-31ec5d53a242,E8,set:m6_threshold_m8@tile2,dev,200,LAPTOP-5CPRTI27,ad8abbf,False,0,7.77,0.0385,0.0579,0.0163,0.1922,0.1309,0.0078,1712.7

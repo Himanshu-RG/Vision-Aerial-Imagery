@@ -24,6 +24,8 @@ def experiment_id(cond: str) -> str:
         return "E3"
     if cond.startswith("sel:") and cond.split(":")[1] in ("clip_openai_b32", "remoteclip_b32"):
         return "E4"
+    if cond.split(":")[1:2] in (["caption_clip"], ["tagclip_style"]) or cond.startswith("set:e5_"):
+        return "E5"
     if cond.startswith("sel:") and cond.split(":")[1].endswith(("_gl", "_local")):
         return "E6"
     if cond.startswith("set:m6_retain"):
