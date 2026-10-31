@@ -1,0 +1,242 @@
+{
+ "run_image_sample": "e5_caption_tagclip_det-69e357c3b1f4",
+ "n_images": 200,
+ "n_objects": 4788,
+ "selectors": {
+  "RemoteCLIP top-8": {
+   "object_weighted_recall": 0.24937343358395989,
+   "image_mean_recall": 0.38762500000000005,
+   "selected_out_of_source_share": 0.64875,
+   "object_weighted_recall_by_source": {
+    "DIOR-18C": 0.9111111111111111,
+    "DOTA-6C": 0.9555555555555556,
+    "FAIR-18C": 0.2469310670443815,
+    "PP-4C": 1.0,
+    "Xview-34C": 0.19911326078194277
+   },
+   "top_out_of_source_picks": [
+    {
+     "class": "Ferry",
+     "class_source": "Xview-34C",
+     "image_source": "FAIR-18C",
+     "n_images": 41
+    },
+    {
+     "class": "Yacht",
+     "class_source": "Xview-34C",
+     "image_source": "FAIR-18C",
+     "n_images": 33
+    },
+    {
+     "class": "vehicle",
+     "class_source": "DIOR-18C",
+     "image_source": "FAIR-18C",
+     "n_images": 31
+    },
+    {
+     "class": "Shed",
+     "class_source": "Xview-34C",
+     "image_source": "FAIR-18C",
+     "n_images": 30
+    },
+    {
+     "class": "tenniscourt",
+     "class_source": "DIOR-18C",
+     "image_source": "FAIR-18C",
+     "n_images": 27
+    },
+    {
+     "class": "Locomotive",
+     "class_source": "Xview-34C",
+     "image_source": "FAIR-18C",
+     "n_images": 26
+    },
+    {
+     "class": "Engineering Vehicle",
+     "class_source": "Xview-34C",
+     "image_source": "DIOR-18C",
+     "n_images": 25
+    },
+    {
+     "class": "swimming pool",
+     "class_source": "DOTA-6C",
+     "image_source": "FAIR-18C",
+     "n_images": 22
+    },
+    {
+     "class": "Construction Site",
+     "class_source": "Xview-34C",
+     "image_source": "FAIR-18C",
+     "n_images": 20
+    },
+    {
+     "class": "Engineering Vehicle",
+     "class_source": "Xview-34C",
+     "image_source": "FAIR-18C",
+     "n_images": 20
+    }
+   ]
+  },
+  "headline (threshold m\u22488)": {
+   "object_weighted_recall": 0.2596073517126149,
+   "image_mean_recall": 0.4119583333333333,
+   "selected_out_of_source_share": 0.5934767454767454,
+   "object_weighted_recall_by_source": {
+    "DIOR-18C": 0.8777777777777778,
+    "DOTA-6C": 0.9555555555555556,
+    "FAIR-18C": 0.22237960339943344,
+    "PP-4C": 1.0,
+    "Xview-34C": 0.24103184199919386
+   },
+   "top_out_of_source_picks": [
+    {
+     "class": "Ferry",
+     "class_source": "Xview-34C",
+     "image_source": "FAIR-18C",
+     "n_images": 44
+    },
+    {
+     "class": "Yacht",
+     "class_source": "Xview-34C",
+     "image_source": "FAIR-18C",
+     "n_images": 36
+    },
+    {
+     "class": "Locomotive",
+     "class_source": "Xview-34C",
+     "image_source": "FAIR-18C",
+     "n_images": 27
+    },
+    {
+     "class": "tenniscourt",
+     "class_source": "DIOR-18C",
+     "image_source": "FAIR-18C",
+     "n_images": 25
+    },
+    {
+     "class": "vehicle",
+     "class_source": "DIOR-18C",
+     "image_source": "FAIR-18C",
+     "n_images": 25
+    },
+    {
+     "class": "Shipping Container",
+     "class_source": "Xview-34C",
+     "image_source": "FAIR-18C",
+     "n_images": 24
+    },
+    {
+     "class": "swimming pool",
+     "class_source": "DOTA-6C",
+     "image_source": "FAIR-18C",
+     "n_images": 23
+    },
+    {
+     "class": "Sailboat",
+     "class_source": "Xview-34C",
+     "image_source": "FAIR-18C",
+     "n_images": 23
+    },
+    {
+     "class": "Shed",
+     "class_source": "Xview-34C",
+     "image_source": "FAIR-18C",
+     "n_images": 22
+    },
+    {
+     "class": "harbor",
+     "class_source": "DIOR-18C",
+     "image_source": "FAIR-18C",
+     "n_images": 22
+    }
+   ]
+  },
+  "caption threshold m\u22488": {
+   "object_weighted_recall": 0.7823725981620718,
+   "image_mean_recall": 0.3855416666666666,
+   "selected_out_of_source_share": 0.6886327353202353,
+   "object_weighted_recall_by_source": {
+    "DIOR-18C": 0.6111111111111112,
+    "DOTA-6C": 0.044444444444444446,
+    "FAIR-18C": 0.6440037771482531,
+    "PP-4C": 0.0,
+    "Xview-34C": 0.9363160016122531
+   },
+   "top_out_of_source_picks": [
+    {
+     "class": "Building",
+     "class_source": "Xview-34C",
+     "image_source": "FAIR-18C",
+     "n_images": 119
+    },
+    {
+     "class": "Facility",
+     "class_source": "Xview-34C",
+     "image_source": "FAIR-18C",
+     "n_images": 119
+    },
+    {
+     "class": "dam",
+     "class_source": "DIOR-18C",
+     "image_source": "FAIR-18C",
+     "n_images": 119
+    },
+    {
+     "class": "vehicle",
+     "class_source": "DIOR-18C",
+     "image_source": "FAIR-18C",
+     "n_images": 118
+    },
+    {
+     "class": "Trailer",
+     "class_source": "FAIR-18C",
+     "image_source": "Xview-34C",
+     "n_images": 41
+    },
+    {
+     "class": "vehicle",
+     "class_source": "DIOR-18C",
+     "image_source": "Xview-34C",
+     "n_images": 41
+    },
+    {
+     "class": "dam",
+     "class_source": "DIOR-18C",
+     "image_source": "Xview-34C",
+     "n_images": 41
+    },
+    {
+     "class": "stadium",
+     "class_source": "DIOR-18C",
+     "image_source": "FAIR-18C",
+     "n_images": 39
+    },
+    {
+     "class": "Damaged Building",
+     "class_source": "Xview-34C",
+     "image_source": "FAIR-18C",
+     "n_images": 36
+    },
+    {
+     "class": "Facility",
+     "class_source": "Xview-34C",
+     "image_source": "DIOR-18C",
+     "n_images": 30
+    }
+   ]
+  },
+  "DIAGNOSTIC: RemoteCLIP top-8 within source label space": {
+   "object_weighted_recall": 0.6785714285714286,
+   "image_mean_recall": 0.7298333333333333,
+   "selected_out_of_source_share": 0.0,
+   "object_weighted_recall_by_source": {
+    "DIOR-18C": 0.9888888888888889,
+    "DOTA-6C": 1.0,
+    "FAIR-18C": 0.6742209631728046,
+    "PP-4C": 1.0,
+    "Xview-34C": 0.6582023377670294
+   },
+   "top_out_of_source_picks": []
+  }
+ }
+}

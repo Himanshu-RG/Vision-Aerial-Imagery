@@ -148,6 +148,10 @@ Class relevance = cosine similarity between the image embedding and the averaged
 | E0 | Headroom experiment on 200 dev images (RTX 5060) | ✅ |
 | M4 | Baselines A–D (full, frequency prior, random, CLIP/RemoteCLIP top-k): selection quality on 730 dev images and detection on 200; robustness statistics. Caption-based baseline E deferred | ✅ (E pending) |
 | M5 | Global + local (crop) selection: 25 variants per encoder, chosen by a pre-declared rule; selection-level gain, no detection-level gain (negative result, reported) | ✅ |
+| M6–M7 | Uncertainty-aware retention and adaptive vocabulary budget; headline method frozen (D34) | ✅ |
+| M8–M9 | Experiment registry; P/R/F1 operating points; tiling diagnostic (small objects not resolution-bound) | ✅ |
+| E5 | Caption-based (VocAda-style) and TagCLIP-style baselines | ✅ |
+| M10 | Failure analysis: vocabulary misses, cross-source synonyms, dense scenes, rare classes, confusions; 6 rule-chosen example figures | ✅ |
 
 **Reproducibility:**
 - Every run is identified by a hash of its configuration and records its commit, machine, GPU state and checkpoint hashes.
@@ -282,6 +286,21 @@ We ran Grounding DINO on 4 overlapping tiles plus the full image, giving small o
 - **The small-object weakness is a recognition (domain) problem of the detector, not a resolution problem.** It needs an aerial-adapted detector, which is outside this study, so it is reported as a limitation.
 - Vocabulary selection still helps on top of tiling (+0.025 AP50).
 
+### 7.9 M10 — where and why does it fail? (same 200 dev images)
+Every labelled object and every confident detection was sorted into a failure type (definitions fixed in advance; examples in [`figures/m10/`](figures/m10/)).
+
+| Finding | Evidence |
+|---|---|
+| **Most objects are lost because the vocabulary drops their class** | our method keeps the right class for only 26% of *objects* (41% of each image's classes on average); dense FAIR1M/xView scenes hold 85% of objects |
+| **Main cause: near-synonym classes from other source datasets** | 59% of selected classes are from another source's label set (e.g. xView "Ferry"/"Yacht" on FAIR images labelled "Passenger Ship"/"Motorboat"); restricting to the right source (a diagnostic, not a method) raises object coverage 0.25 → 0.68 |
+| Where the class is kept, detection is near-oracle | 48% of those objects found vs 58% with the oracle |
+| Selection helps sparse scenes, hurts dense ones | AP50 in images with 1–5 objects: 0.025 → 0.109; with > 20 objects it falls below the full vocabulary |
+| Rare classes and fine-grained vehicles are detector limits | rare-class AP50 ≈ 0 even with the oracle; Van → Small Car is the top confusion even with a perfect vocabulary |
+| Confident false detections drop by 76% | full: 77% of them are classes never labelled in that dataset |
+
+![selection gain](figures/m10/selection_gain.jpg)
+*Same image, full vocabulary (left) vs our method (right). Green = ground truth, blue = correct, red = false (score ≥ 0.14).*
+
 Full tables: [`generated/E0_tables.md`](generated/E0_tables.md), [`generated/e0_headroom_tables.md`](generated/e0_headroom_tables.md) (robustness), [`generated/M4_selection_tables.md`](generated/M4_selection_tables.md), [`generated/m4_selectors_det_tables.md`](generated/m4_selectors_det_tables.md), [`generated/M5_selection_tables.md`](generated/M5_selection_tables.md), [`generated/m5_global_local_det_tables.md`](generated/m5_global_local_det_tables.md), [`generated/M6_retention_tables.md`](generated/M6_retention_tables.md), [`generated/m6_retention_det_tables.md`](generated/m6_retention_det_tables.md) (+ `_vs_k3/_vs_k8/_vs_k20`).
 
 ---
@@ -303,8 +322,9 @@ Each method is compared at **matched average vocabulary sizes**, with accuracy�
 
 ## 9. Next steps
 1. ~~Remaining baselines (E5)~~ done; ~~detector-side test~~ done at M9 (tiling does not help, D37).
-2. **M10–M11:** failure analysis (tiny objects, dense scenes, similar classes, rare classes) and per-source generalization. One-time final evaluation on the held-out test split.
-3. **M12–M14:** latency profiling, reproducibility package, paper draft.
+2. ~~M10 failure analysis~~ done. **Decision pending (D41):** whether to test a synonym-aware selector (fixes M10's main failure) before the headline method is frozen for test.
+3. **M11:** per-source generalization and VisDrone. One-time final evaluation on the held-out test split.
+4. **M12–M14:** latency profiling, reproducibility package, paper draft.
 
 ## 10. Risks and honest assessment
 - **Detector ceiling:** GDINO-T reaches only 0.14 AP50 even with a perfect vocabulary, so absolute numbers will be low. Higher input resolution or tiling may be needed, applied identically to all methods.
