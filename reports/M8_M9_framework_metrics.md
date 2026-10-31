@@ -62,3 +62,29 @@ Source: `reports/generated/m6_retention_det_tables.md`, "Operating points".
 Conclusion: **small-object performance is limited by the detector at 800/1333 px, not by the vocabulary.** The only way to test that directly is a detector-side change (tiling or higher-resolution input), applied identically to all conditions.
 
 **Decision (user, 2026-10-31; D36):** run one small tiling diagnostic. The config is `configs/experiments/m9_tiling_diagnostic.yaml`: full / oracle / headline selector, each with and without 2×2 tiles plus the full image. A results section will be added after the GPU run.
+
+## Tiling diagnostic results (D36)
+**Run.**
+- `m9_tiling_diag-31ec5d53a242`: code `ad8abbf` (clean), GPU idle at start (1,135 MB, 0%), the same 200 dev images, 6 conditions, 0 failures. Pushed by Amit as `a695624`.
+- Untiled conditions reproduce earlier runs exactly.
+- Tables:
+  - `reports/generated/m9_tiling_diag_tables.md` (vs full)
+  - `reports/generated/m9_tiling_diag_tables_vs_tile_full.md` (vs tiled full)
+  - `reports/generated/m9_tiled_vs_untiled.md` (tiled vs untiled, same vocabulary)
+
+| vocabulary | AP50 std, untiled → tiled | AP50 src-aware | R50 small (std) | AP50 small (std) | AP50 large (std) | median latency |
+|---|---|---|---|---|---|---|
+| full | 0.0146 → 0.0131 | 0.0282 → 0.0330 | 0.106 → 0.112 | 0.012 → 0.009 | 0.037 → 0.036 | 424 → 2,135 ms |
+| oracle_gt | **0.1404 → 0.1135** | 0.1404 → 0.1135 | 0.450 → 0.485 | 0.100 → 0.093 | **0.263 → 0.185** | 336 → 1,690 ms |
+| threshold m≈8 (headline) | **0.0550 → 0.0385** | 0.0707 → 0.0579 | 0.103 → 0.131 | 0.036 → 0.020 | 0.128 → 0.084 | 343 → 1,713 ms |
+
+No tiled-vs-untiled difference is significant by the per-class sign test (p ≥ 0.18). All AP point changes are ≤ 0 except full under source-aware (+0.005, n.s.).
+
+**Within the tiled setting, selection still helps.** threshold m≈8 @tile2 vs full @tile2: +0.0255 standard, +0.0249 source-aware. The percentile CIs exclude 0 and the sign test gives 36/20 (p = 0.044, standard), but the basic CIs include 0. So it passes 2 of 3 checks: **supportive, not robust**.
+
+### Findings
+1. **Small-object failure is not resolution-bound** (at 1.6× effective upscaling). More pixels raise small-object recall slightly (+0.006 to +0.035) but not small-object AP.
+2. **Tiling hurts large objects** by cutting them at tile borders (oracle large-object AP50 0.263 → 0.185; DIOR/DOTA per-source AP falls). It costs about 5× latency.
+3. **The detector's recognition of tiny aerial objects (a domain gap) is the limit.** Addressing it requires an aerial-adapted or fine-tuned detector, which the master prompt excludes from this study.
+4. **Decision (D37):** no further detector-side work. Small objects are reported as an evidence-backed limitation.
+

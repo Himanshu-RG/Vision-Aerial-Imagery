@@ -7,7 +7,8 @@
 - M4 (simple baselines) complete except the caption-based baseline.
 - M5 (global + local selection) complete. It improves *selection* but not *detection*: a documented negative result.
 - M6–M7 (uncertainty-aware retention, adaptive budget) complete. **An adaptive per-image budget is the best method so far.**
-- Next: M8–M9 (consolidation, metrics, and the decision on a detector-side small-object test).
+- M8–M9 complete (experiment registry, precision/recall/F1, tiling diagnostic: small objects are a detector limitation).
+- Next: remaining baselines, failure analysis, generalization, one-time test evaluation.
 
 Repository: <https://github.com/Himanshu-RG/Vision-Aerial-Imagery>. The living project log is [`CONTEXT.md`](../CONTEXT.md); module reports are in [`reports/`](.).
 
@@ -266,6 +267,21 @@ Each rule's single setting was tuned on the 530 *other* dev images to hit a targ
 - **Uncertainty retention did not help detection**, repeating the M5 pattern for small objects.
 - **Caveat:** the headline rule was the best of 9 conditions on these images. It is now fixed and will be confirmed once on the held-out test split.
 
+### 7.8 M9 diagnostic — would more pixels fix small objects? (same 200 dev images)
+We ran Grounding DINO on 4 overlapping tiles plus the full image, giving small objects about 1.6× more pixels.
+
+| Vocabulary | AP50 standard, normal → tiled | Small-object AP50 | Time per image |
+|---|---|---|---|
+| All 80 classes | 0.015 → 0.013 | 0.012 → 0.009 | 0.42 → 2.1 s |
+| Oracle | 0.140 → 0.114 | 0.100 → 0.093 | 0.34 → 1.7 s |
+| Adaptive threshold (ours) | 0.055 → 0.039 | 0.036 → 0.020 | 0.34 → 1.7 s |
+
+**What this shows:**
+- Tiling slightly raises small-object recall but **not** small-object accuracy.
+- It cuts large objects at tile borders and is 5× slower.
+- **The small-object weakness is a recognition (domain) problem of the detector, not a resolution problem.** It needs an aerial-adapted detector, which is outside this study, so it is reported as a limitation.
+- Vocabulary selection still helps on top of tiling (+0.025 AP50).
+
 Full tables: [`generated/E0_tables.md`](generated/E0_tables.md), [`generated/e0_headroom_tables.md`](generated/e0_headroom_tables.md) (robustness), [`generated/M4_selection_tables.md`](generated/M4_selection_tables.md), [`generated/m4_selectors_det_tables.md`](generated/m4_selectors_det_tables.md), [`generated/M5_selection_tables.md`](generated/M5_selection_tables.md), [`generated/m5_global_local_det_tables.md`](generated/m5_global_local_det_tables.md), [`generated/M6_retention_tables.md`](generated/M6_retention_tables.md), [`generated/m6_retention_det_tables.md`](generated/m6_retention_det_tables.md) (+ `_vs_k3/_vs_k8/_vs_k20`).
 
 ---
@@ -286,7 +302,7 @@ Full tables: [`generated/E0_tables.md`](generated/E0_tables.md), [`generated/e0_
 Each method is compared at **matched average vocabulary sizes**, with accuracy–latency curves, recall broken down by object size and class rarity, both evaluation protocols, and paired bootstrap confidence intervals.
 
 ## 9. Next steps
-1. **M8–M9:** consolidate the experiment registry; add precision / recall / F1 at a fixed operating point; **decide whether a detector-side small-object test is needed** (D31).
+1. **Remaining baselines:** a caption-based (VocAda-style) selector and a simplified TagCLIP-style selector.
    - *Decided at M9:* whether a detector-side small-object test (tiled / higher-resolution inference, applied identically to every method) is needed. Until then the scope stays on vocabulary selection.
 2. **E5:** the caption-based (VocAda-style) baseline, with a small captioner.
 3. **M10–M11:** failure analysis (tiny objects, dense scenes, similar classes, rare classes) and per-source generalization. One-time final evaluation on the held-out test split.

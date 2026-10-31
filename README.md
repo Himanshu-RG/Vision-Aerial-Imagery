@@ -5,7 +5,7 @@ Research code (Team Transmontane). We study whether choosing a small, image-rele
 > **Start with [CONTEXT.md](CONTEXT.md).** It is the project's ground truth: goals, rules, frozen decisions, status, and results. Per-module reports live in [reports/](reports/).
 
 ## Status
-M0–M7 done (dev split). Key results: E0 headroom (oracle vocabulary AP50 0.015 → 0.140); a deployable RemoteCLIP/CLIP top-8–20 selector robustly improves source-aware AP50 0.028 → 0.046–0.058 and cuts latency ~19%; crop evidence does not improve detection; an adaptive per-image budget (calibrated threshold, ~8 classes) is best: AP50 ×3.8 standard / ×2.5 source-aware vs full, robust. Next: M8–M9. Overview for reviewers: [reports/PROJECT_OVERVIEW.md](reports/PROJECT_OVERVIEW.md).
+M0–M9 done (dev split). Key results: E0 headroom (oracle vocabulary AP50 0.015 → 0.140); a deployable RemoteCLIP/CLIP top-8–20 selector robustly improves source-aware AP50 0.028 → 0.046–0.058 and cuts latency ~19%; crop evidence does not improve detection; an adaptive per-image budget (calibrated threshold, ~8 classes) is best: AP50 ×3.8 standard / ×2.5 source-aware vs full, robust. Tiling (more pixels) does not fix small objects (detector limitation). Next: remaining baselines, failure analysis, final test. Overview for reviewers: [reports/PROJECT_OVERVIEW.md](reports/PROJECT_OVERVIEW.md).
 
 ## Two-machine setup
 | Machine | Use | Torch wheel |
