@@ -1,0 +1,2893 @@
+{
+ "run_id": "e5_caption_tagclip_det-69e357c3b1f4",
+ "source_run_git": "222905e7eec8cf6072d2a51ce8cd99a78dbf35df",
+ "split": "dev",
+ "n_images": 200,
+ "threshold": 0.14,
+ "protocol": "standard",
+ "rarity_cuts_n_images_dev": [
+  4.0,
+  9.666666666666664
+ ],
+ "conditions": {
+  "full": {
+   "gt": {
+    "any": {
+     "all": {
+      "n": 4788,
+      "detected": 0.1412,
+      "wrong_class": 0.1456,
+      "poor_box": 0.0731,
+      "missed": 0.6401,
+      "vocab_miss": 0.0
+     },
+     "density:1-5": {
+      "n": 243,
+      "detected": 0.358,
+      "wrong_class": 0.4074,
+      "poor_box": 0.0535,
+      "missed": 0.1811,
+      "vocab_miss": 0.0
+     },
+     "density:21-100": {
+      "n": 2040,
+      "detected": 0.2,
+      "wrong_class": 0.1799,
+      "poor_box": 0.0838,
+      "missed": 0.5363,
+      "vocab_miss": 0.0
+     },
+     "density:6-20": {
+      "n": 484,
+      "detected": 0.2066,
+      "wrong_class": 0.1901,
+      "poor_box": 0.1343,
+      "missed": 0.469,
+      "vocab_miss": 0.0
+     },
+     "density:>100": {
+      "n": 2021,
+      "detected": 0.0401,
+      "wrong_class": 0.0688,
+      "poor_box": 0.05,
+      "missed": 0.8412,
+      "vocab_miss": 0.0
+     },
+     "rarity:common": {
+      "n": 84,
+      "detected": 0.3095,
+      "wrong_class": 0.4286,
+      "poor_box": 0.0357,
+      "missed": 0.2262,
+      "vocab_miss": 0.0
+     },
+     "rarity:frequent": {
+      "n": 4539,
+      "detected": 0.141,
+      "wrong_class": 0.1419,
+      "poor_box": 0.0751,
+      "missed": 0.642,
+      "vocab_miss": 0.0
+     },
+     "rarity:rare": {
+      "n": 165,
+      "detected": 0.0606,
+      "wrong_class": 0.103,
+      "poor_box": 0.0364,
+      "missed": 0.8,
+      "vocab_miss": 0.0
+     },
+     "size:large": {
+      "n": 190,
+      "detected": 0.4947,
+      "wrong_class": 0.3368,
+      "poor_box": 0.0737,
+      "missed": 0.0947,
+      "vocab_miss": 0.0
+     },
+     "size:medium": {
+      "n": 1742,
+      "detected": 0.0809,
+      "wrong_class": 0.167,
+      "poor_box": 0.0654,
+      "missed": 0.6866,
+      "vocab_miss": 0.0
+     },
+     "size:small": {
+      "n": 1667,
+      "detected": 0.1734,
+      "wrong_class": 0.1332,
+      "poor_box": 0.036,
+      "missed": 0.6575,
+      "vocab_miss": 0.0
+     },
+     "size:tiny": {
+      "n": 1189,
+      "detected": 0.1278,
+      "wrong_class": 0.1009,
+      "poor_box": 0.1362,
+      "missed": 0.635,
+      "vocab_miss": 0.0
+     },
+     "source:DIOR-18C": {
+      "n": 90,
+      "detected": 0.2,
+      "wrong_class": 0.4889,
+      "poor_box": 0.0222,
+      "missed": 0.2889,
+      "vocab_miss": 0.0
+     },
+     "source:DOTA-6C": {
+      "n": 90,
+      "detected": 0.0333,
+      "wrong_class": 0.0556,
+      "poor_box": 0.0,
+      "missed": 0.9111,
+      "vocab_miss": 0.0
+     },
+     "source:FAIR-18C": {
+      "n": 2118,
+      "detected": 0.2276,
+      "wrong_class": 0.1827,
+      "poor_box": 0.0949,
+      "missed": 0.4948,
+      "vocab_miss": 0.0
+     },
+     "source:PP-4C": {
+      "n": 9,
+      "detected": 0.0,
+      "wrong_class": 0.6667,
+      "poor_box": 0.1111,
+      "missed": 0.2222,
+      "vocab_miss": 0.0
+     },
+     "source:Xview-34C": {
+      "n": 2481,
+      "detected": 0.0697,
+      "wrong_class": 0.1028,
+      "poor_box": 0.0588,
+      "missed": 0.7686,
+      "vocab_miss": 0.0
+     }
+    },
+    "@0.14": {
+     "all": {
+      "n": 4788,
+      "detected": 0.0462,
+      "wrong_class": 0.0817,
+      "poor_box": 0.0182,
+      "missed": 0.854,
+      "vocab_miss": 0.0
+     },
+     "density:1-5": {
+      "n": 243,
+      "detected": 0.1975,
+      "wrong_class": 0.4033,
+      "poor_box": 0.0206,
+      "missed": 0.3786,
+      "vocab_miss": 0.0
+     },
+     "density:21-100": {
+      "n": 2040,
+      "detected": 0.0647,
+      "wrong_class": 0.0912,
+      "poor_box": 0.025,
+      "missed": 0.8191,
+      "vocab_miss": 0.0
+     },
+     "density:6-20": {
+      "n": 484,
+      "detected": 0.064,
+      "wrong_class": 0.155,
+      "poor_box": 0.0434,
+      "missed": 0.7376,
+      "vocab_miss": 0.0
+     },
+     "density:>100": {
+      "n": 2021,
+      "detected": 0.0049,
+      "wrong_class": 0.0158,
+      "poor_box": 0.0049,
+      "missed": 0.9743,
+      "vocab_miss": 0.0
+     },
+     "rarity:common": {
+      "n": 84,
+      "detected": 0.1429,
+      "wrong_class": 0.4405,
+      "poor_box": 0.0238,
+      "missed": 0.3929,
+      "vocab_miss": 0.0
+     },
+     "rarity:frequent": {
+      "n": 4539,
+      "detected": 0.0456,
+      "wrong_class": 0.0764,
+      "poor_box": 0.0183,
+      "missed": 0.8597,
+      "vocab_miss": 0.0
+     },
+     "rarity:rare": {
+      "n": 165,
+      "detected": 0.0121,
+      "wrong_class": 0.0424,
+      "poor_box": 0.0121,
+      "missed": 0.9333,
+      "vocab_miss": 0.0
+     },
+     "size:large": {
+      "n": 190,
+      "detected": 0.2211,
+      "wrong_class": 0.4263,
+      "poor_box": 0.0684,
+      "missed": 0.2842,
+      "vocab_miss": 0.0
+     },
+     "size:medium": {
+      "n": 1742,
+      "detected": 0.0103,
+      "wrong_class": 0.0861,
+      "poor_box": 0.0046,
+      "missed": 0.899,
+      "vocab_miss": 0.0
+     },
+     "size:small": {
+      "n": 1667,
+      "detected": 0.0666,
+      "wrong_class": 0.072,
+      "poor_box": 0.0102,
+      "missed": 0.8512,
+      "vocab_miss": 0.0
+     },
+     "size:tiny": {
+      "n": 1189,
+      "detected": 0.0421,
+      "wrong_class": 0.0336,
+      "poor_box": 0.0412,
+      "missed": 0.8831,
+      "vocab_miss": 0.0
+     },
+     "source:DIOR-18C": {
+      "n": 90,
+      "detected": 0.1222,
+      "wrong_class": 0.4889,
+      "poor_box": 0.0444,
+      "missed": 0.3444,
+      "vocab_miss": 0.0
+     },
+     "source:DOTA-6C": {
+      "n": 90,
+      "detected": 0.0222,
+      "wrong_class": 0.0667,
+      "poor_box": 0.0,
+      "missed": 0.9111,
+      "vocab_miss": 0.0
+     },
+     "source:FAIR-18C": {
+      "n": 2118,
+      "detected": 0.084,
+      "wrong_class": 0.0982,
+      "poor_box": 0.0316,
+      "missed": 0.7861,
+      "vocab_miss": 0.0
+     },
+     "source:PP-4C": {
+      "n": 9,
+      "detected": 0.0,
+      "wrong_class": 0.2222,
+      "poor_box": 0.0,
+      "missed": 0.7778,
+      "vocab_miss": 0.0
+     },
+     "source:Xview-34C": {
+      "n": 2481,
+      "detected": 0.0121,
+      "wrong_class": 0.0528,
+      "poor_box": 0.0064,
+      "missed": 0.9287,
+      "vocab_miss": 0.0
+     }
+    }
+   },
+   "det_causes": {
+    "@0.14": {
+     "all": {
+      "n": 28580,
+      "tp": 0.0076,
+      "duplicate": 0.0021,
+      "wrong_class": 0.1118,
+      "poor_box": 0.0077,
+      "bg_present": 0.0174,
+      "bg_absent": 0.8533,
+      "fp_out_of_source": 0.7744
+     },
+     "DIOR-18C": {
+      "n": 5382,
+      "tp": 0.002,
+      "duplicate": 0.0009,
+      "wrong_class": 0.1061,
+      "poor_box": 0.0065,
+      "bg_present": 0.0113,
+      "bg_absent": 0.8731,
+      "fp_out_of_source": 0.7282
+     },
+     "DOTA-6C": {
+      "n": 1268,
+      "tp": 0.0016,
+      "duplicate": 0.0008,
+      "wrong_class": 0.0647,
+      "poor_box": 0.0063,
+      "bg_present": 0.0055,
+      "bg_absent": 0.9211,
+      "fp_out_of_source": 0.9479
+     },
+     "FAIR-18C": {
+      "n": 17079,
+      "tp": 0.0103,
+      "duplicate": 0.0022,
+      "wrong_class": 0.0922,
+      "poor_box": 0.009,
+      "bg_present": 0.022,
+      "bg_absent": 0.8645,
+      "fp_out_of_source": 0.8171
+     },
+     "PP-4C": {
+      "n": 147,
+      "tp": 0.0,
+      "duplicate": 0.0,
+      "wrong_class": 0.0408,
+      "poor_box": 0.0,
+      "bg_present": 0.0204,
+      "bg_absent": 0.9388,
+      "fp_out_of_source": 0.9728
+     },
+     "Xview-34C": {
+      "n": 4704,
+      "tp": 0.0062,
+      "duplicate": 0.0036,
+      "wrong_class": 0.2047,
+      "poor_box": 0.0051,
+      "bg_present": 0.0111,
+      "bg_absent": 0.7693,
+      "fp_out_of_source": 0.6193
+     }
+    }
+   },
+   "confusions": {
+    "any": [
+     {
+      "gt": "Van",
+      "predicted_as": "Small Car",
+      "outcome": "wrong_class",
+      "n": 98
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "Aircraft Hangar",
+      "outcome": "wrong_class",
+      "n": 43
+     },
+     {
+      "gt": "Dump Truck",
+      "predicted_as": "Small Car",
+      "outcome": "wrong_class",
+      "n": 29
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "Cargo Truck",
+      "outcome": "wrong_class",
+      "n": 20
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "storagetank",
+      "outcome": "wrong_class",
+      "n": 15
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "Small Car",
+      "outcome": "wrong_class",
+      "n": 14
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "overpass",
+      "outcome": "wrong_class",
+      "n": 14
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "working chimney",
+      "outcome": "wrong_class",
+      "n": 14
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Small Aircraft",
+      "outcome": "wrong_class",
+      "n": 13
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Utility Truck",
+      "outcome": "wrong_class",
+      "n": 10
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Van",
+      "outcome": "wrong_class",
+      "n": 10
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Utility Truck",
+      "outcome": "wrong_class",
+      "n": 10
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "swimming pool",
+      "outcome": "wrong_class",
+      "n": 10
+     },
+     {
+      "gt": "Motorboat",
+      "predicted_as": "Passenger Ship",
+      "outcome": "wrong_class",
+      "n": 7
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "Cargo Car",
+      "outcome": "wrong_class",
+      "n": 7
+     }
+    ],
+    "@0.14": [
+     {
+      "gt": "Van",
+      "predicted_as": "Small Car",
+      "outcome": "wrong_class",
+      "n": 72
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "Aircraft Hangar",
+      "outcome": "wrong_class",
+      "n": 17
+     },
+     {
+      "gt": "Dump Truck",
+      "predicted_as": "Small Car",
+      "outcome": "wrong_class",
+      "n": 16
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "Damaged Building",
+      "outcome": "wrong_class",
+      "n": 12
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "Cargo Truck",
+      "outcome": "wrong_class",
+      "n": 8
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "unworking condensing tower",
+      "outcome": "wrong_class",
+      "n": 7
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "storagetank",
+      "outcome": "wrong_class",
+      "n": 7
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "swimming pool",
+      "outcome": "wrong_class",
+      "n": 6
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "overpass",
+      "outcome": "wrong_class",
+      "n": 6
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Van",
+      "outcome": "wrong_class",
+      "n": 5
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "expressway toll station",
+      "outcome": "wrong_class",
+      "n": 5
+     },
+     {
+      "gt": "vehicle",
+      "predicted_as": "Excavator",
+      "outcome": "wrong_class",
+      "n": 4
+     },
+     {
+      "gt": "storagetank",
+      "predicted_as": "soccer ball field",
+      "outcome": "wrong_class",
+      "n": 4
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Utility Truck",
+      "outcome": "wrong_class",
+      "n": 4
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Truck Tractor",
+      "outcome": "wrong_class",
+      "n": 4
+     }
+    ]
+   },
+   "ap50_by_density": {
+    "1-5": {
+     "n_images": 105,
+     "AP50": 0.025202590095979905
+    },
+    "6-20": {
+     "n_images": 42,
+     "AP50": 0.006615956663458535
+    },
+    "21-100": {
+     "n_images": 45,
+     "AP50": 0.03843134818591309
+    },
+    ">100": {
+     "n_images": 8,
+     "AP50": 0.032020661847871765
+    }
+   },
+   "ap50_by_rarity": {
+    "common": {
+     "n_classes": 25,
+     "mean_AP50": 0.03493670648903903
+    },
+    "frequent": {
+     "n_classes": 27,
+     "mean_AP50": 0.007840469938045103
+    },
+    "rare": {
+     "n_classes": 23,
+     "mean_AP50": 0.0004690315646722896
+    }
+   }
+  },
+  "oracle_gt": {
+   "gt": {
+    "any": {
+     "all": {
+      "n": 4788,
+      "detected": 0.5829,
+      "wrong_class": 0.0345,
+      "poor_box": 0.2523,
+      "missed": 0.1303,
+      "vocab_miss": 0.0
+     },
+     "density:1-5": {
+      "n": 243,
+      "detected": 0.8889,
+      "wrong_class": 0.0165,
+      "poor_box": 0.0782,
+      "missed": 0.0165,
+      "vocab_miss": 0.0
+     },
+     "density:21-100": {
+      "n": 2040,
+      "detected": 0.7294,
+      "wrong_class": 0.0495,
+      "poor_box": 0.152,
+      "missed": 0.0691,
+      "vocab_miss": 0.0
+     },
+     "density:6-20": {
+      "n": 484,
+      "detected": 0.7645,
+      "wrong_class": 0.0331,
+      "poor_box": 0.157,
+      "missed": 0.0455,
+      "vocab_miss": 0.0
+     },
+     "density:>100": {
+      "n": 2021,
+      "detected": 0.3548,
+      "wrong_class": 0.0218,
+      "poor_box": 0.3973,
+      "missed": 0.2261,
+      "vocab_miss": 0.0
+     },
+     "rarity:common": {
+      "n": 84,
+      "detected": 0.8333,
+      "wrong_class": 0.0119,
+      "poor_box": 0.131,
+      "missed": 0.0238,
+      "vocab_miss": 0.0
+     },
+     "rarity:frequent": {
+      "n": 4539,
+      "detected": 0.5863,
+      "wrong_class": 0.0341,
+      "poor_box": 0.2553,
+      "missed": 0.1243,
+      "vocab_miss": 0.0
+     },
+     "rarity:rare": {
+      "n": 165,
+      "detected": 0.3636,
+      "wrong_class": 0.0545,
+      "poor_box": 0.2303,
+      "missed": 0.3515,
+      "vocab_miss": 0.0
+     },
+     "size:large": {
+      "n": 190,
+      "detected": 0.8947,
+      "wrong_class": 0.0211,
+      "poor_box": 0.0579,
+      "missed": 0.0263,
+      "vocab_miss": 0.0
+     },
+     "size:medium": {
+      "n": 1742,
+      "detected": 0.4897,
+      "wrong_class": 0.0178,
+      "poor_box": 0.3617,
+      "missed": 0.1309,
+      "vocab_miss": 0.0
+     },
+     "size:small": {
+      "n": 1667,
+      "detected": 0.5597,
+      "wrong_class": 0.0342,
+      "poor_box": 0.2436,
+      "missed": 0.1626,
+      "vocab_miss": 0.0
+     },
+     "size:tiny": {
+      "n": 1189,
+      "detected": 0.7023,
+      "wrong_class": 0.0614,
+      "poor_box": 0.1354,
+      "missed": 0.1009,
+      "vocab_miss": 0.0
+     },
+     "source:DIOR-18C": {
+      "n": 90,
+      "detected": 0.8333,
+      "wrong_class": 0.0,
+      "poor_box": 0.0889,
+      "missed": 0.0778,
+      "vocab_miss": 0.0
+     },
+     "source:DOTA-6C": {
+      "n": 90,
+      "detected": 0.3778,
+      "wrong_class": 0.0,
+      "poor_box": 0.3667,
+      "missed": 0.2556,
+      "vocab_miss": 0.0
+     },
+     "source:FAIR-18C": {
+      "n": 2118,
+      "detected": 0.7927,
+      "wrong_class": 0.0567,
+      "poor_box": 0.1133,
+      "missed": 0.0373,
+      "vocab_miss": 0.0
+     },
+     "source:PP-4C": {
+      "n": 9,
+      "detected": 0.6667,
+      "wrong_class": 0.0,
+      "poor_box": 0.3333,
+      "missed": 0.0,
+      "vocab_miss": 0.0
+     },
+     "source:Xview-34C": {
+      "n": 2481,
+      "detected": 0.4019,
+      "wrong_class": 0.0181,
+      "poor_box": 0.3724,
+      "missed": 0.2076,
+      "vocab_miss": 0.0
+     }
+    },
+    "@0.14": {
+     "all": {
+      "n": 4788,
+      "detected": 0.1698,
+      "wrong_class": 0.0773,
+      "poor_box": 0.0549,
+      "missed": 0.698,
+      "vocab_miss": 0.0
+     },
+     "density:1-5": {
+      "n": 243,
+      "detected": 0.4156,
+      "wrong_class": 0.037,
+      "poor_box": 0.107,
+      "missed": 0.4403,
+      "vocab_miss": 0.0
+     },
+     "density:21-100": {
+      "n": 2040,
+      "detected": 0.2475,
+      "wrong_class": 0.1397,
+      "poor_box": 0.0534,
+      "missed": 0.5593,
+      "vocab_miss": 0.0
+     },
+     "density:6-20": {
+      "n": 484,
+      "detected": 0.2789,
+      "wrong_class": 0.1012,
+      "poor_box": 0.1095,
+      "missed": 0.5103,
+      "vocab_miss": 0.0
+     },
+     "density:>100": {
+      "n": 2021,
+      "detected": 0.0356,
+      "wrong_class": 0.0134,
+      "poor_box": 0.0371,
+      "missed": 0.9139,
+      "vocab_miss": 0.0
+     },
+     "rarity:common": {
+      "n": 84,
+      "detected": 0.4286,
+      "wrong_class": 0.0357,
+      "poor_box": 0.0476,
+      "missed": 0.4881,
+      "vocab_miss": 0.0
+     },
+     "rarity:frequent": {
+      "n": 4539,
+      "detected": 0.1701,
+      "wrong_class": 0.0806,
+      "poor_box": 0.0544,
+      "missed": 0.6949,
+      "vocab_miss": 0.0
+     },
+     "rarity:rare": {
+      "n": 165,
+      "detected": 0.0303,
+      "wrong_class": 0.0061,
+      "poor_box": 0.0727,
+      "missed": 0.8909,
+      "vocab_miss": 0.0
+     },
+     "size:large": {
+      "n": 190,
+      "detected": 0.5368,
+      "wrong_class": 0.0421,
+      "poor_box": 0.2263,
+      "missed": 0.1947,
+      "vocab_miss": 0.0
+     },
+     "size:medium": {
+      "n": 1742,
+      "detected": 0.0936,
+      "wrong_class": 0.0155,
+      "poor_box": 0.0649,
+      "missed": 0.8261,
+      "vocab_miss": 0.0
+     },
+     "size:small": {
+      "n": 1667,
+      "detected": 0.1812,
+      "wrong_class": 0.1014,
+      "poor_box": 0.0342,
+      "missed": 0.6833,
+      "vocab_miss": 0.0
+     },
+     "size:tiny": {
+      "n": 1189,
+      "detected": 0.2069,
+      "wrong_class": 0.1396,
+      "poor_box": 0.0421,
+      "missed": 0.6114,
+      "vocab_miss": 0.0
+     },
+     "source:DIOR-18C": {
+      "n": 90,
+      "detected": 0.3778,
+      "wrong_class": 0.0111,
+      "poor_box": 0.0889,
+      "missed": 0.5222,
+      "vocab_miss": 0.0
+     },
+     "source:DOTA-6C": {
+      "n": 90,
+      "detected": 0.0556,
+      "wrong_class": 0.0,
+      "poor_box": 0.0,
+      "missed": 0.9444,
+      "vocab_miss": 0.0
+     },
+     "source:FAIR-18C": {
+      "n": 2118,
+      "detected": 0.2696,
+      "wrong_class": 0.1648,
+      "poor_box": 0.0496,
+      "missed": 0.5161,
+      "vocab_miss": 0.0
+     },
+     "source:PP-4C": {
+      "n": 9,
+      "detected": 0.0,
+      "wrong_class": 0.0,
+      "poor_box": 0.0,
+      "missed": 1.0,
+      "vocab_miss": 0.0
+     },
+     "source:Xview-34C": {
+      "n": 2481,
+      "detected": 0.0818,
+      "wrong_class": 0.0081,
+      "poor_box": 0.0605,
+      "missed": 0.8497,
+      "vocab_miss": 0.0
+     }
+    }
+   },
+   "det_causes": {
+    "@0.14": {
+     "all": {
+      "n": 3875,
+      "tp": 0.2093,
+      "duplicate": 0.0212,
+      "wrong_class": 0.2026,
+      "poor_box": 0.0968,
+      "bg_present": 0.4702,
+      "bg_absent": 0.0,
+      "fp_out_of_source": 0.0
+     },
+     "DIOR-18C": {
+      "n": 288,
+      "tp": 0.1181,
+      "duplicate": 0.0694,
+      "wrong_class": 0.0556,
+      "poor_box": 0.2326,
+      "bg_present": 0.5243,
+      "bg_absent": 0.0,
+      "fp_out_of_source": 0.0
+     },
+     "DOTA-6C": {
+      "n": 36,
+      "tp": 0.1389,
+      "duplicate": 0.0556,
+      "wrong_class": 0.0,
+      "poor_box": 0.0556,
+      "bg_present": 0.75,
+      "bg_absent": 0.0,
+      "fp_out_of_source": 0.0
+     },
+     "FAIR-18C": {
+      "n": 2799,
+      "tp": 0.2033,
+      "duplicate": 0.0093,
+      "wrong_class": 0.2454,
+      "poor_box": 0.0625,
+      "bg_present": 0.4795,
+      "bg_absent": 0.0,
+      "fp_out_of_source": 0.0
+     },
+     "PP-4C": {
+      "n": 3,
+      "tp": 0.0,
+      "duplicate": 0.0,
+      "wrong_class": 0.0,
+      "poor_box": 0.0,
+      "bg_present": 1.0,
+      "bg_absent": 0.0,
+      "fp_out_of_source": 0.0
+     },
+     "Xview-34C": {
+      "n": 749,
+      "tp": 0.271,
+      "duplicate": 0.0454,
+      "wrong_class": 0.1095,
+      "poor_box": 0.1749,
+      "bg_present": 0.3992,
+      "bg_absent": 0.0,
+      "fp_out_of_source": 0.0
+     }
+    }
+   },
+   "confusions": {
+    "any": [
+     {
+      "gt": "Dump Truck",
+      "predicted_as": "Small Car",
+      "outcome": "wrong_class",
+      "n": 44
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Small Car",
+      "outcome": "wrong_class",
+      "n": 37
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "Utility Truck",
+      "outcome": "wrong_class",
+      "n": 17
+     },
+     {
+      "gt": "Dump Truck",
+      "predicted_as": "Van",
+      "outcome": "wrong_class",
+      "n": 10
+     },
+     {
+      "gt": "Dump Truck",
+      "predicted_as": "Cargo Truck",
+      "outcome": "wrong_class",
+      "n": 4
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "Small Aircraft",
+      "outcome": "wrong_class",
+      "n": 4
+     },
+     {
+      "gt": "Dump Truck",
+      "predicted_as": "Bus",
+      "outcome": "wrong_class",
+      "n": 3
+     },
+     {
+      "gt": "Dry Cargo Ship",
+      "predicted_as": "Engineering Ship",
+      "outcome": "wrong_class",
+      "n": 3
+     },
+     {
+      "gt": "Utility Truck",
+      "predicted_as": "Small Aircraft",
+      "outcome": "wrong_class",
+      "n": 3
+     },
+     {
+      "gt": "Sailboat",
+      "predicted_as": "Yacht",
+      "outcome": "wrong_class",
+      "n": 3
+     },
+     {
+      "gt": "Engineering Ship",
+      "predicted_as": "Fishing Boat",
+      "outcome": "wrong_class",
+      "n": 2
+     },
+     {
+      "gt": "Bus",
+      "predicted_as": "Small Car",
+      "outcome": "wrong_class",
+      "n": 2
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Bus",
+      "outcome": "wrong_class",
+      "n": 2
+     },
+     {
+      "gt": "Truck Tractor",
+      "predicted_as": "Bus",
+      "outcome": "wrong_class",
+      "n": 2
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Truck Tractor",
+      "outcome": "wrong_class",
+      "n": 2
+     }
+    ],
+    "@0.14": [
+     {
+      "gt": "Van",
+      "predicted_as": "Small Car",
+      "outcome": "wrong_class",
+      "n": 232
+     },
+     {
+      "gt": "Dump Truck",
+      "predicted_as": "Small Car",
+      "outcome": "wrong_class",
+      "n": 47
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Van",
+      "outcome": "wrong_class",
+      "n": 23
+     },
+     {
+      "gt": "Dump Truck",
+      "predicted_as": "Van",
+      "outcome": "wrong_class",
+      "n": 13
+     },
+     {
+      "gt": "Cargo Truck",
+      "predicted_as": "Van",
+      "outcome": "wrong_class",
+      "n": 6
+     },
+     {
+      "gt": "Dump Truck",
+      "predicted_as": "Cargo Truck",
+      "outcome": "wrong_class",
+      "n": 6
+     },
+     {
+      "gt": "Cargo Truck",
+      "predicted_as": "Trailer",
+      "outcome": "wrong_class",
+      "n": 5
+     },
+     {
+      "gt": "Engineering Ship",
+      "predicted_as": "Dry Cargo Ship",
+      "outcome": "wrong_class",
+      "n": 4
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "Utility Truck",
+      "outcome": "wrong_class",
+      "n": 4
+     },
+     {
+      "gt": "Dry Cargo Ship",
+      "predicted_as": "Motorboat",
+      "outcome": "wrong_class",
+      "n": 2
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Cargo Truck",
+      "outcome": "wrong_class",
+      "n": 2
+     },
+     {
+      "gt": "Bus",
+      "predicted_as": "Small Car",
+      "outcome": "wrong_class",
+      "n": 2
+     },
+     {
+      "gt": "Shed",
+      "predicted_as": "Building",
+      "outcome": "wrong_class",
+      "n": 2
+     },
+     {
+      "gt": "Construction Site",
+      "predicted_as": "Shipping Container",
+      "outcome": "wrong_class",
+      "n": 2
+     },
+     {
+      "gt": "Shed",
+      "predicted_as": "Hut/Tent",
+      "outcome": "wrong_class",
+      "n": 2
+     }
+    ]
+   },
+   "ap50_by_density": {
+    "1-5": {
+     "n_images": 105,
+     "AP50": 0.2142049581112377
+    },
+    "6-20": {
+     "n_images": 42,
+     "AP50": 0.10437446971777137
+    },
+    "21-100": {
+     "n_images": 45,
+     "AP50": 0.12548739326024363
+    },
+    ">100": {
+     "n_images": 8,
+     "AP50": 0.06231890629256802
+    }
+   },
+   "ap50_by_rarity": {
+    "common": {
+     "n_classes": 25,
+     "mean_AP50": 0.2477143341837209
+    },
+    "frequent": {
+     "n_classes": 27,
+     "mean_AP50": 0.1183262831602489
+    },
+    "rare": {
+     "n_classes": 23,
+     "mean_AP50": 0.04970347758847427
+    }
+   }
+  },
+  "sel:remoteclip_b32:k8": {
+   "gt": {
+    "any": {
+     "all": {
+      "n": 4788,
+      "detected": 0.1301,
+      "wrong_class": 0.0198,
+      "poor_box": 0.0219,
+      "missed": 0.0775,
+      "vocab_miss": 0.7506
+     },
+     "density:1-5": {
+      "n": 243,
+      "detected": 0.4033,
+      "wrong_class": 0.0412,
+      "poor_box": 0.0123,
+      "missed": 0.0123,
+      "vocab_miss": 0.5309
+     },
+     "density:21-100": {
+      "n": 2040,
+      "detected": 0.2216,
+      "wrong_class": 0.0289,
+      "poor_box": 0.0294,
+      "missed": 0.0985,
+      "vocab_miss": 0.6216
+     },
+     "density:6-20": {
+      "n": 484,
+      "detected": 0.093,
+      "wrong_class": 0.0289,
+      "poor_box": 0.0455,
+      "missed": 0.0702,
+      "vocab_miss": 0.7624
+     },
+     "density:>100": {
+      "n": 2021,
+      "detected": 0.0139,
+      "wrong_class": 0.0059,
+      "poor_box": 0.0099,
+      "missed": 0.0658,
+      "vocab_miss": 0.9045
+     },
+     "rarity:common": {
+      "n": 84,
+      "detected": 0.5,
+      "wrong_class": 0.0595,
+      "poor_box": 0.0357,
+      "missed": 0.0357,
+      "vocab_miss": 0.369
+     },
+     "rarity:frequent": {
+      "n": 4539,
+      "detected": 0.1251,
+      "wrong_class": 0.017,
+      "poor_box": 0.022,
+      "missed": 0.0573,
+      "vocab_miss": 0.7786
+     },
+     "rarity:rare": {
+      "n": 165,
+      "detected": 0.0788,
+      "wrong_class": 0.0788,
+      "poor_box": 0.0121,
+      "missed": 0.6545,
+      "vocab_miss": 0.1758
+     },
+     "size:large": {
+      "n": 190,
+      "detected": 0.3737,
+      "wrong_class": 0.0211,
+      "poor_box": 0.0158,
+      "missed": 0.0,
+      "vocab_miss": 0.5895
+     },
+     "size:medium": {
+      "n": 1742,
+      "detected": 0.0964,
+      "wrong_class": 0.0281,
+      "poor_box": 0.0178,
+      "missed": 0.097,
+      "vocab_miss": 0.7606
+     },
+     "size:small": {
+      "n": 1667,
+      "detected": 0.1314,
+      "wrong_class": 0.0162,
+      "poor_box": 0.0174,
+      "missed": 0.0846,
+      "vocab_miss": 0.7504
+     },
+     "size:tiny": {
+      "n": 1189,
+      "detected": 0.1388,
+      "wrong_class": 0.0126,
+      "poor_box": 0.0353,
+      "missed": 0.0513,
+      "vocab_miss": 0.762
+     },
+     "source:DIOR-18C": {
+      "n": 90,
+      "detected": 0.5556,
+      "wrong_class": 0.1333,
+      "poor_box": 0.0667,
+      "missed": 0.1556,
+      "vocab_miss": 0.0889
+     },
+     "source:DOTA-6C": {
+      "n": 90,
+      "detected": 0.0667,
+      "wrong_class": 0.0667,
+      "poor_box": 0.0,
+      "missed": 0.8222,
+      "vocab_miss": 0.0444
+     },
+     "source:FAIR-18C": {
+      "n": 2118,
+      "detected": 0.1837,
+      "wrong_class": 0.0184,
+      "poor_box": 0.0264,
+      "missed": 0.0184,
+      "vocab_miss": 0.7531
+     },
+     "source:PP-4C": {
+      "n": 9,
+      "detected": 0.3333,
+      "wrong_class": 0.2222,
+      "poor_box": 0.3333,
+      "missed": 0.1111,
+      "vocab_miss": 0.0
+     },
+     "source:Xview-34C": {
+      "n": 2481,
+      "detected": 0.0705,
+      "wrong_class": 0.0145,
+      "poor_box": 0.0161,
+      "missed": 0.0979,
+      "vocab_miss": 0.8009
+     }
+    },
+    "@0.14": {
+     "all": {
+      "n": 4788,
+      "detected": 0.0397,
+      "wrong_class": 0.0207,
+      "poor_box": 0.0113,
+      "missed": 0.1777,
+      "vocab_miss": 0.7506
+     },
+     "density:1-5": {
+      "n": 243,
+      "detected": 0.1934,
+      "wrong_class": 0.1481,
+      "poor_box": 0.0329,
+      "missed": 0.0947,
+      "vocab_miss": 0.5309
+     },
+     "density:21-100": {
+      "n": 2040,
+      "detected": 0.0647,
+      "wrong_class": 0.0255,
+      "poor_box": 0.0172,
+      "missed": 0.2711,
+      "vocab_miss": 0.6216
+     },
+     "density:6-20": {
+      "n": 484,
+      "detected": 0.0186,
+      "wrong_class": 0.0186,
+      "poor_box": 0.0145,
+      "missed": 0.186,
+      "vocab_miss": 0.7624
+     },
+     "density:>100": {
+      "n": 2021,
+      "detected": 0.001,
+      "wrong_class": 0.001,
+      "poor_box": 0.002,
+      "missed": 0.0915,
+      "vocab_miss": 0.9045
+     },
+     "rarity:common": {
+      "n": 84,
+      "detected": 0.2024,
+      "wrong_class": 0.1786,
+      "poor_box": 0.0595,
+      "missed": 0.1905,
+      "vocab_miss": 0.369
+     },
+     "rarity:frequent": {
+      "n": 4539,
+      "detected": 0.0381,
+      "wrong_class": 0.0183,
+      "poor_box": 0.0106,
+      "missed": 0.1544,
+      "vocab_miss": 0.7786
+     },
+     "rarity:rare": {
+      "n": 165,
+      "detected": 0.0,
+      "wrong_class": 0.0061,
+      "poor_box": 0.0061,
+      "missed": 0.8121,
+      "vocab_miss": 0.1758
+     },
+     "size:large": {
+      "n": 190,
+      "detected": 0.1947,
+      "wrong_class": 0.1158,
+      "poor_box": 0.0474,
+      "missed": 0.0526,
+      "vocab_miss": 0.5895
+     },
+     "size:medium": {
+      "n": 1742,
+      "detected": 0.0276,
+      "wrong_class": 0.0172,
+      "poor_box": 0.0144,
+      "missed": 0.1803,
+      "vocab_miss": 0.7606
+     },
+     "size:small": {
+      "n": 1667,
+      "detected": 0.0384,
+      "wrong_class": 0.021,
+      "poor_box": 0.0054,
+      "missed": 0.1848,
+      "vocab_miss": 0.7504
+     },
+     "size:tiny": {
+      "n": 1189,
+      "detected": 0.0345,
+      "wrong_class": 0.0101,
+      "poor_box": 0.0093,
+      "missed": 0.1842,
+      "vocab_miss": 0.762
+     },
+     "source:DIOR-18C": {
+      "n": 90,
+      "detected": 0.1889,
+      "wrong_class": 0.3111,
+      "poor_box": 0.1,
+      "missed": 0.3111,
+      "vocab_miss": 0.0889
+     },
+     "source:DOTA-6C": {
+      "n": 90,
+      "detected": 0.0556,
+      "wrong_class": 0.0,
+      "poor_box": 0.0,
+      "missed": 0.9,
+      "vocab_miss": 0.0444
+     },
+     "source:FAIR-18C": {
+      "n": 2118,
+      "detected": 0.0571,
+      "wrong_class": 0.0255,
+      "poor_box": 0.0094,
+      "missed": 0.1549,
+      "vocab_miss": 0.7531
+     },
+     "source:PP-4C": {
+      "n": 9,
+      "detected": 0.0,
+      "wrong_class": 0.2222,
+      "poor_box": 0.0,
+      "missed": 0.7778,
+      "vocab_miss": 0.0
+     },
+     "source:Xview-34C": {
+      "n": 2481,
+      "detected": 0.0189,
+      "wrong_class": 0.006,
+      "poor_box": 0.0101,
+      "missed": 0.164,
+      "vocab_miss": 0.8009
+     }
+    }
+   },
+   "det_causes": {
+    "@0.14": {
+     "all": {
+      "n": 7293,
+      "tp": 0.0256,
+      "duplicate": 0.0101,
+      "wrong_class": 0.2003,
+      "poor_box": 0.02,
+      "bg_present": 0.05,
+      "bg_absent": 0.6938,
+      "fp_out_of_source": 0.6198
+     },
+     "DIOR-18C": {
+      "n": 1202,
+      "tp": 0.0141,
+      "duplicate": 0.0158,
+      "wrong_class": 0.1581,
+      "poor_box": 0.0441,
+      "bg_present": 0.0715,
+      "bg_absent": 0.6963,
+      "fp_out_of_source": 0.713
+     },
+     "DOTA-6C": {
+      "n": 250,
+      "tp": 0.02,
+      "duplicate": 0.02,
+      "wrong_class": 0.064,
+      "poor_box": 0.028,
+      "bg_present": 0.036,
+      "bg_absent": 0.832,
+      "fp_out_of_source": 0.844
+     },
+     "FAIR-18C": {
+      "n": 4634,
+      "tp": 0.0257,
+      "duplicate": 0.008,
+      "wrong_class": 0.2093,
+      "poor_box": 0.0158,
+      "bg_present": 0.0518,
+      "bg_absent": 0.6895,
+      "fp_out_of_source": 0.609
+     },
+     "PP-4C": {
+      "n": 18,
+      "tp": 0.0,
+      "duplicate": 0.0,
+      "wrong_class": 0.1111,
+      "poor_box": 0.0,
+      "bg_present": 0.1667,
+      "bg_absent": 0.7222,
+      "fp_out_of_source": 0.7222
+     },
+     "Xview-34C": {
+      "n": 1189,
+      "tp": 0.0387,
+      "duplicate": 0.0109,
+      "wrong_class": 0.238,
+      "poor_box": 0.0109,
+      "bg_present": 0.0227,
+      "bg_absent": 0.6787,
+      "fp_out_of_source": 0.5189
+     }
+    }
+   },
+   "confusions": {
+    "any": [
+     {
+      "gt": "Building",
+      "predicted_as": "Shipping Container",
+      "outcome": "vocab_miss",
+      "n": 221
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Small Car",
+      "outcome": "vocab_miss",
+      "n": 128
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Bus",
+      "outcome": "vocab_miss",
+      "n": 82
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Passenger Car",
+      "outcome": "vocab_miss",
+      "n": 79
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Passenger Car",
+      "outcome": "vocab_miss",
+      "n": 76
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Bus",
+      "outcome": "vocab_miss",
+      "n": 76
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Flat Car",
+      "outcome": "vocab_miss",
+      "n": 30
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Flat Car",
+      "outcome": "vocab_miss",
+      "n": 29
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Engineering Vehicle",
+      "outcome": "vocab_miss",
+      "n": 28
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Truck Tractor",
+      "outcome": "vocab_miss",
+      "n": 27
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "Hut/Tent",
+      "outcome": "vocab_miss",
+      "n": 27
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "vehicle",
+      "outcome": "vocab_miss",
+      "n": 25
+     },
+     {
+      "gt": "Cargo Truck",
+      "predicted_as": "Shipping Container",
+      "outcome": "vocab_miss",
+      "n": 25
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "vehicle",
+      "outcome": "vocab_miss",
+      "n": 22
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "vehicle",
+      "outcome": "vocab_miss",
+      "n": 22
+     }
+    ],
+    "@0.14": [
+     {
+      "gt": "Van",
+      "predicted_as": "Small Car",
+      "outcome": "vocab_miss",
+      "n": 55
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Passenger Car",
+      "outcome": "vocab_miss",
+      "n": 23
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Small Car",
+      "outcome": "wrong_class",
+      "n": 18
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Passenger Car",
+      "outcome": "vocab_miss",
+      "n": 17
+     },
+     {
+      "gt": "Dump Truck",
+      "predicted_as": "Small Car",
+      "outcome": "vocab_miss",
+      "n": 12
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "Shipping Container",
+      "outcome": "vocab_miss",
+      "n": 10
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Flat Car",
+      "outcome": "vocab_miss",
+      "n": 9
+     },
+     {
+      "gt": "vehicle",
+      "predicted_as": "Small Car",
+      "outcome": "wrong_class",
+      "n": 7
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Engineering Vehicle",
+      "outcome": "vocab_miss",
+      "n": 7
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Bus",
+      "outcome": "vocab_miss",
+      "n": 7
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Cargo Car",
+      "outcome": "vocab_miss",
+      "n": 7
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "Hut/Tent",
+      "outcome": "vocab_miss",
+      "n": 7
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Bus",
+      "outcome": "wrong_class",
+      "n": 6
+     },
+     {
+      "gt": "Dump Truck",
+      "predicted_as": "Flat Car",
+      "outcome": "vocab_miss",
+      "n": 6
+     },
+     {
+      "gt": "Motorboat",
+      "predicted_as": "Passenger Ship",
+      "outcome": "wrong_class",
+      "n": 6
+     }
+    ]
+   },
+   "ap50_by_density": {
+    "1-5": {
+     "n_images": 105,
+     "AP50": 0.0674477021607718
+    },
+    "6-20": {
+     "n_images": 42,
+     "AP50": 0.027170375444281962
+    },
+    "21-100": {
+     "n_images": 45,
+     "AP50": 0.01560253297556744
+    },
+    ">100": {
+     "n_images": 8,
+     "AP50": 0.0011498132683570223
+    }
+   },
+   "ap50_by_rarity": {
+    "common": {
+     "n_classes": 25,
+     "mean_AP50": 0.0905799924468769
+    },
+    "frequent": {
+     "n_classes": 27,
+     "mean_AP50": 0.012407512110853334
+    },
+    "rare": {
+     "n_classes": 23,
+     "mean_AP50": 0.0006725830577263465
+    }
+   }
+  },
+  "set:m6_threshold_m8": {
+   "gt": {
+    "any": {
+     "all": {
+      "n": 4788,
+      "detected": 0.1257,
+      "wrong_class": 0.0251,
+      "poor_box": 0.0234,
+      "missed": 0.0854,
+      "vocab_miss": 0.7404
+     },
+     "density:1-5": {
+      "n": 243,
+      "detected": 0.4239,
+      "wrong_class": 0.037,
+      "poor_box": 0.0206,
+      "missed": 0.0082,
+      "vocab_miss": 0.5103
+     },
+     "density:21-100": {
+      "n": 2040,
+      "detected": 0.2118,
+      "wrong_class": 0.0387,
+      "poor_box": 0.0279,
+      "missed": 0.0701,
+      "vocab_miss": 0.6515
+     },
+     "density:6-20": {
+      "n": 484,
+      "detected": 0.0971,
+      "wrong_class": 0.0248,
+      "poor_box": 0.0579,
+      "missed": 0.0661,
+      "vocab_miss": 0.7541
+     },
+     "density:>100": {
+      "n": 2021,
+      "detected": 0.0099,
+      "wrong_class": 0.0099,
+      "poor_box": 0.0109,
+      "missed": 0.1148,
+      "vocab_miss": 0.8545
+     },
+     "rarity:common": {
+      "n": 84,
+      "detected": 0.5238,
+      "wrong_class": 0.0238,
+      "poor_box": 0.0476,
+      "missed": 0.0357,
+      "vocab_miss": 0.369
+     },
+     "rarity:frequent": {
+      "n": 4539,
+      "detected": 0.1183,
+      "wrong_class": 0.0181,
+      "poor_box": 0.0207,
+      "missed": 0.0773,
+      "vocab_miss": 0.7656
+     },
+     "rarity:rare": {
+      "n": 165,
+      "detected": 0.1273,
+      "wrong_class": 0.2182,
+      "poor_box": 0.0848,
+      "missed": 0.3333,
+      "vocab_miss": 0.2364
+     },
+     "size:large": {
+      "n": 190,
+      "detected": 0.3737,
+      "wrong_class": 0.0211,
+      "poor_box": 0.0211,
+      "missed": 0.0,
+      "vocab_miss": 0.5842
+     },
+     "size:medium": {
+      "n": 1742,
+      "detected": 0.1051,
+      "wrong_class": 0.0454,
+      "poor_box": 0.0339,
+      "missed": 0.1005,
+      "vocab_miss": 0.7153
+     },
+     "size:small": {
+      "n": 1667,
+      "detected": 0.123,
+      "wrong_class": 0.0144,
+      "poor_box": 0.0102,
+      "missed": 0.108,
+      "vocab_miss": 0.7445
+     },
+     "size:tiny": {
+      "n": 1189,
+      "detected": 0.1203,
+      "wrong_class": 0.0109,
+      "poor_box": 0.0269,
+      "missed": 0.0454,
+      "vocab_miss": 0.7965
+     },
+     "source:DIOR-18C": {
+      "n": 90,
+      "detected": 0.6111,
+      "wrong_class": 0.0889,
+      "poor_box": 0.0778,
+      "missed": 0.1,
+      "vocab_miss": 0.1222
+     },
+     "source:DOTA-6C": {
+      "n": 90,
+      "detected": 0.1556,
+      "wrong_class": 0.3667,
+      "poor_box": 0.0889,
+      "missed": 0.3444,
+      "vocab_miss": 0.0444
+     },
+     "source:FAIR-18C": {
+      "n": 2118,
+      "detected": 0.1728,
+      "wrong_class": 0.0156,
+      "poor_box": 0.0203,
+      "missed": 0.0137,
+      "vocab_miss": 0.7776
+     },
+     "source:PP-4C": {
+      "n": 9,
+      "detected": 0.4444,
+      "wrong_class": 0.1111,
+      "poor_box": 0.3333,
+      "missed": 0.1111,
+      "vocab_miss": 0.0
+     },
+     "source:Xview-34C": {
+      "n": 2481,
+      "detected": 0.0657,
+      "wrong_class": 0.0181,
+      "poor_box": 0.0206,
+      "missed": 0.1366,
+      "vocab_miss": 0.759
+     }
+    },
+    "@0.14": {
+     "all": {
+      "n": 4788,
+      "detected": 0.0388,
+      "wrong_class": 0.0207,
+      "poor_box": 0.0104,
+      "missed": 0.1896,
+      "vocab_miss": 0.7404
+     },
+     "density:1-5": {
+      "n": 243,
+      "detected": 0.2428,
+      "wrong_class": 0.1029,
+      "poor_box": 0.037,
+      "missed": 0.107,
+      "vocab_miss": 0.5103
+     },
+     "density:21-100": {
+      "n": 2040,
+      "detected": 0.0578,
+      "wrong_class": 0.0299,
+      "poor_box": 0.0162,
+      "missed": 0.2446,
+      "vocab_miss": 0.6515
+     },
+     "density:6-20": {
+      "n": 484,
+      "detected": 0.0165,
+      "wrong_class": 0.0124,
+      "poor_box": 0.0083,
+      "missed": 0.2087,
+      "vocab_miss": 0.7541
+     },
+     "density:>100": {
+      "n": 2021,
+      "detected": 0.0005,
+      "wrong_class": 0.0035,
+      "poor_box": 0.002,
+      "missed": 0.1395,
+      "vocab_miss": 0.8545
+     },
+     "rarity:common": {
+      "n": 84,
+      "detected": 0.2976,
+      "wrong_class": 0.0833,
+      "poor_box": 0.0476,
+      "missed": 0.2024,
+      "vocab_miss": 0.369
+     },
+     "rarity:frequent": {
+      "n": 4539,
+      "detected": 0.0355,
+      "wrong_class": 0.0203,
+      "poor_box": 0.0097,
+      "missed": 0.169,
+      "vocab_miss": 0.7656
+     },
+     "rarity:rare": {
+      "n": 165,
+      "detected": 0.0,
+      "wrong_class": 0.0,
+      "poor_box": 0.0121,
+      "missed": 0.7515,
+      "vocab_miss": 0.2364
+     },
+     "size:large": {
+      "n": 190,
+      "detected": 0.2316,
+      "wrong_class": 0.0789,
+      "poor_box": 0.0474,
+      "missed": 0.0579,
+      "vocab_miss": 0.5842
+     },
+     "size:medium": {
+      "n": 1742,
+      "detected": 0.0264,
+      "wrong_class": 0.0207,
+      "poor_box": 0.0138,
+      "missed": 0.2239,
+      "vocab_miss": 0.7153
+     },
+     "size:small": {
+      "n": 1667,
+      "detected": 0.0354,
+      "wrong_class": 0.0228,
+      "poor_box": 0.0066,
+      "missed": 0.1908,
+      "vocab_miss": 0.7445
+     },
+     "size:tiny": {
+      "n": 1189,
+      "detected": 0.0311,
+      "wrong_class": 0.0084,
+      "poor_box": 0.005,
+      "missed": 0.159,
+      "vocab_miss": 0.7965
+     },
+     "source:DIOR-18C": {
+      "n": 90,
+      "detected": 0.3111,
+      "wrong_class": 0.1111,
+      "poor_box": 0.1,
+      "missed": 0.3556,
+      "vocab_miss": 0.1222
+     },
+     "source:DOTA-6C": {
+      "n": 90,
+      "detected": 0.0556,
+      "wrong_class": 0.0,
+      "poor_box": 0.0,
+      "missed": 0.9,
+      "vocab_miss": 0.0444
+     },
+     "source:FAIR-18C": {
+      "n": 2118,
+      "detected": 0.0534,
+      "wrong_class": 0.0293,
+      "poor_box": 0.0076,
+      "missed": 0.1322,
+      "vocab_miss": 0.7776
+     },
+     "source:PP-4C": {
+      "n": 9,
+      "detected": 0.0,
+      "wrong_class": 0.2222,
+      "poor_box": 0.0,
+      "missed": 0.7778,
+      "vocab_miss": 0.0
+     },
+     "source:Xview-34C": {
+      "n": 2481,
+      "detected": 0.0161,
+      "wrong_class": 0.0101,
+      "poor_box": 0.0101,
+      "missed": 0.2048,
+      "vocab_miss": 0.759
+     }
+    }
+   },
+   "det_causes": {
+    "@0.14": {
+     "all": {
+      "n": 6747,
+      "tp": 0.0271,
+      "duplicate": 0.0104,
+      "wrong_class": 0.2091,
+      "poor_box": 0.0206,
+      "bg_present": 0.0622,
+      "bg_absent": 0.6705,
+      "fp_out_of_source": 0.5669
+     },
+     "DIOR-18C": {
+      "n": 636,
+      "tp": 0.044,
+      "duplicate": 0.0236,
+      "wrong_class": 0.0849,
+      "poor_box": 0.0865,
+      "bg_present": 0.173,
+      "bg_absent": 0.5881,
+      "fp_out_of_source": 0.4984
+     },
+     "DOTA-6C": {
+      "n": 163,
+      "tp": 0.0307,
+      "duplicate": 0.0184,
+      "wrong_class": 0.0982,
+      "poor_box": 0.0368,
+      "bg_present": 0.1166,
+      "bg_absent": 0.6994,
+      "fp_out_of_source": 0.7117
+     },
+     "FAIR-18C": {
+      "n": 4596,
+      "tp": 0.0242,
+      "duplicate": 0.0085,
+      "wrong_class": 0.2206,
+      "poor_box": 0.0141,
+      "bg_present": 0.0537,
+      "bg_absent": 0.6789,
+      "fp_out_of_source": 0.5851
+     },
+     "PP-4C": {
+      "n": 24,
+      "tp": 0.0,
+      "duplicate": 0.0,
+      "wrong_class": 0.0833,
+      "poor_box": 0.0,
+      "bg_present": 0.2083,
+      "bg_absent": 0.7083,
+      "fp_out_of_source": 0.6667
+     },
+     "Xview-34C": {
+      "n": 1328,
+      "tp": 0.0294,
+      "duplicate": 0.0098,
+      "wrong_class": 0.2447,
+      "poor_box": 0.0098,
+      "bg_present": 0.0294,
+      "bg_absent": 0.677,
+      "fp_out_of_source": 0.5173
+     }
+    }
+   },
+   "confusions": {
+    "any": [
+     {
+      "gt": "Building",
+      "predicted_as": "Shipping Container",
+      "outcome": "vocab_miss",
+      "n": 181
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Small Car",
+      "outcome": "vocab_miss",
+      "n": 110
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Bus",
+      "outcome": "vocab_miss",
+      "n": 77
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Bus",
+      "outcome": "vocab_miss",
+      "n": 77
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Passenger Car",
+      "outcome": "vocab_miss",
+      "n": 76
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Passenger Car",
+      "outcome": "vocab_miss",
+      "n": 76
+     },
+     {
+      "gt": "helicopter",
+      "predicted_as": "roundabout",
+      "outcome": "wrong_class",
+      "n": 33
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "Yacht",
+      "outcome": "vocab_miss",
+      "n": 29
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Engineering Vehicle",
+      "outcome": "vocab_miss",
+      "n": 27
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "vehicle",
+      "outcome": "vocab_miss",
+      "n": 26
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "vehicle",
+      "outcome": "vocab_miss",
+      "n": 25
+     },
+     {
+      "gt": "Cargo Truck",
+      "predicted_as": "Shipping Container",
+      "outcome": "vocab_miss",
+      "n": 25
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Truck Tractor",
+      "outcome": "vocab_miss",
+      "n": 24
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "Passenger Car",
+      "outcome": "vocab_miss",
+      "n": 24
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "vehicle",
+      "outcome": "vocab_miss",
+      "n": 21
+     }
+    ],
+    "@0.14": [
+     {
+      "gt": "Van",
+      "predicted_as": "Small Car",
+      "outcome": "vocab_miss",
+      "n": 39
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Passenger Car",
+      "outcome": "vocab_miss",
+      "n": 18
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Small Car",
+      "outcome": "wrong_class",
+      "n": 18
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Passenger Car",
+      "outcome": "vocab_miss",
+      "n": 16
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Bus",
+      "outcome": "vocab_miss",
+      "n": 15
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Bus",
+      "outcome": "vocab_miss",
+      "n": 14
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Engineering Vehicle",
+      "outcome": "vocab_miss",
+      "n": 12
+     },
+     {
+      "gt": "Motorboat",
+      "predicted_as": "Ferry",
+      "outcome": "wrong_class",
+      "n": 12
+     },
+     {
+      "gt": "Dump Truck",
+      "predicted_as": "Small Car",
+      "outcome": "vocab_miss",
+      "n": 11
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "Shipping Container",
+      "outcome": "vocab_miss",
+      "n": 10
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Engineering Vehicle",
+      "outcome": "vocab_miss",
+      "n": 9
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Flat Car",
+      "outcome": "vocab_miss",
+      "n": 7
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "Cargo Car",
+      "outcome": "vocab_miss",
+      "n": 6
+     },
+     {
+      "gt": "vehicle",
+      "predicted_as": "Engineering Vehicle",
+      "outcome": "wrong_class",
+      "n": 5
+     },
+     {
+      "gt": "storagetank",
+      "predicted_as": "harbor",
+      "outcome": "vocab_miss",
+      "n": 4
+     }
+    ]
+   },
+   "ap50_by_density": {
+    "1-5": {
+     "n_images": 105,
+     "AP50": 0.10899298109267427
+    },
+    "6-20": {
+     "n_images": 42,
+     "AP50": 0.030538991261390955
+    },
+    "21-100": {
+     "n_images": 45,
+     "AP50": 0.017376267681406304
+    },
+    ">100": {
+     "n_images": 8,
+     "AP50": 0.002314365828296989
+    }
+   },
+   "ap50_by_rarity": {
+    "common": {
+     "n_classes": 25,
+     "mean_AP50": 0.15019544753149336
+    },
+    "frequent": {
+     "n_classes": 27,
+     "mean_AP50": 0.013150184354625805
+    },
+    "rare": {
+     "n_classes": 23,
+     "mean_AP50": 0.0006399516203689403
+    }
+   }
+  },
+  "set:e5_caption_thr_m8": {
+   "gt": {
+    "any": {
+     "all": {
+      "n": 4788,
+      "detected": 0.3799,
+      "wrong_class": 0.0428,
+      "poor_box": 0.1731,
+      "missed": 0.1865,
+      "vocab_miss": 0.2176
+     },
+     "density:1-5": {
+      "n": 243,
+      "detected": 0.2798,
+      "wrong_class": 0.0123,
+      "poor_box": 0.0247,
+      "missed": 0.0082,
+      "vocab_miss": 0.6749
+     },
+     "density:21-100": {
+      "n": 2040,
+      "detected": 0.4912,
+      "wrong_class": 0.052,
+      "poor_box": 0.0735,
+      "missed": 0.0814,
+      "vocab_miss": 0.302
+     },
+     "density:6-20": {
+      "n": 484,
+      "detected": 0.4153,
+      "wrong_class": 0.0413,
+      "poor_box": 0.0971,
+      "missed": 0.0496,
+      "vocab_miss": 0.3967
+     },
+     "density:>100": {
+      "n": 2021,
+      "detected": 0.2712,
+      "wrong_class": 0.0376,
+      "poor_box": 0.3097,
+      "missed": 0.3469,
+      "vocab_miss": 0.0346
+     },
+     "rarity:common": {
+      "n": 84,
+      "detected": 0.2381,
+      "wrong_class": 0.0238,
+      "poor_box": 0.0476,
+      "missed": 0.0119,
+      "vocab_miss": 0.6786
+     },
+     "rarity:frequent": {
+      "n": 4539,
+      "detected": 0.3957,
+      "wrong_class": 0.0436,
+      "poor_box": 0.1818,
+      "missed": 0.1961,
+      "vocab_miss": 0.1829
+     },
+     "rarity:rare": {
+      "n": 165,
+      "detected": 0.0182,
+      "wrong_class": 0.0303,
+      "poor_box": 0.0,
+      "missed": 0.0121,
+      "vocab_miss": 0.9394
+     },
+     "size:large": {
+      "n": 190,
+      "detected": 0.5368,
+      "wrong_class": 0.0316,
+      "poor_box": 0.0579,
+      "missed": 0.0263,
+      "vocab_miss": 0.3474
+     },
+     "size:medium": {
+      "n": 1742,
+      "detected": 0.3352,
+      "wrong_class": 0.0413,
+      "poor_box": 0.2606,
+      "missed": 0.1854,
+      "vocab_miss": 0.1774
+     },
+     "size:small": {
+      "n": 1667,
+      "detected": 0.3611,
+      "wrong_class": 0.0378,
+      "poor_box": 0.147,
+      "missed": 0.2472,
+      "vocab_miss": 0.207
+     },
+     "size:tiny": {
+      "n": 1189,
+      "detected": 0.4466,
+      "wrong_class": 0.0538,
+      "poor_box": 0.1001,
+      "missed": 0.1287,
+      "vocab_miss": 0.2708
+     },
+     "source:DIOR-18C": {
+      "n": 90,
+      "detected": 0.3556,
+      "wrong_class": 0.1333,
+      "poor_box": 0.0556,
+      "missed": 0.0667,
+      "vocab_miss": 0.3889
+     },
+     "source:DOTA-6C": {
+      "n": 90,
+      "detected": 0.0444,
+      "wrong_class": 0.0,
+      "poor_box": 0.0,
+      "missed": 0.0,
+      "vocab_miss": 0.9556
+     },
+     "source:FAIR-18C": {
+      "n": 2118,
+      "detected": 0.474,
+      "wrong_class": 0.0472,
+      "poor_box": 0.0666,
+      "missed": 0.0562,
+      "vocab_miss": 0.356
+     },
+     "source:PP-4C": {
+      "n": 9,
+      "detected": 0.0,
+      "wrong_class": 0.0,
+      "poor_box": 0.0,
+      "missed": 0.0,
+      "vocab_miss": 1.0
+     },
+     "source:Xview-34C": {
+      "n": 2481,
+      "detected": 0.314,
+      "wrong_class": 0.0375,
+      "poor_box": 0.2753,
+      "missed": 0.3096,
+      "vocab_miss": 0.0637
+     }
+    },
+    "@0.14": {
+     "all": {
+      "n": 4788,
+      "detected": 0.1,
+      "wrong_class": 0.0497,
+      "poor_box": 0.0338,
+      "missed": 0.5988,
+      "vocab_miss": 0.2176
+     },
+     "density:1-5": {
+      "n": 243,
+      "detected": 0.1317,
+      "wrong_class": 0.0864,
+      "poor_box": 0.0082,
+      "missed": 0.0988,
+      "vocab_miss": 0.6749
+     },
+     "density:21-100": {
+      "n": 2040,
+      "detected": 0.1598,
+      "wrong_class": 0.0794,
+      "poor_box": 0.0358,
+      "missed": 0.423,
+      "vocab_miss": 0.302
+     },
+     "density:6-20": {
+      "n": 484,
+      "detected": 0.157,
+      "wrong_class": 0.0558,
+      "poor_box": 0.0764,
+      "missed": 0.314,
+      "vocab_miss": 0.3967
+     },
+     "density:>100": {
+      "n": 2021,
+      "detected": 0.0223,
+      "wrong_class": 0.0139,
+      "poor_box": 0.0247,
+      "missed": 0.9045,
+      "vocab_miss": 0.0346
+     },
+     "rarity:common": {
+      "n": 84,
+      "detected": 0.1786,
+      "wrong_class": 0.0595,
+      "poor_box": 0.0,
+      "missed": 0.0833,
+      "vocab_miss": 0.6786
+     },
+     "rarity:frequent": {
+      "n": 4539,
+      "detected": 0.1022,
+      "wrong_class": 0.0511,
+      "poor_box": 0.0357,
+      "missed": 0.6281,
+      "vocab_miss": 0.1829
+     },
+     "rarity:rare": {
+      "n": 165,
+      "detected": 0.0,
+      "wrong_class": 0.0061,
+      "poor_box": 0.0,
+      "missed": 0.0545,
+      "vocab_miss": 0.9394
+     },
+     "size:large": {
+      "n": 190,
+      "detected": 0.3211,
+      "wrong_class": 0.0579,
+      "poor_box": 0.1105,
+      "missed": 0.1632,
+      "vocab_miss": 0.3474
+     },
+     "size:medium": {
+      "n": 1742,
+      "detected": 0.0608,
+      "wrong_class": 0.0235,
+      "poor_box": 0.0459,
+      "missed": 0.6923,
+      "vocab_miss": 0.1774
+     },
+     "size:small": {
+      "n": 1667,
+      "detected": 0.105,
+      "wrong_class": 0.0588,
+      "poor_box": 0.0204,
+      "missed": 0.6089,
+      "vocab_miss": 0.207
+     },
+     "size:tiny": {
+      "n": 1189,
+      "detected": 0.1152,
+      "wrong_class": 0.074,
+      "poor_box": 0.0227,
+      "missed": 0.5172,
+      "vocab_miss": 0.2708
+     },
+     "source:DIOR-18C": {
+      "n": 90,
+      "detected": 0.1222,
+      "wrong_class": 0.1778,
+      "poor_box": 0.0111,
+      "missed": 0.3,
+      "vocab_miss": 0.3889
+     },
+     "source:DOTA-6C": {
+      "n": 90,
+      "detected": 0.0444,
+      "wrong_class": 0.0,
+      "poor_box": 0.0,
+      "missed": 0.0,
+      "vocab_miss": 0.9556
+     },
+     "source:FAIR-18C": {
+      "n": 2118,
+      "detected": 0.1501,
+      "wrong_class": 0.0873,
+      "poor_box": 0.0227,
+      "missed": 0.3839,
+      "vocab_miss": 0.356
+     },
+     "source:PP-4C": {
+      "n": 9,
+      "detected": 0.0,
+      "wrong_class": 0.0,
+      "poor_box": 0.0,
+      "missed": 0.0,
+      "vocab_miss": 1.0
+     },
+     "source:Xview-34C": {
+      "n": 2481,
+      "detected": 0.0588,
+      "wrong_class": 0.0149,
+      "poor_box": 0.0455,
+      "missed": 0.817,
+      "vocab_miss": 0.0637
+     }
+    }
+   },
+   "det_causes": {
+    "@0.14": {
+     "all": {
+      "n": 8957,
+      "tp": 0.0535,
+      "duplicate": 0.0085,
+      "wrong_class": 0.1401,
+      "poor_box": 0.0192,
+      "bg_present": 0.0495,
+      "bg_absent": 0.7293,
+      "fp_out_of_source": 0.6603
+     },
+     "DIOR-18C": {
+      "n": 1151,
+      "tp": 0.0096,
+      "duplicate": 0.0078,
+      "wrong_class": 0.1182,
+      "poor_box": 0.0191,
+      "bg_present": 0.04,
+      "bg_absent": 0.8054,
+      "fp_out_of_source": 0.6542
+     },
+     "DOTA-6C": {
+      "n": 364,
+      "tp": 0.011,
+      "duplicate": 0.0082,
+      "wrong_class": 0.0412,
+      "poor_box": 0.0165,
+      "bg_present": 0.0247,
+      "bg_absent": 0.8984,
+      "fp_out_of_source": 0.9368
+     },
+     "FAIR-18C": {
+      "n": 6138,
+      "tp": 0.0518,
+      "duplicate": 0.0036,
+      "wrong_class": 0.1486,
+      "poor_box": 0.0108,
+      "bg_present": 0.0469,
+      "bg_absent": 0.7384,
+      "fp_out_of_source": 0.6711
+     },
+     "PP-4C": {
+      "n": 31,
+      "tp": 0.0,
+      "duplicate": 0.0,
+      "wrong_class": 0.0,
+      "poor_box": 0.0,
+      "bg_present": 0.0,
+      "bg_absent": 1.0,
+      "fp_out_of_source": 1.0
+     },
+     "Xview-34C": {
+      "n": 1273,
+      "tp": 0.1147,
+      "duplicate": 0.033,
+      "wrong_class": 0.1508,
+      "poor_box": 0.0613,
+      "bg_present": 0.0786,
+      "bg_absent": 0.5617,
+      "fp_out_of_source": 0.5263
+     }
+    }
+   },
+   "confusions": {
+    "any": [
+     {
+      "gt": "Van",
+      "predicted_as": "Small Car",
+      "outcome": "wrong_class",
+      "n": 65
+     },
+     {
+      "gt": "Dump Truck",
+      "predicted_as": "Small Car",
+      "outcome": "vocab_miss",
+      "n": 53
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "Trailer",
+      "outcome": "wrong_class",
+      "n": 46
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Van",
+      "outcome": "vocab_miss",
+      "n": 44
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Small Car",
+      "outcome": "vocab_miss",
+      "n": 43
+     },
+     {
+      "gt": "Motorboat",
+      "predicted_as": "Sailboat",
+      "outcome": "vocab_miss",
+      "n": 37
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Flat Car",
+      "outcome": "vocab_miss",
+      "n": 30
+     },
+     {
+      "gt": "Cargo Truck",
+      "predicted_as": "Trailer",
+      "outcome": "vocab_miss",
+      "n": 23
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Flat Car",
+      "outcome": "vocab_miss",
+      "n": 22
+     },
+     {
+      "gt": "Dump Truck",
+      "predicted_as": "Van",
+      "outcome": "vocab_miss",
+      "n": 22
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "Cargo Truck",
+      "outcome": "wrong_class",
+      "n": 16
+     },
+     {
+      "gt": "Dry Cargo Ship",
+      "predicted_as": "dam",
+      "outcome": "vocab_miss",
+      "n": 15
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "vehicle",
+      "outcome": "wrong_class",
+      "n": 14
+     },
+     {
+      "gt": "Cargo Truck",
+      "predicted_as": "Van",
+      "outcome": "vocab_miss",
+      "n": 11
+     },
+     {
+      "gt": "Dry Cargo Ship",
+      "predicted_as": "Trailer",
+      "outcome": "vocab_miss",
+      "n": 11
+     }
+    ],
+    "@0.14": [
+     {
+      "gt": "Van",
+      "predicted_as": "Small Car",
+      "outcome": "wrong_class",
+      "n": 129
+     },
+     {
+      "gt": "Dump Truck",
+      "predicted_as": "Small Car",
+      "outcome": "vocab_miss",
+      "n": 28
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Van",
+      "outcome": "wrong_class",
+      "n": 23
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Van",
+      "outcome": "vocab_miss",
+      "n": 22
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Small Car",
+      "outcome": "vocab_miss",
+      "n": 21
+     },
+     {
+      "gt": "Building",
+      "predicted_as": "Trailer",
+      "outcome": "wrong_class",
+      "n": 20
+     },
+     {
+      "gt": "Dump Truck",
+      "predicted_as": "Van",
+      "outcome": "vocab_miss",
+      "n": 14
+     },
+     {
+      "gt": "Small Car",
+      "predicted_as": "Flat Car",
+      "outcome": "vocab_miss",
+      "n": 10
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "Flat Car",
+      "outcome": "wrong_class",
+      "n": 9
+     },
+     {
+      "gt": "vehicle",
+      "predicted_as": "Small Car",
+      "outcome": "wrong_class",
+      "n": 7
+     },
+     {
+      "gt": "Dry Cargo Ship",
+      "predicted_as": "Trailer",
+      "outcome": "vocab_miss",
+      "n": 7
+     },
+     {
+      "gt": "Cargo Plane",
+      "predicted_as": "airplane",
+      "outcome": "vocab_miss",
+      "n": 7
+     },
+     {
+      "gt": "Van",
+      "predicted_as": "vehicle",
+      "outcome": "wrong_class",
+      "n": 6
+     },
+     {
+      "gt": "Dump Truck",
+      "predicted_as": "Flat Car",
+      "outcome": "vocab_miss",
+      "n": 6
+     },
+     {
+      "gt": "Dry Cargo Ship",
+      "predicted_as": "dam",
+      "outcome": "vocab_miss",
+      "n": 5
+     }
+    ]
+   },
+   "ap50_by_density": {
+    "1-5": {
+     "n_images": 105,
+     "AP50": 0.030673656526612046
+    },
+    "6-20": {
+     "n_images": 42,
+     "AP50": 0.016709564465560885
+    },
+    "21-100": {
+     "n_images": 45,
+     "AP50": 0.016297439635132308
+    },
+    ">100": {
+     "n_images": 8,
+     "AP50": 0.020030611104689133
+    }
+   },
+   "ap50_by_rarity": {
+    "common": {
+     "n_classes": 25,
+     "mean_AP50": 0.041199293454494246
+    },
+    "frequent": {
+     "n_classes": 27,
+     "mean_AP50": 0.013416430591955722
+    },
+    "rare": {
+     "n_classes": 23,
+     "mean_AP50": 0.00017884558161891865
+    }
+   }
+  }
+ },
+ "figures": [
+  {
+   "file": "reports/figures/m10/tiny_objects.jpg",
+   "rule": "most tiny GT objects not detected (headline, thr)",
+   "image_id": 2448,
+   "source": "FAIR-18C",
+   "n_gt": 114,
+   "density": ">100",
+   "panels": [
+    "set:m6_threshold_m8"
+   ]
+  },
+  {
+   "file": "reports/figures/m10/dense_scene.jpg",
+   "rule": "most GT objects in the image (densest scene)",
+   "image_id": 3027,
+   "source": "Xview-34C",
+   "n_gt": 650,
+   "density": ">100",
+   "panels": [
+    "set:m6_threshold_m8"
+   ]
+  },
+  {
+   "file": "reports/figures/m10/similar_classes.jpg",
+   "rule": "most wrong_class outcomes (headline, thr)",
+   "image_id": 2154,
+   "source": "FAIR-18C",
+   "n_gt": 45,
+   "density": "21-100",
+   "panels": [
+    "set:m6_threshold_m8"
+   ]
+  },
+  {
+   "file": "reports/figures/m10/rare_vocab_miss.jpg",
+   "rule": "most rare-class GT objects dropped by the vocabulary (headline)",
+   "image_id": 3466,
+   "source": "Xview-34C",
+   "n_gt": 41,
+   "density": "21-100",
+   "panels": [
+    "set:m6_threshold_m8"
+   ]
+  },
+  {
+   "file": "reports/figures/m10/selection_gain.jpg",
+   "rule": "largest gain in true positives at thr, headline minus full",
+   "image_id": 3229,
+   "source": "Xview-34C",
+   "n_gt": 100,
+   "density": "21-100",
+   "panels": [
+    "full",
+    "set:m6_threshold_m8"
+   ]
+  },
+  {
+   "file": "reports/figures/m10/success.jpg",
+   "rule": "highest detected share at thr among images with >= 3 GT",
+   "image_id": 24,
+   "source": "DIOR-18C",
+   "n_gt": 4,
+   "density": "1-5",
+   "panels": [
+    "set:m6_threshold_m8"
+   ]
+  }
+ ]
+}
