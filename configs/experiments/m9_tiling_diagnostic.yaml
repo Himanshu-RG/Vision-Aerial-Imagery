@@ -1,0 +1,28 @@
+# M9 diagnostic (D31 -> D36): is small-object detection limited by input resolution, and does vocabulary
+# selection still help on top of tiled inference? Dev only; same 200-image sample and detector settings.
+# "@tile2" = 2x2 overlapping tiles (25% overlap) + the full image, same vocabulary, merged with class-wise NMS.
+name: m9_tiling_diag
+split: dev
+n_images: 200
+sample_seed: 2026
+seed: 0
+random_seed: 0
+naming_policy: light
+conditions:
+  - full
+  - full@tile2
+  - oracle_gt
+  - oracle_gt@tile2
+  - set:m6_threshold_m8
+  - set:m6_threshold_m8@tile2
+tiling:
+  overlap: 0.25
+  nms_iou: 0.5
+  include_full: true
+detector:
+  checkpoint: grounding-dino-tiny
+  device: cuda
+  precision: fp32
+  num_select: 900
+  class_reduce: mean
+  warmup: 3

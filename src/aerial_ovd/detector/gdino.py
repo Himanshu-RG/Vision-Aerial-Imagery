@@ -129,3 +129,48 @@ class GroundingDINO:
             n_text_tokens=n_tokens,
             timings_ms={"preprocess": (t1 - t0) * 1e3, "forward": (t2 - t1) * 1e3, "postprocess": (t3 - t2) * 1e3},
         )
+
+
+# ---------------------------------------------------------------------------------------------
+# M9 diagnostic (D36): tiled inference. The image is split into overlapping tiles (same geometry as the
+# M5 crops), each tile and (optionally) the full image is detected with the SAME vocabulary, boxes are
+# mapped back to image coordinates and merged with class-wise NMS, keeping the top `num_select`.
+# ---------------------------------------------------------------------------------------------
+
+def merge_detections(boxes: np.ndarray, scores: np.ndarray, classes: np.ndarray, iou: float, top_k: int):
+    """Class-wise NMS, then the top_k highest scores. boxes: (N, 4) xyxy."""
+    from torchvision.ops import batched_nms
+
+    if len(scores) == 0:
+        return boxes, scores, classes
+    keep = batched_nms(torch.as_tensor(boxes, dtype=torch.float32), torch.as_tensor(scores, dtype=torch.float32),
+                       torch.as_tensor(classes, dtype=torch.int64), iou).numpy()
+    keep = keep[np.argsort(-scores[keep], kind="stable")][:top_k]
+    return boxes[keep], scores[keep], classes[keep]
+
+
+def detect_tiled(det: "GroundingDINO", image, names: list[str], grid: int = 2, overlap: float = 0.25,
+                 nms_iou: float = 0.5, include_full: bool = True) -> Detections:
+    from aerial_ovd.vocabulary.selectors import crop_boxes
+
+    W, H = image.size
+    parts, timings, tokens = [], {"preprocess": 0.0, "forward": 0.0, "postprocess": 0.0}, 0
+    views = ([(0, 0, W, H)] if include_full else []) + crop_boxes(W, H, grid, overlap)
+    for (x0, y0, x1, y1) in views:
+        d = det.detect(image if (x0, y0, x1, y1) == (0, 0, W, H) else image.crop((x0, y0, x1, y1)), names)
+        b = d.boxes_xyxy.copy()
+        b[:, [0, 2]] += x0
+        b[:, [1, 3]] += y0
+        parts.append((b, d.scores, d.class_index))
+        tokens = d.n_text_tokens
+        for k in timings:
+            timings[k] += d.timings_ms[k]
+    t0 = time.perf_counter()
+    boxes = np.concatenate([p[0] for p in parts])
+    scores = np.concatenate([p[1] for p in parts])
+    classes = np.concatenate([p[2] for p in parts])
+    boxes, scores, classes = merge_detections(boxes, scores, classes, nms_iou, det.num_select)
+    timings["postprocess"] += (time.perf_counter() - t0) * 1e3
+    timings["n_views"] = len(views)
+    return Detections(boxes_xyxy=boxes.astype(np.float32), scores=scores.astype(np.float32),
+                      class_index=classes.astype(np.int64), n_text_tokens=tokens, timings_ms=timings)

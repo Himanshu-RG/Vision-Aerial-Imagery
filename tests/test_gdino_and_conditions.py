@@ -71,3 +71,17 @@ def test_sample_images_is_exact_and_deterministic():
         dev = {int(r["image_id"]) for r in rows if r["split"] == "dev"}
         assert set(a) <= dev  # never touches test
     assert len(sample_images(rows, "dev", None, seed=2026)) == len(dev)
+
+
+def test_merge_detections_classwise_nms_and_topk():
+    import numpy as np
+
+    from aerial_ovd.detector.gdino import merge_detections
+
+    boxes = np.array([[0, 0, 10, 10], [1, 1, 10, 10], [0, 0, 10, 10], [50, 50, 60, 60]], dtype=float)
+    scores = np.array([0.9, 0.8, 0.7, 0.6])
+    classes = np.array([0, 0, 1, 0])  # box 1 duplicates box 0 (same class); box 2 is another class
+    b, s, c = merge_detections(boxes, scores, classes, iou=0.5, top_k=10)
+    assert s.tolist() == [0.9, 0.7, 0.6] and c.tolist() == [0, 1, 0]
+    b, s, c = merge_detections(boxes, scores, classes, iou=0.5, top_k=2)
+    assert s.tolist() == [0.9, 0.7]

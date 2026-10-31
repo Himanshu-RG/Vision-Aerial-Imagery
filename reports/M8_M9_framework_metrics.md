@@ -61,4 +61,4 @@ Source: `reports/generated/m6_retention_det_tables.md`, "Operating points".
 
 Conclusion: **small-object performance is limited by the detector at 800/1333 px, not by the vocabulary.** The only way to test that directly is a detector-side change (tiling or higher-resolution input), applied identically to all conditions.
 
-**Options:** see the decision recorded in CONTEXT.md §8 once taken.
+**Decision (user, 2026-10-31; D36):** run one small tiling diagnostic. The config is `configs/experiments/m9_tiling_diagnostic.yaml`: full / oracle / headline selector, each with and without 2×2 tiles plus the full image. A results section will be added after the GPU run.

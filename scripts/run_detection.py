@@ -117,7 +117,7 @@ def main() -> int:
     import torch
     from PIL import Image
 
-    from aerial_ovd.detector.gdino import GroundingDINO
+    from aerial_ovd.detector.gdino import GroundingDINO, detect_tiled
 
     if det_cfg["device"].startswith("cuda") and not torch.cuda.is_available():
         print("config asks for CUDA but torch.cuda.is_available() is False -- wrong venv?", file=sys.stderr)
@@ -146,7 +146,7 @@ def main() -> int:
         if cond.startswith(("sel:", "set:")):
             import numpy as np
 
-            name = cond.split(":")[1]
+            name = cond.split(":")[1].split("@")[0]
             if name in selector_scores:
                 continue
             npz = REPO_ROOT / "outputs" / "selection" / cfg["split"] / f"{name}.npz"
@@ -211,18 +211,26 @@ def main() -> int:
             log.error("image load failed", extra={"image_id": iid, "error": repr(e)})
             continue
         for c in todo:
-            vocab = vocabulary_for(c, iid, all_ids, gt_classes, source_space, seed=cfg.get("random_seed", 0),
+            # "<condition>@tile<g>" = same vocabulary, tiled inference (D36; M9 diagnostic)
+            base_c, _, tile = c.partition("@tile")
+            vocab = vocabulary_for(base_c, iid, all_ids, gt_classes, source_space, seed=cfg.get("random_seed", 0),
                                    selector_scores=selector_scores)
             rec = {"image_id": iid, "condition": c, "vocab": vocab, "load_ms": round(load_ms, 2)}
             try:
                 if torch.cuda.is_available():
                     torch.cuda.reset_peak_memory_stats()
-                d = det.detect(image, [prompt_names[k] for k in vocab])
+                names_k = [prompt_names[k] for k in vocab]
+                if tile:
+                    tcfg = cfg.get("tiling", {})
+                    d = detect_tiled(det, image, names_k, grid=int(tile), overlap=tcfg.get("overlap", 0.25),
+                                     nms_iou=tcfg.get("nms_iou", 0.5), include_full=tcfg.get("include_full", True))
+                else:
+                    d = det.detect(image, names_k)
                 xyxy = d.boxes_xyxy
                 rec.update({
                     "status": "ok", "n_text_tokens": d.n_text_tokens,
                     "timings_ms": {k: round(v, 2) for k, v in d.timings_ms.items()},
-                    "latency_ms": round(sum(d.timings_ms.values()), 2),
+                    "latency_ms": round(sum(v for k, v in d.timings_ms.items() if k != "n_views"), 2),
                     "detections": [[vocab[int(ci)], round(float(s), 5), round(float(b[0]), 2), round(float(b[1]), 2),
                                     round(float(b[2] - b[0]), 2), round(float(b[3] - b[1]), 2)]
                                    for ci, s, b in zip(d.class_index, d.scores, xyxy)],
