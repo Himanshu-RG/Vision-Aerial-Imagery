@@ -1,0 +1,33 @@
+{
+ "repo": "SGhazalS/nwpu-vhr10",
+ "revision": "f7aa66718fc693b13dc2a3218568b7817a18794b",
+ "n_positive_images": 650,
+ "n_images_kept": 614,
+ "n_boxes_kept": 3594,
+ "boxes_per_class": {
+  "airplane": 757,
+  "storage tank": 655,
+  "baseball diamond": 390,
+  "tennis court": 524,
+  "basketball court": 159,
+  "ground track field": 163,
+  "vehicle": 598,
+  "bridge": 124,
+  "harbor": 224
+ },
+ "dropped": {
+  "ship": 302,
+  "images_ship_only": 36
+ },
+ "cir_rule": "images 421-453 (colour rule + visual check; see docstring)",
+ "n_cir": 33,
+ "cir_share_quantiles": [
+  0.006,
+  0.033,
+  0.041,
+  0.058,
+  0.14
+ ],
+ "gt_json_sha256": "9a64bf709fa2f16f342e285e13ae58d45282c2da6e057591d47b80b7365000be",
+ "manifest_sha256": "5cbf9a62f9e922cc86d9462dc5374a005594e4c15b10d510cccfa3fec1467275"
+}

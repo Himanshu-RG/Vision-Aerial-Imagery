@@ -26,6 +26,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
+from aerial_ovd.data.splits import image_dir  # noqa: E402
 from aerial_ovd.utils.paths import get_store  # noqa: E402
 from aerial_ovd.vocabulary.names import prompt_name  # noqa: E402
 from aerial_ovd.vocabulary.selectors import (  # noqa: E402
@@ -38,7 +39,7 @@ MAN = REPO_ROOT / "data" / "manifests"
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--split", default="dev", choices=["dev", "test"])
+    ap.add_argument("--split", default="dev", choices=["dev", "test", "nwpu"])
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--selectors", nargs="*", default=["frequency", "random_s0", "random_s1", "random_s2",
                                                          "clip_openai_b32", "remoteclip_b32"])
@@ -80,7 +81,7 @@ def main() -> int:
     git = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, cwd=REPO_ROOT).stdout.strip()
     git_dirty = bool(subprocess.run(["git", "status", "--porcelain", "--", "src", "scripts", "configs"],
                                     capture_output=True, text=True, cwd=REPO_ROOT).stdout.strip())
-    img_dir = store / "datasets" / "LAE-80C-images"
+    img_dir = image_dir(store, args.split)
     for sel_name in args.selectors:
         t0 = time.perf_counter()
         sel = builders[sel_name]()

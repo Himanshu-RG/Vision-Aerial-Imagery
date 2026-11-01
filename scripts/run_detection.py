@@ -29,6 +29,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
+from aerial_ovd.data.splits import image_dir, source_space as split_source_space  # noqa: E402
 from aerial_ovd.data.split import iterative_stratification  # noqa: E402
 from aerial_ovd.utils.config import load_yaml  # noqa: E402
 from aerial_ovd.utils.logging import get_logger  # noqa: E402
@@ -42,8 +43,13 @@ MAN = REPO_ROOT / "data" / "manifests"
 
 
 def load_manifest() -> list[dict]:
-    with (MAN / "lae80c_manifest.csv").open(encoding="utf-8") as f:
-        return list(csv.DictReader(f))
+    """LAE-80C rows, plus the external NWPU VHR-10 rows (split 'nwpu', D45) once prepared."""
+    rows = []
+    for name in ("lae80c_manifest.csv", "nwpu_manifest.csv"):
+        if (MAN / name).is_file():
+            with (MAN / name).open(encoding="utf-8") as f:
+                rows += list(csv.DictReader(f))
+    return rows
 
 
 def load_vocab(policy: str) -> tuple[dict[int, str], dict[int, str]]:
@@ -136,7 +142,7 @@ def main() -> int:
     all_ids = sorted(prompt_names)
     source_space = {}
     for iid, r in by_id.items():
-        source_space[iid] = {c for c, s in cat_source.items() if s == r["source"]}
+        source_space[iid] = split_source_space(r["source"], cat_source)
     gt_classes = {iid: [int(c) for c in r["classes"].split()] for iid, r in by_id.items()}
     image_ids = sample_images(rows, cfg["split"], cfg.get("n_images"), cfg["sample_seed"])
 
@@ -180,7 +186,7 @@ def main() -> int:
     (run_dir / "run_config.json").write_text(json.dumps(meta, indent=2, default=str) + "\n", encoding="utf-8")
     log.info("run started", extra={"run_id": run_id, "n_images": len(image_ids), "device": det_cfg["device"]})
 
-    img_dir = store / "datasets" / "LAE-80C-images"
+    img_dir = image_dir(store, cfg["split"])
     conditions = cfg["conditions"]
     files = {c: run_dir / (c.replace(":", "__") + ".jsonl") for c in conditions}  # ":" is not allowed in Windows file names
     finished = {c: done_ids(p) for c, p in files.items()}

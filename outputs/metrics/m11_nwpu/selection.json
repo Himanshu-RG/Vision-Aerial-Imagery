@@ -1,0 +1,351 @@
+{
+ "n_images": 614,
+ "n_cir": 33,
+ "rules": {
+  "oracle_gt": {
+   "all": {
+    "mean_size": 1.3534201954397393,
+    "image_mean_recall": 1.0,
+    "object_weighted": 1.0,
+    "selected_not_annotated_share": 0.0
+   },
+   "cir": {
+    "mean_size": 1.0,
+    "image_mean_recall": 1.0,
+    "object_weighted": 1.0,
+    "selected_not_annotated_share": 0.0
+   },
+   "non_cir": {
+    "mean_size": 1.3734939759036144,
+    "image_mean_recall": 1.0,
+    "object_weighted": 1.0,
+    "selected_not_annotated_share": 0.0
+   },
+   "top_non_annotated": []
+  },
+  "frequency top-8": {
+   "all": {
+    "mean_size": 8.0,
+    "image_mean_recall": 0.0,
+    "object_weighted": 0.0,
+    "selected_not_annotated_share": 1.0
+   },
+   "cir": {
+    "mean_size": 8.0,
+    "image_mean_recall": 0.0,
+    "object_weighted": 0.0,
+    "selected_not_annotated_share": 1.0
+   },
+   "non_cir": {
+    "mean_size": 8.0,
+    "image_mean_recall": 0.0,
+    "object_weighted": 0.0,
+    "selected_not_annotated_share": 1.0
+   },
+   "top_non_annotated": [
+    [
+     "Cargo Truck",
+     614
+    ],
+    [
+     "Dry Cargo Ship",
+     614
+    ],
+    [
+     "Dump Truck",
+     614
+    ],
+    [
+     "Intersection",
+     614
+    ],
+    [
+     "Motorboat",
+     614
+    ],
+    [
+     "Small Car",
+     614
+    ],
+    [
+     "Van",
+     614
+    ],
+    [
+     "Building",
+     614
+    ]
+   ]
+  },
+  "clip_openai_b32 top-8": {
+   "all": {
+    "mean_size": 8.0,
+    "image_mean_recall": 0.7820304017372423,
+    "object_weighted": 0.7429048414023373,
+    "selected_not_annotated_share": 0.7542752442996743
+   },
+   "cir": {
+    "mean_size": 8.0,
+    "image_mean_recall": 0.30303030303030304,
+    "object_weighted": 0.3693467336683417,
+    "selected_not_annotated_share": 0.9393939393939394
+   },
+   "non_cir": {
+    "mean_size": 8.0,
+    "image_mean_recall": 0.8092369477911647,
+    "object_weighted": 0.7894242803504381,
+    "selected_not_annotated_share": 0.7437607573149742
+   },
+   "top_non_annotated": [
+    [
+     "Facility",
+     415
+    ],
+    [
+     "stadium",
+     278
+    ],
+    [
+     "soccer ball field",
+     269
+    ],
+    [
+     "helipad",
+     208
+    ],
+    [
+     "overpass",
+     205
+    ],
+    [
+     "golffield",
+     179
+    ],
+    [
+     "Building",
+     143
+    ],
+    [
+     "Intersection",
+     142
+    ]
+   ]
+  },
+  "clip_openai_b32 top-20": {
+   "all": {
+    "mean_size": 20.0,
+    "image_mean_recall": 0.9391965255157437,
+    "object_weighted": 0.9201446855870896,
+    "selected_not_annotated_share": 0.8306188925081434
+   },
+   "cir": {
+    "mean_size": 20.0,
+    "image_mean_recall": 0.8787878787878788,
+    "object_weighted": 0.871859296482412,
+    "selected_not_annotated_share": 0.9196969696969696
+   },
+   "non_cir": {
+    "mean_size": 20.0,
+    "image_mean_recall": 0.942627653471027,
+    "object_weighted": 0.9261576971214017,
+    "selected_not_annotated_share": 0.8255593803786574
+   },
+   "top_non_annotated": [
+    [
+     "Facility",
+     519
+    ],
+    [
+     "Building",
+     476
+    ],
+    [
+     "overpass",
+     440
+    ],
+    [
+     "helipad",
+     438
+    ],
+    [
+     "stadium",
+     340
+    ],
+    [
+     "Tower",
+     339
+    ],
+    [
+     "Damaged Building",
+     318
+    ],
+    [
+     "Intersection",
+     318
+    ]
+   ]
+  },
+  "remoteclip_b32 top-3": {
+   "all": {
+    "mean_size": 3.0,
+    "image_mean_recall": 0.7824375678610207,
+    "object_weighted": 0.6143572621035058,
+    "selected_not_annotated_share": 0.4424538545059717
+   },
+   "cir": {
+    "mean_size": 3.0,
+    "image_mean_recall": 1.0,
+    "object_weighted": 1.0,
+    "selected_not_annotated_share": 0.6464646464646464
+   },
+   "non_cir": {
+    "mean_size": 3.0,
+    "image_mean_recall": 0.7700803212851405,
+    "object_weighted": 0.5663329161451814,
+    "selected_not_annotated_share": 0.4308663224325875
+   },
+   "top_non_annotated": [
+    [
+     "Facility",
+     208
+    ],
+    [
+     "Engineering Vehicle",
+     162
+    ],
+    [
+     "Aircraft Hangar",
+     62
+    ],
+    [
+     "Small Aircraft",
+     45
+    ],
+    [
+     "airport",
+     36
+    ],
+    [
+     "Van",
+     24
+    ],
+    [
+     "Sailboat",
+     23
+    ],
+    [
+     "Yacht",
+     21
+    ]
+   ]
+  },
+  "remoteclip_b32 top-8": {
+   "all": {
+    "mean_size": 8.0,
+    "image_mean_recall": 0.9438110749185668,
+    "object_weighted": 0.8280467445742905,
+    "selected_not_annotated_share": 0.6421009771986971
+   },
+   "cir": {
+    "mean_size": 8.0,
+    "image_mean_recall": 1.0,
+    "object_weighted": 1.0,
+    "selected_not_annotated_share": 0.8484848484848485
+   },
+   "non_cir": {
+    "mean_size": 8.0,
+    "image_mean_recall": 0.9406196213425129,
+    "object_weighted": 0.8066332916145181,
+    "selected_not_annotated_share": 0.6303786574870912
+   },
+   "top_non_annotated": [
+    [
+     "Engineering Vehicle",
+     409
+    ],
+    [
+     "Facility",
+     346
+    ],
+    [
+     "Building",
+     235
+    ],
+    [
+     "Trailer",
+     215
+    ],
+    [
+     "Passenger Car",
+     139
+    ],
+    [
+     "Shed",
+     123
+    ],
+    [
+     "Van",
+     115
+    ],
+    [
+     "Ground Grader",
+     99
+    ]
+   ]
+  },
+  "headline (D34, frozen)": {
+   "all": {
+    "mean_size": 3.8908794788273617,
+    "image_mean_recall": 0.8585776330076004,
+    "object_weighted": 0.7771285475792988,
+    "selected_not_annotated_share": 0.3687866847763379
+   },
+   "cir": {
+    "mean_size": 2.878787878787879,
+    "image_mean_recall": 1.0,
+    "object_weighted": 1.0,
+    "selected_not_annotated_share": 0.5567599067599067
+   },
+   "non_cir": {
+    "mean_size": 3.9483648881239244,
+    "image_mean_recall": 0.8505450372920251,
+    "object_weighted": 0.7493742177722152,
+    "selected_not_annotated_share": 0.3581100645948272
+   },
+   "top_non_annotated": [
+    [
+     "Engineering Vehicle",
+     230
+    ],
+    [
+     "Facility",
+     139
+    ],
+    [
+     "Small Aircraft",
+     82
+    ],
+    [
+     "Passenger Car",
+     80
+    ],
+    [
+     "airport",
+     79
+    ],
+    [
+     "Aircraft Hangar",
+     76
+    ],
+    [
+     "Fixed-wing Aircraft",
+     46
+    ],
+    [
+     "Yacht",
+     45
+    ]
+   ]
+  }
+ }
+}

@@ -20,6 +20,7 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 from aerial_ovd.evaluation.coco_eval import (  # noqa: E402
     ap50_from_matches, evaluate, paired_bootstrap, per_image_matches, prf_at_thresholds,
 )
+from aerial_ovd.data.splits import gt_path, source_space as split_source_space  # noqa: E402
 from aerial_ovd.utils.paths import get_store  # noqa: E402
 
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
@@ -53,10 +54,10 @@ def main() -> int:
     cfg, image_ids = meta["config"], meta["image_ids"]
 
     store = get_store()
-    gt = json.loads((store / "datasets" / "LAE-80C-clean" / f"{cfg['split']}.json").read_text(encoding="utf-8"))
+    gt = json.loads(gt_path(store, cfg["split"]).read_text(encoding="utf-8"))
     rows = {int(r["image_id"]): r for r in load_manifest()}
     _, cat_source = load_vocab(cfg.get("naming_policy", "light"))
-    image_space = {iid: {c for c, s in cat_source.items() if s == rows[iid]["source"]} for iid in image_ids}
+    image_space = {iid: split_source_space(rows[iid]["source"], cat_source) for iid in image_ids}
 
     out = {"run_id": meta["run_id"], "host": meta["host"], "git_commit": meta["git_commit"],
            "device": cfg["detector"]["device"], "n_images": len(image_ids), "conditions": {}}

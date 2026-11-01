@@ -50,5 +50,34 @@ Per source (headline vs full): DIOR 0.060 → 0.220, DOTA 0.113 → 0.240, FAIR 
 - Every test result is reported for the whole test split and **separately for the seen (DIOR+DOTA) and unseen (FAIR+xView+PP) groups**, plus per source, under both protocols.
 - The test conditions are listed in `configs/experiments/final_test.yaml`, to be created and committed before the test run.
 
-## Part 2 (external dataset): pending a decision
-VisDrone, the external set planned in D3, is in RemoteCLIP's training data, so it is a "seen" domain for the selector.
+## Part 2: external dataset NWPU VHR-10 (D45; step 1 done, detection pending)
+**Choice.** VisDrone, the external set planned in D3, is in RemoteCLIP's training data, so the user chose NWPU VHR-10 instead (2026-11-01). It is not in RemoteCLIP's training data, except for its colour-infrared images, which are cropped from Vaihingen (RemoteCLIP's segmentation group). Its classes are DIOR's names, since the same group built both datasets. So it tests **unseen images with familiar classes**.
+
+**Data.** `scripts/prepare_nwpu.py`, HF mirror `SGhazalS/nwpu-vhr10` pinned at revision `f7aa667`. The dataset is research use only; images stay in the local store and are not committed.
+- 650 positive images → 614 kept, with 3,594 boxes in 9 classes, mapped to the DIOR ids of the 80-class vocabulary.
+- Ship (302 boxes) has no single equivalent and is dropped. That leaves 36 ship-only images with nothing to evaluate.
+- The per-class counts match the published dataset.
+- **Colour-infrared subgroup:** images 421–453 (33), found by a colour rule plus a visual check (D45a).
+
+**Protocol.**
+- The same 80-class prompt is used, and every method is applied **frozen**, with no recalibration on NWPU.
+- Standard COCO evaluation over the 9 classes. Source-aware scoring is identical here, because other classes have no ground truth.
+
+### Selection quality (detector-free, 614 images)
+Source: `reports/generated/M11_nwpu_selection.md`.
+
+| rule | mean size | object-weighted coverage | colour-infrared images | others |
+|---|---|---|---|---|
+| headline (D34, frozen) | 3.9 | 0.777 | 1.000 | 0.749 |
+| RemoteCLIP top-8 | 8 | 0.828 | 1.000 | 0.807 |
+| OpenAI CLIP top-8 | 8 | 0.743 | 0.369 | 0.789 |
+| OpenAI CLIP top-20 | 20 | 0.920 | 0.872 | 0.926 |
+| frequency prior top-8 | 8 | 0.000 | 0 | 0 |
+
+- **The frozen threshold transfers, but its size does not.** It keeps 3.9 classes per image on NWPU against 8 on LAE-80C: RemoteCLIP is more confident on these DIOR-like images.
+- **Exposure is visible.** On the Vaihingen-derived images, RemoteCLIP covers 100% of objects and OpenAI CLIP 37%. On the rest they are close (0.81 vs 0.79 at top-8).
+- **Near-synonyms are selected again:** Engineering Vehicle and Passenger Car for "vehicle", Small Aircraft and Fixed-wing Aircraft for "airplane". This is the M10 finding on a new dataset.
+- The frequency prior learned on LAE-80C dev never selects an NWPU class: it carries over no information.
+
+### Detection (pending)
+Config: `configs/experiments/m11_nwpu_detection.yaml`, with 9 conditions: full, oracle, random, frequency top-8, OpenAI CLIP top-8/20, RemoteCLIP top-3/8 and headline. The CPU smoke run is OK.

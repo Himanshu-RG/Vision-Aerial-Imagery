@@ -1,0 +1,27 @@
+# M11 part 2 (D45): external generalization on NWPU VHR-10 (650 positive images; ship dropped; 9 classes mapped onto
+# the 80-class LAE-80C vocabulary). Every method is applied FROZEN: no recalibration, no tuning on NWPU.
+# Selections precomputed on the laptop (scripts/run_selection.py --split nwpu; scripts/make_frozen_headline.py --split nwpu).
+name: m11_nwpu_det
+split: nwpu
+n_images: null
+sample_seed: 2026
+seed: 0
+random_seed: 0
+naming_policy: light
+conditions:
+  - full
+  - oracle_gt
+  - random_matched
+  - sel:frequency:k8
+  - sel:clip_openai_b32:k8
+  - sel:clip_openai_b32:k20
+  - sel:remoteclip_b32:k3
+  - sel:remoteclip_b32:k8
+  - set:headline_d34
+detector:
+  checkpoint: grounding-dino-tiny
+  device: cuda
+  precision: fp32
+  num_select: 900
+  class_reduce: mean
+  warmup: 3
