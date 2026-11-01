@@ -1,14 +1,16 @@
 # Adaptive Vocabulary Selection for Robust Open-Vocabulary Object Detection in Aerial Imagery
 
 **Project overview for review** · Team *Transmontane*: Amit Adhikari (23BCE2327), Himanshu Ray (23BCE2335), Saurav Kumar Gupta (23BCE2336), Avishek Chowdhury (23BCE2344)
-**Status as of 25 Oct 2026:**
+**Status as of 2 Nov 2026:**
 - Modules M0–M3 complete.
 - Experiment E0 complete.
-- M4 (simple baselines) complete except the caption-based baseline.
+- M4 (simple baselines) and E5 (caption-based and TagCLIP-style baselines) complete: neither baseline beats our method.
 - M5 (global + local selection) complete. It improves *selection* but not *detection*: a documented negative result.
-- M6–M7 (uncertainty-aware retention, adaptive budget) complete. **An adaptive per-image budget is the best method so far.**
+- M6–M7 (uncertainty-aware retention, adaptive budget) complete. **An adaptive per-image budget is the best method; it is frozen for the final test (D34).**
 - M8–M9 complete (experiment registry, precision/recall/F1, tiling diagnostic: small objects are a detector limitation).
-- Next: remaining baselines, failure analysis, generalization, one-time test evaluation.
+- M10 (failure analysis) and E9 (synonym-aware selector: no gain) complete.
+- M11 (generalization) complete. The gain holds on DIOR/DOTA-like data and on a new dataset of that kind (NWPU VHR-10), but not on fine-grained, unfamiliar sources (FAIR1M, xView).
+- Next: one-time test evaluation, then latency profiling (M12), reproducibility package (M13) and paper draft (M14).
 
 Repository: <https://github.com/Himanshu-RG/Vision-Aerial-Imagery>. The living project log is [`CONTEXT.md`](../CONTEXT.md); module reports are in [`reports/`](.).
 
@@ -26,6 +28,10 @@ What we have established so far, all on the tuning (dev) split, with no test dat
 6. **Local evidence improves selection but not detection.** Adding 13 overlapping crops to RemoteCLIP raises recall of small-object classes from 0.22 to 0.31 at 8 classes (significant; natural-image CLIP gains nothing). In detection, Grounding DINO then finds more small objects (recall 0.10 → 0.12–0.13), but localises them poorly, so AP does not improve, and the crops cost 83 ms per image. **The small-object bottleneck is the detector itself, not the vocabulary.**
 7. **The best method so far: an adaptive per-image vocabulary size.** Keep every class whose RemoteCLIP probability exceeds a threshold calibrated on other images (about 8 classes on average, more for ambiguous images, fewer for clear ones). AP50 rises to **0.055 under standard COCO scoring (×3.8 vs all 80 classes) and 0.071 source-aware (×2.5)**, robust on all three statistical checks under *both* protocols, which no earlier selector achieved. Keeping uncertain classes via crop evidence did not help detection.
 
+8. **Where it works (M11).**
+   - The gain is on source datasets the selector's encoder (RemoteCLIP) was trained on: DIOR and DOTA, 0.069 → 0.223 source-aware AP50.
+   - It is absent on unseen, fine-grained ones: FAIR1M, xView.
+   - Applied frozen to a new dataset of the DIOR kind (NWPU VHR-10), it still improves AP50 from 0.088 to 0.129, robustly.
 ---
 
 ## 2. Problem and motivation
@@ -314,6 +320,23 @@ RemoteCLIP, our selector's encoder, was trained on data that includes DIOR and D
 
 **What this shows:** our gain is entirely on the datasets the selector's encoder has seen, and absent on unseen ones, even though a perfect vocabulary would help 8× there. Part of the seen-dataset gain is not exposure (OpenAI CLIP also gains there), but the headline claim must be qualified. This split is now pre-declared for the final test (D44).
 
+### 7.11 M11 part 2 — a dataset the selector never saw: NWPU VHR-10 (614 images, RTX 5060)
+Every method is applied frozen, with no recalibration: the same 80-class prompt and the same threshold. NWPU's 9 classes map to LAE-80C names; ship is dropped.
+
+| AP50 on NWPU VHR-10 | all images | colour-infrared (33, from a dataset RemoteCLIP saw) | other 581 |
+|---|---|---|---|
+| All 80 classes | 0.088 | 0.000 | 0.088 |
+| Oracle | 0.208 | 0.363 | 0.220 |
+| **Ours (adaptive threshold, frozen)** | **0.129** (+0.041, robust) | 0.311 | 0.131 |
+| RemoteCLIP top-8 | 0.093 (n.s.) | 0.121 | 0.093 |
+| OpenAI CLIP top-20 | 0.100 (+0.012, robust) | 0.011 | 0.100 |
+| Frequency prior (learned on LAE-80C) | 0.000 | 0 | 0 |
+
+**What this shows:**
+- Our method transfers to a new dataset without retuning (×1.5, 34% of the oracle headroom) and is the best selector there. F1 at score 0.25 more than doubles (0.08 → 0.18).
+- The gain comes from its *adaptive* size: fixed top-k with the same encoder gives nothing. Most of it is in two classes, ground track field and vehicle.
+- NWPU was made by DIOR's authors with DIOR's classes, so this confirms transfer to new images of a *familiar* kind. It does not contradict part 1: there is still no gain on fine-grained, unfamiliar label spaces such as FAIR1M and xView.
+
 Full tables: [`generated/E0_tables.md`](generated/E0_tables.md), [`generated/e0_headroom_tables.md`](generated/e0_headroom_tables.md) (robustness), [`generated/M4_selection_tables.md`](generated/M4_selection_tables.md), [`generated/m4_selectors_det_tables.md`](generated/m4_selectors_det_tables.md), [`generated/M5_selection_tables.md`](generated/M5_selection_tables.md), [`generated/m5_global_local_det_tables.md`](generated/m5_global_local_det_tables.md), [`generated/M6_retention_tables.md`](generated/M6_retention_tables.md), [`generated/m6_retention_det_tables.md`](generated/m6_retention_det_tables.md) (+ `_vs_k3/_vs_k8/_vs_k20`).
 
 ---
@@ -337,7 +360,7 @@ Each method is compared at **matched average vocabulary sizes**, with accuracy�
 ## 9. Next steps
 1. ~~Remaining baselines (E5)~~ done; ~~detector-side test~~ done at M9 (tiling does not help, D37).
 2. ~~M10 failure analysis~~ done; ~~synonym-aware selector (E9)~~ tested: no gain, headline method stays frozen (D43).
-3. **M11:** ~~per-source generalization~~ done (gain only on datasets the selector's encoder saw); external dataset pending a decision. One-time final evaluation on the held-out test split.
+3. **M11:** ~~per-source generalization~~ done (gain only on datasets the selector's encoder saw); ~~external dataset NWPU VHR-10~~ done (frozen method transfers: ×1.5, robust). **Next: one-time final evaluation on the held-out test split** (frozen list committed first).
 4. **M12–M14:** latency profiling, reproducibility package, paper draft.
 
 ## 10. Risks and honest assessment

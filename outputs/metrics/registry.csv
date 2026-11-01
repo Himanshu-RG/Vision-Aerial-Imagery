@@ -20,6 +20,15 @@ e9_synonym_det-cd6a2ee199e9,E8,set:m6_threshold_m8,dev,200,LAPTOP-5CPRTI27,fc465
 e9_synonym_det-cd6a2ee199e9,E9,set:e9_syn_m8,dev,200,LAPTOP-5CPRTI27,fc4653e,False,0,7.58,0.0516,0.0707,0.0286,0.2408,0.1347,0.0056,336.8
 e9_synonym_det-cd6a2ee199e9,E9,set:e9_syn_d34,dev,200,LAPTOP-5CPRTI27,fc4653e,False,0,9.57,0.0529,0.0695,0.0284,0.2532,0.1543,0.0052,339.2
 e9_synonym_det-cd6a2ee199e9,diagnostic,set:e9_diag_insource_m8,dev,200,LAPTOP-5CPRTI27,fc4653e,False,0,8.24,0.076,0.076,0.0464,0.3342,0.2477,0.0101,336.7
+m11_nwpu_det-58d87bbcbac5,E1,full,nwpu,614,LAPTOP-5CPRTI27,26de481,False,0,80.0,0.0879,0.0879,0.0412,0.1568,0.25,0.0307,668.4
+m11_nwpu_det-58d87bbcbac5,oracle,oracle_gt,nwpu,614,LAPTOP-5CPRTI27,26de481,False,0,1.35,0.2081,0.2081,0.1282,0.5828,0.7814,0.3042,536.9
+m11_nwpu_det-58d87bbcbac5,E3,random_matched,nwpu,614,LAPTOP-5CPRTI27,26de481,False,0,1.35,0.0069,0.0069,0.0044,0.0144,0.0,0.0166,540.1
+m11_nwpu_det-58d87bbcbac5,E2,sel:frequency:k8,nwpu,614,LAPTOP-5CPRTI27,26de481,False,0,8.0,0.0,0.0,0.0,0.0,0.0,0.0,549.3
+m11_nwpu_det-58d87bbcbac5,E4,sel:clip_openai_b32:k8,nwpu,614,LAPTOP-5CPRTI27,26de481,False,0,8.0,0.1005,0.1005,0.0534,0.3403,0.3376,0.0373,545.8
+m11_nwpu_det-58d87bbcbac5,E4,sel:clip_openai_b32:k20,nwpu,614,LAPTOP-5CPRTI27,26de481,False,0,20.0,0.1001,0.1001,0.0495,0.2673,0.2738,0.0121,567.3
+m11_nwpu_det-58d87bbcbac5,E4,sel:remoteclip_b32:k3,nwpu,614,LAPTOP-5CPRTI27,26de481,False,0,3.0,0.0736,0.0736,0.0479,0.3882,0.381,0.0736,540.8
+m11_nwpu_det-58d87bbcbac5,E4,sel:remoteclip_b32:k8,nwpu,614,LAPTOP-5CPRTI27,26de481,False,0,8.0,0.0933,0.0933,0.0512,0.3843,0.4762,0.1021,545.6
+m11_nwpu_det-58d87bbcbac5,E8,set:headline_d34,nwpu,614,LAPTOP-5CPRTI27,26de481,False,0,3.89,0.1292,0.1292,0.0791,0.3856,0.5238,0.1229,543.4
 m4_selectors_det-16d38bd056f8,E1,full,dev,200,LAPTOP-5CPRTI27,913a99e,False,0,80.0,0.0146,0.0282,0.0071,0.1245,0.1056,0.0036,467.0
 m4_selectors_det-16d38bd056f8,oracle,oracle_gt,dev,200,LAPTOP-5CPRTI27,913a99e,False,0,2.25,0.1404,0.1404,0.0829,0.4668,0.4504,0.0411,363.2
 m4_selectors_det-16d38bd056f8,E2,sel:frequency:k3,dev,200,LAPTOP-5CPRTI27,913a99e,False,0,3.0,0.0031,0.0044,0.0013,0.0175,0.0753,0.0302,362.2
