@@ -61,7 +61,7 @@ def main() -> int:
          "| condition | all | colour-infrared | other | " + " | ".join(classes) + " |", "|---" * (4 + len(classes)) + "|"]
     for cond, r in out["conditions"].items():
         L.append(f"| {cond} | {r['AP50']['all']:.4f} | {r['AP50']['cir']:.4f} | {r['AP50']['non_cir']:.4f} | "
-                 + " | ".join(f"{r['per_class_AP50'][c]:.3f}" for c in classes) + " |")
+                 + " | ".join("–" if r["per_class_AP50"][c] is None else f"{r['per_class_AP50'][c]:.3f}" for c in classes) + " |")
     (REPO_ROOT / "reports/generated/M11_nwpu_subgroups.md").write_text("\n".join(L) + "\n", encoding="utf-8", newline="\n")
     return 0
 
