@@ -28,6 +28,10 @@ def experiment_id(cond: str) -> str:
         return "E5"
     if cond.startswith("sel:") and cond.split(":")[1].endswith(("_gl", "_local")):
         return "E6"
+    if cond.startswith("set:e9_diag"):
+        return "diagnostic"
+    if cond.startswith("set:e9_"):
+        return "E9"
     if cond.startswith("set:m6_retain"):
         return "E7"
     if cond.startswith("set:m6_"):

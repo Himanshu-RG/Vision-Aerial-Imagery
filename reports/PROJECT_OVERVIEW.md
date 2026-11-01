@@ -152,6 +152,7 @@ Class relevance = cosine similarity between the image embedding and the averaged
 | M8–M9 | Experiment registry; P/R/F1 operating points; tiling diagnostic (small objects not resolution-bound) | ✅ |
 | E5 | Caption-based (VocAda-style) and TagCLIP-style baselines | ✅ |
 | M10 | Failure analysis: vocabulary misses, cross-source synonyms, dense scenes, rare classes, confusions; 6 rule-chosen example figures | ✅ |
+| E9 | Synonym-aware selector (pre-declared test of M10's fix): negative result; headline method stays frozen | ✅ |
 
 **Reproducibility:**
 - Every run is identified by a hash of its configuration and records its commit, machine, GPU state and checkpoint hashes.
@@ -316,13 +317,14 @@ Full tables: [`generated/E0_tables.md`](generated/E0_tables.md), [`generated/e0_
 | E6 | **Global + local (multi-scale crops) selection** | ✓ | done: better selection (small objects), **no detection gain**, 83 ms selector cost (vs ~8 ms global) |
 | E7 | **+ uncertainty-aware retention** (global–local disagreement; calibrated on held-out dev images) | ✓ | done: selection gain at ~3 classes, **no detection gain** |
 | E8 | **+ adaptive vocabulary budget** (threshold, probability mass) | ✓ | done: **best method so far**: AP50 ×3.8 (standard) / ×2.5 (source-aware) vs full, robust; +0.02–0.03 vs fixed top-k |
+| E9 | Synonym-aware selection (adds classes with similar names; motivated by M10) | ✓ | done: **no gain** (−0.003 / +0.000 AP50 vs ours); text similarity cannot tell synonyms from related classes. Headline method unchanged |
 | — | Oracle diagnostics (GT classes, source class list) | ✗ | done (E0); used as upper bounds |
 
 Each method is compared at **matched average vocabulary sizes**, with accuracy–latency curves, recall broken down by object size and class rarity, both evaluation protocols, and paired bootstrap confidence intervals.
 
 ## 9. Next steps
 1. ~~Remaining baselines (E5)~~ done; ~~detector-side test~~ done at M9 (tiling does not help, D37).
-2. ~~M10 failure analysis~~ done. **Decision pending (D41):** whether to test a synonym-aware selector (fixes M10's main failure) before the headline method is frozen for test.
+2. ~~M10 failure analysis~~ done; ~~synonym-aware selector (E9)~~ tested: no gain, headline method stays frozen (D43).
 3. **M11:** per-source generalization and VisDrone. One-time final evaluation on the held-out test split.
 4. **M12–M14:** latency profiling, reproducibility package, paper draft.
 

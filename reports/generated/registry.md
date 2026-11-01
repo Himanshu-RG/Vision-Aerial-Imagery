@@ -17,6 +17,12 @@
 | e5_caption_tagclip_det-69e357c3b1f4 | E5 | set:e5_caption_thr_m8 | 200 | 8.04 | 0.0186 | 0.0347 | 0.1098 | 0.0098 | 346.5 | 222905e |
 | e5_caption_tagclip_det-69e357c3b1f4 | E5 | sel:tagclip_style:k3 | 200 | 3.0 | 0.0229 | 0.046 | 0.1473 | 0.002 | 342.0 | 222905e |
 | e5_caption_tagclip_det-69e357c3b1f4 | E5 | sel:tagclip_style:k8 | 200 | 8.0 | 0.0225 | 0.0525 | 0.195 | 0.0012 | 345.6 | 222905e |
+| e9_synonym_det-cd6a2ee199e9 | E1 | full | 200 | 80.0 | 0.0146 | 0.0282 | 0.1245 | 0.0036 | 414.7 | fc4653e |
+| e9_synonym_det-cd6a2ee199e9 | oracle | oracle_gt | 200 | 2.25 | 0.1404 | 0.1404 | 0.4668 | 0.0411 | 333.1 | fc4653e |
+| e9_synonym_det-cd6a2ee199e9 | E8 | set:m6_threshold_m8 | 200 | 7.77 | 0.055 | 0.0707 | 0.2588 | 0.0056 | 337.6 | fc4653e |
+| e9_synonym_det-cd6a2ee199e9 | E9 | set:e9_syn_m8 | 200 | 7.58 | 0.0516 | 0.0707 | 0.2408 | 0.0056 | 336.8 | fc4653e |
+| e9_synonym_det-cd6a2ee199e9 | E9 | set:e9_syn_d34 | 200 | 9.57 | 0.0529 | 0.0695 | 0.2532 | 0.0052 | 339.2 | fc4653e |
+| e9_synonym_det-cd6a2ee199e9 | diagnostic | set:e9_diag_insource_m8 | 200 | 8.24 | 0.076 | 0.076 | 0.3342 | 0.0101 | 336.7 | fc4653e |
 | m4_selectors_det-16d38bd056f8 | E1 | full | 200 | 80.0 | 0.0146 | 0.0282 | 0.1245 | 0.0036 | 467.0 | 913a99e |
 | m4_selectors_det-16d38bd056f8 | oracle | oracle_gt | 200 | 2.25 | 0.1404 | 0.1404 | 0.4668 | 0.0411 | 363.2 | 913a99e |
 | m4_selectors_det-16d38bd056f8 | E2 | sel:frequency:k3 | 200 | 3.0 | 0.0031 | 0.0044 | 0.0175 | 0.0302 | 362.2 | 913a99e |
