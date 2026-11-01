@@ -74,9 +74,19 @@ def evaluate(gt: dict, preds: list[dict], image_ids: Iterable[int], protocol: st
               "n_gt": len(sub["annotations"]), "max_dets": list(max_dets)}
     names = {c["id"]: c["name"] for c in gt["categories"]}
     if not preds:
+        # Same keys as the normal path: every category/area with ground truth scores 0 (pycocotools gives 0,
+        # not -1, to a category that has GT but no detections); categories/areas without GT stay NaN/excluded.
+        real = [a for a in sub["annotations"] if not a.get("iscrowd", 0)]
         result.update({"empty_predictions": True,
                        **{f"AP@{m}": 0.0 for m in max_dets}, **{f"AP50@{m}": 0.0 for m in max_dets},
-                       **{f"AR@{m}": 0.0 for m in max_dets}})
+                       **{f"AR@{m}": 0.0 for m in max_dets}, "AP75": 0.0})
+        for area, (lo, hi) in (("small", (0, 32 ** 2)), ("medium", (32 ** 2, 96 ** 2)), ("large", (96 ** 2, 1e10))):
+            has = any(lo <= a["area"] <= hi for a in real)
+            result[f"AP50_{area}"] = result[f"R50_{area}"] = 0.0 if has else float("nan")
+        if per_class:
+            with_gt = sorted({a["category_id"] for a in real})
+            result["per_class"] = {str(c): {"name": names[c], "AP50": 0.0, "AP": 0.0, "R50": 0.0} for c in with_gt}
+            result["n_classes_with_gt"] = len(with_gt)
         return result
 
     coco_gt = _coco_from_dict(sub)

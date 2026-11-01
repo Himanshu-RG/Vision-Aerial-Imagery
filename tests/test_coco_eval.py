@@ -55,6 +55,25 @@ def test_wrong_boxes_score_zero_and_empty_predictions_are_handled():
     assert e["empty_predictions"] and e["AP50@900"] == 0.0
 
 
+def test_empty_predictions_match_cocoeval_for_all_wrong_predictions():
+    # A condition with no prediction (e.g. every selected class outside the annotated space under the
+    # source-aware protocol) must give the same keys and numbers COCOeval gives to all-wrong predictions.
+    import math
+
+    wrong = [{"image_id": 1, "category_id": 1, "bbox": [70, 0, 10, 10], "score": 0.9}]
+    for proto in ("standard", "source_aware"):
+        w = evaluate(_gt(), wrong, [1, 2], protocol=proto, image_space=SPACE)
+        e = evaluate(_gt(), [], [1, 2], protocol=proto, image_space=SPACE)
+        assert set(w) <= set(e)
+        for k, v in w.items():
+            if k in ("n_predictions",):
+                continue
+            if isinstance(v, float) and math.isnan(v):
+                assert math.isnan(e[k]), k
+            else:
+                assert e[k] == v, k
+
+
 def test_failed_image_stays_in_denominator():
     # predictions only for image 1: class 2 (image 2) is entirely missed -> mean AP halves
     preds = [p for p in _perfect() if p["image_id"] == 1]
