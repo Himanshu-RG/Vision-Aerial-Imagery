@@ -74,3 +74,16 @@ def calibrate(size_of_param, target: float, lo: float, hi: float, increasing: bo
         else:
             hi = mid
     return best[1]
+
+
+def expand_synonyms(m: np.ndarray, sim: np.ndarray, tau: float, max_k: int = MAX_K, p: np.ndarray | None = None) -> np.ndarray:
+    """D42 (M10 follow-up): add every class whose class-name text similarity to a selected class is >= tau.
+
+    sim: (C, C) cosine similarity of class-name text embeddings (diagonal ignored). Uses class names only --
+    no image, source or ground-truth information. If the result exceeds max_k, the highest-p members are kept."""
+    if tau >= 1.0 or not m.any():
+        return m.copy()
+    s = sim.copy()
+    np.fill_diagonal(s, -np.inf)
+    out = m | (s[m] >= tau).any(0)
+    return _clip_size(p if p is not None else out.astype(float), out, max_k)

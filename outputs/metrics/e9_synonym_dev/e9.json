@@ -1,0 +1,388 @@
+{
+ "protocol": "D42",
+ "taus": [
+  1.0,
+  0.95,
+  0.925,
+  0.9,
+  0.875,
+  0.85,
+  0.825,
+  0.8,
+  0.775,
+  0.75
+ ],
+ "target_mean_size": 8,
+ "n_calibration": 530,
+ "n_evaluation": 200,
+ "calibration_grid": [
+  {
+   "mean_size": 8.0,
+   "macro_pair_recall": 0.4656568998023065,
+   "object_weighted": 0.32849548561302844,
+   "image_mean_recall": 0.43373539982030546,
+   "out_of_source_share": 0.6138063608915441,
+   "tau": 1.0,
+   "t": 0.023681640625,
+   "J": 0.3970761927076675,
+   "feasible": true
+  },
+  {
+   "mean_size": 8.0,
+   "macro_pair_recall": 0.4819321878631064,
+   "object_weighted": 0.30706269513121254,
+   "image_mean_recall": 0.426677897574124,
+   "out_of_source_share": 0.612015063896453,
+   "tau": 0.95,
+   "t": 0.02808380126953125,
+   "J": 0.3944974414971595,
+   "feasible": true
+  },
+  {
+   "mean_size": 7.996226415094339,
+   "macro_pair_recall": 0.49540597722659235,
+   "object_weighted": 0.310269175596996,
+   "image_mean_recall": 0.43546945193171616,
+   "out_of_source_share": 0.5956573456286494,
+   "tau": 0.925,
+   "t": 0.03344148250613647,
+   "J": 0.4028375764117942,
+   "feasible": true
+  },
+  {
+   "mean_size": 8.00188679245283,
+   "macro_pair_recall": 0.46767395094774794,
+   "object_weighted": 0.21896886338705596,
+   "image_mean_recall": 0.3906446540880503,
+   "out_of_source_share": 0.6175233369725599,
+   "tau": 0.9,
+   "t": 0.06003570556640625,
+   "J": 0.34332140716740195,
+   "feasible": true
+  },
+  {
+   "mean_size": 8.00377358490566,
+   "macro_pair_recall": 0.367877489644752,
+   "object_weighted": 0.2249599189941777,
+   "image_mean_recall": 0.34479559748427674,
+   "out_of_source_share": 0.667731989827725,
+   "tau": 0.875,
+   "t": 0.146484375,
+   "J": 0.2964187043194648,
+   "feasible": true
+  },
+  {
+   "mean_size": 12.992452830188679,
+   "macro_pair_recall": 0.43297514730406694,
+   "object_weighted": 0.3694203020842123,
+   "image_mean_recall": 0.42533243486073674,
+   "out_of_source_share": 0.6622293592817332,
+   "tau": 0.85,
+   "t": 0.5,
+   "J": 0.4011977246941396,
+   "feasible": false
+  },
+  {
+   "mean_size": 21.854716981132075,
+   "macro_pair_recall": 0.5063317891776004,
+   "object_weighted": 0.5591089359547717,
+   "image_mean_recall": 0.5195148247978437,
+   "out_of_source_share": 0.6594286196810943,
+   "tau": 0.825,
+   "t": 0.5,
+   "J": 0.532720362566186,
+   "feasible": false
+  },
+  {
+   "mean_size": 29.192452830188678,
+   "macro_pair_recall": 0.6584017695470765,
+   "object_weighted": 0.7649987342840266,
+   "image_mean_recall": 0.6540633423180593,
+   "out_of_source_share": 0.6716800834942825,
+   "tau": 0.8,
+   "t": 0.5,
+   "J": 0.7117002519155515,
+   "feasible": false
+  },
+  {
+   "mean_size": 34.60566037735849,
+   "macro_pair_recall": 0.7397235818315626,
+   "object_weighted": 0.8471858914859506,
+   "image_mean_recall": 0.7726325247079965,
+   "out_of_source_share": 0.6785341186799339,
+   "tau": 0.775,
+   "t": 0.5,
+   "J": 0.7934547366587565,
+   "feasible": false
+  },
+  {
+   "mean_size": 38.49622641509434,
+   "macro_pair_recall": 0.7905988687772619,
+   "object_weighted": 0.904396253480719,
+   "image_mean_recall": 0.8576055705300989,
+   "out_of_source_share": 0.6877367625613121,
+   "tau": 0.75,
+   "t": 0.5,
+   "J": 0.8474975611289904,
+   "feasible": false
+  }
+ ],
+ "chosen_tau": 0.925,
+ "eval": {
+  "headline (D34)": {
+   "mean_size": 7.77,
+   "macro_pair_recall": 0.4982572785130925,
+   "object_weighted": 0.2596073517126149,
+   "image_mean_recall": 0.4119583333333333,
+   "out_of_source_share": 0.5934767454767454
+  },
+  "e9_syn_m8": {
+   "mean_size": 7.585,
+   "macro_pair_recall": 0.4531424557703627,
+   "object_weighted": 0.2184628237259816,
+   "image_mean_recall": 0.425875,
+   "out_of_source_share": 0.5843891945472828
+  },
+  "e9_syn_d34": {
+   "mean_size": 9.575,
+   "macro_pair_recall": 0.5497017229575368,
+   "object_weighted": 0.28111946532999166,
+   "image_mean_recall": 0.47729166666666667,
+   "out_of_source_share": 0.5905187165131051
+  },
+  "e9_diag_insource_m8": {
+   "mean_size": 8.24,
+   "macro_pair_recall": 0.7678878111203692,
+   "object_weighted": 0.8088972431077694,
+   "image_mean_recall": 0.7305416666666666,
+   "out_of_source_share": 0.0
+  }
+ },
+ "eval_vs_headline_image_recall": {
+  "e9_syn_m8": {
+   "diff": 0.013916666666666671,
+   "ci_low": -0.023002083333333336,
+   "ci_high": 0.05534791666666659,
+   "excludes_zero": false
+  },
+  "e9_syn_d34": {
+   "diff": 0.06533333333333333,
+   "ci_low": 0.03516666666666667,
+   "ci_high": 0.10034166666666663,
+   "excludes_zero": true
+  },
+  "e9_diag_insource_m8": {
+   "diff": 0.31858333333333333,
+   "ci_low": 0.26941354166666664,
+   "ci_high": 0.37083437499999994,
+   "excludes_zero": true
+  }
+ },
+ "linked_pairs": [
+  {
+   "sim": 0.979412317276001,
+   "a": "working condensing tower [PP-4C]",
+   "b": "unworking condensing tower [PP-4C]"
+  },
+  {
+   "sim": 0.9788951277732849,
+   "a": "working chimney [PP-4C]",
+   "b": "unworking chimney [PP-4C]"
+  },
+  {
+   "sim": 0.9771688580513,
+   "a": "vehicle [DIOR-18C]",
+   "b": "engineering vehicle [Xview-34C]"
+  },
+  {
+   "sim": 0.9647066593170166,
+   "a": "sailboat [Xview-34C]",
+   "b": "yacht [Xview-34C]"
+  },
+  {
+   "sim": 0.9642146825790405,
+   "a": "warship [FAIR-18C]",
+   "b": "yacht [Xview-34C]"
+  },
+  {
+   "sim": 0.961073637008667,
+   "a": "engineering ship [FAIR-18C]",
+   "b": "warship [FAIR-18C]"
+  },
+  {
+   "sim": 0.9567276835441589,
+   "a": "warship [FAIR-18C]",
+   "b": "ferry [Xview-34C]"
+  },
+  {
+   "sim": 0.9561924934387207,
+   "a": "warship [FAIR-18C]",
+   "b": "sailboat [Xview-34C]"
+  },
+  {
+   "sim": 0.954946756362915,
+   "a": "building [Xview-34C]",
+   "b": "damaged building [Xview-34C]"
+  },
+  {
+   "sim": 0.9536858797073364,
+   "a": "tractor [FAIR-18C]",
+   "b": "truck tractor [FAIR-18C]"
+  },
+  {
+   "sim": 0.9536187648773193,
+   "a": "ferry [Xview-34C]",
+   "b": "yacht [Xview-34C]"
+  },
+  {
+   "sim": 0.9516569375991821,
+   "a": "passenger ship [FAIR-18C]",
+   "b": "warship [FAIR-18C]"
+  },
+  {
+   "sim": 0.950916588306427,
+   "a": "passenger ship [FAIR-18C]",
+   "b": "ferry [Xview-34C]"
+  },
+  {
+   "sim": 0.9464086294174194,
+   "a": "cargo truck [FAIR-18C]",
+   "b": "cargo car [Xview-34C]"
+  },
+  {
+   "sim": 0.9451292753219604,
+   "a": "engineering ship [FAIR-18C]",
+   "b": "yacht [Xview-34C]"
+  },
+  {
+   "sim": 0.9447619915008545,
+   "a": "engineering ship [FAIR-18C]",
+   "b": "sailboat [Xview-34C]"
+  },
+  {
+   "sim": 0.9443617463111877,
+   "a": "passenger ship [FAIR-18C]",
+   "b": "yacht [Xview-34C]"
+  },
+  {
+   "sim": 0.9431010484695435,
+   "a": "engineering ship [FAIR-18C]",
+   "b": "passenger ship [FAIR-18C]"
+  },
+  {
+   "sim": 0.9403529763221741,
+   "a": "engineering ship [FAIR-18C]",
+   "b": "ferry [Xview-34C]"
+  },
+  {
+   "sim": 0.9402714967727661,
+   "a": "dry cargo ship [FAIR-18C]",
+   "b": "liquid cargo ship [FAIR-18C]"
+  },
+  {
+   "sim": 0.939397931098938,
+   "a": "airplane [DIOR-18C]",
+   "b": "cargo plane [Xview-34C]"
+  },
+  {
+   "sim": 0.9384903907775879,
+   "a": "sailboat [Xview-34C]",
+   "b": "ferry [Xview-34C]"
+  },
+  {
+   "sim": 0.9383461475372314,
+   "a": "fishing boat [FAIR-18C]",
+   "b": "ferry [Xview-34C]"
+  },
+  {
+   "sim": 0.9381971955299377,
+   "a": "unworking condensing tower [PP-4C]",
+   "b": "tower [Xview-34C]"
+  },
+  {
+   "sim": 0.9355379343032837,
+   "a": "liquid cargo ship [FAIR-18C]",
+   "b": "warship [FAIR-18C]"
+  },
+  {
+   "sim": 0.9348551034927368,
+   "a": "working condensing tower [PP-4C]",
+   "b": "tower [Xview-34C]"
+  },
+  {
+   "sim": 0.9347912073135376,
+   "a": "tugboat [FAIR-18C]",
+   "b": "sailboat [Xview-34C]"
+  },
+  {
+   "sim": 0.9340837597846985,
+   "a": "fishing boat [FAIR-18C]",
+   "b": "sailboat [Xview-34C]"
+  },
+  {
+   "sim": 0.9334372878074646,
+   "a": "passenger ship [FAIR-18C]",
+   "b": "sailboat [Xview-34C]"
+  },
+  {
+   "sim": 0.9322255849838257,
+   "a": "dry cargo ship [FAIR-18C]",
+   "b": "ferry [Xview-34C]"
+  },
+  {
+   "sim": 0.9310082197189331,
+   "a": "fishing boat [FAIR-18C]",
+   "b": "yacht [Xview-34C]"
+  },
+  {
+   "sim": 0.9292346835136414,
+   "a": "engineering ship [FAIR-18C]",
+   "b": "fishing boat [FAIR-18C]"
+  },
+  {
+   "sim": 0.928931474685669,
+   "a": "dry cargo ship [FAIR-18C]",
+   "b": "passenger ship [FAIR-18C]"
+  },
+  {
+   "sim": 0.9287681579589844,
+   "a": "engineering ship [FAIR-18C]",
+   "b": "liquid cargo ship [FAIR-18C]"
+  },
+  {
+   "sim": 0.9286714196205139,
+   "a": "dry cargo ship [FAIR-18C]",
+   "b": "warship [FAIR-18C]"
+  },
+  {
+   "sim": 0.9280896186828613,
+   "a": "dry cargo ship [FAIR-18C]",
+   "b": "engineering ship [FAIR-18C]"
+  },
+  {
+   "sim": 0.9271247386932373,
+   "a": "tugboat [FAIR-18C]",
+   "b": "warship [FAIR-18C]"
+  },
+  {
+   "sim": 0.9269057512283325,
+   "a": "fishing boat [FAIR-18C]",
+   "b": "warship [FAIR-18C]"
+  },
+  {
+   "sim": 0.9262363910675049,
+   "a": "dry cargo ship [FAIR-18C]",
+   "b": "sailboat [Xview-34C]"
+  },
+  {
+   "sim": 0.9251819849014282,
+   "a": "dry cargo ship [FAIR-18C]",
+   "b": "yacht [Xview-34C]"
+  },
+  {
+   "sim": 0.9250187277793884,
+   "a": "liquid cargo ship [FAIR-18C]",
+   "b": "yacht [Xview-34C]"
+  }
+ ]
+}

@@ -37,3 +37,15 @@ def test_calibrate_hits_target_mean_size():
     size = lambda t: np.mean([threshold(p, t).sum() for p in probs])
     t = calibrate(size, 5.0, 0.0, 1.0, increasing=False)
     assert size(t) == pytest.approx(5.0, abs=0.2)
+
+
+def test_expand_synonyms():
+    import numpy as np
+    from aerial_ovd.vocabulary.retention import expand_synonyms
+    sim = np.array([[1.0, 0.95, 0.2], [0.95, 1.0, 0.3], [0.2, 0.3, 1.0]])
+    m = np.array([True, False, False])
+    assert expand_synonyms(m, sim, 0.9).tolist() == [True, True, False]
+    assert expand_synonyms(m, sim, 0.99).tolist() == [True, False, False]
+    assert expand_synonyms(m, sim, 1.0).tolist() == [True, False, False]
+    p = np.array([0.5, 0.1, 0.4])
+    assert expand_synonyms(np.array([True, False, True]), sim, 0.9, max_k=2, p=p).tolist() == [True, False, True]

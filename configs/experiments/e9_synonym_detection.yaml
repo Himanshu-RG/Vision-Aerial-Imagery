@@ -1,0 +1,24 @@
+# E9 (D42/D42a): synonym-aware selection vs the frozen headline (D34), same 200 dev images and detector settings.
+# Selections precomputed on the laptop (scripts/e9_synonym_selector.py) and committed in outputs/selection/dev/.
+# e9_diag_insource_m8 uses source identity: a DIAGNOSTIC upper bound, never a method.
+name: e9_synonym_det
+split: dev
+n_images: 200
+sample_seed: 2026
+seed: 0
+random_seed: 0
+naming_policy: light
+conditions:
+  - full
+  - oracle_gt
+  - set:m6_threshold_m8
+  - set:e9_syn_m8
+  - set:e9_syn_d34
+  - set:e9_diag_insource_m8
+detector:
+  checkpoint: grounding-dino-tiny
+  device: cuda
+  precision: fp32
+  num_select: 900
+  class_reduce: mean
+  warmup: 3
