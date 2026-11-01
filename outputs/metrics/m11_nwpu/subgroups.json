@@ -1,0 +1,172 @@
+{
+ "run_id": "m11_nwpu_det-58d87bbcbac5",
+ "n": {
+  "all": 614,
+  "cir": 33,
+  "non_cir": 581
+ },
+ "conditions": {
+  "full": {
+   "AP50": {
+    "all": 0.0879061851655744,
+    "cir": 0.0,
+    "non_cir": 0.08820637629571695
+   },
+   "per_class_AP50": {
+    "airplane": 0.7418786308467306,
+    "storagetank": 0.0,
+    "baseballfield": 0.003995510056524441,
+    "tenniscourt": 0.0,
+    "basketballcourt": 0.011780693380942276,
+    "groundtrackfield": 0.006845399490166735,
+    "harbor": 0.0,
+    "bridge": 0.02663897221688785,
+    "vehicle": 1.6460498917722198e-05
+   }
+  },
+  "oracle_gt": {
+   "AP50": {
+    "all": 0.20807176016638154,
+    "cir": 0.3630492589918535,
+    "non_cir": 0.22023563619825842
+   },
+   "per_class_AP50": {
+    "airplane": 0.9215225373486613,
+    "storagetank": 0.0374534573984696,
+    "baseballfield": 0.05256693721037154,
+    "tenniscourt": 0.0019237268230225073,
+    "basketballcourt": 0.019086787419382297,
+    "groundtrackfield": 0.24962923117119754,
+    "harbor": 0.17075035223300522,
+    "bridge": 0.03193220169967274,
+    "vehicle": 0.3877806101936509
+   }
+  },
+  "random_matched": {
+   "AP50": {
+    "all": 0.006948405000626549,
+    "cir": 0.0,
+    "non_cir": 0.0072221520702718455
+   },
+   "per_class_AP50": {
+    "airplane": 0.048904890489048905,
+    "storagetank": 0.0,
+    "baseballfield": 0.002749199652918064,
+    "tenniscourt": 2.586803422340928e-05,
+    "basketballcourt": 6.157226762470855e-05,
+    "groundtrackfield": 0.008635863586358636,
+    "harbor": 0.0,
+    "bridge": 2.346762289407419e-06,
+    "vehicle": 0.0021559042131758088
+   }
+  },
+  "sel:frequency:k8": {
+   "AP50": {
+    "all": 0.0,
+    "cir": 0.0,
+    "non_cir": 0.0
+   },
+   "per_class_AP50": {
+    "airplane": 0.0,
+    "storagetank": 0.0,
+    "baseballfield": 0.0,
+    "tenniscourt": 0.0,
+    "basketballcourt": 0.0,
+    "groundtrackfield": 0.0,
+    "harbor": 0.0,
+    "bridge": 0.0,
+    "vehicle": 0.0
+   }
+  },
+  "sel:clip_openai_b32:k8": {
+   "AP50": {
+    "all": 0.1004972625051759,
+    "cir": 0.019729044050779833,
+    "non_cir": 0.10183893927456274
+   },
+   "per_class_AP50": {
+    "airplane": 0.8117627554376106,
+    "storagetank": 0.00023694397827305424,
+    "baseballfield": 0.019022589642235407,
+    "tenniscourt": 2.7839922671830785e-06,
+    "basketballcourt": 0.005629717856346359,
+    "groundtrackfield": 0.02018070228139239,
+    "harbor": 0.0054836808982103025,
+    "bridge": 0.02365854168897626,
+    "vehicle": 0.01849764677127162
+   }
+  },
+  "sel:clip_openai_b32:k20": {
+   "AP50": {
+    "all": 0.10009242162493572,
+    "cir": 0.01110252428279517,
+    "non_cir": 0.10041788396673576
+   },
+   "per_class_AP50": {
+    "airplane": 0.8277085964606585,
+    "storagetank": 2.8769403164346656e-06,
+    "baseballfield": 0.018393257316456607,
+    "tenniscourt": 3.4671378892295675e-06,
+    "basketballcourt": 0.007777738926243281,
+    "groundtrackfield": 0.008936197867818336,
+    "harbor": 0.00018572798616833035,
+    "bridge": 0.032532315492195284,
+    "vehicle": 0.005291616496675418
+   }
+  },
+  "sel:remoteclip_b32:k3": {
+   "AP50": {
+    "all": 0.07355214699306084,
+    "cir": 0.33434128380246986,
+    "non_cir": 0.07021068788467018
+   },
+   "per_class_AP50": {
+    "airplane": 0.2661629019821167,
+    "storagetank": 0.0002994230347394859,
+    "baseballfield": 0.017513254965440095,
+    "tenniscourt": 0.00015849758146619554,
+    "basketballcourt": 0.01324406719516133,
+    "groundtrackfield": 0.13665134259109762,
+    "harbor": 0.09476523089679988,
+    "bridge": 0.030751852315511558,
+    "vehicle": 0.10242275237521468
+   }
+  },
+  "sel:remoteclip_b32:k8": {
+   "AP50": {
+    "all": 0.09332590755588298,
+    "cir": 0.12074996488231488,
+    "non_cir": 0.09317074716333555
+   },
+   "per_class_AP50": {
+    "airplane": 0.6995402535614127,
+    "storagetank": 0.00014474124057028048,
+    "baseballfield": 0.0346346015125751,
+    "tenniscourt": 1.579040704430302e-05,
+    "basketballcourt": 0.012645027639878436,
+    "groundtrackfield": 0.040812475083143694,
+    "harbor": 0.0076310331976900915,
+    "bridge": 0.03709458366961642,
+    "vehicle": 0.007414661691015827
+   }
+  },
+  "set:headline_d34": {
+   "AP50": {
+    "all": 0.12916388048828503,
+    "cir": 0.31064272647084307,
+    "non_cir": 0.13047593326759088
+   },
+   "per_class_AP50": {
+    "airplane": 0.6724844648940976,
+    "storagetank": 0.000245923129641005,
+    "baseballfield": 0.020893222266297695,
+    "tenniscourt": 0.00026384615087510053,
+    "basketballcourt": 0.01300654483382246,
+    "groundtrackfield": 0.2429330602652678,
+    "harbor": 0.021677495233544158,
+    "bridge": 0.027729735880878924,
+    "vehicle": 0.1632406317401405
+   }
+  }
+ }
+}
