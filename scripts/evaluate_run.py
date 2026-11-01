@@ -18,7 +18,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from aerial_ovd.evaluation.coco_eval import (  # noqa: E402
-    ap50_from_matches, evaluate, paired_bootstrap, per_image_matches, prf_at_thresholds,
+    OPERATING_POINTS, ap50_from_matches, evaluate, paired_bootstrap, per_image_matches, prf_at_thresholds,
 )
 from aerial_ovd.data.splits import gt_path, source_space as split_source_space  # noqa: E402
 from aerial_ovd.utils.paths import get_store  # noqa: E402
@@ -49,6 +49,9 @@ def main() -> int:
     ap.add_argument("--reference", default="full", help="condition every other condition is compared with")
     ap.add_argument("--tag", default=None, help="write to outputs/metrics/<run_id>_vs_<tag>/ (use with a non-default "
                                                  "--reference so the main metrics are not overwritten)")
+    ap.add_argument("--thresholds", type=float, nargs="*", default=None,
+                    help="score thresholds for P/R/F1 (default: the pre-declared 0.25 and 0.35); the final test adds the "
+                         "D35 thresholds 0.14 (standard) and 0.12 (source-aware)")
     args = ap.parse_args()
     meta = json.loads((args.run_dir / "run_config.json").read_text(encoding="utf-8"))
     cfg, image_ids = meta["config"], meta["image_ids"]
@@ -85,7 +88,7 @@ def main() -> int:
             if abs(fast - res[proto]["AP50@900"]) > 1e-6:  # consistency check of the bootstrap machinery
                 raise RuntimeError(f"fast AP50 {fast} != COCOeval {res[proto]['AP50@900']} ({cond}, {proto})")
             res["_matches"][proto] = m
-            res[proto]["operating_points"] = prf_at_thresholds(m)
+            res[proto]["operating_points"] = prf_at_thresholds(m, thresholds=tuple(args.thresholds or OPERATING_POINTS))
         out["conditions"][cond] = res
 
     # Paired image-level bootstrap of AP50@900 differences vs the reference condition.

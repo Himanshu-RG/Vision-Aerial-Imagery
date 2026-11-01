@@ -1,0 +1,49 @@
+# ONE-TIME FINAL TEST EVALUATION (rule 3; D34, D35, D44, D47). Committed before any test image is selected or detected.
+# Nothing in this file, the frozen rules or the analysis below may change after the run starts.
+#
+# Methods (all frozen on dev; no recalibration on test, D47):
+#   set:headline_d34          headline: RemoteCLIP global p_g >= t = 0.023681640625 (D34)
+#   set:frozen_threshold_m20  D34 secondary: threshold t = 0.004650115966796875
+#   set:frozen_top_p_m20      D34 secondary: top_p tau = 0.9464568403151777
+#   sel:remoteclip_b32:k8     D34 secondary: fixed top-8 (same encoder; adaptive vs fixed size)
+#   sel:clip_openai_b32:k20   control: natural-image CLIP (only significant gain on unseen sources on dev, M11)
+#   sel:frequency:k8          E2: dev frequency prior
+#   full                      E1: reference
+#   oracle_gt, random_matched diagnostics (ground-truth class list; random list of the same size)
+# Not re-run on test (lost to the headline on dev, or not frozen as secondary): caption / TagCLIP-style (E5),
+# global+local crops (E6), retain (E7), synonym expansion (E9).
+#
+# Selections: scripts/run_selection.py --split test --device cpu (CPU, as on dev and NWPU), then
+# scripts/make_frozen_headline.py --split test (asserts every frozen rule reproduces its dev mask first).
+#
+# Pre-declared analysis (D47):
+#   * Primary: headline minus full, AP50@900, under BOTH protocols, D26 three checks (percentile CI, basic CI,
+#     per-class sign test). "Confirmed" under a protocol only if all three agree (robust). Both protocols reported.
+#   * Secondary: headline vs each other condition (re-referenced: --reference set:headline_d34); per source and
+#     for the D44 groups seen (DIOR+DOTA) / unseen (FAIR+xView+PP) (scripts/m11_per_source.py), both protocols;
+#     P/R/F1 at the D35 thresholds 0.14 (standard) / 0.12 (source-aware), plus 0.25 / 0.35.
+#   * Latency: median per condition; indicative only unless gpu_at_start shows an idle GPU (M12 re-measures).
+name: final_test
+split: test
+n_images: null
+sample_seed: 2026
+seed: 0
+random_seed: 0
+naming_policy: light
+conditions:
+  - full
+  - oracle_gt
+  - random_matched
+  - sel:frequency:k8
+  - sel:clip_openai_b32:k20
+  - sel:remoteclip_b32:k8
+  - set:headline_d34
+  - set:frozen_threshold_m20
+  - set:frozen_top_p_m20
+detector:
+  checkpoint: grounding-dino-tiny
+  device: cuda
+  precision: fp32
+  num_select: 900
+  class_reduce: mean
+  warmup: 3
