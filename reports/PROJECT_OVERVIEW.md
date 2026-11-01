@@ -302,6 +302,18 @@ Every labelled object and every confident detection was sorted into a failure ty
 ![selection gain](figures/m10/selection_gain.jpg)
 *Same image, full vocabulary (left) vs our method (right). Green = ground truth, blue = correct, red = false (score ≥ 0.14).*
 
+### 7.10 M11 part 1 — does it generalize across source datasets? (same 200 dev images)
+RemoteCLIP, our selector's encoder, was trained on data that includes DIOR and DOTA, but not FAIR1M or xView (verified from its paper).
+
+| Source-aware AP50 | datasets RemoteCLIP saw (DIOR, DOTA) | datasets it didn't see (FAIR1M, xView, PP) |
+|---|---|---|
+| All 80 classes | 0.069 | 0.011 |
+| Oracle | 0.262 | 0.090 |
+| **Ours (adaptive threshold)** | **0.223** | **0.007** (no gain) |
+| OpenAI CLIP top-20 (control) | 0.116 | 0.022 (only significant gain) |
+
+**What this shows:** our gain is entirely on the datasets the selector's encoder has seen, and absent on unseen ones, even though a perfect vocabulary would help 8× there. Part of the seen-dataset gain is not exposure (OpenAI CLIP also gains there), but the headline claim must be qualified. This split is now pre-declared for the final test (D44).
+
 Full tables: [`generated/E0_tables.md`](generated/E0_tables.md), [`generated/e0_headroom_tables.md`](generated/e0_headroom_tables.md) (robustness), [`generated/M4_selection_tables.md`](generated/M4_selection_tables.md), [`generated/m4_selectors_det_tables.md`](generated/m4_selectors_det_tables.md), [`generated/M5_selection_tables.md`](generated/M5_selection_tables.md), [`generated/m5_global_local_det_tables.md`](generated/m5_global_local_det_tables.md), [`generated/M6_retention_tables.md`](generated/M6_retention_tables.md), [`generated/m6_retention_det_tables.md`](generated/m6_retention_det_tables.md) (+ `_vs_k3/_vs_k8/_vs_k20`).
 
 ---
@@ -325,7 +337,7 @@ Each method is compared at **matched average vocabulary sizes**, with accuracy�
 ## 9. Next steps
 1. ~~Remaining baselines (E5)~~ done; ~~detector-side test~~ done at M9 (tiling does not help, D37).
 2. ~~M10 failure analysis~~ done; ~~synonym-aware selector (E9)~~ tested: no gain, headline method stays frozen (D43).
-3. **M11:** per-source generalization and VisDrone. One-time final evaluation on the held-out test split.
+3. **M11:** ~~per-source generalization~~ done (gain only on datasets the selector's encoder saw); external dataset pending a decision. One-time final evaluation on the held-out test split.
 4. **M12–M14:** latency profiling, reproducibility package, paper draft.
 
 ## 10. Risks and honest assessment
