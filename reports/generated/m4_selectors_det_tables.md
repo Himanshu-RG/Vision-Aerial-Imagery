@@ -62,3 +62,42 @@ run `m4_selectors_det-16d38bd056f8` · host `LAPTOP-5CPRTI27` · git `913a99e` (
 | sel:random_s0:k20 | source_aware | -0.0176 | [-0.0444, +0.0025] | [-0.0377, +0.0093] | True | 18 / 25 | 0.36 | no |
 
 `robust*` = percentile CI and basic CI both exclude 0 AND the per-class sign test agrees in direction with p < 0.05.
+
+## Operating points (IoU 0.5, maxDets 900; fixed score thresholds pre-declared; best-F1 is a diagnostic)
+
+| condition | protocol | P@0.25 | R@0.25 | F1@0.25 | P@0.35 | R@0.35 | F1@0.35 | best F1 (thr) |
+|---|---|---|---|---|---|---|---|---|
+| full | standard | 0.016 | 0.006 | 0.009 | 0.050 | 0.002 | 0.004 | 0.014 (0.17) |
+| full | source_aware | 0.070 | 0.006 | 0.011 | 0.196 | 0.002 | 0.004 | 0.039 (0.12) |
+| oracle_gt | standard | 0.301 | 0.059 | 0.099 | 0.326 | 0.022 | 0.041 | 0.196 (0.11) |
+| oracle_gt | source_aware | 0.301 | 0.059 | 0.099 | 0.326 | 0.022 | 0.041 | 0.196 (0.11) |
+| sel:frequency:k3 | standard | 0.194 | 0.044 | 0.072 | 0.243 | 0.016 | 0.030 | 0.131 (0.13) |
+| sel:frequency:k3 | source_aware | 0.276 | 0.044 | 0.077 | 0.329 | 0.016 | 0.031 | 0.160 (0.11) |
+| sel:frequency:k8 | standard | 0.080 | 0.024 | 0.037 | 0.105 | 0.006 | 0.011 | 0.080 (0.13) |
+| sel:frequency:k8 | source_aware | 0.173 | 0.024 | 0.043 | 0.192 | 0.006 | 0.012 | 0.123 (0.13) |
+| sel:frequency:k20 | standard | 0.052 | 0.015 | 0.023 | 0.049 | 0.003 | 0.006 | 0.045 (0.15) |
+| sel:frequency:k20 | source_aware | 0.137 | 0.015 | 0.026 | 0.156 | 0.003 | 0.006 | 0.077 (0.13) |
+| sel:frequency:k40 | standard | 0.025 | 0.009 | 0.013 | 0.038 | 0.002 | 0.004 | 0.027 (0.15) |
+| sel:frequency:k40 | source_aware | 0.090 | 0.009 | 0.016 | 0.155 | 0.002 | 0.004 | 0.056 (0.13) |
+| sel:clip_openai_b32:k3 | standard | 0.025 | 0.004 | 0.007 | 0.044 | 0.002 | 0.004 | 0.019 (0.13) |
+| sel:clip_openai_b32:k3 | source_aware | 0.079 | 0.004 | 0.008 | 0.157 | 0.002 | 0.005 | 0.030 (0.09) |
+| sel:clip_openai_b32:k8 | standard | 0.023 | 0.005 | 0.008 | 0.011 | 0.000 | 0.001 | 0.018 (0.15) |
+| sel:clip_openai_b32:k8 | source_aware | 0.077 | 0.005 | 0.009 | 0.036 | 0.000 | 0.001 | 0.035 (0.12) |
+| sel:clip_openai_b32:k20 | standard | 0.028 | 0.008 | 0.012 | 0.013 | 0.001 | 0.001 | 0.024 (0.15) |
+| sel:clip_openai_b32:k20 | source_aware | 0.098 | 0.008 | 0.014 | 0.042 | 0.001 | 0.001 | 0.053 (0.13) |
+| sel:clip_openai_b32:k40 | standard | 0.021 | 0.007 | 0.011 | 0.016 | 0.001 | 0.002 | 0.020 (0.18) |
+| sel:clip_openai_b32:k40 | source_aware | 0.084 | 0.007 | 0.013 | 0.068 | 0.001 | 0.002 | 0.051 (0.11) |
+| sel:remoteclip_b32:k3 | standard | 0.028 | 0.004 | 0.008 | 0.043 | 0.002 | 0.004 | 0.016 (0.14) |
+| sel:remoteclip_b32:k3 | source_aware | 0.078 | 0.004 | 0.008 | 0.133 | 0.002 | 0.004 | 0.030 (0.06) |
+| sel:remoteclip_b32:k8 | standard | 0.039 | 0.008 | 0.013 | 0.032 | 0.001 | 0.003 | 0.032 (0.13) |
+| sel:remoteclip_b32:k8 | source_aware | 0.114 | 0.008 | 0.015 | 0.104 | 0.001 | 0.003 | 0.055 (0.12) |
+| sel:remoteclip_b32:k20 | standard | 0.041 | 0.010 | 0.016 | 0.034 | 0.002 | 0.003 | 0.029 (0.16) |
+| sel:remoteclip_b32:k20 | source_aware | 0.134 | 0.010 | 0.019 | 0.136 | 0.002 | 0.003 | 0.055 (0.12) |
+| sel:remoteclip_b32:k40 | standard | 0.028 | 0.008 | 0.013 | 0.013 | 0.001 | 0.001 | 0.022 (0.17) |
+| sel:remoteclip_b32:k40 | source_aware | 0.107 | 0.008 | 0.015 | 0.065 | 0.001 | 0.001 | 0.052 (0.11) |
+| sel:random_s0:k3 | standard | 0.003 | 0.000 | 0.001 | 0.005 | 0.000 | 0.000 | 0.006 (0.12) |
+| sel:random_s0:k3 | source_aware | 0.015 | 0.000 | 0.001 | 0.024 | 0.000 | 0.000 | 0.010 (0.08) |
+| sel:random_s0:k8 | standard | 0.013 | 0.003 | 0.005 | 0.008 | 0.000 | 0.001 | 0.016 (0.12) |
+| sel:random_s0:k8 | source_aware | 0.053 | 0.003 | 0.005 | 0.034 | 0.000 | 0.001 | 0.031 (0.11) |
+| sel:random_s0:k20 | standard | 0.018 | 0.005 | 0.008 | 0.016 | 0.001 | 0.002 | 0.014 (0.15) |
+| sel:random_s0:k20 | source_aware | 0.076 | 0.005 | 0.009 | 0.062 | 0.001 | 0.002 | 0.030 (0.10) |

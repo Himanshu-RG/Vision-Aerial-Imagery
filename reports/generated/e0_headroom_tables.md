@@ -23,3 +23,16 @@ run `e0_headroom-e8585910cbfb` · host `LAPTOP-5CPRTI27` · git `32ef56d` (dirty
 | random_matched | source_aware | -0.0207 | [-0.0477, -0.0061] | [-0.0354, +0.0062] | True | 7 / 32 | 7.03e-05 | no |
 
 `robust*` = percentile CI and basic CI both exclude 0 AND the per-class sign test agrees in direction with p < 0.05.
+
+## Operating points (IoU 0.5, maxDets 900; fixed score thresholds pre-declared; best-F1 is a diagnostic)
+
+| condition | protocol | P@0.25 | R@0.25 | F1@0.25 | P@0.35 | R@0.35 | F1@0.35 | best F1 (thr) |
+|---|---|---|---|---|---|---|---|---|
+| full | standard | 0.016 | 0.006 | 0.009 | 0.050 | 0.002 | 0.004 | 0.014 (0.17) |
+| full | source_aware | 0.070 | 0.006 | 0.011 | 0.196 | 0.002 | 0.004 | 0.039 (0.12) |
+| oracle_gt | standard | 0.301 | 0.059 | 0.099 | 0.326 | 0.022 | 0.041 | 0.196 (0.11) |
+| oracle_gt | source_aware | 0.301 | 0.059 | 0.099 | 0.326 | 0.022 | 0.041 | 0.196 (0.11) |
+| oracle_source | standard | 0.068 | 0.014 | 0.024 | 0.127 | 0.004 | 0.007 | 0.046 (0.17) |
+| oracle_source | source_aware | 0.068 | 0.014 | 0.024 | 0.127 | 0.004 | 0.007 | 0.046 (0.17) |
+| random_matched | standard | 0.009 | 0.001 | 0.002 | 0.011 | 0.000 | 0.001 | 0.004 (0.15) |
+| random_matched | source_aware | 0.032 | 0.001 | 0.002 | 0.039 | 0.000 | 0.001 | 0.005 (0.10) |

@@ -5,7 +5,16 @@ Research code (Team Transmontane). We study whether choosing a small, image-rele
 > **Start with [CONTEXT.md](CONTEXT.md).** It is the project's ground truth: goals, rules, frozen decisions, status, and results. Per-module reports live in [reports/](reports/).
 
 ## Status
-M0–M9 done (dev split). Key results: E0 headroom (oracle vocabulary AP50 0.015 → 0.140); a deployable RemoteCLIP/CLIP top-8–20 selector robustly improves source-aware AP50 0.028 → 0.046–0.058 and cuts latency ~19%; crop evidence does not improve detection; an adaptive per-image budget (calibrated threshold, ~8 classes) is best: AP50 ×3.8 standard / ×2.5 source-aware vs full, robust. Tiling (more pixels) does not fix small objects (detector limitation). Next: remaining baselines, failure analysis, final test. Overview for reviewers: [reports/PROJECT_OVERVIEW.md](reports/PROJECT_OVERVIEW.md).
+M0–M11 and the one-time test evaluation are done.
+- **Final test** (2,862 held-out images, everything fixed in advance): the frozen adaptive RemoteCLIP selector raises Grounding DINO-T AP50 from 0.0053 to 0.0280 (standard) and from 0.0157 to 0.0418 (source-aware), robust under both. It also robustly beats a fixed top-8 selector.
+- The gain is on DIOR/DOTA-like data, plus NWPU VHR-10 (0.088 → 0.129). There is none on FAIR1M/xView.
+- In progress: M12 idle-GPU latency, M13 reproducibility, M14 paper.
+
+Further reading:
+- Results: [reports/FINAL_TEST.md](reports/FINAL_TEST.md)
+- Overview for reviewers: [reports/PROJECT_OVERVIEW.md](reports/PROJECT_OVERVIEW.md)
+- Short summary: [reports/PROJECT_SUMMARY.md](reports/PROJECT_SUMMARY.md)
+- **Reproducing everything: [REPRODUCE.md](REPRODUCE.md)**, including `python scripts/verify_artifacts.py`
 
 ## Two-machine setup
 | Machine | Use | Torch wheel |

@@ -62,12 +62,16 @@ def paired_mean_bootstrap(a: np.ndarray, b: np.ndarray, n: int = 2000, seed: int
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--split", default="dev")
+    # The M4 selectors. Later modules add other files to the same folder (M5 *_gl/_local, M6 masks, E5 captions),
+    # which are evaluated by their own scripts.
+    ap.add_argument("--selectors", nargs="*", default=["frequency", "random_s0", "random_s1", "random_s2",
+                                                         "clip_openai_b32", "remoteclip_b32"])
     args = ap.parse_args()
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")  # Windows consoles default to cp1252
 
     sel_dir = REPO_ROOT / "outputs" / "selection" / args.split
-    runs = {p.stem: np.load(p, allow_pickle=False) for p in sorted(sel_dir.glob("*.npz"))}
+    runs = {p.stem: np.load(p, allow_pickle=False) for p in sorted(sel_dir.glob("*.npz")) if p.stem in args.selectors}
     if not runs:
         print(f"no selection outputs in {sel_dir}", file=sys.stderr)
         return 1

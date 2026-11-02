@@ -59,3 +59,40 @@ run `m5_global_local_det-aab45f29ca9b` · host `LAPTOP-5CPRTI27` · git `0a6ca79
 | sel:clip_openai_b32_gl:k20 | source_aware | +0.0135 | [+0.0058, +0.0352] | [-0.0081, +0.0213] | True | 39 / 11 | 9.02e-05 | no |
 
 `robust*` = percentile CI and basic CI both exclude 0 AND the per-class sign test agrees in direction with p < 0.05.
+
+## Operating points (IoU 0.5, maxDets 900; fixed score thresholds pre-declared; best-F1 is a diagnostic)
+
+| condition | protocol | P@0.25 | R@0.25 | F1@0.25 | P@0.35 | R@0.35 | F1@0.35 | best F1 (thr) |
+|---|---|---|---|---|---|---|---|---|
+| full | standard | 0.016 | 0.006 | 0.009 | 0.050 | 0.002 | 0.004 | 0.014 (0.17) |
+| full | source_aware | 0.070 | 0.006 | 0.011 | 0.196 | 0.002 | 0.004 | 0.039 (0.12) |
+| oracle_gt | standard | 0.301 | 0.059 | 0.099 | 0.326 | 0.022 | 0.041 | 0.196 (0.11) |
+| oracle_gt | source_aware | 0.301 | 0.059 | 0.099 | 0.326 | 0.022 | 0.041 | 0.196 (0.11) |
+| sel:remoteclip_b32:k3 | standard | 0.028 | 0.004 | 0.008 | 0.043 | 0.002 | 0.004 | 0.016 (0.14) |
+| sel:remoteclip_b32:k3 | source_aware | 0.078 | 0.004 | 0.008 | 0.133 | 0.002 | 0.004 | 0.030 (0.06) |
+| sel:remoteclip_b32:k8 | standard | 0.039 | 0.008 | 0.013 | 0.032 | 0.001 | 0.003 | 0.032 (0.13) |
+| sel:remoteclip_b32:k8 | source_aware | 0.114 | 0.008 | 0.015 | 0.104 | 0.001 | 0.003 | 0.055 (0.12) |
+| sel:remoteclip_b32:k20 | standard | 0.041 | 0.010 | 0.016 | 0.034 | 0.002 | 0.003 | 0.029 (0.16) |
+| sel:remoteclip_b32:k20 | source_aware | 0.134 | 0.010 | 0.019 | 0.136 | 0.002 | 0.003 | 0.055 (0.12) |
+| sel:remoteclip_b32_gl:k3 | standard | 0.061 | 0.010 | 0.018 | 0.058 | 0.003 | 0.006 | 0.041 (0.11) |
+| sel:remoteclip_b32_gl:k3 | source_aware | 0.146 | 0.010 | 0.019 | 0.155 | 0.003 | 0.006 | 0.066 (0.09) |
+| sel:remoteclip_b32_gl:k8 | standard | 0.045 | 0.010 | 0.016 | 0.045 | 0.002 | 0.004 | 0.036 (0.14) |
+| sel:remoteclip_b32_gl:k8 | source_aware | 0.120 | 0.010 | 0.018 | 0.133 | 0.002 | 0.004 | 0.060 (0.12) |
+| sel:remoteclip_b32_gl:k20 | standard | 0.033 | 0.009 | 0.015 | 0.015 | 0.001 | 0.002 | 0.030 (0.16) |
+| sel:remoteclip_b32_gl:k20 | source_aware | 0.123 | 0.009 | 0.017 | 0.069 | 0.001 | 0.002 | 0.062 (0.13) |
+| sel:remoteclip_b32_local:k3 | standard | 0.048 | 0.008 | 0.013 | 0.067 | 0.003 | 0.006 | 0.032 (0.13) |
+| sel:remoteclip_b32_local:k3 | source_aware | 0.115 | 0.008 | 0.014 | 0.186 | 0.003 | 0.007 | 0.052 (0.09) |
+| sel:remoteclip_b32_local:k8 | standard | 0.043 | 0.009 | 0.015 | 0.058 | 0.003 | 0.005 | 0.030 (0.16) |
+| sel:remoteclip_b32_local:k8 | source_aware | 0.117 | 0.009 | 0.017 | 0.197 | 0.003 | 0.005 | 0.052 (0.12) |
+| sel:remoteclip_b32_local:k20 | standard | 0.035 | 0.010 | 0.015 | 0.016 | 0.001 | 0.002 | 0.030 (0.16) |
+| sel:remoteclip_b32_local:k20 | source_aware | 0.126 | 0.010 | 0.018 | 0.071 | 0.001 | 0.002 | 0.061 (0.13) |
+| sel:clip_openai_b32:k8 | standard | 0.023 | 0.005 | 0.008 | 0.011 | 0.000 | 0.001 | 0.018 (0.15) |
+| sel:clip_openai_b32:k8 | source_aware | 0.077 | 0.005 | 0.009 | 0.036 | 0.000 | 0.001 | 0.035 (0.12) |
+| sel:clip_openai_b32:k20 | standard | 0.028 | 0.008 | 0.012 | 0.013 | 0.001 | 0.001 | 0.024 (0.15) |
+| sel:clip_openai_b32:k20 | source_aware | 0.098 | 0.008 | 0.014 | 0.042 | 0.001 | 0.001 | 0.053 (0.13) |
+| sel:clip_openai_b32_gl:k3 | standard | 0.035 | 0.006 | 0.010 | 0.047 | 0.003 | 0.005 | 0.016 (0.10) |
+| sel:clip_openai_b32_gl:k3 | source_aware | 0.102 | 0.006 | 0.011 | 0.156 | 0.003 | 0.005 | 0.029 (0.08) |
+| sel:clip_openai_b32_gl:k8 | standard | 0.027 | 0.006 | 0.010 | 0.015 | 0.001 | 0.001 | 0.022 (0.12) |
+| sel:clip_openai_b32_gl:k8 | source_aware | 0.095 | 0.006 | 0.011 | 0.060 | 0.001 | 0.001 | 0.045 (0.11) |
+| sel:clip_openai_b32_gl:k20 | standard | 0.022 | 0.007 | 0.010 | 0.009 | 0.000 | 0.001 | 0.022 (0.15) |
+| sel:clip_openai_b32_gl:k20 | source_aware | 0.080 | 0.007 | 0.012 | 0.029 | 0.000 | 0.001 | 0.051 (0.12) |
