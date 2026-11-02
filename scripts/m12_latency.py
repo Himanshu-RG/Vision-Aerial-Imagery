@@ -11,8 +11,10 @@ Pipelines (interleaved per image, order rotated per image so no pipeline always 
     rc_top8   RemoteCLIP global selector -> fixed top-8 -> detector
 Latency = selector (image preprocess + encode + similarity + rule; text embeddings cached once per vocabulary)
         + detector (preprocess + forward + postprocess), CUDA-synchronised. Disk I/O and model loading excluded (D22).
-Idle check (D9): at start no other CUDA compute process and GPU utilisation <= 10%; otherwise the script stops
-unless --allow-busy is given (then the result is labelled 'not idle'). Dev images only: the test split is used up.
+Idle check (D9, D49a): GPU utilisation <= 10% in all of 10 samples taken 1 s apart before the models load; otherwise
+the script stops unless --allow-busy is given (then the result is labelled 'not idle'). The processes nvidia-smi lists
+and whether the screen is drawn by this GPU are recorded, not used as the criterion: on Windows every program on a
+screen attached to the GPU is listed. Dev images only: the test split is used up.
 """
 
 from __future__ import annotations
@@ -45,8 +47,31 @@ PIPELINES = ("full", "headline", "rc_top8")
 MAN = REPO_ROOT / "data" / "manifests"
 
 
+def smi(query: str) -> list[str]:
+    out = subprocess.run(["nvidia-smi", f"--query-gpu={query}", "--format=csv,noheader,nounits"],
+                         capture_output=True, text=True, timeout=10).stdout.strip()
+    return [x.strip() for x in out.splitlines()[0].split(",")] if out else []
+
+
+def idle_samples(n: int = 10, interval_s: float = 1.0) -> dict:
+    """GPU utilisation and memory sampled n times before the models load (D49a)."""
+    util, mem = [], []
+    for _ in range(n):
+        u, m = smi("utilization.gpu,memory.used")
+        util.append(float(u))
+        mem.append(float(m))
+        time.sleep(interval_s)
+    try:
+        display_active, display_mode = smi("display_active,display_mode")
+    except Exception:  # noqa: BLE001
+        display_active = display_mode = "unknown"
+    return {"util_pct": util, "mem_used_mb": mem, "max_util_pct": max(util), "display_active": display_active,
+            "display_mode": display_mode}
+
+
 def compute_apps() -> list[dict]:
-    """Other CUDA compute processes (the display/graphics context is not listed here)."""
+    """Processes nvidia-smi lists on the GPU. Recorded only: on Windows (WDDM) this includes every program that
+    draws on a screen attached to the GPU (explorer.exe, editors, ...), so it is not an idle criterion (D49a)."""
     try:
         out = subprocess.run(["nvidia-smi", "--query-compute-apps=pid,process_name,used_memory", "--format=csv,noheader,nounits"],
                              capture_output=True, text=True, timeout=10).stdout.strip()
@@ -81,13 +106,20 @@ def main() -> int:
     if args.device.startswith("cuda") and not torch.cuda.is_available():
         print("CUDA requested but not available -- wrong venv?", file=sys.stderr)
         return 2
-    gpu0, apps0 = gpu_snapshot(torch), compute_apps() if args.device.startswith("cuda") else []
+    on_gpu = args.device.startswith("cuda")
+    gpu0, apps0 = gpu_snapshot(torch), compute_apps() if on_gpu else []
     others = [a for a in apps0 if str(a.get("pid")) != str(os.getpid())]
-    idle = args.device.startswith("cuda") and not others and float(gpu0.get("smi_util_pct", 100)) <= 10
+    samples = idle_samples() if on_gpu else {}
+    # Idle (D49a) = GPU utilisation <= 10% in every one of 10 samples over ~10 s before the models load.
+    idle = on_gpu and samples["max_util_pct"] <= 10
     if not idle and not args.allow_busy:
-        print(f"GPU not idle (util {gpu0.get('smi_util_pct')}%, other compute apps {others}). Close games/Overwolf/"
-              "browsers, plug in, Best performance, and retry. --allow-busy only for smoke tests.", file=sys.stderr)
+        print(f"GPU not idle: utilisation samples {samples.get('util_pct')} % (all must be <= 10). Close games, "
+              "Overwolf, browsers and video, plug in, Best performance, and retry. --allow-busy only for smoke tests.",
+              file=sys.stderr)
         return 3
+    if on_gpu:
+        print(f"idle check passed: max utilisation {samples['max_util_pct']:.0f}%, memory used "
+              f"{max(samples['mem_used_mb']):.0f} MB, display on this GPU: {samples['display_active']}", flush=True)
 
     store = get_store()
     rows = load_manifest()
@@ -178,7 +210,8 @@ def main() -> int:
     out = {"protocol": "D49", "host": socket.gethostname(), "device": args.device, "git_commit": git, "git_dirty_code": dirty,
            "torch": torch.__version__, "cuda": torch.version.cuda,
            "gpu_name": torch.cuda.get_device_name(0) if args.device.startswith("cuda") else None,
-           "idle_at_start": bool(idle), "gpu_at_start": gpu0, "compute_apps_at_start": apps0, "gpu_at_end": gpu1,
+           "idle_at_start": bool(idle), "idle_criterion": "D49a: max of 10 utilisation samples (1 s apart) <= 10%",
+           "idle_samples": samples, "gpu_at_start": gpu0, "gpu_processes_at_start": apps0, "gpu_at_end": gpu1,
            "n_images": len(ids), "repeats": args.repeats, "warmup": args.warmup, "model_load_s": round(load_s, 2),
            "text_cache_ms": sel.text_cache_ms, "headline_mask_mismatch_vs_committed": mismatch,
            "summary": summ, "records": recs}
@@ -189,8 +222,9 @@ def main() -> int:
     f = lambda c: f"{c[0]:.1f} [{c[1]:.1f}, {c[2]:.1f}]"  # noqa: E731
     L = [f"# M12 end-to-end latency (generated by `scripts/m12_latency.py`; protocol D49)", "",
          f"Host `{out['host']}` · {out['gpu_name']} · torch {out['torch']} · git `{git[:7]}` (code dirty={dirty}) · "
-         f"**GPU idle at start: {'yes' if idle else 'NO, indicative only'}** (util {gpu0.get('smi_util_pct')}%, "
-         f"{gpu0.get('smi_used_mb')} MB used, other compute apps: {len(others)}) · {len(ids)} dev images × {args.repeats} "
+         f"**GPU idle at start: {'yes' if idle else 'NO, indicative only'}** (max utilisation "
+         f"{samples.get('max_util_pct', '–')}% over 10 samples, {gpu0.get('smi_used_mb')} MB used, display on this GPU: "
+         f"{samples.get('display_active', '–')}, {len(others)} processes listed by nvidia-smi) · {len(ids)} dev images × {args.repeats} "
          f"passes · headline masks differing from the committed CPU masks: {mismatch}/{len(ids)}", "",
          "Per image: median over passes; then median over images with a 95% bootstrap CI. fp32, top-900 (D21).", "",
          "| pipeline | mean classes | selector ms | detector ms | forward ms | **end-to-end ms** | p90 | Δ vs full ms | speed-up | peak MB |",
