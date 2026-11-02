@@ -23,6 +23,15 @@
 | e9_synonym_det-cd6a2ee199e9 | E9 | set:e9_syn_m8 | dev | 200 | 7.58 | 0.0516 | 0.0707 | 0.2408 | 0.0056 | 336.8 | fc4653e |
 | e9_synonym_det-cd6a2ee199e9 | E9 | set:e9_syn_d34 | dev | 200 | 9.57 | 0.0529 | 0.0695 | 0.2532 | 0.0052 | 339.2 | fc4653e |
 | e9_synonym_det-cd6a2ee199e9 | diagnostic | set:e9_diag_insource_m8 | dev | 200 | 8.24 | 0.076 | 0.076 | 0.3342 | 0.0101 | 336.7 | fc4653e |
+| final_test-75ab843910a3 | E1 | full | test | 2862 | 80.0 | 0.0053 | 0.0157 | 0.131 | 0.0016 | 441.7 | 6fe5fe8 |
+| final_test-75ab843910a3 | oracle | oracle_gt | test | 2862 | 2.25 | 0.1072 | 0.1072 | 0.3986 | 0.0428 | 340.8 | 6fe5fe8 |
+| final_test-75ab843910a3 | E3 | random_matched | test | 2862 | 2.25 | 0.0023 | 0.0038 | 0.0141 | 0.0009 | 341.1 | 6fe5fe8 |
+| final_test-75ab843910a3 | E2 | sel:frequency:k8 | test | 2862 | 8.0 | 0.0028 | 0.0056 | 0.0258 | 0.0094 | 346.4 | 6fe5fe8 |
+| final_test-75ab843910a3 | E4 | sel:clip_openai_b32:k20 | test | 2862 | 20.0 | 0.0081 | 0.0238 | 0.1786 | 0.0017 | 359.7 | 6fe5fe8 |
+| final_test-75ab843910a3 | E4 | sel:remoteclip_b32:k8 | test | 2862 | 8.0 | 0.017 | 0.0347 | 0.1999 | 0.0039 | 346.8 | 6fe5fe8 |
+| final_test-75ab843910a3 | E8 | set:headline_d34 | test | 2862 | 8.01 | 0.028 | 0.0418 | 0.2062 | 0.0052 | 347.2 | 6fe5fe8 |
+| final_test-75ab843910a3 | E8 | set:frozen_threshold_m20 | test | 2862 | 19.84 | 0.0209 | 0.0378 | 0.2285 | 0.0034 | 359.3 | 6fe5fe8 |
+| final_test-75ab843910a3 | E8 | set:frozen_top_p_m20 | test | 2862 | 19.82 | 0.0276 | 0.0406 | 0.2161 | 0.0044 | 359.0 | 6fe5fe8 |
 | m11_nwpu_det-58d87bbcbac5 | E1 | full | nwpu | 614 | 80.0 | 0.0879 | 0.0879 | 0.1568 | 0.0307 | 668.4 | 26de481 |
 | m11_nwpu_det-58d87bbcbac5 | oracle | oracle_gt | nwpu | 614 | 1.35 | 0.2081 | 0.2081 | 0.5828 | 0.3042 | 536.9 | 26de481 |
 | m11_nwpu_det-58d87bbcbac5 | E3 | random_matched | nwpu | 614 | 1.35 | 0.0069 | 0.0069 | 0.0144 | 0.0166 | 540.1 | 26de481 |

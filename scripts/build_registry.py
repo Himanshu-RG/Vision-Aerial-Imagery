@@ -32,7 +32,8 @@ def experiment_id(cond: str) -> str:
         return "diagnostic"
     if cond.startswith("set:e9_"):
         return "E9"
-    if cond == "set:headline_d34":  # the frozen D34 rule applied to a new split (= set:m6_threshold_m8 on dev)
+    # The frozen D34 rules applied to a new split (= set:m6_threshold_m8 / m6_threshold_m20 / m6_top_p_m20 on dev)
+    if cond in ("set:headline_d34", "set:frozen_threshold_m20", "set:frozen_top_p_m20"):
         return "E8"
     if cond.startswith("set:m6_retain"):
         return "E7"

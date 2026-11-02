@@ -10,7 +10,8 @@
 - M8–M9 complete (experiment registry, precision/recall/F1, tiling diagnostic: small objects are a detector limitation).
 - M10 (failure analysis) and E9 (synonym-aware selector: no gain) complete.
 - M11 (generalization) complete. The gain holds on DIOR/DOTA-like data and on a new dataset of that kind (NWPU VHR-10), but not on fine-grained, unfamiliar sources (FAIR1M, xView).
-- Next: one-time test evaluation, then latency profiling (M12), reproducibility package (M13) and paper draft (M14).
+- **One-time test evaluation done (2,862 held-out images). The frozen method beats the full vocabulary robustly under both scoring protocols (AP50 ×5.3 standard, ×2.7 source-aware) and robustly beats a fixed-size selector; the gain is again only on DIOR/DOTA-like sources (§7.12).**
+- Next: latency profiling (M12), reproducibility package (M13) and paper draft (M14).
 
 Repository: <https://github.com/Himanshu-RG/Vision-Aerial-Imagery>. The living project log is [`CONTEXT.md`](../CONTEXT.md); module reports are in [`reports/`](.).
 
@@ -32,6 +33,12 @@ What we have established so far, all on the tuning (dev) split, with no test dat
    - The gain is on source datasets the selector's encoder (RemoteCLIP) was trained on: DIOR and DOTA, 0.069 → 0.223 source-aware AP50.
    - It is absent on unseen, fine-grained ones: FAIR1M, xView.
    - Applied frozen to a new dataset of the DIOR kind (NWPU VHR-10), it still improves AP50 from 0.088 to 0.129, robustly.
+
+9. **Confirmed on the held-out test split (one run, everything fixed in advance).**
+   - On 2,862 test images, AP50 rises from 0.0053 to **0.0280** (standard) and from 0.0157 to **0.0418** (source-aware). The gain is robust under both protocols.
+   - The method also robustly beats fixed RemoteCLIP top-8, which on dev passed only 2 of 3 checks.
+   - The gain is smaller than on dev (29% vs 38% of the oracle headroom).
+   - Seen sources: 0.035 → 0.120; unseen: 0.008 → 0.009.
 ---
 
 ## 2. Problem and motivation
@@ -337,6 +344,26 @@ Every method is applied frozen, with no recalibration: the same 80-class prompt 
 - The gain comes from its *adaptive* size: fixed top-k with the same encoder gives nothing. Most of it is in two classes, ground track field and vehicle.
 - NWPU was made by DIOR's authors with DIOR's classes, so this confirms transfer to new images of a *familiar* kind. It does not contradict part 1: there is still no gain on fine-grained, unfamiliar label spaces such as FAIR1M and xView.
 
+### 7.12 Final test: one-time evaluation on the held-out split (2,862 images, RTX 5060)
+The method, its parameters, the 9 conditions and the analysis were all committed before any test image was touched (D47). Thresholds tuned on dev are re-used unchanged. Details: [`FINAL_TEST.md`](FINAL_TEST.md).
+
+| AP50@900 on the test split | Classes | Standard | Source-aware | Ours better? |
+|---|---|---|---|---|
+| All 80 classes | 80 | 0.0053 | 0.0157 | robust, both protocols |
+| Frequency prior top-8 | 8 | 0.0028 | 0.0056 | robust, both |
+| OpenAI CLIP top-20 | 20 | 0.0081 | 0.0238 | robust (standard) |
+| RemoteCLIP top-8 (fixed size) | 8 | 0.0170 | 0.0347 | **robust, both** |
+| Adaptive, ~20 classes (top-p) | 20 | 0.0276 | 0.0406 | tie |
+| **Ours (adaptive threshold, frozen)** | 8 | **0.0280** (×5.3) | **0.0418** (×2.7) | – |
+| *Oracle* | 2.3 | 0.1072 | 0.1072 | – |
+
+**What this shows:**
+- **The main claim holds** on unseen test images under both protocols, with all three statistical checks.
+- **Adaptive size matters:** it robustly beats a fixed list of 8 classes from the same encoder.
+- **Where it works is unchanged:** DIOR+DOTA 0.035 → 0.120, FAIR1M+xView+PP 0.008 → 0.009 (source-aware).
+- **F1:** at the thresholds fixed on dev, F1 rises ×2.6 (standard). A fixed list of the most frequent classes gets a higher pooled F1, because pooled F1 is dominated by dense FAIR1M vehicle classes, yet it has the lowest AP. We report both and keep AP50 as the headline metric, as declared in advance.
+- **Speed:** about 20% faster than all 80 classes (indicative; GPU not idle).
+
 Full tables: [`generated/E0_tables.md`](generated/E0_tables.md), [`generated/e0_headroom_tables.md`](generated/e0_headroom_tables.md) (robustness), [`generated/M4_selection_tables.md`](generated/M4_selection_tables.md), [`generated/m4_selectors_det_tables.md`](generated/m4_selectors_det_tables.md), [`generated/M5_selection_tables.md`](generated/M5_selection_tables.md), [`generated/m5_global_local_det_tables.md`](generated/m5_global_local_det_tables.md), [`generated/M6_retention_tables.md`](generated/M6_retention_tables.md), [`generated/m6_retention_det_tables.md`](generated/m6_retention_det_tables.md) (+ `_vs_k3/_vs_k8/_vs_k20`).
 
 ---
@@ -360,7 +387,7 @@ Each method is compared at **matched average vocabulary sizes**, with accuracy�
 ## 9. Next steps
 1. ~~Remaining baselines (E5)~~ done; ~~detector-side test~~ done at M9 (tiling does not help, D37).
 2. ~~M10 failure analysis~~ done; ~~synonym-aware selector (E9)~~ tested: no gain, headline method stays frozen (D43).
-3. **M11:** ~~per-source generalization~~ done (gain only on datasets the selector's encoder saw); ~~external dataset NWPU VHR-10~~ done (frozen method transfers: ×1.5, robust). **Next: one-time final evaluation on the held-out test split** (frozen list committed first).
+3. **M11:** ~~per-source generalization~~ done (gain only on datasets the selector's encoder saw); ~~external dataset NWPU VHR-10~~ done (frozen method transfers: ×1.5, robust). ~~One-time final evaluation on the held-out test split~~ done: confirmed under both protocols (§7.12).
 4. **M12–M14:** latency profiling, reproducibility package, paper draft.
 
 ## 10. Risks and honest assessment
