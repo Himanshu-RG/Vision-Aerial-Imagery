@@ -1,0 +1,153 @@
+\section{Experiments}
+\label{sec:exp}
+
+\subsection{Setup}
+\paragraph{Data.}
+\lae \cite{pan2025lae} has 3,592 images and 80 classes coming from the validation sets of FAIR1M, xView, DIOR, DOTA and a power-plant dataset.
+After logged cleaning (972 edge boxes clipped, 19 exact duplicates removed) it has 86,539 boxes.
+Since \lae is one single set, we split it ourselves once into dev (730 images) and test (2,862) with iterative multi-label stratification (seed 2026), and the ID lists were committed before running any detector.
+All development happened on dev (530 images for calibration, 200 for detection), the test split was used one time only, with every condition and analysis written down beforehand.
+As an external set we use NWPU VHR-10 \cite{cheng2014nwpu} (614 images, 9 classes mapped to \lae names, \emph{ship} dropped because it has no single equivalent).
+
+\paragraph{Disjoint label spaces.}
+Each source of \lae annotates only its own classes: a car is ``Small Car'' in FAIR1M, ``Passenger Car'' in xView and ``vehicle'' in DIOR, even though the benchmark authors tried to pick classes ``as semantically non-overlapping as possible'' \cite{pan2025lae}.
+Under standard COCO evaluation a correct ``vehicle'' box on a FAIR1M image is a false positive.
+So we report \textbf{source-aware} AP (\src), which only scores the classes inside the image's source label space, next to standard AP (\std).
+The source is used only by the evaluator, never by the selector.
+
+\paragraph{Metrics and statistics.}
+Our main metric is AP50 with 900 detections per image. We also report P/R/F1 at a score threshold fixed on dev.
+Differences come from a paired image-level bootstrap (1,000 resamples).
+Because the percentile interval turned out to be biased for class-averaged AP, we call a difference \emph{robust} only if the percentile CI, the basic CI and a per-class sign test ($p<0.05$, same direction) all agree.
+
+\paragraph{Implementation.}
+HF \texttt{transformers} \gdino-T (172M parameters), fp32, 800\,px short side; \texttt{open\_clip} RemoteCLIP and OpenAI CLIP ViT-B/32. All checkpoints are pinned by commit hash and sha256.
+Detection ran on a single RTX 5060 Laptop GPU (8\,GB). Selection scores are computed on CPU once and saved, so all runs use identical vocabularies.
+
+\subsection{How much headroom is there?}
+\label{sec:exp_headroom}
+On the 200 dev detection images, giving \gdino all 80 classes yields AP50 of 0.015 (\std) / 0.028 (\src).
+With an oracle that gives only the classes present in each image ($\sim$2 classes) it reach 0.140, while a random list of the same size gets 0.007 / 0.008, so it is the \emph{content} of the vocabulary that matter, not just its length.
+An oracle that gives the full class list of the image's source dataset ($\sim$21 classes) gets only 0.031, so the selection really has to be per image.
+About 89\% of the oracle gap survives source-aware scoring, which means it is mostly about per-image relevance and not an artifact of the evaluation.
+
+\subsection{Development results}
+\label{sec:exp_dev}
+% AA: this table is dev only (200 imgs), it was used to pick the method so the numbers are optimistic. we say this in text
+\begin{table}[t]
+  \centering
+  \small
+  \begin{tabular}{@{}lccc@{}}
+    \toprule
+    Selector (dev) & \#cls & AP50 \std & AP50 \src \\
+    \midrule
+    All 80 classes & 80 & 0.015 & 0.028 \\
+    VocAda-style caption top-8 & 8 & 0.022 & 0.034 \\
+    TagCLIP-style top-8 & 8 & 0.023 & 0.053 \\
+    OpenAI CLIP top-20 & 20 & -- & 0.049 \\
+    RemoteCLIP top-8 & 8 & 0.035 & 0.058 \\
+    RemoteCLIP + 13 crops, top-8 & 8 & -- & 0.053 \\
+    Uncertainty retention & $\sim$8 & 0.033 & 0.046 \\
+    Synonym expansion & $\sim$8 & 0.052 & 0.071 \\
+    \textbf{Ours (adaptive threshold)} & 7.9 & \textbf{0.055} & \textbf{0.071} \\
+    \midrule
+    \textit{Oracle (GT classes)} & $\sim$2 & 0.140 & 0.140 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Development results on 200 dev images. Our method was picked among 9 rule/size settings on these same images and then frozen. \TODO{fill the two missing \std values from the M4/M5 tables}}
+  \label{tab:dev}
+\end{table}
+
+Tab.~\ref{tab:dev} summarise the development stage.
+Using local crop evidence improved the \emph{selection} of small-object classes (their recall at $k=8$ from 0.22 to 0.31) but did not improve detection: small-object recall went up while small-object AP went down, and crops cost 83\,ms per image instead of 8\,ms.
+Uncertainty retention showed the same pattern.
+The caption selector cost $\sim$1.2\,s per image and lost on class-averaged AP, it only won on pooled F1 because captions often mention cars, which are the densest classes.
+Synonym expansion failed the replacement rule we had fixed in advance, so we kept the simpler method.
+
+\subsection{Main result: held-out test}
+\label{sec:exp_test}
+\begin{table}[t]
+  \centering
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{@{}lcccc@{}}
+    \toprule
+    Selector (test) & \#cls & AP50 \std & AP50 \src & vs.\ ours \\
+    \midrule
+    All 80 classes & 80 & 0.0053 & 0.0157 & robust \\
+    Random (oracle size) & 2.3 & 0.0023 & 0.0038 & robust \\
+    Frequency prior top-8 & 8 & 0.0028 & 0.0056 & robust \\
+    OpenAI CLIP top-20 & 20 & 0.0081 & 0.0238 & robust (\std) \\
+    RemoteCLIP top-8 & 8 & 0.0170 & 0.0347 & robust \\
+    Adaptive threshold, $\sim$20 & 19.8 & 0.0209 & 0.0378 & n.s. \\
+    Adaptive top-$p$, $\sim$20 & 19.8 & 0.0276 & 0.0406 & n.s. \\
+    \textbf{Ours, $\sim$8} & 8.0 & \textbf{0.0280} & \textbf{0.0418} & -- \\
+    \midrule
+    \textit{Oracle} & 2.3 & 0.1072 & 0.1072 & -- \\
+    \bottomrule
+  \end{tabular}
+  \caption{Results on the 2,862 held-out test images (single run, all settings frozen). ``robust'' means ours is better and all three checks agree under both protocols unless noted; n.s.\ = not significant.}
+  \label{tab:test}
+\end{table}
+
+Tab.~\ref{tab:test} is the main result.
+Compared to the full vocabulary, our selector improves AP50 by +0.0228 under \std (basic CI $[+0.0143, +0.0263]$, 56 classes better vs 18 worse, $p=1.1\times10^{-5}$) and by +0.0261 under \src (basic CI $[+0.0163, +0.0300]$, 50 vs 24, $p=0.0034$), so the claim we declared before the run hold under both protocols.
+This is 22\% (\std) and 29\% (\src) of the oracle headroom; on dev it was 38\%, so as expected the gain shrank a bit after we selected the method on dev.
+
+The more interesting comparison for us is with RemoteCLIP top-8, which uses the \emph{same} encoder and the same average size.
+Ours is robustly better under both protocols (+0.011 \std, 50/20 classes; +0.007 \src, 44/26), so the adaptive size actually help, it is not only the shorter prompt.
+On dev this comparison passed only 2 of the 3 checks, so the test set settled it.
+
+\paragraph{F1.}
+At the thresholds fixed on dev, F1 goes from 0.014 to 0.036 (\std) and 0.039 to 0.056 (\src).
+A bit embarrassing for the metric: the frequency prior reaches a higher pooled F1 (0.084 / 0.132) while having almost the lowest AP. Its fixed list is mostly FAIR1M vehicle classes plus xView ``Building'', which are the densest classes in test, and pooled F1 counts boxes. We keep class-averaged AP as the headline as we declared before.
+
+\subsection{Where does it work?}
+\label{sec:exp_where}
+\begin{table}[t]
+  \centering
+  \small
+  \begin{tabular}{@{}lcc@{}}
+    \toprule
+    AP50 \src (test) & DIOR+DOTA & FAIR1M+xView+PP \\
+    \midrule
+    All 80 classes & 0.035 & 0.008 \\
+    Ours & \textbf{0.120} & 0.009 \\
+    Oracle & 0.163 & 0.083 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Test results split by source groups that RemoteCLIP has seen (DIOR, DOTA) or not seen (FAIR1M, xView, power plants) in its training data.}
+  \label{tab:where}
+\end{table}
+
+RemoteCLIP's training data contains DIOR and DOTA but not FAIR1M or xView \cite{liu2024remoteclip}.
+Tab.~\ref{tab:where} shows the gain is almost entirely on the seen group (3.5$\times$), while on the unseen group there is no gain although the oracle shows about 11$\times$ headroom there. We had observed this already on dev and fixed this split before the test run.
+
+On NWPU VHR-10, applied without any retuning, our selector improves AP50 from 0.088 to 0.129 (+0.041, robust; oracle 0.208) while RemoteCLIP top-8 does not give a significant gain (0.093).
+We want to be careful here: NWPU was made by the same group as DIOR with DIOR's class names, and LAE-1M even includes it as a training source \cite{pan2025lae}. So this shows transfer to new images of a \emph{familiar} kind, not a general ``unseen domain'' result. We did not check image overlap between NWPU and DIOR's training set. \TODO{maybe check this if time}
+
+\subsection{Speed}
+On the RTX 5060 (idle, fp32, 200 dev images, 3 passes, selector and detector in the same process) the median end-to-end time is 414\,ms with all 80 classes and 343\,ms with ours, including 7.9\,ms for the selector, so 1.21$\times$ faster (difference $-71$\,ms, CI $[-72, -71]$).
+Peak GPU memory also drops from 2.77 to 2.49\,GB.
+For comparison VocAda reports 5.6--10.7\,s per image on a V100 \cite{liu2025vocada}, although that is a different detector so it is not a direct comparison.
+
+\subsection{Failure analysis}
+\label{sec:exp_fail}
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{fig/selection_gain.jpg}
+  \caption{xView image 3229 (village). Left: all 80 classes, huge false boxes and few correct detections. Right: our selected vocabulary. Green = ground truth, blue = true positive, red = false positive (score $\geq0.14$). Image chosen by a fixed rule (largest true-positive gain), not hand-picked.}
+  \label{fig:qual}
+\end{figure}
+
+We sorted every labelled object and every confident detection on the dev images into failure types that we defined before looking.
+The main findings are:
+\begin{itemize}
+  \item Our selector keep the right class for only 26\% of ground-truth \emph{objects}, because dense FAIR1M/xView scenes hold 85\% of all objects.
+  \item 59\% of the selected classes belong to another source's label set, \eg xView ``Ferry'' on a FAIR1M image labelled ``Passenger Ship''. This is the hard-negative problem of \cite{bianchi2024devil} showing up through the benchmark taxonomy. A hierarchy-aware vocabulary like SHiNe \cite{liu2024shine} could maybe help, we did not try. \TODO{discuss with team}
+  \item When the right class \emph{is} kept, \gdino finds 48\% of those objects vs 58\% with the oracle, so the detector is not the only problem there.
+  \item Confident false positives drop by 76\%; with all 80 classes, 77\% of them are classes never annotated in that dataset.
+  \item Selection helps sparse scenes (1--5 objects: 0.025 $\rightarrow$ 0.109 AP50) but hurts scenes with more than 20 objects.
+  \item Small objects stay a detector limit: tiled inference did not raise small-object AP and was 5$\times$ slower.
+\end{itemize}
+\TODO{second qualitative figure (similar\_classes.jpg) + per-class table? probably for supplementary}

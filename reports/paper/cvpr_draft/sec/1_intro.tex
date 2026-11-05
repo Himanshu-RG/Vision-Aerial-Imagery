@@ -1,0 +1,29 @@
+\section{Introduction}
+\label{sec:intro}
+
+Open-vocabulary object detection (OVD) let the user decide at test time what classes the detector should look for, by simply writing them in natural language \cite{liu2024grounding}.
+For natural images this works surprisingly well, but remote sensing imagery is a different story.
+Aerial images contain many small and dense objects seen from top view, and the class lists used in remote sensing benchmarks are long and full of near duplicates, for example \lae \cite{pan2025lae} contain \emph{vehicle}, \emph{small car}, \emph{passenger car} and \emph{van} at the same time.
+When all these names are put in one prompt, the detector has to split its confidence between look-alike names and the results become very poor.
+LAE-DINO \cite{pan2025lae} report that \gdino-T pretrained on natural images get only 0.1 mAP on \lae, and a recent zero-shot study \cite{tsourveloudis2026ovd} found that if you prompt with only the ground-truth classes of each image the F1 goes up about 15$\times$.
+That second result is an oracle (it uses the labels), so it shows there is headroom but it is not a method you can deploy.
+
+% SG: maybe add a teaser figure here like the VocAda paper fig 1 ?
+The natural idea is then: look at the image first, guess which classes are actually there, and only prompt the detector with those.
+This idea is not new by itself.
+VocAda \cite{liu2025vocada} adapt the vocabulary per image at test time using a captioner (LLaVA-Next-7B), a noun parser and a class selector, and show consistent gains on COCO and Objects365.
+But it was tested on natural images with Detic-style detectors, and it cost 5.6--10.7 seconds and 17--31\,GB of GPU memory per image \cite{liu2025vocada}, which is not practical for large aerial archives and also do not fit on our 8\,GB GPU.
+SHiNe \cite{liu2024shine} and the fine-grained benchmark of Bianchi \etal \cite{bianchi2024devil} also show, from different angles, that open-vocabulary detectors are sensitive to how the vocabulary is written and degrade when the vocabulary contain irrelevant or hard-negative entries.
+As far as we found in our literature search, nobody has studied a cheap, deployable per-image selector for a \emph{frozen} OVD detector on \emph{aerial} imagery. \TODO{re-check arXiv before submission, last search was Oct 2026}
+
+In this paper we do exactly this, and we try to be careful about evaluation since we noticed early that the benchmark itself has a trap.
+\lae merges five source datasets that annotate \emph{disjoint} sets of classes, so a correct ``vehicle'' box on a FAIR1M image (where cars are labelled ``Small Car'') is counted as a false positive by standard COCO evaluation.
+We therefore report a source-aware score next to the standard one.
+
+Our contributions are:
+\begin{itemize}
+    \item A training-free, pixels-only selector that pick a per-image vocabulary with RemoteCLIP \cite{liu2024remoteclip} and an \emph{adaptive} size given by one calibrated threshold. It adds $\sim$8\,ms per image and needs no change to the detector.
+    \item An evaluation protocol for merged benchmarks (source-aware AP), where a difference is only called robust if percentile bootstrap, basic bootstrap and a per-class sign test all agree, and a test split that was used exactly once after freezing every choice.
+    \item On the held-out test set the selector improve AP50 by 5.3$\times$ (standard) and 2.7$\times$ (source-aware) over the full 80-class prompt and it also beat a fixed top-8 selector with the same encoder. It is 1.21$\times$ faster end-to-end.
+    \item An honest map of where it works and where it doesnt: the gain is on DIOR/DOTA-like data and transfer to NWPU VHR-10 \cite{cheng2014nwpu} untuned, but not to FAIR1M/xView. Several extensions we expected to help (crop evidence, uncertainty retention, captions, synonym expansion) did not improve detection and we report them as negative results.
+\end{itemize}

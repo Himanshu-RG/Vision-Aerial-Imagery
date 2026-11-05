@@ -1,0 +1,55 @@
+% Initial draft v0.1 -- Team Transmontane
+% Based on the official CVPR author kit (https://github.com/cvpr-org/author-kit)
+% Upload this whole folder to Overleaf (New Project -> Upload Project -> zip of this folder)
+% Compiler: pdfLaTeX, main document: main.tex
+
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+%%%%%%%%% PAPER TYPE
+% \usepackage{cvpr}              % camera-ready
+% \usepackage[review]{cvpr}      % anonymous review version (switch to this before submitting!!)
+\usepackage[pagenumbers]{cvpr}   % draft with names + page numbers, for internal review
+
+\input{preamble}
+\usepackage{multirow}
+
+\definecolor{cvprblue}{rgb}{0.21,0.49,0.74}
+\usepackage[pagebackref,breaklinks,colorlinks,allcolors=cvprblue]{hyperref}
+
+\def\confName{CVPR}
+\def\confYear{2027}
+
+% our own short-hands
+\newcommand{\gdino}{Grounding DINO\xspace}
+\newcommand{\lae}{LAE-80C\xspace}
+\newcommand{\std}{\textsc{std}\xspace}
+\newcommand{\src}{\textsc{src}\xspace}
+
+%%%%%%%%% TITLE
+% HR: title is still tentative, Saurav suggested "Less is more ..." but sounds clickbait
+\title{Choosing What to Look For: Adaptive Per-Image Vocabulary Selection for Open-Vocabulary Object Detection in Aerial Imagery}
+
+%%%%%%%%% AUTHORS
+\author{Amit Adhikari \qquad Himanshu Ray \qquad Saurav Kumar Gupta \qquad Avishek Chowdhury\\
+Team Transmontane\\
+\TODO{university / department, supervisor}\\
+{\tt\small \TODO{emails}}
+}
+
+\begin{document}
+\maketitle
+
+\input{sec/0_abstract}
+\input{sec/1_intro}
+\input{sec/2_related}
+\input{sec/3_method}
+\input{sec/4_experiments}
+\input{sec/5_conclusion}
+
+{
+    \small
+    \bibliographystyle{ieeenat_fullname}
+    \bibliography{main}
+}
+
+\end{document}

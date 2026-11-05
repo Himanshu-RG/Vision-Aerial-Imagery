@@ -1,0 +1,16 @@
+\section{Limitations}
+\label{sec:limits}
+% HR: reviewers will ask these anyway so better we say them first
+\begin{itemize}
+  \item Absolute numbers are low. Even with a perfect vocabulary the frozen \gdino-T reach only 0.107 AP50 on test, and some classes stay near zero.
+  \item The gain is limited to imagery and label spaces close to RemoteCLIP's training data.
+  \item One detector (Swin-T) and one benchmark family. We did not test bigger detectors like \gdino-B or OWLv2. \TODO{if time / compute allows}
+  \item The rule family and the target size of 8 were designed by us on dev, and the synonym experiment was motivated by our own dev failure analysis. Both were frozen before test but readers should know.
+\end{itemize}
+
+\section{Conclusion}
+\label{sec:conclusion}
+% TODO: rewrite, this is just placeholder text from the meeting
+We showed that choosing a small per-image vocabulary from pixels, with an aerial CLIP model and a calibrated adaptive size, robustly improves a frozen open-vocabulary detector on held-out aerial images at almost no cost.
+The benefit is real but bounded: it holds where the encoder knows the imagery, and it is capped by near-synonym classes across merged datasets and by the detector on small objects.
+\TODO{future work: taxonomy-aware vocabularies, aerial-adapted detector, other OVD models}

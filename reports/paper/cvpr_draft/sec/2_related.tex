@@ -1,0 +1,27 @@
+\section{Related Work}
+\label{sec:related}
+
+\paragraph{Open-vocabulary detection.}
+Most OVD detectors align region features with a frozen vision-language embedding space, and then classify regions against text embeddings of the class names \cite{radford2021clip}.
+Training-based improvements are many, for example Zhao \etal \cite{zhao2024samp} learn scene-adaptive and region-aware multi-modal prompts and reach 34.8 novel mAP50 on OV-COCO, but this need training on base classes.
+\gdino \cite{liu2024grounding} is different from the two-stage ones because it fuses image and text deeply and scores every query against the prompt tokens, so the whole class list go into one BERT prompt of at most 256 tokens.
+We use its Swin-T version completely frozen.
+
+\paragraph{Vocabulary matters.}
+Several works show that the \emph{vocabulary} given to an OVD detector change the result a lot.
+SHiNe \cite{liu2024shine} show that performance vary with the semantic granularity of the class names and propose a classifier built offline from super-/sub-categories of a hierarchy; they also show that adding 1,466 unrelated ``noisy'' classes to the vocabulary drop the baseline by about 4 mAP50.
+Bianchi \etal \cite{bianchi2024devil} build per-object vocabularies with hard negative captions that differ only in one attribute, and find that most detectors that do well on COCO/LVIS cannot separate them; they also note that \gdino cannot take a list of long captions and they had to run one forward pass per caption.
+VocAda \cite{liu2025vocada} is the closest to us: it adapts the vocabulary per image with a captioner, spaCy noun extraction and a CLIP- or LLM-based class selector, and reports an oracle gap of up to +6.9 AP50 on OVE-COCO and +19.3 AP50 on Objects365.
+Interestingly they found that a larger top-$k$ per noun reduced the gain, so adding more classes hurt.
+% AA: should we say VocAda is complementary? they combined it with SHiNe and got small extra gain
+Our work differs in the domain (aerial), the detector (\gdino, frozen), the selector (one image embedding instead of a 7B captioner) and in that our vocabulary size is adaptive per image.
+
+\paragraph{Open-vocabulary detection in remote sensing.}
+CastDet \cite{li2024castdet} train an aerial OVD detector with a student--teacher scheme where RemoteCLIP \cite{liu2024remoteclip} act as an external teacher, and point out that class-agnostic proposal recall on aerial images is much lower than on natural images (48\% vs 77\%).
+LAE-DINO \cite{pan2025lae} build the LAE-1M dataset from ten sources and train a \gdino-style detector with Dynamic Vocabulary Construction, which samples positive and negative classes per \emph{training} batch because the $\sim$1,600 classes do not fit in 256 tokens.
+They also release \lae, the benchmark we use.
+Both are training-based, while we only change the prompt at inference.
+\TODO{add OpenRSD, and the Tsourveloudis zero-shot study in more detail}
+
+\paragraph{CLIP for image tagging.}
+\TODO{TagCLIP (local-to-global) and RemoteCLIP training data, keep short}

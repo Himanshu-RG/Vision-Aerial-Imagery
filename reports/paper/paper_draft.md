@@ -175,9 +175,10 @@ Both are robust. This recovers 22% / 29% of the oracle headroom, against 38% on 
 - **Small objects.** Tiled inference (2×2 + full image) did not raise small-object AP and cost 5× latency. Small objects are a detector limitation at this scale.
 
 ### 5.6 Cost
-- The selector adds about 8 ms per image on the GPU. Shorter prompts reduce detector time.
-- On test, the median detector time is 442 ms (80 classes) vs 347 ms (ours), about 20% faster end to end. That measurement was taken with ~2 GB of other GPU load.
-- **[TODO: replace with the idle-GPU M12 numbers, `reports/generated/M12_latency.md`]**
+- Measured on an idle RTX 5060 Laptop GPU (fp32, 200 dev images, 3 passes, selector and detector in one process).
+- End-to-end median: **414 ms** with all 80 classes vs **343 ms** with ours, including 7.9 ms for the selector. That is ×1.21 faster (−71 ms [−72, −71]).
+- Peak GPU memory drops from 2.77 GB to 2.49 GB.
+- For comparison, VocAda reports 5.6–10.7 s per image on a V100 [2].
 
 ## 6. Limitations
 - **Low absolute accuracy.** The frozen GDINO-T reaches only 0.107 AP50 on test even with a perfect vocabulary, and 18 classes stay near zero on dev.
@@ -205,7 +206,7 @@ Both are robust. This recovers 22% / 29% of the oracle headroom, against 38% on 
 
 ---
 ### Pre-submission checklist **[TODO]**
-- [ ] M12 idle-GPU latency numbers into §5.6.
+- [x] M12 idle-GPU latency numbers into §5.6.
 - [ ] Re-run the novelty sweep (VocAda and 2601.22164 citations since 2026-10-20).
 - [ ] Figure 1: pipeline. Figure 2: `reports/figures/m10/selection_gain.jpg`. Figure 3: per-source bar chart (from `outputs/metrics/m11_per_source/final_test-75ab843910a3.json`).
 - [ ] Venue template (LaTeX), page limit, anonymisation.

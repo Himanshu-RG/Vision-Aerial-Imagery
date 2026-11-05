@@ -1,0 +1,50 @@
+\section{Method}
+\label{sec:method}
+
+% HR: pipeline figure still missing, Avishek is making it in draw.io
+\begin{figure}[t]
+  \centering
+  \fbox{\parbox{0.9\linewidth}{\centering\vspace{1.2cm}\TODO{pipeline figure: image $\rightarrow$ RemoteCLIP scores $\rightarrow$ threshold $\rightarrow$ prompt $\rightarrow$ frozen \gdino $\rightarrow$ boxes}\vspace{1.2cm}}}
+  \caption{Overview. The selector looks only at the image pixels and decides which of the 80 class names go into the prompt of the frozen detector.}
+  \label{fig:pipeline}
+\end{figure}
+
+\subsection{Setup}
+Let $I$ be an image and $\mathcal{V}$ the master vocabulary of $|\mathcal{V}|=80$ class names.
+A selector return a subset $S(I)\subseteq\mathcal{V}$ and the frozen detector is prompted with the names in $S(I)$ in the official caption format ``$s_1$ . $s_2$ . \dots .''.
+Like the official \gdino COCO evaluation, the score of a class is the mean of the token sigmoids over the tokens of its name, and we keep the top 900 (box, class) pairs per image because some images have more than 600 objects.
+Nothing in the detector is changed or trained.
+
+\subsection{Class relevance from RemoteCLIP}
+For every class $c$ we build a text embedding $t_c$ as the normalised mean of three fixed templates (``a satellite image of a \{\}.'', ``an aerial photo of a \{\}.'', ``a photo of a \{\}.''), these were chosen before any experiment and never tuned.
+The image is encoded by RemoteCLIP ViT-B/32 \cite{liu2024remoteclip} at 224\,px to get $e_I$, and the class probability is
+\begin{equation}
+  p(c\mid I) = \mathrm{softmax}_c\big(\lambda\,\langle e_I, t_c\rangle\big),
+\end{equation}
+with $\lambda=99.85$ the logit scale of the model.
+The text embeddings depend only on the vocabulary so they are computed once.
+
+\subsection{Adaptive selection}
+Instead of a fixed top-$k$, we keep every class with enough probability:
+\begin{equation}
+  S(I) = \{\,c : p(c\mid I) \geq t\,\},
+\end{equation}
+with at least one and at most 40 classes.
+There is only one parameter, $t$.
+We set it by bisection on 530 calibration images (disjoint from the images we report on) so that the \emph{average} vocabulary size is 8, which give $t=0.0237$.
+Importantly $t$ is never tuned to a detection score.
+The effect is that when RemoteCLIP is confident (a stadium, an airport) the prompt is very short, and when the image is ambiguous it get longer; on the dev split the size goes from 1 to 17 classes.
+
+\paragraph{Input rule.}
+The selector receives only the decoded pixels, never the file name, image size or source dataset.
+This matters more than it sound: in \lae the image size alone tells you the source dataset, so a selector that saw it could learn the label space instead of the image content. We enforce this with a unit test.
+
+\subsection{Variants we tried}
+% SG: keep this short, details go in the supplementary (if we have one)
+All these were tested on the dev split and none was adopted (Sec.~\ref{sec:exp_dev}):
+(i) global plus local evidence from 13 overlapping crops,
+(ii) uncertainty-aware retention, keeping classes where crops and whole image disagree,
+(iii) a probability-mass (top-$p$) budget,
+(iv) synonym expansion using class-name text similarity,
+(v) a VocAda-style caption selector with Florence-2-base \cite{xiao2024florence} and a TagCLIP-style crop maximum \cite{lin2024tagclip}.
+Note that our VocAda-style baseline is a simplified version that fit on 8\,GB, it is not a reproduction of \cite{liu2025vocada}.
