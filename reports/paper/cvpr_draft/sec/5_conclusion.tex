@@ -1,16 +1,34 @@
+\section{Discussion and Future Directions}
+\label{sec:discussion}
+Our failure analysis points at two bottlenecks, and the papers we reviewed suggest a training-free next step for both.
+
+\paragraph{Image-level evidence is too coarse for dense scenes.}
+The selector misses most objects in crowded FAIR1M/xView images, which matches the criticism that CLIP is scene-centric and ``lacks precise localization'' \cite{rasheed2022bridging}, and the large gap between image-level and region-level object retrieval reported by WeDetect \cite{fu2026wedetect}.
+Fixed crops did not close this gap for us.
+A more promising route is to score classes on class-agnostic object proposals from a frozen model, in the spirit of the ``all objects'' MViT proposals of \cite{rasheed2022bridging} or the objectness prompt of WeDetect-Uni \cite{fu2026wedetect}.
+The aerial proposal recall reported by CastDet \cite{li2024castdet} warns that the proposal model itself would have to be checked first.
+
+\paragraph{Near-synonyms need to be handled, not only removed.}
+The second bottleneck is the merged taxonomy.
+Our synonym expansion with name embeddings failed because the text encoder does not separate true synonyms from merely related classes (\eg it rates warship and yacht as closer than small car and passenger car).
+LBP's probability rectification \cite{li2024lbp}, which down-weights overlapping concepts at inference, and the multi-level labels of WeDetect together with the synonym generation of GenerateU \cite{fu2026wedetect,lin2024generateu}, are two inference-time ideas that fit a frozen detector.
+A hierarchy-aware vocabulary in the style of SHiNe \cite{liu2024shine} is another.
+Tuning the class descriptions themselves, which CondHead found helpful \cite{wang2023condhead}, is a third option that we did not try.
+
 \section{Limitations}
 \label{sec:limits}
 % HR: reviewers will ask these anyway so better we say them first
 \begin{itemize}
-  \item Absolute numbers are low. Even with a perfect vocabulary the frozen \gdino-T reach only 0.107 AP50 on test, and some classes stay near zero.
+  \item Absolute numbers are low. Even with a perfect vocabulary the frozen \gdino-T reaches only 0.107 AP50 on test, and some classes stay near zero.
   \item The gain is limited to imagery and label spaces close to RemoteCLIP's training data.
-  \item One detector (Swin-T) and one benchmark family. We did not test bigger detectors like \gdino-B or OWLv2. \TODO{if time / compute allows}
-  \item The rule family and the target size of 8 were designed by us on dev, and the synonym experiment was motivated by our own dev failure analysis. Both were frozen before test but readers should know.
+  \item We used one detector (Swin-T) and one benchmark family. We did not test larger detectors such as \gdino-B or OWLv2.
+  \item The rule family and the target size of 8 were designed by us on dev, and the synonym experiment was motivated by our own dev failure analysis. Both were frozen before the test run, but readers should know this.
+  \item The failure analysis is descriptive and was done on the 200 dev images only, without confidence intervals.
 \end{itemize}
 
 \section{Conclusion}
 \label{sec:conclusion}
-% TODO: rewrite, this is just placeholder text from the meeting
-We showed that choosing a small per-image vocabulary from pixels, with an aerial CLIP model and a calibrated adaptive size, robustly improves a frozen open-vocabulary detector on held-out aerial images at almost no cost.
-The benefit is real but bounded: it holds where the encoder knows the imagery, and it is capped by near-synonym classes across merged datasets and by the detector on small objects.
-\TODO{future work: taxonomy-aware vocabularies, aerial-adapted detector, other OVD models}
+We showed that choosing a small vocabulary per image from the pixels, with an aerial CLIP model and a calibrated adaptive size, robustly improves a frozen open-vocabulary detector on held-out aerial images and makes it faster at the same time.
+At the same time the benefit has clear limits.
+It holds where the encoder knows the imagery, and it is capped by near-synonym classes across merged datasets and by the detector on small and densely packed objects.
+We hope that the source-aware protocol and the negative results will be useful to others who work with merged aerial benchmarks, and that proposal-level and taxonomy-aware selection can push the gain further without touching the detector.

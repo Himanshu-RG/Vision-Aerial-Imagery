@@ -1,50 +1,53 @@
 \section{Method}
 \label{sec:method}
 
-% HR: pipeline figure still missing, Avishek is making it in draw.io
-\begin{figure}[t]
-  \centering
-  \fbox{\parbox{0.9\linewidth}{\centering\vspace{1.2cm}\TODO{pipeline figure: image $\rightarrow$ RemoteCLIP scores $\rightarrow$ threshold $\rightarrow$ prompt $\rightarrow$ frozen \gdino $\rightarrow$ boxes}\vspace{1.2cm}}}
-  \caption{Overview. The selector looks only at the image pixels and decides which of the 80 class names go into the prompt of the frozen detector.}
-  \label{fig:pipeline}
-\end{figure}
-
 \subsection{Setup}
-Let $I$ be an image and $\mathcal{V}$ the master vocabulary of $|\mathcal{V}|=80$ class names.
-A selector return a subset $S(I)\subseteq\mathcal{V}$ and the frozen detector is prompted with the names in $S(I)$ in the official caption format ``$s_1$ . $s_2$ . \dots .''.
-Like the official \gdino COCO evaluation, the score of a class is the mean of the token sigmoids over the tokens of its name, and we keep the top 900 (box, class) pairs per image because some images have more than 600 objects.
+Let $I$ be an image and $\mathcal{V}$ the master vocabulary with $|\mathcal{V}|=80$ class names.
+A selector returns a subset $S(I)\subseteq\mathcal{V}$, and the frozen detector is prompted with the names in $S(I)$ in the official caption format ``$s_1$ . $s_2$ . \dots .''.
+As in the official \gdino COCO evaluation, the score of a class is the mean of the token sigmoids over the tokens of its name, and we keep the top 900 (box, class) pairs per image because some \lae images have more than 600 objects.
+The 80 names take 249 BERT tokens, which is just inside the 256-token limit, so the full vocabulary still runs in a single forward pass and no chunking is involved in any comparison.
 Nothing in the detector is changed or trained.
 
+Why should removing names help a model that already scores every name? Our intuition is the following.
+In \gdino the prompt tokens take part in feature enhancement, in the selection of the 900 decoder queries and in cross-attention.
+With 80 names, part of the query budget and of the per-token attention goes to classes that are not in the image, and near-synonyms compete for the same boxes.
+A shorter, relevant prompt removes these distractors before they reach the detector.
+The same argument gives a speed-up, since the text side of the fusion shrinks with the prompt.
+
 \subsection{Class relevance from RemoteCLIP}
-For every class $c$ we build a text embedding $t_c$ as the normalised mean of three fixed templates (``a satellite image of a \{\}.'', ``an aerial photo of a \{\}.'', ``a photo of a \{\}.''), these were chosen before any experiment and never tuned.
+For every class $c$ we build a text embedding $t_c$ as the normalised mean of three fixed templates (``a satellite image of a \{\}.'', ``an aerial photo of a \{\}.'', ``a photo of a \{\}.'').
+These templates were chosen before any experiment and never tuned.
 The image is encoded by RemoteCLIP ViT-B/32 \cite{liu2024remoteclip} at 224\,px to get $e_I$, and the class probability is
 \begin{equation}
   p(c\mid I) = \mathrm{softmax}_c\big(\lambda\,\langle e_I, t_c\rangle\big),
+  \label{eq:prob}
 \end{equation}
-with $\lambda=99.85$ the logit scale of the model.
-The text embeddings depend only on the vocabulary so they are computed once.
+with $\lambda=99.85$, the logit scale of the model.
+The text embeddings depend only on the vocabulary, so they are computed once and cached.
 
 \subsection{Adaptive selection}
-Instead of a fixed top-$k$, we keep every class with enough probability:
+Instead of a fixed top-$k$, we keep every class that has enough probability:
 \begin{equation}
   S(I) = \{\,c : p(c\mid I) \geq t\,\},
+  \label{eq:thr}
 \end{equation}
 with at least one and at most 40 classes.
 There is only one parameter, $t$.
-We set it by bisection on 530 calibration images (disjoint from the images we report on) so that the \emph{average} vocabulary size is 8, which give $t=0.0237$.
-Importantly $t$ is never tuned to a detection score.
-The effect is that when RemoteCLIP is confident (a stadium, an airport) the prompt is very short, and when the image is ambiguous it get longer; on the dev split the size goes from 1 to 17 classes.
+We set it by bisection on 530 calibration images, which are disjoint from every image we report on, so that the \emph{average} vocabulary size is 8. This gives $t=0.0237$.
+It is important to note that $t$ is never tuned against a detection score.
+Since \cref{eq:prob} is a softmax over all 80 names, the rule in \cref{eq:thr} adapts by itself: when RemoteCLIP is confident (a stadium, an airport, a roundabout) one class takes most of the mass and the prompt becomes very short, and when the scene is ambiguous the mass spreads and more classes cross $t$ (\cref{fig:pipeline}).
+On the test split the size ranges from 1 to 19 classes.
 
 \paragraph{Input rule.}
-The selector receives only the decoded pixels, never the file name, image size or source dataset.
-This matters more than it sound: in \lae the image size alone tells you the source dataset, so a selector that saw it could learn the label space instead of the image content. We enforce this with a unit test.
+The selector receives only the decoded pixels, never the file name, the image size or the source dataset.
+This matters more than it may seem, since in \lae the image size alone almost tells the source dataset, and a selector that saw it could learn the label space instead of the image content.
+A unit test enforces the rule.
 
 \subsection{Variants we tried}
-% SG: keep this short, details go in the supplementary (if we have one)
-All these were tested on the dev split and none was adopted (Sec.~\ref{sec:exp_dev}):
-(i) global plus local evidence from 13 overlapping crops,
-(ii) uncertainty-aware retention, keeping classes where crops and whole image disagree,
-(iii) a probability-mass (top-$p$) budget,
-(iv) synonym expansion using class-name text similarity,
+All of the following were tested on the dev split and none of them was adopted (\cref{sec:exp_dev}):
+(i) global plus local evidence from 13 crops (the cells of a $2{\times}2$ and a $3{\times}3$ grid);
+(ii) uncertainty-aware retention, which additionally keeps classes on which the crops and the whole image disagree;
+(iii) a probability-mass (top-$p$) budget calibrated in the same way as $t$;
+(iv) synonym expansion, which adds every class whose name embedding is close to a selected class;
 (v) a VocAda-style caption selector with Florence-2-base \cite{xiao2024florence} and a TagCLIP-style crop maximum \cite{lin2024tagclip}.
-Note that our VocAda-style baseline is a simplified version that fit on 8\,GB, it is not a reproduction of \cite{liu2025vocada}.
+Our VocAda-style baseline is a simplified version that fits in 8\,GB; it is not a reproduction of \cite{liu2025vocada}.

@@ -1,11 +1,12 @@
-% AC: abstract written last night, numbers are from FINAL_TEST.md, pls dont change them without checking the metrics json
+% AC: every number here is from FINAL_TEST.md / M12, pls check the metrics json before changing any of them
 \begin{abstract}
-Open-vocabulary detectors like \gdino can detect any class that is written in the text prompt, but on aerial images giving the detector a long list of fine-grained and overlapping class names make the accuracy collapse almost to zero.
-In this work we ask a simple question, can we choose a small vocabulary for every image \emph{before} detection, without any training, so that a frozen detector works better?
-We propose a training-free selector that score all 80 candidate classes with the remote sensing CLIP model RemoteCLIP and keeps every class whose probability is above a threshold calibrated once on held-out images, so the size of vocabulary adapt to each image (around 8 classes on average).
-The selector only see the pixels and cost about 8\,ms per image.
-We evaluate on \lae with a source-aware protocol that account for its five disjoint label spaces, all our choices were frozen before a single run on 2,862 held-out test images.
-The selector raise AP50 of \gdino-T from 0.0053 to 0.0280 under standard COCO scoring and from 0.0157 to 0.0418 under source-aware scoring, both robust under three statistical checks, and it is also 1.21$\times$ faster end-to-end.
-However the gain is mostly on imagery similar to the encoder's training data (DIOR/DOTA, and NWPU VHR-10 without retuning) and it disappear on FAIR1M and xView.
-\TODO{one more line on negative results? maybe drop if over length}
+Open-vocabulary detectors such as \gdino can find any class that is written in their text prompt.
+On aerial images this freedom becomes a problem, because the class lists are long and full of near-duplicate names, and when all of them are given to the detector at once its accuracy almost vanishes.
+We study a simple question: can we pick a small vocabulary for every image \emph{before} detection, without any training, so that a frozen detector does better?
+Our selector scores the 80 class names of \lae with RemoteCLIP and keeps every class whose probability crosses one threshold, calibrated once on held-out images.
+The vocabulary size therefore changes from image to image (8 classes on average); the selector sees only the pixels and costs about 8\,ms per image.
+Since \lae merges five datasets with disjoint label spaces, we report a source-aware score along with the standard COCO score, and we froze every choice before a single run on 2,862 held-out test images.
+On this split the selector raises the AP50 of \gdino-T from 0.0053 to 0.0280 (standard) and from 0.0157 to 0.0418 (source-aware), both differences robust under three statistical checks, and the whole pipeline becomes 1.21$\times$ faster.
+It also beats a fixed top-8 selector built on the same encoder.
+The gain is confined to imagery that resembles the encoder's training data (DIOR, DOTA, and NWPU VHR-10 without any retuning) and it disappears on FAIR1M and xView, where better selection alone is not enough.
 \end{abstract}
